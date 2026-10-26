@@ -587,93 +587,98 @@ body::before{background:var(--ground)}
   nav.addEventListener('click', e => { if (e.target.tagName === 'A') { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); } });
 
   // ---------- caixa de areia ----------
+  // Leve: a areia seca e a areia molhada são desenhadas uma vez (mesmos grãos, cores diferentes).
+  // O dedo/mouse só pinta uma máscara; cada quadro combina as camadas, e só quando algo muda.
   const cv = document.getElementById('sand'), ctx = cv.getContext('2d');
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-  let W = 0, H = 0, dpr = 1, grains = [], pal = {}, pointer = null, scooped = 0, scoop = null;
   const countEl = document.getElementById('clumpCount');
-
   const PALS = {
-    milho:   {bg:'#E9D9B4', a:'#E2B24E', b:'#EBC56E', c:'#D29C3C', wet:'#7A5418'},
-    mista:   {bg:'#EDE2C8', a:'#E2B24E', b:'#F1E9D6', c:'#E6D8B8', wet:'#7A5E2C'},
-    mandioca:{bg:'#D8CCB2', a:'#F3EDDF', b:'#E9E0CC', c:'#F7F3EA', wet:'#8C7444'}
+    milho:   {bg:'#E9D9B4', g:['#E2B24E','#EBC56E','#D29C3C'], wbg:'#5E4214', w:['#8A6020','#9C7028','#7A5418']},
+    mista:   {bg:'#EDE2C8', g:['#E2B24E','#F1E9D6','#E6D8B8'], wbg:'#5A4420', w:['#8A6020','#9A8050','#8C7444']},
+    mandioca:{bg:'#D8CCB2', g:['#F3EDDF','#E9E0CC','#F7F3EA'], wbg:'#6A5634', w:['#A48C5C','#9A8252','#B09A6A']}
   };
-  let ver = 'mista';
-  function readPalette(){ pal = PALS[ver]; }
-  function mk(x, y){
-    const r = Math.random();
-    return {x, y, hx:x, hy:y, rx:.9 + Math.random()*1.1, ry:.75 + Math.random()*.9, rot:Math.random()*Math.PI,
-            col: r < .45 ? 'a' : r < .8 ? 'c' : 'b', wet:0, vy:0, fall:false};
+  const mkCanvas = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; };
+  const prng = seed => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  let ver = 'mista', W = 0, H = 0, dpr = 1, R = 40, dry, wetTex, mask, mctx, tmp, tctx, brush;
+  let pointer = null, last = null, dirty = true, scoop = null, scooped = 0;
+
+  function paint(c, bg, cols){
+    const g = c.getContext('2d'), w = c.width, h = c.height, rand = prng(7), n = Math.round(w*h/(6.5*dpr*dpr));
+    g.fillStyle = bg; g.fillRect(0, 0, w, h);
+    const paths = cols.map(() => new Path2D());
+    for (let i = 0; i < n; i++){
+      const x = rand()*w, y = rand()*h, rx = (.9 + rand()*1.1)*dpr, ry = (.75 + rand()*.9)*dpr, rot = rand()*3, k = Math.floor(rand()*cols.length);
+      paths[k].moveTo(x + rx, y); paths[k].ellipse(x, y, rx, ry, rot, 0, 6.283);
+    }
+    cols.forEach((col, k) => { g.fillStyle = col; g.fill(paths[k]); });
+  }
+  function build(){
+    const p = PALS[ver];
+    dry = mkCanvas(cv.width, cv.height); paint(dry, p.bg, p.g);
+    wetTex = mkCanvas(cv.width, cv.height); paint(wetTex, p.wbg, p.w);
+    dirty = true;
   }
   function resize(){
-    const r = cv.getBoundingClientRect(); dpr = Math.min(devicePixelRatio || 1, 2);
-    W = r.width; H = r.height; cv.width = W*dpr; cv.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
-    const n = Math.round(W*H/6.5);
-    grains = Array.from({length:n}, () => mk(Math.random()*W, Math.random()*H));
-    seedClump(); draw();
+    const r = cv.getBoundingClientRect(), nd = Math.min(devicePixelRatio || 1, 2);
+    if (Math.round(r.width) === Math.round(W) && nd === dpr && dry) return; // barra do celular aparecendo/sumindo não refaz a areia
+    W = r.width; H = r.height; dpr = nd; R = Math.max(26, W*.065);
+    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+    mask = mkCanvas(cv.width, cv.height); mctx = mask.getContext('2d');
+    tmp = mkCanvas(cv.width, cv.height); tctx = tmp.getContext('2d');
+    // pincel: mancha macia, mais forte no centro
+    const s = Math.ceil(R*2*dpr); brush = mkCanvas(s, s); const b = brush.getContext('2d');
+    const gr = b.createRadialGradient(s/2, s/2, 0, s/2, s/2, s/2);
+    gr.addColorStop(0, 'rgba(0,0,0,1)'); gr.addColorStop(.7, 'rgba(0,0,0,.9)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
+    b.fillStyle = gr; b.fillRect(0, 0, s, s);
+    build();
+    for (let i = 0; i < 4; i++) stamp(W*.62, H*.55, .6); // torrão de exemplo
   }
-  // estado inicial: um torrão já formado, para a caixa nunca parecer vazia
-  function seedClump(){ const cx = W*.62, cy = H*.55, R = Math.max(38, W*.09);
-    for (const g of grains){ const d = Math.hypot(g.x-cx, g.y-cy); if (d < R*.9){ g.wet = 1 - d/R*.6; g.x += (cx-g.x)*.3; g.y += (cy-g.y)*.3; } } }
-  function lerpColor(a, b, t){
-    const p = h => [1,3,5].map(i => parseInt(h.slice(i,i+2),16));
-    const A = p(a), B = p(b); return `rgb(${A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(',')})`;
-  }
-  function draw(){
-    ctx.fillStyle = pal.bg; ctx.fillRect(0,0,W,H);
-    const groups = new Map();
-    for (const g of grains){
-      const w = g.wet > .02 ? Math.min(4, Math.ceil(g.wet*4)) : 0, key = g.col + w;
-      let arr = groups.get(key); if (!arr) groups.set(key, arr = []); arr.push(g);
-    }
-    [...groups.keys()].sort((a,b) => a.slice(1) - b.slice(1)).forEach(key => { // grãos molhados por cima
-      const w = +key.slice(1), col = key[0];
-      ctx.fillStyle = w ? lerpColor(pal[col], pal.wet, w/4) : pal[col];
-      ctx.beginPath();
-      for (const g of groups.get(key)){ ctx.moveTo(g.x + g.rx, g.y); ctx.ellipse(g.x, g.y, g.rx, g.ry, g.rot, 0, Math.PI*2); }
-      ctx.fill();
-    });
-    if (scoop){ // a pá
-      ctx.save(); ctx.translate(scoop.x, scoop.y); ctx.globalAlpha = Math.max(0, 1 - scoop.t/40);
-      ctx.strokeStyle = '#242424'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(0,0,scoop.r,0,Math.PI*2); ctx.stroke(); ctx.restore();
-    }
-  }
-  function step(){
-    const R = Math.max(38, W*.09);
-    for (const g of grains){
-      if (pointer){
-        const dx = pointer.x - g.x, dy = pointer.y - g.y, d = Math.hypot(dx,dy);
-        if (d < R){ g.wet = Math.min(1, g.wet + .06*(1-d/R)); g.x += dx*.035*g.wet; g.y += dy*.035*g.wet; }
+  function stamp(x, y, a){ mctx.globalAlpha = a; mctx.drawImage(brush, (x - R)*dpr, (y - R)*dpr); mctx.globalAlpha = 1; dirty = true; }
+  function render(){
+    if (scoop){
+      scoop.t++;
+      if (scoop.t <= 10){ // a pá tira o torrão aos poucos
+        mctx.save(); mctx.globalCompositeOperation = 'destination-out'; mctx.globalAlpha = .4;
+        mctx.beginPath(); mctx.arc(scoop.x*dpr, scoop.y*dpr, R*1.25*dpr, 0, 6.283); mctx.fill(); mctx.restore();
       }
-      if (g.fall){ g.vy += .35; g.y += g.vy; if (g.y >= g.hy){ g.y = g.hy; g.fall = false; g.vy = 0; } }
+      if (scoop.t > 30) scoop = null;
+      dirty = true;
     }
-    if (scoop){ scoop.t++; if (scoop.t > 40) scoop = null; }
-    if (pointer || scoop || grains.some(g => g.fall)) draw(); requestAnimationFrame(step);
+    if (pointer){ // molha a areia entre o último ponto e o atual
+      const from = last || pointer, d = Math.hypot(pointer.x - from.x, pointer.y - from.y), n = Math.min(8, Math.max(1, Math.ceil(d/(R*.35))));
+      for (let i = 1; i <= n; i++) stamp(from.x + (pointer.x - from.x)*i/n, from.y + (pointer.y - from.y)*i/n, .12);
+      last = pointer;
+    }
+    if (dirty){
+      tctx.globalCompositeOperation = 'copy'; tctx.drawImage(mask, 0, 0);
+      tctx.globalCompositeOperation = 'source-in'; tctx.drawImage(wetTex, 0, 0);
+      ctx.drawImage(dry, 0, 0); ctx.drawImage(tmp, 0, 0);
+      if (scoop){
+        ctx.save(); ctx.globalAlpha = Math.max(0, 1 - scoop.t/30); ctx.strokeStyle = '#242424'; ctx.lineWidth = 3*dpr;
+        ctx.beginPath(); ctx.arc(scoop.x*dpr, scoop.y*dpr, R*1.25*dpr, 0, 6.283); ctx.stroke(); ctx.restore();
+      }
+      dirty = false;
+    }
+    requestAnimationFrame(render);
   }
   function scoopAt(x, y){
-    const R = Math.max(38, W*.09); let hit = 0;
-    for (const g of grains){
-      if (g.wet > .25 && Math.hypot(g.x-x, g.y-y) < R*1.1){ // torrão sai e entra areia nova
-        hit++; const nx = Math.random()*W, ny = Math.random()*H; Object.assign(g, mk(nx, ny)); g.y = -10 - Math.random()*80; g.fall = true;
-      }
-    }
-    if (hit > 30){ scooped++; countEl.textContent = scooped + (scooped === 1 ? ' torrão retirado' : ' torrões retirados'); }
-    scoop = {x, y, r:R, t:0};
+    // mede quanto da areia sob a pá está molhada (uma leitura pequena, só no clique)
+    const s = Math.max(2, Math.round(R*dpr)), d = mctx.getImageData(Math.max(0, x*dpr - s/2), Math.max(0, y*dpr - s/2), s, s).data;
+    let sum = 0, k = 0; for (let i = 3; i < d.length; i += 16){ sum += d[i]; k++; }
+    if (sum/k > 60){ scooped++; countEl.textContent = scooped + (scooped === 1 ? ' torrão retirado' : ' torrões retirados'); }
+    scoop = {x, y, t:0}; pointer = null; last = null; // só volta a molhar quando o mouse se mexer
   }
   const pos = e => { const r = cv.getBoundingClientRect(); return {x:e.clientX - r.left, y:e.clientY - r.top}; };
   cv.addEventListener('pointermove', e => { pointer = pos(e); });
-  cv.addEventListener('pointerdown', e => { pointer = pos(e); });
-  cv.addEventListener('pointerleave', () => { pointer = null; });
-  cv.addEventListener('click', e => { const p = pos(e); scoopAt(p.x, p.y); if (reduce) draw(); });
-
-  readPalette(); resize();
+  cv.addEventListener('pointerleave', () => { pointer = null; last = null; });
+  cv.addEventListener('pointerup', e => { if (e.pointerType !== 'mouse'){ pointer = null; last = null; } });
+  cv.addEventListener('click', e => { const p = pos(e); scoopAt(p.x, p.y); });
   document.querySelectorAll('.grain-pick button').forEach(b => b.addEventListener('click', () => {
-    ver = b.dataset.v; readPalette(); draw();
+    ver = b.dataset.v; build();
     document.querySelectorAll('.grain-pick button').forEach(x => x.setAttribute('aria-pressed', x === b));
   }));
-  if (!reduce) requestAnimationFrame(step);
+  resize(); requestAnimationFrame(render);
   addEventListener('resize', () => { clearTimeout(resize.t); resize.t = setTimeout(resize, 150); });
-  
+
   // ---------- quiz ----------
   const recs = {
     milho:{name:'FELUX Milho', why:'O amido do milho prende o xixi em segundos e o torrão se forma antes do líquido escorrer para o fundo da caixa.'},
