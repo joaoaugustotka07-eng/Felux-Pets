@@ -604,14 +604,17 @@ body::before{background:var(--ground)}
   function paint(c, bg, cols){
     const g = c.getContext('2d'), w = c.width, h = c.height, rand = prng(7), n = Math.round(w*h/(6.5*dpr*dpr));
     g.fillStyle = bg; g.fillRect(0, 0, w, h);
-    const paths = cols.map(() => new Path2D());
-    for (let i = 0; i < n; i++){
-      const x = rand()*w, y = rand()*h, rx = (.9 + rand()*1.1)*dpr, ry = (.75 + rand()*.9)*dpr, rot = rand()*3, k = Math.floor(rand()*cols.length);
-      paths[k].moveTo(x + rx, y); paths[k].ellipse(x, y, rx, ry, rot, 0, 6.283);
+    for (let start = 0; start < n; start += 4000){
+      const paths = cols.map(() => new Path2D());
+      for (let i = start; i < Math.min(n, start + 4000); i++){
+        const x = rand()*w, y = rand()*h, rx = (.9 + rand()*1.1)*dpr, ry = (.75 + rand()*.9)*dpr, rot = rand()*3, k = Math.floor(rand()*cols.length);
+        paths[k].moveTo(x + rx, y); paths[k].ellipse(x, y, rx, ry, rot, 0, 6.283);
+      }
+      cols.forEach((col, k) => { g.fillStyle = col; g.fill(paths[k]); });
     }
-    cols.forEach((col, k) => { g.fillStyle = col; g.fill(paths[k]); });
   }
   function build(){
+    if (!cv.width || !cv.height) return;
     const p = PALS[ver];
     dry = mkCanvas(cv.width, cv.height); paint(dry, p.bg, p.g);
     wetTex = mkCanvas(cv.width, cv.height); paint(wetTex, p.wbg, p.w);
@@ -619,6 +622,7 @@ body::before{background:var(--ground)}
   }
   function resize(){
     const r = cv.getBoundingClientRect(), nd = Math.min(devicePixelRatio || 1, 2);
+    if (r.width < 10 || r.height < 10) return; // ainda sem tamanho (página carregando ou escondida)
     if (Math.round(r.width) === Math.round(W) && nd === dpr && dry) return; // barra do celular aparecendo/sumindo não refaz a areia
     W = r.width; H = r.height; dpr = nd; R = Math.max(26, W*.065);
     cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
@@ -632,8 +636,13 @@ body::before{background:var(--ground)}
     build();
     for (let i = 0; i < 4; i++) stamp(W*.62, H*.55, .6); // torrão de exemplo
   }
-  function stamp(x, y, a){ mctx.globalAlpha = a; mctx.drawImage(brush, (x - R)*dpr, (y - R)*dpr); mctx.globalAlpha = 1; dirty = true; }
+  function stamp(x, y, a){ if (!mctx || !brush) return; mctx.globalAlpha = a; mctx.drawImage(brush, (x - R)*dpr, (y - R)*dpr); mctx.globalAlpha = 1; dirty = true; }
   function render(){
+    requestAnimationFrame(render);
+    if (!dry || !cv.width) return;
+    try { frame(); } catch (err) { console.error(err); }
+  }
+  function frame(){
     if (scoop){
       scoop.t++;
       if (scoop.t <= 10){ // a pá tira o torrão aos poucos
@@ -658,9 +667,9 @@ body::before{background:var(--ground)}
       }
       dirty = false;
     }
-    requestAnimationFrame(render);
   }
   function scoopAt(x, y){
+    if (!mctx) return;
     // mede quanto da areia sob a pá está molhada (uma leitura pequena, só no clique)
     const s = Math.max(2, Math.round(R*dpr)), d = mctx.getImageData(Math.max(0, x*dpr - s/2), Math.max(0, y*dpr - s/2), s, s).data;
     let sum = 0, k = 0; for (let i = 3; i < d.length; i += 16){ sum += d[i]; k++; }
@@ -676,8 +685,11 @@ body::before{background:var(--ground)}
     ver = b.dataset.v; build();
     document.querySelectorAll('.grain-pick button').forEach(x => x.setAttribute('aria-pressed', x === b));
   }));
+  const later = () => { clearTimeout(resize.t); resize.t = setTimeout(resize, 120); };
   resize(); requestAnimationFrame(render);
-  addEventListener('resize', () => { clearTimeout(resize.t); resize.t = setTimeout(resize, 150); });
+  addEventListener('resize', later);
+  addEventListener('load', resize);
+  if ('ResizeObserver' in window) new ResizeObserver(later).observe(cv);
 
   // ---------- quiz ----------
   const recs = {
