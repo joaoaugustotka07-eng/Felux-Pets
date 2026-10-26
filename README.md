@@ -5,7 +5,9 @@ Site da FELUX, areia higiênica biodegradável de milho e mandioca.
 ## Estrutura
 - `index.html`: o site pronto (gerado a partir de `src/content.html` por `build.sh`)
 - `assets/`: logo em SVG e embalagens (Milho, Mista, Mandioca)
-- `server.js`: servidor estático sem dependências, usado no Railway
+- `server.js`: servidor sem dependências (site + painel), usado no Railway
+- `admin.html`: painel em `/admin` para editar produtos, preços, descontos, lojas, cupons e WhatsApp
+- `data/default.json`: dados iniciais dos produtos (usados até o primeiro salvamento no painel)
 - `assets/source/`: arquivos de origem das embalagens e script que gera os mockups
 
 ## Publicar no Railway
@@ -23,6 +25,19 @@ railway init        # cria o projeto
 railway up          # envia esta pasta
 railway domain      # gera o endereço público
 ```
+
+## Painel administrativo (/admin)
+Configure uma vez no Railway, no serviço do site:
+1. **Variables** → crie `ADMIN_PASSWORD` com a senha do painel (use uma senha forte). Sem ela, o painel fica desativado.
+2. **Volume** → clique com o botão direito no serviço → *Attach Volume* → caminho de montagem `/data`.
+   Sem o volume, preços e fotos enviadas são apagados a cada novo deploy.
+3. Acesse `https://SEU-SITE/admin`, entre com a senha e edite.
+
+O que dá para fazer no painel:
+- Produtos: nome, etiqueta, cor, peso, foto, benefícios, preço, preço promocional ou desconto em %, selo ("Mais vendido", "Oferta"...), link de compra, esgotado, visível ou oculto, ordem, duplicar e excluir.
+- Loja: WhatsApp e mensagem inicial, Instagram, CNPJ, faixa de aviso no topo, lojas de "Onde comprar" e cupons.
+
+Produto sem link de compra abre o WhatsApp com a mensagem "Quero comprar FELUX ...". Produto esgotado mostra "Avise-me".
 
 ## Ligar o domínio feluxpet.com.br
 1. No serviço do Railway: Settings → Networking → Custom Domain → `feluxpet.com.br` (e depois `www.feluxpet.com.br`).

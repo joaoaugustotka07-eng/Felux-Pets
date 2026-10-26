@@ -274,7 +274,7 @@ body::before{background:var(--ground)}
 .v-milho{--v:#1F3F86}
 .v-mista{--v:#2B6144}
 .v-mandioca{--v:#8E3B22}
-.prod{grid-template-rows:auto auto 1fr auto}
+.prod{grid-template-rows:auto auto 1fr auto auto}
 .pack{background:color-mix(in srgb, var(--v) 12%, var(--surface));border-radius:12px;padding:22px;display:grid;place-items:center}
 .pack img{height:300px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 18px 22px rgba(0,0,0,.28));transition:transform .3s ease}
 .prod:hover .pack img{transform:translateY(-6px) rotate(-1.5deg)}
@@ -296,8 +296,26 @@ body::before{background:var(--ground)}
 .grain-pick button{font:600 .85rem var(--font-body);padding:.5em 1em;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
 .grain-pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
 @media (prefers-reduced-motion: reduce){.prod:hover .pack img{transform:none}}
+
+/* preços e compra (dados do painel) */
+.price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.price .now{font-family:var(--font-display);font-size:1.7rem;line-height:1}
+.price .old{text-decoration:line-through;color:var(--ink-soft)}
+.price .off{background:#A23B22;color:#fff;border-radius:999px;padding:2px 9px;font-size:.78rem;font-weight:700}
+.price .ask{color:var(--ink-soft)}
+.buy-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px}
+.buy-row .btn{padding:.75em 1.2em}
+.pack{position:relative}
+.badge{position:absolute;z-index:2;top:12px;left:12px;background:var(--ink);color:var(--ground);font-size:.75rem;font-weight:700;letter-spacing:.04em;padding:5px 11px;border-radius:999px}
+.prod.soldout .pack img{filter:grayscale(.7) opacity(.7)}
+.announce{display:block;background:var(--gold);color:var(--gold-ink);text-align:center;font-weight:600;font-size:.92rem;text-decoration:none;padding-block:9px;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.coupons{display:grid;gap:10px;margin-top:22px}
+.coupon{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1.5px dashed var(--gold);border-radius:14px;padding:12px 16px}
+.coupon code{font:700 1.05rem var(--font-body);letter-spacing:.08em;color:var(--gold)}
+.coupon button{margin-left:auto;background:transparent;border:1px solid var(--band-soft);color:var(--band-fg);border-radius:999px;padding:.35em .9em;cursor:pointer;font:600 .85rem var(--font-body)}
 </style>
 
+<a class="announce" id="announce" href="#produtos" hidden></a>
 </head>
 <body>
 <header class="top">
@@ -530,7 +548,7 @@ body::before{background:var(--ground)}
         <h2>Encontre FELUX perto de você.</h2>
         <p class="lede">Nas lojas parceiras online ou no pet shop do bairro. Não achou? Peça ao seu pet shop para falar com a gente.</p>
       </div>
-      <div class="stores">
+      <div class="stores" id="stores">
         <a class="store" href="#comprar">Loja oficial <span aria-hidden="true">→</span></a>
         <a class="store" href="#comprar">Mercado Livre <span aria-hidden="true">→</span></a>
         <a class="store" href="#comprar">Amazon <span aria-hidden="true">→</span></a>
@@ -586,15 +604,15 @@ body::before{background:var(--ground)}
         <h4>Novidades e cupons</h4>
         <form class="news" id="newsForm"><label for="newsMail" class="sr" style="position:absolute;left:-9999px">E-mail</label><input id="newsMail" type="email" placeholder="seu@email.com" required><button class="btn btn-gold" type="submit" style="padding:.7em 1.1em">Assinar</button></form>
         <p id="newsOk" hidden style="margin-top:10px;color:var(--band-fg)"></p>
-        <p style="margin-top:16px">Instagram <span style="color:var(--band-fg)">@feluxpet</span></p>
+        <p style="margin-top:16px">Instagram <span style="color:var(--band-fg)" id="igOut">@feluxpet</span></p>
       </div>
     </div>
     <div class="big-word" aria-hidden="true">FELUX</div>
-    <div class="legal"><span>© 2026 FELUX · feluxpet.com.br</span><span>CNPJ 00.000.000/0001-00</span></div>
+    <div class="legal"><span>© 2026 FELUX · feluxpet.com.br</span><span id="cnpjOut">CNPJ 00.000.000/0001-00</span></div>
   </div>
 </footer>
 
-<a class="wa" href="#comprar" aria-label="Fale com a FELUX pelo WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg></a>
+<a class="wa" id="waBtn" href="#comprar" aria-label="Fale com a FELUX pelo WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg></a>
 
 <script>
 (() => {
@@ -714,13 +732,14 @@ body::before{background:var(--ground)}
     mandioca:{name:'FELUX Mandioca', why:'A fécula da mandioca dá liga: o torrão sai inteiro na pá, sem esfarelar. O grão claro ainda deixa fácil ver o que retirar.'},
     mista:{name:'FELUX Mista', why:'Junta a absorção rápida do milho com a liga da mandioca. É a versão mais equilibrada para o dia a dia.'}
   };
+  let prodMap = {};
   const qf = document.getElementById('quizForm');
   function quiz(){
     const f = new FormData(qf), k = f.get('pain'), r = recs[k];
     document.getElementById('rName').textContent = r.name;
     document.getElementById('rWhy').textContent = r.why + (f.get('cats') === '2' ? ' Com dois ou mais gatos, mantenha 7 cm de areia e retire os torrões duas vezes ao dia.' : '');
     document.getElementById('rLink').href = '#prod-' + k;
-    const img = document.getElementById('rImg'); img.src = 'assets/felux-' + k + '-4kg-pack.webp'; img.alt = 'Embalagem ' + r.name;
+    const img = document.getElementById('rImg'); img.src = (prodMap[k] && prodMap[k].image) || 'assets/felux-' + k + '-4kg-pack.webp'; img.alt = 'Embalagem ' + r.name;
     document.querySelectorAll('.prod').forEach(p => p.classList.toggle('pick', p.id === 'prod-' + k));
   }
   qf.addEventListener('change', quiz); quiz();
@@ -736,6 +755,60 @@ body::before{background:var(--ground)}
     document.getElementById('sWeight').textContent = fmt(clay - felux) + ' kg';
   }
   rng.addEventListener('input', calc); calc();
+
+
+  // ---------- dados do painel (/admin) ----------
+  // Sem servidor (ex.: prévia), a página fica com o conteúdo fixo acima.
+  const escH = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const brl = n => n.toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+  function waLink(settings, text){
+    let n = (settings.whatsapp || '').replace(/\D/g, ''); if (!n) return '';
+    if (n.length <= 11) n = '55' + n;
+    return 'https://wa.me/' + n + '?text=' + encodeURIComponent(text || settings.whatsappMessage || 'Olá!');
+  }
+  function card(p, settings){
+    const sale = p.price != null && p.salePrice != null && p.salePrice < p.price;
+    const price = p.price == null ? '<span class="ask">Consulte o preço</span>'
+      : sale ? `<span class="now">${brl(p.salePrice)}</span><span class="old">${brl(p.price)}</span><span class="off">-${Math.round((1 - p.salePrice/p.price)*100)}%</span>`
+      : `<span class="now">${brl(p.price)}</span>`;
+    const href = p.buyUrl || waLink(settings, `Olá! Quero comprar ${p.name}${p.weight ? ' ' + p.weight : ''}.`) || '#comprar';
+    const ext = /^https?:/.test(href) ? ' target="_blank" rel="noopener"' : '';
+    const btn = p.inStock ? `<a class="btn btn-gold" href="${escH(href)}"${ext}>Comprar</a>` : `<a class="btn btn-ghost" href="${escH(waLink(settings, 'Olá! Quero ser avisado quando ' + p.name + ' voltar ao estoque.') || '#comprar')}"${ext}>Avise-me</a>`;
+    return `<article class="prod${p.inStock ? '' : ' soldout'}" id="prod-${escH(p.id)}" style="--v:${escH(p.color)}">
+      <div class="pack">${p.badge ? `<span class="badge">${escH(p.badge)}</span>` : ''}${p.image ? `<img src="${escH(p.image)}" alt="Embalagem ${escH(p.name)}" width="530" height="896" loading="lazy">` : ''}</div>
+      <div><p class="tag"><i></i>${escH(p.tag)}</p><h3>${escH(p.name)}</h3></div>
+      <ul>${p.bullets.map(b => `<li>${escH(b)}</li>`).join('')}</ul>
+      <div class="buy-row"><div class="price">${price}</div>${btn}</div>
+      ${p.weight ? `<div class="sizes">Embalagem <span>${escH(p.weight)}</span>${p.inStock ? '' : '<span>Esgotado</span>'}</div>` : ''}
+    </article>`;
+  }
+  fetch('api/site', {cache:'no-store'}).then(r => r.ok ? r.json() : Promise.reject()).then(({settings, products}) => {
+    if (products.length){
+      document.querySelector('#produtos .products').innerHTML = products.map(p => card(p, settings)).join('');
+      prodMap = Object.fromEntries(products.map(p => [p.id, p]));
+      quiz();
+    }
+    const ann = settings.announcement;
+    if (ann && ann.active && ann.text){ const a = document.getElementById('announce'); a.textContent = ann.text; a.href = ann.link || '#produtos'; a.hidden = false; }
+    const wa = waLink(settings);
+    if (wa){ const b = document.getElementById('waBtn'); b.href = wa; b.target = '_blank'; b.rel = 'noopener'; }
+    if (settings.stores && settings.stores.length){
+      document.getElementById('stores').innerHTML = settings.stores.map(s => {
+        const href = s.url || wa || '#comprar', ext = /^https?:/.test(href) ? ' target="_blank" rel="noopener"' : '';
+        return `<a class="store" href="${escH(href)}"${ext}>${escH(s.name)} <span aria-hidden="true">→</span></a>`;
+      }).join('');
+    }
+    const cps = (settings.coupons || []).filter(c => c.active);
+    if (cps.length){
+      const box = document.createElement('div'); box.className = 'coupons';
+      box.innerHTML = cps.map(c => `<div class="coupon"><code>${escH(c.code)}</code><span>${escH(c.text)}</span><button type="button" data-code="${escH(c.code)}">Copiar</button></div>`).join('');
+      box.addEventListener('click', e => { const b = e.target.closest('[data-code]'); if (!b) return;
+        navigator.clipboard.writeText(b.dataset.code).then(() => { b.textContent = 'Copiado'; }, () => { b.textContent = b.dataset.code; }); });
+      document.getElementById('stores').after(box);
+    }
+    if (settings.instagram) document.getElementById('igOut').textContent = settings.instagram;
+    if (settings.cnpj) document.getElementById('cnpjOut').textContent = 'CNPJ ' + settings.cnpj;
+  }).catch(() => {});
 
   // ---------- formulários ----------
   document.getElementById('resellForm').addEventListener('submit', e => {

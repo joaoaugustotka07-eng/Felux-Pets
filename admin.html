@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Painel FELUX</title>
+<link rel="icon" href="assets/felux-simbolo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#F7F4EE; --surface:#FFFFFF; --ink:#242424; --ink-soft:#6A645B; --line:#E3DCCF;
+  --gold:#D4AF6E; --gold-text:#94733A; --ok:#2B6144; --bad:#A23B22; --band:#1F1E1D; --band-fg:#F4EFE6;
+  --font-display:"Tenor Sans", Optima, Candara, sans-serif; --font-body:"Figtree", "Segoe UI", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font:15px/1.5 var(--font-body)}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{background:var(--band);color:var(--band-fg);position:sticky;top:0;z-index:20}
+.top .wrap{display:flex;align-items:center;gap:16px;padding-block:12px;flex-wrap:wrap}
+.top h1{font-size:1.25rem;letter-spacing:.06em;margin-right:auto}
+.top h1 span{color:var(--gold)}
+.tabs{display:flex;gap:6px}
+.tab{background:transparent;border:1px solid rgba(255,255,255,.2);color:var(--band-fg);border-radius:999px;padding:.45em 1em;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--gold);border-color:var(--gold);color:#241B0B;font-weight:600}
+.btn{border:0;border-radius:999px;padding:.65em 1.2em;font-weight:600;cursor:pointer;background:var(--ink);color:var(--ground);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn.gold{background:var(--gold);color:#241B0B}
+.btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.top .btn.ghost{color:var(--band-fg);border-color:rgba(255,255,255,.25)}
+.btn.small{padding:.4em .9em;font-size:.85rem}
+.btn.danger{background:transparent;border:1.5px solid var(--bad);color:var(--bad)}
+.btn:disabled{opacity:.5;cursor:default}
+main{padding-block:28px 120px}
+.hint{color:var(--ink-soft);font-size:.9rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+.list{display:grid;gap:18px;margin-top:18px}
+.prod{display:grid;grid-template-columns:200px 1fr;gap:22px}
+.prod.off{opacity:.65}
+.img{display:grid;gap:10px;align-content:start}
+.img .ph{aspect-ratio:3/5;max-width:100%;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--c,#999) 14%,#fff);overflow:hidden}
+.img img{max-height:100%;max-width:100%;object-fit:contain}
+.fields{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;min-width:0}
+.f{display:grid;gap:4px;grid-column:span 3;min-width:0}
+.f.s2{grid-column:span 2}.f.s6{grid-column:span 6}.f.s1{grid-column:span 1}
+.f > span{font-size:.8rem;font-weight:600;color:var(--ink-soft)}
+input[type=text],input[type=url],input[type=number],input[type=tel],textarea,select{width:100%;padding:.6em .8em;border:1.5px solid var(--line);border-radius:10px;background:#fff}
+textarea{min-height:88px;resize:vertical}
+input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-radius:10px;padding:3px;background:#fff}
+.money{position:relative}.money::before{content:"R$";position:absolute;left:.8em;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-size:.9rem}
+.money input{padding-left:2.4em}
+.toggles{display:flex;gap:18px;flex-wrap:wrap;grid-column:span 6}
+.toggles label{display:flex;gap:8px;align-items:center;cursor:pointer;font-weight:500}
+.row-actions{grid-column:span 6;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
+.row-actions .push{margin-left:auto}
+.pricebox{grid-column:span 6;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;background:var(--ground);border-radius:10px;padding:10px 14px}
+.pricebox .old{text-decoration:line-through;color:var(--ink-soft)}
+.pricebox .now{font-family:var(--font-display);font-size:1.4rem}
+.pricebox .off{background:var(--bad);color:#fff;border-radius:999px;padding:2px 9px;font-size:.8rem;font-weight:700}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.section-head h2{font-size:1.7rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.mini{display:grid;grid-template-columns:1fr 1.6fr auto;gap:8px;align-items:center;margin-top:8px}
+.mini.c3{grid-template-columns:1fr 1.6fr auto auto}
+.savebar{position:fixed;left:0;right:0;bottom:0;background:var(--band);color:var(--band-fg);z-index:30;padding-bottom:env(safe-area-inset-bottom,0px)}
+.savebar .wrap{display:flex;align-items:center;gap:14px;padding-block:12px;flex-wrap:wrap}
+.savebar .msg{margin-right:auto}
+.savebar .msg.err{color:#FFB4A0}
+.login{max-width:380px;margin:12vh auto 0;display:grid;gap:14px}
+.login h1{font-size:2rem}
+.err{color:var(--bad);font-weight:500}
+.confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--bad);font-weight:500}
+[hidden]{display:none!important}
+@media (max-width:760px){.prod{grid-template-columns:1fr}.img{grid-template-columns:120px 1fr;align-items:start}.fields{grid-template-columns:1fr 1fr}.f,.f.s2,.f.s1{grid-column:span 1}.f.s6,.toggles,.row-actions,.pricebox{grid-column:span 2}.grid2{grid-template-columns:1fr}.mini,.mini.c3{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<section id="loginView" class="wrap" hidden>
+  <form class="login card" id="loginForm">
+    <img src="assets/felux-simbolo.svg" alt="" width="48" height="57">
+    <h1>Painel FELUX</h1>
+    <p class="hint">Entre com a senha para editar produtos, preços e informações da loja.</p>
+    <label class="f s6"><span>Senha</span><input type="password" id="pw" autocomplete="current-password" required style="width:100%;padding:.7em .9em;border:1.5px solid var(--line);border-radius:10px"></label>
+    <button class="btn gold" type="submit">Entrar</button>
+    <p class="err" id="loginErr" hidden></p>
+  </form>
+</section>
+
+<div id="appView" hidden>
+  <header class="top"><div class="wrap">
+    <h1>FELUX <span>· painel</span></h1>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-tab="produtos">Produtos</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="loja">Loja e promoções</button>
+    </div>
+    <a class="btn ghost small" href="/" target="_blank" rel="noopener">Ver site</a>
+    <button class="btn ghost small" id="logout">Sair</button>
+  </div></header>
+
+  <main class="wrap">
+    <section id="tab-produtos">
+      <div class="section-head">
+        <div><h2>Produtos</h2><p class="hint">Preço promocional precisa ser menor que o preço normal. O desconto em % é calculado sozinho. Deixe o preço vazio para mostrar só "Consulte".</p></div>
+        <button class="btn gold" id="addProduct">+ Novo produto</button>
+      </div>
+      <div class="list" id="products"></div>
+    </section>
+
+    <section id="tab-loja" hidden>
+      <div class="section-head"><h2>Loja e promoções</h2></div>
+      <div class="grid2">
+        <div class="card fields" style="grid-template-columns:1fr 1fr">
+          <h3 class="f s6" style="grid-column:1/-1">Contato</h3>
+          <label class="f" style="grid-column:span 1"><span>WhatsApp (com DDD)</span><input type="tel" id="s-whatsapp" placeholder="11 99999-9999"></label>
+          <label class="f" style="grid-column:span 1"><span>Instagram</span><input type="text" id="s-instagram" placeholder="@feluxpet"></label>
+          <label class="f" style="grid-column:1/-1"><span>Mensagem inicial do WhatsApp</span><input type="text" id="s-whatsappMessage"></label>
+          <label class="f" style="grid-column:1/-1"><span>CNPJ (rodapé)</span><input type="text" id="s-cnpj"></label>
+        </div>
+        <div class="card fields" style="grid-template-columns:1fr 1fr">
+          <h3 style="grid-column:1/-1">Faixa de aviso no topo do site</h3>
+          <label class="toggles" style="grid-column:1/-1"><input type="checkbox" id="s-ann-active"> Mostrar faixa</label>
+          <label class="f" style="grid-column:1/-1"><span>Texto</span><input type="text" id="s-ann-text" placeholder="Frete grátis acima de R$ 150"></label>
+          <label class="f" style="grid-column:1/-1"><span>Link ao clicar (opcional)</span><input type="text" id="s-ann-link" placeholder="#produtos ou https://..."></label>
+        </div>
+        <div class="card">
+          <h3>Onde comprar</h3>
+          <p class="hint">Botões da seção "Onde comprar". Sem link, o botão leva ao WhatsApp.</p>
+          <div id="stores"></div>
+          <button class="btn ghost small" id="addStore" style="margin-top:12px">+ Loja</button>
+        </div>
+        <div class="card">
+          <h3>Cupons</h3>
+          <p class="hint">Cupons ativos aparecem em destaque no site, na seção "Onde comprar".</p>
+          <div id="coupons"></div>
+          <button class="btn ghost small" id="addCoupon" style="margin-top:12px">+ Cupom</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="savebar"><div class="wrap">
+    <span class="msg" id="saveMsg">Tudo salvo.</span>
+    <button class="btn ghost small" id="discard" style="color:var(--band-fg);border-color:rgba(255,255,255,.25)" disabled>Desfazer</button>
+    <button class="btn gold" id="save" disabled>Salvar alterações</button>
+  </div></div>
+</div>
+
+<input type="file" id="fileIn" accept="image/png,image/jpeg,image/webp" hidden>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const brl = n => n == null ? '' : n.toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+  // aceita 59,90 · 59.90 · 1.059,90
+  const num = v => { if (v === '' || v == null) return null; let t = String(v).trim().replace(/\s|R\$/g, ''); if (t.includes(',')) t = t.replace(/\./g, '').replace(',', '.'); const n = Number(t); return Number.isFinite(n) && n >= 0 ? Math.round(n*100)/100 : null; };
+  const dec = n => n == null ? '' : n.toFixed(2).replace('.', ',');
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  let data = null, saved = '', uploadFor = null;
+
+  async function call(path, opts = {}){
+    const r = await fetch('/api/' + path, {credentials:'same-origin', headers:{'Content-Type':'application/json'}, ...opts});
+    const body = await r.json().catch(() => ({}));
+    if (!r.ok) throw Object.assign(new Error(body.error || 'Erro ' + r.status), {status:r.status});
+    return body;
+  }
+
+  // ---------- login ----------
+  async function boot(){
+    const me = await call('admin/me').catch(() => ({admin:false, enabled:true}));
+    if (!me.admin){
+      $('#loginView').hidden = false;
+      if (!me.enabled){ $('#loginErr').hidden = false; $('#loginErr').textContent = 'Painel desativado. No Railway, crie a variável ADMIN_PASSWORD com a senha desejada.'; }
+      $('#pw').focus(); return;
+    }
+    data = await call('admin/data'); saved = JSON.stringify(data);
+    $('#loginView').hidden = true; $('#appView').hidden = false; render();
+  }
+  $('#loginForm').addEventListener('submit', async e => {
+    e.preventDefault(); $('#loginErr').hidden = true;
+    try { await call('admin/login', {method:'POST', body:JSON.stringify({password:$('#pw').value})}); $('#pw').value = ''; boot(); }
+    catch (err){ $('#loginErr').hidden = false; $('#loginErr').textContent = err.message; }
+  });
+  $('#logout').addEventListener('click', async () => { await call('admin/logout', {method:'POST'}).catch(()=>{}); location.reload(); });
+
+  // ---------- abas ----------
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', x === t));
+    $('#tab-produtos').hidden = t.dataset.tab !== 'produtos'; $('#tab-loja').hidden = t.dataset.tab !== 'loja';
+  }));
+
+  // ---------- produtos ----------
+  function priceBox(p){
+    if (p.price == null) return '<span class="hint">Sem preço: o site mostra "Consulte" e o botão de compra.</span>';
+    if (p.salePrice != null && p.salePrice < p.price){
+      const off = Math.round((1 - p.salePrice/p.price)*100);
+      return `<span class="hint">No site:</span><span class="old">${brl(p.price)}</span><span class="now">${brl(p.salePrice)}</span><span class="off">-${off}%</span>`;
+    }
+    if (p.salePrice != null) return `<span class="now">${brl(p.price)}</span><span class="err">O preço promocional precisa ser menor que o preço normal.</span>`;
+    return `<span class="hint">No site:</span><span class="now">${brl(p.price)}</span>`;
+  }
+  function productCard(p, i){
+    const off = p.price && p.salePrice != null && p.salePrice < p.price ? Math.round((1 - p.salePrice/p.price)*100) : '';
+    return `<article class="card prod ${p.active ? '' : 'off'}" data-i="${i}" style="--c:${esc(p.color)}">
+      <div class="img">
+        <div class="ph">${p.image ? `<img src="${esc(p.image)}" alt="">` : '<span class="hint">Sem foto</span>'}</div>
+        <div style="display:grid;gap:8px">
+          <button class="btn ghost small" data-act="upload">Trocar foto</button>
+          <span class="hint" style="font-size:.78rem">PNG, JPG ou WEBP até 4 MB. Fundo transparente fica melhor.</span>
+        </div>
+      </div>
+      <div class="fields">
+        <label class="f s2"><span>Nome</span><input type="text" data-k="name" value="${esc(p.name)}"></label>
+        <label class="f s2"><span>Etiqueta (ex.: 100% Milho · Azul)</span><input type="text" data-k="tag" value="${esc(p.tag)}"></label>
+        <label class="f s1"><span>Cor</span><input type="color" data-k="color" value="${esc(p.color)}"></label>
+        <label class="f s1"><span>Peso</span><input type="text" data-k="weight" value="${esc(p.weight)}"></label>
+        <label class="f s2"><span>Preço</span><div class="money"><input type="text" inputmode="decimal" data-k="price" value="${dec(p.price)}" placeholder="59,90"></div></label>
+        <label class="f s2"><span>Preço promocional</span><div class="money"><input type="text" inputmode="decimal" data-k="salePrice" value="${dec(p.salePrice)}" placeholder="vazio = sem promoção"></div></label>
+        <label class="f s2"><span>ou desconto em %</span><input type="number" min="0" max="90" step="1" data-k="pct" value="${off}" placeholder="ex.: 15"></label>
+        <div class="pricebox">${priceBox(p)}</div>
+        <label class="f s2"><span>Selo (opcional)</span><input type="text" data-k="badge" list="badges" value="${esc(p.badge)}" placeholder="Mais vendido"></label>
+        <label class="f s4" style="grid-column:span 4"><span>Link de compra (vazio = WhatsApp)</span><input type="text" data-k="buyUrl" value="${esc(p.buyUrl)}" placeholder="https://..."></label>
+        <label class="f s6"><span>Benefícios (um por linha)</span><textarea data-k="bullets">${esc(p.bullets.join('\n'))}</textarea></label>
+        <div class="toggles">
+          <label><input type="checkbox" data-k="active" ${p.active ? 'checked' : ''}> Visível no site</label>
+          <label><input type="checkbox" data-k="inStock" ${p.inStock ? 'checked' : ''}> Em estoque</label>
+          <span class="hint">Código: ${esc(p.id)}</span>
+        </div>
+        <div class="row-actions">
+          <button class="btn ghost small" data-act="up" ${i === 0 ? 'disabled' : ''}>↑ Subir</button>
+          <button class="btn ghost small" data-act="down" ${i === data.products.length-1 ? 'disabled' : ''}>↓ Descer</button>
+          <button class="btn ghost small" data-act="dup">Duplicar</button>
+          <span class="push"></span>
+          <span class="confirm" hidden>Excluir este produto? <button class="btn danger small" data-act="del-yes">Excluir</button><button class="btn ghost small" data-act="del-no">Cancelar</button></span>
+          <button class="btn danger small" data-act="del">Excluir</button>
+        </div>
+      </div>
+    </article>`;
+  }
+  function renderProducts(){ $('#products').innerHTML = data.products.map(productCard).join('') || '<p class="hint">Nenhum produto. Clique em "Novo produto".</p>'; }
+
+  $('#products').addEventListener('input', e => {
+    const el = e.target, card = el.closest('.prod'); if (!card || !el.dataset.k) return;
+    const p = data.products[+card.dataset.i], k = el.dataset.k;
+    if (k === 'price' || k === 'salePrice'){ p[k] = num(el.value); const pctEl = card.querySelector('[data-k=pct]'); pctEl.value = p.price && p.salePrice != null && p.salePrice < p.price ? Math.round((1-p.salePrice/p.price)*100) : ''; }
+    else if (k === 'pct'){ const pc = Number(el.value); if (p.price && pc > 0 && pc < 100){ p.salePrice = Math.round(p.price*(1-pc/100)*100)/100; card.querySelector('[data-k=salePrice]').value = dec(p.salePrice); } else if (!el.value){ p.salePrice = null; card.querySelector('[data-k=salePrice]').value = ''; } }
+    else if (k === 'bullets') p.bullets = el.value.split('\n').map(s => s.trim()).filter(Boolean);
+    else if (el.type === 'checkbox'){ p[k] = el.checked; if (k === 'active') card.classList.toggle('off', !el.checked); }
+    else { p[k] = el.value; if (k === 'color') card.style.setProperty('--c', el.value); }
+    card.querySelector('.pricebox').innerHTML = priceBox(p);
+    changed();
+  });
+  $('#products').addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const card = b.closest('.prod'), i = +card.dataset.i, ps = data.products, act = b.dataset.act;
+    if (act === 'upload'){ uploadFor = i; $('#fileIn').click(); return; }
+    if (act === 'del'){ card.querySelector('.confirm').hidden = false; b.hidden = true; return; }
+    if (act === 'del-no'){ card.querySelector('.confirm').hidden = true; card.querySelector('[data-act=del]').hidden = false; return; }
+    if (act === 'del-yes') ps.splice(i, 1);
+    if (act === 'up' && i > 0) [ps[i-1], ps[i]] = [ps[i], ps[i-1]];
+    if (act === 'down' && i < ps.length-1) [ps[i+1], ps[i]] = [ps[i], ps[i+1]];
+    if (act === 'dup') ps.splice(i+1, 0, {...structuredClone(ps[i]), id: ps[i].id + '-copia', name: ps[i].name + ' (cópia)', active:false});
+    renderProducts(); changed();
+  });
+  $('#addProduct').addEventListener('click', () => {
+    data.products.push({id:'novo-' + Date.now().toString(36), name:'Novo produto', tag:'', color:'#242424', image:'', weight:'4 kg', bullets:[], price:null, salePrice:null, badge:'', buyUrl:'', inStock:true, active:false});
+    renderProducts(); changed(); $('#products').lastElementChild.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+  $('#fileIn').addEventListener('change', () => {
+    const f = $('#fileIn').files[0]; $('#fileIn').value = ''; if (!f || uploadFor == null) return;
+    if (f.size > 4*1024*1024){ msg('Imagem muito grande. Envie até 4 MB.', true); return; }
+    const rd = new FileReader();
+    rd.onload = async () => {
+      msg('Enviando imagem…');
+      try { const r = await call('admin/upload', {method:'POST', body:JSON.stringify({data:rd.result})}); data.products[uploadFor].image = r.url; renderProducts(); changed(); }
+      catch (err){ msg(err.message, true); }
+    };
+    rd.readAsDataURL(f);
+  });
+
+  // ---------- loja ----------
+  const S = () => data.settings;
+  function renderSettings(){
+    $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-cnpj').value = S().cnpj;
+    $('#s-ann-active').checked = S().announcement.active; $('#s-ann-text').value = S().announcement.text; $('#s-ann-link').value = S().announcement.link;
+    $('#stores').innerHTML = S().stores.map((s, i) => `<div class="mini" data-i="${i}"><input type="text" data-k="name" value="${esc(s.name)}" placeholder="Nome" aria-label="Nome da loja"><input type="text" data-k="url" value="${esc(s.url)}" placeholder="https://..." aria-label="Link da loja"><button class="btn danger small" data-del>Remover</button></div>`).join('');
+    $('#coupons').innerHTML = S().coupons.map((c, i) => `<div class="mini c3" data-i="${i}"><input type="text" data-k="code" value="${esc(c.code)}" placeholder="CÓDIGO" aria-label="Código do cupom"><input type="text" data-k="text" value="${esc(c.text)}" placeholder="10% na primeira compra" aria-label="Descrição do cupom"><label style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-k="active" ${c.active ? 'checked' : ''}> Ativo</label><button class="btn danger small" data-del>Remover</button></div>`).join('');
+  }
+  const bindS = (id, fn) => $(id).addEventListener('input', e => { fn(e.target); changed(); });
+  bindS('#s-whatsapp', el => S().whatsapp = el.value.replace(/\D/g, ''));
+  bindS('#s-instagram', el => S().instagram = el.value);
+  bindS('#s-whatsappMessage', el => S().whatsappMessage = el.value);
+  bindS('#s-cnpj', el => S().cnpj = el.value);
+  bindS('#s-ann-active', el => S().announcement.active = el.checked);
+  bindS('#s-ann-text', el => S().announcement.text = el.value);
+  bindS('#s-ann-link', el => S().announcement.link = el.value);
+  ['stores', 'coupons'].forEach(key => {
+    const box = $('#' + key);
+    box.addEventListener('input', e => { const row = e.target.closest('[data-i]'); const it = S()[key][+row.dataset.i]; const k = e.target.dataset.k; it[k] = e.target.type === 'checkbox' ? e.target.checked : (k === 'code' ? e.target.value.toUpperCase() : e.target.value); changed(); });
+    box.addEventListener('click', e => { if (!e.target.closest('[data-del]')) return; S()[key].splice(+e.target.closest('[data-i]').dataset.i, 1); renderSettings(); changed(); });
+  });
+  $('#addStore').addEventListener('click', () => { S().stores.push({name:'', url:''}); renderSettings(); changed(); });
+  $('#addCoupon').addEventListener('click', () => { S().coupons.push({code:'', text:'', active:true}); renderSettings(); changed(); });
+
+  // ---------- salvar ----------
+  function msg(t, bad){ $('#saveMsg').textContent = t; $('#saveMsg').classList.toggle('err', !!bad); }
+  function changed(){ const dirty = JSON.stringify(data) !== saved; $('#save').disabled = !dirty; $('#discard').disabled = !dirty; msg(dirty ? 'Alterações não salvas.' : 'Tudo salvo.'); }
+  function render(){ renderProducts(); renderSettings(); changed(); }
+  $('#save').addEventListener('click', async () => {
+    $('#save').disabled = true; msg('Salvando…');
+    try { data = await call('admin/data', {method:'PUT', body:JSON.stringify(data)}); saved = JSON.stringify(data); render(); msg('Salvo. O site já mostra as mudanças.'); }
+    catch (err){ msg(err.status === 401 ? 'Sua sessão expirou. Recarregue a página e entre de novo (suas mudanças não foram salvas).' : 'Não salvou: ' + err.message, true); $('#save').disabled = false; }
+  });
+  $('#discard').addEventListener('click', () => { data = JSON.parse(saved); render(); });
+  addEventListener('beforeunload', e => { if (data && JSON.stringify(data) !== saved){ e.preventDefault(); e.returnValue = ''; } });
+
+  boot();
+})();
+</script>
+<datalist id="badges"><option value="Mais vendido"><option value="Novidade"><option value="Oferta"><option value="Lançamento"><option value="Últimas unidades"></datalist>
+</body>
+</html>

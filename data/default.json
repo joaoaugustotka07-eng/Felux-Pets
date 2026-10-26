@@ -1,0 +1,38 @@
+{
+  "settings": {
+    "whatsapp": "",
+    "whatsappMessage": "Olá! Quero comprar a areia FELUX.",
+    "instagram": "@feluxpet",
+    "cnpj": "00.000.000/0001-00",
+    "announcement": { "active": false, "text": "Frete grátis para compras acima de R$ 150", "link": "#produtos" },
+    "stores": [
+      { "name": "Loja oficial", "url": "" },
+      { "name": "Mercado Livre", "url": "" },
+      { "name": "Amazon", "url": "" },
+      { "name": "Shopee", "url": "" }
+    ],
+    "coupons": [
+      { "code": "BEMVINDO10", "text": "10% na primeira compra", "active": false }
+    ]
+  },
+  "products": [
+    {
+      "id": "milho", "name": "FELUX Milho", "tag": "100% Milho · Azul", "color": "#1F3F86",
+      "image": "assets/felux-milho-4kg-pack.webp", "weight": "4 kg",
+      "bullets": ["O amido do milho gelifica em contato com o xixi e absorve em segundos", "Torrão formado antes do líquido chegar ao fundo da caixa", "Feita com milho de fonte renovável"],
+      "price": null, "salePrice": null, "badge": "", "buyUrl": "", "inStock": true, "active": true
+    },
+    {
+      "id": "mista", "name": "FELUX Mista", "tag": "Milho + Mandioca · Verde", "color": "#2B6144",
+      "image": "assets/felux-mista-4kg-pack.webp", "weight": "4 kg",
+      "bullets": ["A absorção rápida do milho com a liga da mandioca", "A versão mais equilibrada para o dia a dia", "Feita com milho e mandioca de fonte renovável"],
+      "price": null, "salePrice": null, "badge": "", "buyUrl": "", "inStock": true, "active": true
+    },
+    {
+      "id": "mandioca", "name": "FELUX Mandioca", "tag": "100% Mandioca · Terracota", "color": "#8E3B22",
+      "image": "assets/felux-mandioca-4kg-pack.webp", "weight": "4 kg",
+      "bullets": ["A fécula da mandioca dá liga e o torrão sai inteiro na pá", "Grão claro, fácil de ver onde está o torrão", "Feita com mandioca de fonte renovável"],
+      "price": null, "salePrice": null, "badge": "", "buyUrl": "", "inStock": true, "active": true
+    }
+  ]
+}

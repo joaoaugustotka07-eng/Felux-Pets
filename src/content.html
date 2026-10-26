@@ -259,7 +259,7 @@ body::before{background:var(--ground)}
 .v-milho{--v:#1F3F86}
 .v-mista{--v:#2B6144}
 .v-mandioca{--v:#8E3B22}
-.prod{grid-template-rows:auto auto 1fr auto}
+.prod{grid-template-rows:auto auto 1fr auto auto}
 .pack{background:color-mix(in srgb, var(--v) 12%, var(--surface));border-radius:12px;padding:22px;display:grid;place-items:center}
 .pack img{height:300px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 18px 22px rgba(0,0,0,.28));transition:transform .3s ease}
 .prod:hover .pack img{transform:translateY(-6px) rotate(-1.5deg)}
@@ -281,8 +281,26 @@ body::before{background:var(--ground)}
 .grain-pick button{font:600 .85rem var(--font-body);padding:.5em 1em;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
 .grain-pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
 @media (prefers-reduced-motion: reduce){.prod:hover .pack img{transform:none}}
+
+/* preços e compra (dados do painel) */
+.price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.price .now{font-family:var(--font-display);font-size:1.7rem;line-height:1}
+.price .old{text-decoration:line-through;color:var(--ink-soft)}
+.price .off{background:#A23B22;color:#fff;border-radius:999px;padding:2px 9px;font-size:.78rem;font-weight:700}
+.price .ask{color:var(--ink-soft)}
+.buy-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px}
+.buy-row .btn{padding:.75em 1.2em}
+.pack{position:relative}
+.badge{position:absolute;z-index:2;top:12px;left:12px;background:var(--ink);color:var(--ground);font-size:.75rem;font-weight:700;letter-spacing:.04em;padding:5px 11px;border-radius:999px}
+.prod.soldout .pack img{filter:grayscale(.7) opacity(.7)}
+.announce{display:block;background:var(--gold);color:var(--gold-ink);text-align:center;font-weight:600;font-size:.92rem;text-decoration:none;padding-block:9px;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.coupons{display:grid;gap:10px;margin-top:22px}
+.coupon{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1.5px dashed var(--gold);border-radius:14px;padding:12px 16px}
+.coupon code{font:700 1.05rem var(--font-body);letter-spacing:.08em;color:var(--gold)}
+.coupon button{margin-left:auto;background:transparent;border:1px solid var(--band-soft);color:var(--band-fg);border-radius:999px;padding:.35em .9em;cursor:pointer;font:600 .85rem var(--font-body)}
 </style>
 
+<a class="announce" id="announce" href="#produtos" hidden></a>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="#inicio" aria-label="FELUX, início"><svg class="mark" viewBox="0 0 412 488" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M279.5 482.9C264.6 482.6 250.2 481.8 247.5 481.2C244.8 480.6 238.0 479.2 232.5 478.1C202.3 471.8 167.6 458.2 139.0 441.3C75.0 403.6 26.8 341.3 11.9 277.0C8.7 263.1 6.4 250.0 5.0 237.3C3.3 221.8 3.7 7.0 5.5 6.4C7.0 5.8 17.3 13.8 35.0 29.4C79.4 68.7 87.6 75.9 91.5 79.0C93.9 80.9 102.3 88.3 110.1 95.5C117.9 102.7 128.1 111.7 132.6 115.5C143.1 124.4 166.5 144.9 179.4 156.5C185.0 161.5 191.8 167.5 194.5 169.9C197.2 172.3 211.8 185.1 226.8 198.4C241.8 211.7 265.4 232.2 279.1 244.1C306.6 268.0 308.0 269.4 308.0 274.0C308.0 281.7 300.5 290.8 265.6 325.5C234.2 356.7 230.7 360.6 226.5 369.0C222.2 377.6 221.0 383.3 221.0 397.0C221.0 410.3 224.8 433.0 227.5 435.9C229.1 437.5 231.0 436.6 231.0 434.2C231.0 433.3 232.2 428.0 233.6 422.5C235.0 417.0 236.8 409.6 237.5 406.1C239.5 397.3 244.7 381.6 247.8 375.0C250.8 368.6 257.9 361.3 279.9 342.1C288.3 334.7 301.9 321.6 310.1 313.0C318.3 304.5 326.3 296.7 327.8 295.8C331.4 293.7 331.1 293.5 351.2 311.0C359.0 317.9 370.5 327.7 376.6 332.7C390.8 344.5 402.2 356.6 405.4 363.4L407.9 368.7L408.0 425.3C408.0 473.6 407.8 481.9 406.5 483.0C405.0 484.2 338.9 484.2 279.5 482.9ZM196.9 321.6C199.8 318.1 191.9 297.8 183.7 287.9C177.1 279.8 167.5 276.4 140.5 272.5C124.3 270.1 124.4 270.1 126.7 279.0C130.1 292.6 139.4 307.5 147.3 312.0C160.9 319.8 193.2 326.1 196.9 321.6Z"/><path fill="var(--gold)" d="M326.5 254.1C323.2 252.0 300.7 232.1 300.2 230.8C300.0 230.4 299.3 230.0 298.8 230.0C298.2 230.0 294.9 227.4 291.5 224.2C281.2 214.5 266.9 201.7 259.5 195.5C255.7 192.3 252.2 189.1 251.7 188.4C251.3 187.7 247.7 184.7 243.7 181.7C234.3 174.6 225.6 165.4 226.4 163.4C226.7 162.5 227.0 161.7 227.0 161.5C227.0 161.4 237.0 152.1 249.2 140.9C261.4 129.7 273.8 118.2 276.6 115.5C284.9 107.5 297.6 96.1 302.2 92.5C304.6 90.7 307.4 88.2 308.6 86.9C311.0 84.1 321.6 74.9 323.9 73.6C324.8 73.1 327.8 70.4 330.6 67.6C338.7 59.6 344.0 54.7 348.0 51.5C354.2 46.5 367.9 34.3 378.7 24.1C394.2 9.4 401.9 3.5 403.9 4.7C406.3 6.2 406.2 185.8 403.7 190.5C401.9 194.0 379.6 215.8 370.1 223.4C366.5 226.2 359.8 232.2 355.1 236.7C350.4 241.2 345.1 246.0 343.5 247.5C341.9 248.9 339.8 250.6 339.0 251.4C337.3 252.9 331.5 256.0 330.3 256.0C329.9 256.0 328.1 255.1 326.5 254.1Z"/></svg><svg class="word" viewBox="0 0 843 151" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M548.0 145.9C522.9 143.3 506.1 133.3 497.8 116.2L493.6 107.5L493.1 85.0C492.1 48.6 493.2 6.1 495.0 5.0C497.5 3.4 525.5 3.7 526.9 5.4C527.8 6.4 527.9 17.7 527.6 48.2C527.1 94.1 527.8 108.0 531.2 114.8C540.4 133.2 571.6 140.7 595.3 130.2C601.5 127.5 611.4 117.6 613.1 112.4C614.1 109.5 614.6 95.6 615.0 57.9C615.6 1.0 615.1 4.0 623.0 4.0C630.9 4.0 630.5 0.9 630.5 57.9C630.5 113.9 630.5 113.9 623.8 124.2C612.9 141.3 583.7 149.6 548.0 145.9ZM10.5 142.2C8.3 142.0 6.0 141.4 5.3 140.8C3.3 139.1 3.4 6.7 5.4 5.0C7.5 3.3 115.5 4.3 117.6 6.1C119.3 7.5 119.4 12.4 117.7 13.8C116.9 14.5 103.2 15.0 79.4 15.2C49.8 15.4 42.0 15.8 40.7 16.9C38.2 18.9 38.2 59.4 40.6 62.8C42.1 65.0 42.2 65.0 74.5 65.0C102.6 65.0 107.1 65.2 108.4 66.6C110.3 68.5 110.5 73.3 108.7 74.8C107.8 75.5 96.4 76.0 75.2 76.2C48.2 76.5 42.8 76.7 41.6 78.0C40.4 79.2 40.0 85.2 39.5 109.5C38.7 145.7 39.9 143.1 24.7 142.7C19.1 142.6 12.7 142.4 10.5 142.2ZM169.0 141.6C167.4 140.0 167.6 6.8 169.2 5.2C170.9 3.5 284.1 3.5 285.8 5.2C287.4 6.8 287.4 12.2 285.8 13.8C284.9 14.7 274.9 15.0 246.9 15.0C211.3 15.0 209.1 15.1 206.9 16.9C204.5 18.8 204.5 18.9 204.6 40.4C204.7 56.1 205.1 62.4 206.0 63.5C207.1 64.8 212.1 65.0 240.6 65.0C277.2 65.0 277.9 65.1 276.5 70.9C275.2 76.1 276.0 76.0 240.5 76.0C210.7 76.0 207.1 76.2 205.9 77.7C204.0 79.9 204.5 127.8 206.3 129.7C207.2 130.5 218.9 131.0 247.0 131.3L286.5 131.8L287.7 134.2C289.3 137.2 289.3 139.5 287.8 140.8C286.0 142.2 170.4 143.0 169.0 141.6ZM352.3 142.2C345.4 142.0 342.9 141.5 341.8 140.3C339.8 137.9 339.9 8.1 341.9 5.7C343.7 3.5 374.1 3.1 375.8 5.2C376.4 6.1 376.9 27.8 377.2 66.6C377.4 115.5 377.8 127.0 378.9 128.4C380.1 129.8 384.2 130.0 418.1 130.0C451.1 130.0 456.1 130.2 457.4 131.6C459.4 133.5 459.5 139.3 457.7 140.9C456.4 141.9 376.2 143.0 352.3 142.2ZM796.7 137.8C794.0 134.9 785.4 125.5 777.7 117.0C755.5 92.3 755.1 91.9 753.2 92.9C751.6 93.8 742.6 102.9 716.2 130.3L704.8 142.0L695.5 142.0C688.3 142.0 686.1 141.7 685.7 140.5C685.3 139.6 690.6 133.5 700.8 123.1C729.1 94.2 742.0 80.2 742.0 78.3C742.0 77.3 738.6 72.7 734.4 68.0C730.2 63.3 724.3 56.4 721.2 52.5C718.1 48.6 712.4 42.1 708.5 37.9C701.8 30.7 696.2 24.1 686.6 12.1C684.2 9.1 682.4 6.0 682.7 5.3C683.4 3.5 720.8 3.5 723.0 5.3C723.9 6.0 731.4 14.6 739.7 24.5C748.0 34.4 757.3 45.2 760.3 48.5L765.9 54.5L781.2 38.5C789.6 29.7 800.5 18.3 805.5 13.2L814.6 4.0L821.7 4.0C827.0 4.0 829.3 4.4 830.5 5.7C832.3 7.5 834.4 5.1 803.4 37.0C788.1 52.7 779.0 63.6 779.0 66.3C779.0 68.7 785.0 76.7 796.0 89.0C800.1 93.7 806.9 101.5 811.0 106.5C815.1 111.5 821.1 118.7 824.5 122.5C836.4 136.1 839.3 140.1 838.3 141.1C837.8 141.6 829.4 142.3 819.6 142.6L801.8 143.2L796.7 137.8Z"/></svg>
@@ -513,7 +531,7 @@ body::before{background:var(--ground)}
         <h2>Encontre FELUX perto de você.</h2>
         <p class="lede">Nas lojas parceiras online ou no pet shop do bairro. Não achou? Peça ao seu pet shop para falar com a gente.</p>
       </div>
-      <div class="stores">
+      <div class="stores" id="stores">
         <a class="store" href="#comprar">Loja oficial <span aria-hidden="true">→</span></a>
         <a class="store" href="#comprar">Mercado Livre <span aria-hidden="true">→</span></a>
         <a class="store" href="#comprar">Amazon <span aria-hidden="true">→</span></a>
@@ -569,15 +587,15 @@ body::before{background:var(--ground)}
         <h4>Novidades e cupons</h4>
         <form class="news" id="newsForm"><label for="newsMail" class="sr" style="position:absolute;left:-9999px">E-mail</label><input id="newsMail" type="email" placeholder="seu@email.com" required><button class="btn btn-gold" type="submit" style="padding:.7em 1.1em">Assinar</button></form>
         <p id="newsOk" hidden style="margin-top:10px;color:var(--band-fg)"></p>
-        <p style="margin-top:16px">Instagram <span style="color:var(--band-fg)">@feluxpet</span></p>
+        <p style="margin-top:16px">Instagram <span style="color:var(--band-fg)" id="igOut">@feluxpet</span></p>
       </div>
     </div>
     <div class="big-word" aria-hidden="true">FELUX</div>
-    <div class="legal"><span>© 2026 FELUX · feluxpet.com.br</span><span>CNPJ 00.000.000/0001-00</span></div>
+    <div class="legal"><span>© 2026 FELUX · feluxpet.com.br</span><span id="cnpjOut">CNPJ 00.000.000/0001-00</span></div>
   </div>
 </footer>
 
-<a class="wa" href="#comprar" aria-label="Fale com a FELUX pelo WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg></a>
+<a class="wa" id="waBtn" href="#comprar" aria-label="Fale com a FELUX pelo WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg></a>
 
 <script>
 (() => {
@@ -697,13 +715,14 @@ body::before{background:var(--ground)}
     mandioca:{name:'FELUX Mandioca', why:'A fécula da mandioca dá liga: o torrão sai inteiro na pá, sem esfarelar. O grão claro ainda deixa fácil ver o que retirar.'},
     mista:{name:'FELUX Mista', why:'Junta a absorção rápida do milho com a liga da mandioca. É a versão mais equilibrada para o dia a dia.'}
   };
+  let prodMap = {};
   const qf = document.getElementById('quizForm');
   function quiz(){
     const f = new FormData(qf), k = f.get('pain'), r = recs[k];
     document.getElementById('rName').textContent = r.name;
     document.getElementById('rWhy').textContent = r.why + (f.get('cats') === '2' ? ' Com dois ou mais gatos, mantenha 7 cm de areia e retire os torrões duas vezes ao dia.' : '');
     document.getElementById('rLink').href = '#prod-' + k;
-    const img = document.getElementById('rImg'); img.src = 'assets/felux-' + k + '-4kg-pack.webp'; img.alt = 'Embalagem ' + r.name;
+    const img = document.getElementById('rImg'); img.src = (prodMap[k] && prodMap[k].image) || 'assets/felux-' + k + '-4kg-pack.webp'; img.alt = 'Embalagem ' + r.name;
     document.querySelectorAll('.prod').forEach(p => p.classList.toggle('pick', p.id === 'prod-' + k));
   }
   qf.addEventListener('change', quiz); quiz();
@@ -719,6 +738,60 @@ body::before{background:var(--ground)}
     document.getElementById('sWeight').textContent = fmt(clay - felux) + ' kg';
   }
   rng.addEventListener('input', calc); calc();
+
+
+  // ---------- dados do painel (/admin) ----------
+  // Sem servidor (ex.: prévia), a página fica com o conteúdo fixo acima.
+  const escH = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const brl = n => n.toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
+  function waLink(settings, text){
+    let n = (settings.whatsapp || '').replace(/\D/g, ''); if (!n) return '';
+    if (n.length <= 11) n = '55' + n;
+    return 'https://wa.me/' + n + '?text=' + encodeURIComponent(text || settings.whatsappMessage || 'Olá!');
+  }
+  function card(p, settings){
+    const sale = p.price != null && p.salePrice != null && p.salePrice < p.price;
+    const price = p.price == null ? '<span class="ask">Consulte o preço</span>'
+      : sale ? `<span class="now">${brl(p.salePrice)}</span><span class="old">${brl(p.price)}</span><span class="off">-${Math.round((1 - p.salePrice/p.price)*100)}%</span>`
+      : `<span class="now">${brl(p.price)}</span>`;
+    const href = p.buyUrl || waLink(settings, `Olá! Quero comprar ${p.name}${p.weight ? ' ' + p.weight : ''}.`) || '#comprar';
+    const ext = /^https?:/.test(href) ? ' target="_blank" rel="noopener"' : '';
+    const btn = p.inStock ? `<a class="btn btn-gold" href="${escH(href)}"${ext}>Comprar</a>` : `<a class="btn btn-ghost" href="${escH(waLink(settings, 'Olá! Quero ser avisado quando ' + p.name + ' voltar ao estoque.') || '#comprar')}"${ext}>Avise-me</a>`;
+    return `<article class="prod${p.inStock ? '' : ' soldout'}" id="prod-${escH(p.id)}" style="--v:${escH(p.color)}">
+      <div class="pack">${p.badge ? `<span class="badge">${escH(p.badge)}</span>` : ''}${p.image ? `<img src="${escH(p.image)}" alt="Embalagem ${escH(p.name)}" width="530" height="896" loading="lazy">` : ''}</div>
+      <div><p class="tag"><i></i>${escH(p.tag)}</p><h3>${escH(p.name)}</h3></div>
+      <ul>${p.bullets.map(b => `<li>${escH(b)}</li>`).join('')}</ul>
+      <div class="buy-row"><div class="price">${price}</div>${btn}</div>
+      ${p.weight ? `<div class="sizes">Embalagem <span>${escH(p.weight)}</span>${p.inStock ? '' : '<span>Esgotado</span>'}</div>` : ''}
+    </article>`;
+  }
+  fetch('api/site', {cache:'no-store'}).then(r => r.ok ? r.json() : Promise.reject()).then(({settings, products}) => {
+    if (products.length){
+      document.querySelector('#produtos .products').innerHTML = products.map(p => card(p, settings)).join('');
+      prodMap = Object.fromEntries(products.map(p => [p.id, p]));
+      quiz();
+    }
+    const ann = settings.announcement;
+    if (ann && ann.active && ann.text){ const a = document.getElementById('announce'); a.textContent = ann.text; a.href = ann.link || '#produtos'; a.hidden = false; }
+    const wa = waLink(settings);
+    if (wa){ const b = document.getElementById('waBtn'); b.href = wa; b.target = '_blank'; b.rel = 'noopener'; }
+    if (settings.stores && settings.stores.length){
+      document.getElementById('stores').innerHTML = settings.stores.map(s => {
+        const href = s.url || wa || '#comprar', ext = /^https?:/.test(href) ? ' target="_blank" rel="noopener"' : '';
+        return `<a class="store" href="${escH(href)}"${ext}>${escH(s.name)} <span aria-hidden="true">→</span></a>`;
+      }).join('');
+    }
+    const cps = (settings.coupons || []).filter(c => c.active);
+    if (cps.length){
+      const box = document.createElement('div'); box.className = 'coupons';
+      box.innerHTML = cps.map(c => `<div class="coupon"><code>${escH(c.code)}</code><span>${escH(c.text)}</span><button type="button" data-code="${escH(c.code)}">Copiar</button></div>`).join('');
+      box.addEventListener('click', e => { const b = e.target.closest('[data-code]'); if (!b) return;
+        navigator.clipboard.writeText(b.dataset.code).then(() => { b.textContent = 'Copiado'; }, () => { b.textContent = b.dataset.code; }); });
+      document.getElementById('stores').after(box);
+    }
+    if (settings.instagram) document.getElementById('igOut').textContent = settings.instagram;
+    if (settings.cnpj) document.getElementById('cnpjOut').textContent = 'CNPJ ' + settings.cnpj;
+  }).catch(() => {});
 
   // ---------- formulários ----------
   document.getElementById('resellForm').addEventListener('submit', e => {
