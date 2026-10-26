@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="FELUX: areia higiênica biodegradável para gatos, feita de milho e mandioca. Torrão firme, baixa poeira e descarte na compostagem.">
+<meta name="theme-color" content="#F7F4EE">
+<link rel="canonical" href="https://feluxpet.com.br/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://feluxpet.com.br/">
+<meta property="og:title" content="FELUX | A areia que volta pra terra">
+<meta property="og:description" content="Areia higiênica biodegradável de milho e mandioca para gatos.">
+<link rel="icon" href="assets/felux-simbolo.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"FELUX","url":"https://feluxpet.com.br/","description":"Areia higiênica biodegradável de milho e mandioca para gatos."}</script>
+<style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>FELUX | Areia higiênica biodegradável para gatos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: identidade FELUX (carvão + dourado sobre papel). Caixa de areia ao lado da manchete; faixas largas alternando papel e carvão. */
+:root{
+  --ground:#F7F4EE;      /* papel da logo */
+  --surface:#FDFBF7;
+  --ink:#242424;         /* carvão da logo */
+  --ink-soft:#5F5A52;
+  --line:#E3DCCF;
+  --gold:#D4AF6E;        /* dourado da logo */
+  --gold-text:#94733A;   /* dourado legível sobre papel */
+  --gold-ink:#241B0B;
+  --olive:#6E7A4E;
+  --clay:#9C948A;
+  --band:#1F1E1D;
+  --band-fg:#F4EFE6;
+  --band-soft:#B3ABA0;
+  --font-display:"Tenor Sans", Optima, Candara, "Segoe UI", sans-serif;
+  --font-body:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono:"Figtree", "Segoe UI", system-ui, sans-serif;
+  --s-1:.8125rem; --s0:1rem; --s1:1.25rem; --s2:1.6rem; --s3:2.25rem; --s4:clamp(2.6rem,6vw,4.75rem);
+  --radius:18px;
+  --gutter-l:max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#151413; --surface:#1E1D1B; --ink:#EEE9E0; --ink-soft:#ABA397; --line:#34312C;
+    --gold:#D9B677; --gold-text:#D9B677; --gold-ink:#241B0B; --olive:#A3B07F; --clay:#8F877C;
+    --band:#0D0C0C; --band-fg:#EEE9E0; --band-soft:#A49C90;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#151413; --surface:#1E1D1B; --ink:#EEE9E0; --ink-soft:#ABA397; --line:#34312C;
+    --gold:#D9B677; --gold-text:#D9B677; --gold-ink:#241B0B; --olive:#A3B07F; --clay:#8F877C;
+    --band:#0D0C0C; --band-fg:#EEE9E0; --band-soft:#A49C90;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--ground);color:var(--ink);font-family:var(--font-body);font-size:var(--s0);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--band)}
+h1,h2,h3{font-family:var(--font-display);line-height:1.02;letter-spacing:-.02em;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin-inline:auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.eyebrow{font-family:var(--font-mono);font-size:var(--s-1);letter-spacing:.12em;text-transform:uppercase;color:var(--olive)}
+.band .eyebrow{color:var(--gold)}
+.lede{font-size:var(--s1);color:var(--ink-soft);max-width:58ch}
+.btn{display:inline-flex;align-items:center;gap:.5em;font:600 1rem/1 var(--font-body);padding:.95em 1.4em;border-radius:999px;border:2px solid transparent;text-decoration:none;cursor:pointer;transition:transform .15s ease, background .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:var(--gold-ink)}
+.btn-ghost{border-color:currentColor;background:transparent;color:inherit}
+@media (prefers-reduced-motion: reduce){.btn:hover{transform:none}}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--band);color:var(--band-fg)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-weight:800;font-size:1.55rem;letter-spacing:.04em;"wdth" 80}
+.logo svg{width:34px;height:34px;flex:none}
+.nav{display:flex;gap:26px;align-items:center}
+.nav a{text-decoration:none;font-weight:500;font-size:.95rem;color:var(--band-soft)}
+.nav a:hover{color:var(--band-fg)}
+.nav .btn{padding:.7em 1.1em;font-size:.9rem;color:var(--gold-ink)}
+.menu-btn{display:none;background:none;border:2px solid var(--band-soft);color:var(--band-fg);border-radius:999px;padding:.45em .9em;font:600 .9rem var(--font-body);cursor:pointer}
+@media (max-width:860px){
+  .menu-btn{display:inline-block}
+  .nav{display:none;position:absolute;left:0;right:0;top:100%;background:var(--band);flex-direction:column;align-items:flex-start;gap:18px;padding:20px var(--gutter-r) 26px var(--gutter-l);border-top:1px solid rgba(255,255,255,.08)}
+  .nav.open{display:flex}
+}
+
+/* ---------- hero ---------- */
+.hero{background:var(--band);color:var(--band-fg);padding-block:56px 72px;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+.hero h1{font-size:var(--s4);font-weight:800;"wdth" 78;letter-spacing:-.035em}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero .lede{color:var(--band-soft);margin-top:22px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:34px;padding:0;list-style:none;font-family:var(--font-mono);font-size:var(--s-1);color:var(--band-soft)}
+.facts li::before{content:"● ";color:var(--gold)}
+.box{position:relative;min-width:0}
+.box-frame{position:relative;aspect-ratio:5/4;max-width:100%;border-radius:28px;background:#2a2016;padding:14px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.06),0 30px 60px -30px rgba(0,0,0,.6)}
+.box-frame canvas{width:100%;height:100%;display:block;border-radius:18px;background:#EDE2C8;touch-action:none;cursor:crosshair}
+.box-tip{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:14px;font-family:var(--font-mono);font-size:var(--s-1);color:var(--band-soft)}
+.box-tip b{color:var(--gold);font-weight:500}
+.counter{font-variant-numeric:tabular-nums}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero{padding-block:36px 52px}}
+
+/* ---------- sections ---------- */
+section{scroll-margin-top:80px}
+.sec{padding-block:96px}
+.sec-head{display:grid;gap:14px;margin-bottom:48px;max-width:760px}
+.sec-head h2{font-size:var(--s3);font-weight:700;"wdth" 85}
+.band{background:var(--band);color:var(--band-fg)}
+.band .lede{color:var(--band-soft)}
+@media (max-width:640px){.sec{padding-block:64px}}
+
+/* recipe */
+.recipe{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink)}
+.recipe > div{padding:28px 24px 8px 0;display:grid;gap:10px;align-content:start}
+.recipe > div + div{padding-left:24px;border-left:1px solid var(--line)}
+.recipe .big{font-family:var(--font-display);font-weight:800;font-size:2.4rem;"wdth" 80;line-height:1}
+.recipe .pct{font-family:var(--font-mono);font-size:var(--s-1);color:var(--ink-soft)}
+.recipe p{color:var(--ink-soft)}
+@media (max-width:760px){.recipe{grid-template-columns:1fr}.recipe > div + div{padding-left:0;border-left:0;border-top:1px solid var(--line)}}
+
+/* products */
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.prod{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:grid;grid-template-rows:auto auto 1fr auto;gap:16px;min-width:0}
+.prod h3{font-size:var(--s2);font-weight:700}
+.prod .tag{font-family:var(--font-mono);font-size:var(--s-1);color:var(--olive)}
+.prod ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;color:var(--ink-soft)}
+.prod li{padding-left:22px;position:relative}
+.prod li::before{content:"";position:absolute;left:0;top:.55em;width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.sizes{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-family:var(--font-mono);font-size:var(--s-1);color:var(--ink-soft)}
+.sizes span{border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--ink)}
+.prod.pick{outline:3px solid var(--gold);outline-offset:4px}
+@media (max-width:960px){.products{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.products{grid-template-columns:1fr}}
+
+/* quiz */
+.quiz{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.q{border:0;padding:0;margin:0 0 26px;min-width:0}
+.q legend{font-family:var(--font-display);font-weight:700;font-size:var(--s1);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips label{border:2px solid var(--band-soft);color:var(--band-fg);border-radius:999px;padding:.6em 1.1em;cursor:pointer;font-weight:500;transition:background .15s}
+.chips input:checked + label{background:var(--gold);border-color:var(--gold);color:var(--gold-ink)}
+.chips input:focus-visible + label{outline:3px solid var(--gold);outline-offset:3px}
+.result{background:var(--surface);color:var(--ink);border-radius:24px;padding:32px;display:grid;gap:16px;position:sticky;top:96px}
+.result .eyebrow{color:var(--olive)}
+.result h3{font-size:var(--s3);font-weight:800;"wdth" 80}
+.result p{color:var(--ink-soft)}
+@media (max-width:860px){.quiz{grid-template-columns:1fr}.result{position:static}}
+
+/* comparison */
+.table-scroll{overflow-x:auto;border-top:2px solid var(--ink)}
+table{border-collapse:collapse;width:100%;min-width:640px}
+th,td{text-align:left;padding:18px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-family:var(--font-mono);font-size:var(--s-1);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+thead th.us{color:var(--olive)}
+tbody th{font-weight:600}
+td.us{background:color-mix(in srgb, var(--gold) 14%, transparent);font-weight:600}
+td.them{color:var(--clay)}
+
+/* cycle */
+.cycle{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;counter-reset:step;list-style:none;padding:0;margin:0}
+.cycle li{display:grid;gap:12px;align-content:start;padding-top:22px;border-top:2px solid var(--band-soft);position:relative}
+.cycle li::before{counter-increment:step;content:"0" counter(step);font-family:var(--font-mono);font-size:var(--s-1);color:var(--gold)}
+.cycle h3{font-size:var(--s1);font-weight:700}
+.cycle p{color:var(--band-soft)}
+@media (max-width:860px){.cycle{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.cycle{grid-template-columns:1fr}}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.calc-in{display:grid;gap:18px}
+.cats{display:flex;align-items:center;gap:18px}
+.cats output{font-family:var(--font-display);font-weight:800;font-size:4rem;line-height:1;font-variant-numeric:tabular-nums;min-width:1.2ch}
+input[type=range]{width:100%;accent-color:var(--olive);height:28px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:2px solid var(--ink)}
+.stats div{padding:22px 18px 0 0;display:grid;gap:6px}
+.stats div + div{padding-left:18px;border-left:1px solid var(--line)}
+.stats strong{font-family:var(--font-display);font-weight:800;font-size:2.4rem;"wdth" 80;font-variant-numeric:tabular-nums;line-height:1}
+.stats span{color:var(--ink-soft);font-size:.92rem}
+.note{font-size:var(--s-1);color:var(--ink-soft);margin-top:18px}
+@media (max-width:860px){.calc{grid-template-columns:1fr}}
+@media (max-width:520px){.stats{grid-template-columns:1fr}.stats div + div{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:16px}}
+
+/* how to use */
+.howto{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:22px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start}
+.steps li::before{counter-increment:s;content:counter(s);display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--gold);color:var(--gold-ink);font-family:var(--font-display);font-weight:800;font-size:1.3rem}
+.steps h3{font-size:var(--s1);font-weight:700;margin-bottom:4px}
+.steps p{color:var(--ink-soft)}
+.dispose{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:30px;display:grid;gap:18px;align-content:start}
+.dispose h3{font-size:var(--s2)}
+.do,.dont{display:grid;gap:8px;padding:0;margin:0;list-style:none}
+.do li::before{content:"✓  ";color:var(--olive);font-weight:700}
+.dont li::before{content:"✕  ";color:var(--clay);font-weight:700}
+.dont li{color:var(--ink-soft)}
+@media (max-width:860px){.howto{grid-template-columns:1fr}}
+
+/* where to buy */
+.buy{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.stores{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
+.store{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:18px 20px;border:1.5px solid var(--band-soft);border-radius:14px;text-decoration:none;font-weight:600;transition:background .15s,color .15s}
+.store:hover{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
+.form{background:var(--surface);color:var(--ink);border-radius:24px;padding:30px;display:grid;gap:14px}
+.form h3{font-size:var(--s2)}
+.form label{font-weight:600;font-size:.92rem;display:grid;gap:6px}
+.form input,.form select,.form textarea{font:inherit;padding:.8em 1em;border-radius:12px;border:1.5px solid var(--line);background:var(--ground);color:var(--ink);width:100%}
+.form .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-ok{background:color-mix(in srgb, var(--olive) 16%, transparent);color:var(--ink);padding:14px 16px;border-radius:12px;font-weight:500}
+@media (max-width:860px){.buy{grid-template-columns:1fr}}
+@media (max-width:480px){.stores,.form .row{grid-template-columns:1fr}}
+
+/* faq */
+.faq{display:grid;gap:0;border-top:2px solid var(--ink);max-width:860px}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 40px 22px 0;font-family:var(--font-display);font-weight:600;font-size:var(--s1);position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:4px;top:18px;font-size:1.6rem;color:var(--olive);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 0 22px;color:var(--ink-soft);max-width:66ch}
+
+/* footer */
+footer{background:var(--band);color:var(--band-soft);padding-block:64px 36px}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:36px}
+.foot h4{font-family:var(--font-mono);font-size:var(--s-1);text-transform:uppercase;letter-spacing:.1em;color:var(--band-fg);margin:0 0 14px;font-weight:500}
+.foot ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--band-fg)}
+.news{display:flex;gap:8px;margin-top:10px}
+.news input{flex:1;min-width:0;font:inherit;padding:.75em 1em;border-radius:999px;border:1.5px solid var(--band-soft);background:transparent;color:var(--band-fg)}
+.legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:48px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);font-size:var(--s-1);font-family:var(--font-mono)}
+.big-word{font-family:var(--font-display);font-weight:800;"wdth" 75;font-size:clamp(4rem,19vw,15rem);line-height:.8;color:var(--band-fg);opacity:.07;letter-spacing:-.04em;margin-top:40px;user-select:none;white-space:nowrap;overflow:hidden}
+@media (max-width:860px){.foot{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.foot{grid-template-columns:1fr}}
+
+.wa{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:58px;height:58px;border-radius:50%;background:var(--olive);color:#fff;display:grid;place-items:center;box-shadow:0 12px 26px -10px rgba(0,0,0,.5);text-decoration:none}
+.wa svg{width:28px;height:28px}
+
+/* identidade */
+h1,h2,h3,.big,.bn,.bw,.result h3,.stats strong,.cats output,.steps li::before,.faq summary,.big-word,.prod h3{font-weight:400}
+h1,h2{letter-spacing:-.01em}
+.eyebrow{color:var(--gold-text);font-weight:600;letter-spacing:.18em}
+.logo{color:var(--ink);gap:12px}
+.logo .mark{width:auto;height:38px}
+.logo .word{width:auto;height:15px}
+footer .logo .mark{height:46px} footer .logo .word{height:18px}
+.top{background:color-mix(in srgb, var(--ground) 92%, transparent);backdrop-filter:blur(8px);color:var(--ink);border-bottom:1px solid var(--line)}
+body::before{background:var(--ground)}
+.nav a{color:var(--ink-soft)} .nav a:hover{color:var(--ink)}
+.nav .btn{color:var(--gold-ink)}
+.menu-btn{border-color:var(--line);color:var(--ink)}
+@media (max-width:860px){.nav{background:var(--ground);border-top:1px solid var(--line)}}
+.hero{background:var(--ground);color:var(--ink)}
+.hero h1 em{color:var(--gold-text)}
+.hero .lede,.facts,.box-tip{color:var(--ink-soft)}
+.facts li::before{color:var(--gold)}
+.box-tip b{color:var(--gold-text)}
+.box-frame{background:var(--band)}
+.tagline{font-family:var(--font-display);font-size:var(--s1);color:var(--band-fg);margin-top:18px}
+.prod .tag{color:var(--gold-text);font-weight:600;letter-spacing:.06em}
+.result .eyebrow{color:var(--gold-text)}
+.wa{background:var(--ink);color:var(--gold)}
+
+/* versões */
+.v-milho{--v:#1F3F86}
+.v-mista{--v:#2B6144}
+.v-mandioca{--v:#8E3B22}
+.prod{grid-template-rows:auto auto 1fr auto}
+.pack{background:color-mix(in srgb, var(--v) 12%, var(--surface));border-radius:12px;padding:22px;display:grid;place-items:center}
+.pack img{height:300px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 18px 22px rgba(0,0,0,.28));transition:transform .3s ease}
+.prod:hover .pack img{transform:translateY(-6px) rotate(-1.5deg)}
+.prod .tag{color:var(--ink);display:flex;align-items:center;gap:8px}
+.prod .tag i{width:12px;height:12px;border-radius:3px;background:var(--v);flex:none}
+.prod li::before{background:var(--v)}
+:root[data-theme="dark"] .prod li::before{background:color-mix(in srgb, var(--v) 60%, white)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .prod li::before{background:color-mix(in srgb, var(--v) 60%, white)}}
+.perks{list-style:none;margin:40px 0 0;padding:22px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.perks li{display:grid;gap:2px}
+.perks b{font-family:var(--font-display);font-weight:400;font-size:1.05rem}
+.perks span{color:var(--ink-soft);font-size:.9rem}
+@media (max-width:860px){.perks{grid-template-columns:repeat(2,1fr)}}
+.result{grid-template-columns:auto 1fr;align-items:center;gap:26px}
+.result img{height:220px;width:auto;filter:drop-shadow(0 14px 18px rgba(0,0,0,.3))}
+.r-txt{display:grid;gap:14px;min-width:0}
+@media (max-width:520px){.result{grid-template-columns:1fr}.result img{height:180px;justify-self:center}}
+.grain-pick{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:16px;font-size:var(--s-1);color:var(--ink-soft)}
+.grain-pick button{font:600 .85rem var(--font-body);padding:.5em 1em;border-radius:999px;border:1.5px solid var(--line);background:transparent;color:var(--ink);cursor:pointer}
+.grain-pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--ground)}
+@media (prefers-reduced-motion: reduce){.prod:hover .pack img{transform:none}}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="FELUX, início"><svg class="mark" viewBox="0 0 412 488" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M279.5 482.9C264.6 482.6 250.2 481.8 247.5 481.2C244.8 480.6 238.0 479.2 232.5 478.1C202.3 471.8 167.6 458.2 139.0 441.3C75.0 403.6 26.8 341.3 11.9 277.0C8.7 263.1 6.4 250.0 5.0 237.3C3.3 221.8 3.7 7.0 5.5 6.4C7.0 5.8 17.3 13.8 35.0 29.4C79.4 68.7 87.6 75.9 91.5 79.0C93.9 80.9 102.3 88.3 110.1 95.5C117.9 102.7 128.1 111.7 132.6 115.5C143.1 124.4 166.5 144.9 179.4 156.5C185.0 161.5 191.8 167.5 194.5 169.9C197.2 172.3 211.8 185.1 226.8 198.4C241.8 211.7 265.4 232.2 279.1 244.1C306.6 268.0 308.0 269.4 308.0 274.0C308.0 281.7 300.5 290.8 265.6 325.5C234.2 356.7 230.7 360.6 226.5 369.0C222.2 377.6 221.0 383.3 221.0 397.0C221.0 410.3 224.8 433.0 227.5 435.9C229.1 437.5 231.0 436.6 231.0 434.2C231.0 433.3 232.2 428.0 233.6 422.5C235.0 417.0 236.8 409.6 237.5 406.1C239.5 397.3 244.7 381.6 247.8 375.0C250.8 368.6 257.9 361.3 279.9 342.1C288.3 334.7 301.9 321.6 310.1 313.0C318.3 304.5 326.3 296.7 327.8 295.8C331.4 293.7 331.1 293.5 351.2 311.0C359.0 317.9 370.5 327.7 376.6 332.7C390.8 344.5 402.2 356.6 405.4 363.4L407.9 368.7L408.0 425.3C408.0 473.6 407.8 481.9 406.5 483.0C405.0 484.2 338.9 484.2 279.5 482.9ZM196.9 321.6C199.8 318.1 191.9 297.8 183.7 287.9C177.1 279.8 167.5 276.4 140.5 272.5C124.3 270.1 124.4 270.1 126.7 279.0C130.1 292.6 139.4 307.5 147.3 312.0C160.9 319.8 193.2 326.1 196.9 321.6Z"/><path fill="var(--gold)" d="M326.5 254.1C323.2 252.0 300.7 232.1 300.2 230.8C300.0 230.4 299.3 230.0 298.8 230.0C298.2 230.0 294.9 227.4 291.5 224.2C281.2 214.5 266.9 201.7 259.5 195.5C255.7 192.3 252.2 189.1 251.7 188.4C251.3 187.7 247.7 184.7 243.7 181.7C234.3 174.6 225.6 165.4 226.4 163.4C226.7 162.5 227.0 161.7 227.0 161.5C227.0 161.4 237.0 152.1 249.2 140.9C261.4 129.7 273.8 118.2 276.6 115.5C284.9 107.5 297.6 96.1 302.2 92.5C304.6 90.7 307.4 88.2 308.6 86.9C311.0 84.1 321.6 74.9 323.9 73.6C324.8 73.1 327.8 70.4 330.6 67.6C338.7 59.6 344.0 54.7 348.0 51.5C354.2 46.5 367.9 34.3 378.7 24.1C394.2 9.4 401.9 3.5 403.9 4.7C406.3 6.2 406.2 185.8 403.7 190.5C401.9 194.0 379.6 215.8 370.1 223.4C366.5 226.2 359.8 232.2 355.1 236.7C350.4 241.2 345.1 246.0 343.5 247.5C341.9 248.9 339.8 250.6 339.0 251.4C337.3 252.9 331.5 256.0 330.3 256.0C329.9 256.0 328.1 255.1 326.5 254.1Z"/></svg><svg class="word" viewBox="0 0 843 151" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M548.0 145.9C522.9 143.3 506.1 133.3 497.8 116.2L493.6 107.5L493.1 85.0C492.1 48.6 493.2 6.1 495.0 5.0C497.5 3.4 525.5 3.7 526.9 5.4C527.8 6.4 527.9 17.7 527.6 48.2C527.1 94.1 527.8 108.0 531.2 114.8C540.4 133.2 571.6 140.7 595.3 130.2C601.5 127.5 611.4 117.6 613.1 112.4C614.1 109.5 614.6 95.6 615.0 57.9C615.6 1.0 615.1 4.0 623.0 4.0C630.9 4.0 630.5 0.9 630.5 57.9C630.5 113.9 630.5 113.9 623.8 124.2C612.9 141.3 583.7 149.6 548.0 145.9ZM10.5 142.2C8.3 142.0 6.0 141.4 5.3 140.8C3.3 139.1 3.4 6.7 5.4 5.0C7.5 3.3 115.5 4.3 117.6 6.1C119.3 7.5 119.4 12.4 117.7 13.8C116.9 14.5 103.2 15.0 79.4 15.2C49.8 15.4 42.0 15.8 40.7 16.9C38.2 18.9 38.2 59.4 40.6 62.8C42.1 65.0 42.2 65.0 74.5 65.0C102.6 65.0 107.1 65.2 108.4 66.6C110.3 68.5 110.5 73.3 108.7 74.8C107.8 75.5 96.4 76.0 75.2 76.2C48.2 76.5 42.8 76.7 41.6 78.0C40.4 79.2 40.0 85.2 39.5 109.5C38.7 145.7 39.9 143.1 24.7 142.7C19.1 142.6 12.7 142.4 10.5 142.2ZM169.0 141.6C167.4 140.0 167.6 6.8 169.2 5.2C170.9 3.5 284.1 3.5 285.8 5.2C287.4 6.8 287.4 12.2 285.8 13.8C284.9 14.7 274.9 15.0 246.9 15.0C211.3 15.0 209.1 15.1 206.9 16.9C204.5 18.8 204.5 18.9 204.6 40.4C204.7 56.1 205.1 62.4 206.0 63.5C207.1 64.8 212.1 65.0 240.6 65.0C277.2 65.0 277.9 65.1 276.5 70.9C275.2 76.1 276.0 76.0 240.5 76.0C210.7 76.0 207.1 76.2 205.9 77.7C204.0 79.9 204.5 127.8 206.3 129.7C207.2 130.5 218.9 131.0 247.0 131.3L286.5 131.8L287.7 134.2C289.3 137.2 289.3 139.5 287.8 140.8C286.0 142.2 170.4 143.0 169.0 141.6ZM352.3 142.2C345.4 142.0 342.9 141.5 341.8 140.3C339.8 137.9 339.9 8.1 341.9 5.7C343.7 3.5 374.1 3.1 375.8 5.2C376.4 6.1 376.9 27.8 377.2 66.6C377.4 115.5 377.8 127.0 378.9 128.4C380.1 129.8 384.2 130.0 418.1 130.0C451.1 130.0 456.1 130.2 457.4 131.6C459.4 133.5 459.5 139.3 457.7 140.9C456.4 141.9 376.2 143.0 352.3 142.2ZM796.7 137.8C794.0 134.9 785.4 125.5 777.7 117.0C755.5 92.3 755.1 91.9 753.2 92.9C751.6 93.8 742.6 102.9 716.2 130.3L704.8 142.0L695.5 142.0C688.3 142.0 686.1 141.7 685.7 140.5C685.3 139.6 690.6 133.5 700.8 123.1C729.1 94.2 742.0 80.2 742.0 78.3C742.0 77.3 738.6 72.7 734.4 68.0C730.2 63.3 724.3 56.4 721.2 52.5C718.1 48.6 712.4 42.1 708.5 37.9C701.8 30.7 696.2 24.1 686.6 12.1C684.2 9.1 682.4 6.0 682.7 5.3C683.4 3.5 720.8 3.5 723.0 5.3C723.9 6.0 731.4 14.6 739.7 24.5C748.0 34.4 757.3 45.2 760.3 48.5L765.9 54.5L781.2 38.5C789.6 29.7 800.5 18.3 805.5 13.2L814.6 4.0L821.7 4.0C827.0 4.0 829.3 4.4 830.5 5.7C832.3 7.5 834.4 5.1 803.4 37.0C788.1 52.7 779.0 63.6 779.0 66.3C779.0 68.7 785.0 76.7 796.0 89.0C800.1 93.7 806.9 101.5 811.0 106.5C815.1 111.5 821.1 118.7 824.5 122.5C836.4 136.1 839.3 140.1 838.3 141.1C837.8 141.6 829.4 142.3 819.6 142.6L801.8 143.2L796.7 137.8Z"/></svg>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav">
+      <a href="#produtos">Produtos</a>
+      <a href="#quiz">Qual escolher</a>
+      <a href="#ciclo">Como funciona</a>
+      <a href="#impacto">Impacto</a>
+      <a href="#faq">Dúvidas</a>
+      <a class="btn btn-gold" href="#comprar">Onde comprar</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Conforto natural. Cuidado premium.</p>
+      <h1 style="margin-top:16px">A areia que <em>volta pra terra.</em></h1>
+      <p class="lede">FELUX é feita só de grãos vegetais. Forma torrões firmes em segundos, segura o cheiro e, depois de usada, vira adubo para o jardim em vez de ir para o aterro.</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="#produtos">Conhecer a linha</a>
+        <a class="btn btn-ghost" href="#quiz">Qual é a do meu gato?</a>
+      </div>
+      <ul class="facts">
+        <li>Milho + mandioca</li><li>100% vegetal</li>
+        <li>Torrão firme</li>
+        <li>Baixa poeira</li>
+        <li>Saco leve</li>
+      </ul>
+    </div>
+    <div class="box">
+      <div class="box-frame"><canvas id="sand" aria-label="Caixa de areia interativa: passe o dedo ou o mouse para molhar os grãos e clique para retirar o torrão" role="img"></canvas></div>
+      <div class="grain-pick" role="group" aria-label="Ver os grãos de cada versão">
+        <span>Ver grãos:</span>
+        <button type="button" data-v="milho" aria-pressed="false">Milho</button>
+        <button type="button" data-v="mista" aria-pressed="true">Mista</button>
+        <button type="button" data-v="mandioca" aria-pressed="false">Mandioca</button>
+      </div>
+      <div class="box-tip"><span><b>Experimente:</b> passe o mouse para formar o torrão, clique para tirar com a pá.</span><span class="counter" id="clumpCount">0 torrões retirados</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="receita">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">O que tem no saco</p>
+      <h2>Dois grãos brasileiros e nada que precise de mineração.</h2>
+      <p class="lede">A maioria das areias vem de argila bentonita, tirada do solo e que nunca se decompõe. A FELUX nasce da lavoura e termina na terra.</p>
+    </div>
+    <div class="recipe">
+      <div><span class="big">Milho</span><span class="pct">absorção rápida</span><p>O amido do milho em contato com o xixi gelifica e prende o líquido no centro do torrão, sem escorrer para o fundo da caixa.</p></div>
+      <div><span class="big">Mandioca</span><span class="pct">torrão que não esfarela</span><p>A fécula da mandioca dá liga. O torrão sai inteiro na pá e você usa menos areia a cada troca.</p></div>
+      <div><span class="big">Zero argila</span><span class="pct">sem sílica, sem bentonita</span><p>Nada de pó mineral no ar nem nas patinhas. O saco pesa menos e o descarte pode ir para a compostagem.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="produtos" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">A linha FELUX · 4 kg · granulação fina</p>
+      <h2>Uma cor por versão, o mesmo gato.</h2>
+      <p class="lede">Três receitas 100% vegetais, todas em grão fino e saco de 4 kg. O que muda é o grão de origem.</p>
+    </div>
+    <div class="products">
+      <article class="prod v-milho" id="prod-milho">
+        <div class="pack"><img src="assets/felux-milho-4kg-pack.webp" alt="Embalagem azul da FELUX 100% Milho, 4 kg, granulação fina" width="530" height="896" loading="lazy"></div>
+        <div><p class="tag"><i></i>100% Milho · Azul</p><h3>FELUX Milho</h3></div>
+        <ul><li>O amido do milho gelifica em contato com o xixi e absorve em segundos</li><li>Torrão formado antes do líquido chegar ao fundo da caixa</li><li>Feita com milho de fonte renovável</li></ul>
+        <div class="sizes">Embalagem <span>4 kg</span></div>
+      </article>
+      <article class="prod v-mista" id="prod-mista">
+        <div class="pack"><img src="assets/felux-mista-4kg-pack.webp" alt="Embalagem verde da FELUX Mista, milho e mandioca, 4 kg, granulação fina" width="530" height="896" loading="lazy"></div>
+        <div><p class="tag"><i></i>Milho + Mandioca · Verde</p><h3>FELUX Mista</h3></div>
+        <ul><li>A absorção rápida do milho com a liga da mandioca</li><li>A versão mais equilibrada para o dia a dia</li><li>Feita com milho e mandioca de fonte renovável</li></ul>
+        <div class="sizes">Embalagem <span>4 kg</span></div>
+      </article>
+      <article class="prod v-mandioca" id="prod-mandioca">
+        <div class="pack"><img src="assets/felux-mandioca-4kg-pack.webp" alt="Embalagem terracota da FELUX 100% Mandioca, 4 kg, granulação fina" width="530" height="896" loading="lazy"></div>
+        <div><p class="tag"><i></i>100% Mandioca · Terracota</p><h3>FELUX Mandioca</h3></div>
+        <ul><li>A fécula da mandioca dá liga e o torrão sai inteiro na pá</li><li>Grão claro, fácil de ver onde está o torrão</li><li>Feita com mandioca de fonte renovável</li></ul>
+        <div class="sizes">Embalagem <span>4 kg</span></div>
+      </article>
+    </div>
+    <ul class="perks">
+      <li><b>Alta absorção</b><span>torrões firmes e rápidos</span></li>
+      <li><b>Controle de odores</b><span>sem perfume sintético</span></li>
+      <li><b>Baixa poeira</b><span>mais limpeza no ambiente</span></li>
+      <li><b>100% vegetal</b><span>biodegradável</span></li>
+      <li><b>Embalagem reciclável</b><span>de fonte renovável</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec band" id="quiz">
+  <div class="wrap quiz">
+    <div>
+      <div class="sec-head" style="margin-bottom:32px">
+        <p class="eyebrow">Qual FELUX escolher</p>
+        <h2>Duas perguntas sobre a sua casa.</h2>
+      </div>
+      <form id="quizForm">
+        <fieldset class="q"><legend>O que mais importa na areia?</legend>
+          <div class="chips">
+            <input type="radio" name="pain" id="p1" value="milho" checked><label for="p1">Absorver rápido</label>
+            <input type="radio" name="pain" id="p2" value="mandioca"><label for="p2">Torrão que não esfarela</label>
+            <input type="radio" name="pain" id="p3" value="mista"><label for="p3">Um pouco de cada</label>
+          </div>
+        </fieldset>
+        <fieldset class="q"><legend>Quantos gatos usam a caixa?</legend>
+          <div class="chips">
+            <input type="radio" name="cats" id="c1" value="1" checked><label for="c1">Um</label>
+            <input type="radio" name="cats" id="c2" value="2"><label for="c2">Dois ou mais</label>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="result" aria-live="polite">
+      <img id="rImg" src="assets/felux-milho-4kg-pack.webp" alt="" width="530" height="896">
+      <div class="r-txt">
+        <p class="eyebrow">Recomendação</p>
+        <h3 id="rName">FELUX Milho</h3>
+        <p id="rWhy"></p>
+        <a class="btn btn-gold" id="rLink" href="#prod-milho" style="justify-self:start">Ver produto</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="comparar">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Lado a lado</p>
+      <h2>FELUX contra as areias de sempre.</h2>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col" class="us">FELUX</th><th scope="col">Argila (bentonita)</th><th scope="col">Sílica</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Matéria-prima</th><td class="us">Milho e mandioca, renováveis</td><td class="them">Argila extraída por mineração</td><td class="them">Sílica gel sintética</td></tr>
+          <tr><th scope="row">Biodegradável</th><td class="us">Sim</td><td class="them">Não</td><td class="them">Não</td></tr>
+          <tr><th scope="row">Poeira</th><td class="us">Baixa</td><td class="them">Alta, pó fino mineral</td><td class="them">Baixa</td></tr>
+          <tr><th scope="row">Peso do saco</th><td class="us">Leve</td><td class="them">Pesado</td><td class="them">Leve</td></tr>
+          <tr><th scope="row">Torrão</th><td class="us">Firme, sai inteiro</td><td class="them">Firme</td><td class="them">Não forma torrão</td></tr>
+          <tr><th scope="row">Depois de usada</th><td class="us">Compostagem ou lixo orgânico</td><td class="them">Aterro sanitário</td><td class="them">Aterro sanitário</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="sec band" id="ciclo">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Como funciona</p>
+      <h2>Da lavoura para a caixa, da caixa para a terra.</h2>
+      <p class="lede">O ciclo de um grão FELUX fecha em meses. O de um grão de argila não fecha nunca.</p>
+    </div>
+    <ol class="cycle">
+      <li><h3>Plantio</h3><p>Milho e mandioca cultivados no Brasil, culturas que se renovam a cada safra.</p></li>
+      <li><h3>Grão</h3><p>Os grãos são moídos e prensados em grânulos. Sem argila e sem sílica.</p></li>
+      <li><h3>Caixa</h3><p>O xixi vira torrão firme na hora. Você retira só a parte usada com a pá.</p></li>
+      <li><h3>Terra</h3><p>Na composteira ou no lixo orgânico, o grânulo se decompõe e volta ao solo.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="impacto">
+  <div class="wrap calc">
+    <div class="calc-in">
+      <p class="eyebrow">Calculadora de impacto</p>
+      <h2 style="font-size:var(--s3);font-weight:700;">Quanto a sua casa deixa de mandar pro aterro?</h2>
+      <label for="catsRange" style="font-weight:600">Gatos em casa</label>
+      <div class="cats"><output id="catsOut" for="catsRange">1</output><input type="range" id="catsRange" min="1" max="8" value="1"></div>
+    </div>
+    <div>
+      <div class="stats">
+        <div><strong id="sBags">9</strong><span>sacos FELUX de 4 kg por ano</span></div>
+        <div><strong id="sClay">72 kg</strong><span>de argila mineral que não são extraídos</span></div>
+        <div><strong id="sWeight">36 kg</strong><span>a menos carregados da loja até em casa</span></div>
+      </div>
+      <p class="note">Estimativa com base em consumo médio de 3 kg de areia vegetal por gato ao mês e 6 kg de argila para o mesmo período. O consumo real varia com a caixa e a rotina de limpeza.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="uso" style="padding-top:0">
+  <div class="wrap howto">
+    <div>
+      <div class="sec-head" style="margin-bottom:32px">
+        <p class="eyebrow">Modo de uso</p>
+        <h2>Rotina de dois minutos por dia.</h2>
+      </div>
+      <ol class="steps">
+        <li><div><h3>Encha a caixa</h3><p>Coloque de 5 a 7 cm de FELUX. Na troca de outra areia, misture as duas por uma semana para o gato se acostumar.</p></div></li>
+        <li><div><h3>Retire os torrões</h3><p>Uma ou duas vezes por dia, tire torrões e fezes com a pá.</p></div></li>
+        <li><div><h3>Complete</h3><p>Reponha a areia retirada para manter a altura.</p></div></li>
+        <li><div><h3>Troque tudo</h3><p>A cada 3 ou 4 semanas, descarte toda a areia e lave a caixa com água e sabão neutro.</p></div></li>
+      </ol>
+    </div>
+    <aside class="dispose">
+      <p class="eyebrow">Descarte consciente</p>
+      <h3>Para onde vai a areia usada</h3>
+      <ul class="do">
+        <li>Composteira dedicada ou lixo orgânico</li>
+        <li>Adubo para jardim ornamental e plantas de vaso</li>
+        <li>Saco biodegradável na coleta comum</li>
+      </ul>
+      <ul class="dont">
+        <li>Hortas e plantas que você vai comer</li>
+        <li>Grandes quantidades no vaso sanitário</li>
+        <li>Rios, bueiros ou terrenos baldios</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<section class="sec band" id="comprar">
+  <div class="wrap buy">
+    <div>
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="eyebrow">Onde comprar</p>
+        <h2>Encontre FELUX perto de você.</h2>
+        <p class="lede">Nas lojas parceiras online ou no pet shop do bairro. Não achou? Peça ao seu pet shop para falar com a gente.</p>
+      </div>
+      <div class="stores">
+        <a class="store" href="#comprar">Loja oficial <span aria-hidden="true">→</span></a>
+        <a class="store" href="#comprar">Mercado Livre <span aria-hidden="true">→</span></a>
+        <a class="store" href="#comprar">Amazon <span aria-hidden="true">→</span></a>
+        <a class="store" href="#comprar">Shopee <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <form class="form" id="resellForm" novalidate>
+      <p class="eyebrow">Para pet shops e distribuidores</p>
+      <h3>Revenda FELUX</h3>
+      <label for="fName">Nome da loja<input id="fName" name="loja" required autocomplete="organization"></label>
+      <div class="row">
+        <label for="fCity">Cidade / UF<input id="fCity" name="cidade" required></label>
+        <label for="fPhone">WhatsApp<input id="fPhone" name="whatsapp" inputmode="tel" required autocomplete="tel"></label>
+      </div>
+      <label for="fType">Tipo de negócio<select id="fType" name="tipo"><option>Pet shop</option><option>Clínica veterinária</option><option>Distribuidor</option><option>Loja online</option></select></label>
+      <button class="btn btn-gold" type="submit" style="justify-self:start">Quero revender</button>
+      <p class="form-ok" id="formOk" hidden></p>
+    </form>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Dúvidas</p>
+      <h2>Perguntas frequentes</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>Qual a diferença entre Milho, Mista e Mandioca?</summary><p>As três são 100% vegetais, em grão fino e saco de 4 kg. A de milho absorve mais rápido, a de mandioca forma o torrão mais firme e a Mista junta as duas qualidades. Se não souber qual escolher, comece pela Mista.</p></details>
+      <details><summary>FELUX é segura se o gato comer um pouco?</summary><p>É feita de milho e mandioca, sem argila, sílica ou perfumes sintéticos. Ainda assim é areia higiênica, não alimento. Se o gato estiver comendo areia com frequência, procure o veterinário.</p></details>
+      <details><summary>Posso jogar no vaso sanitário?</summary><p>Recomendamos o lixo orgânico ou a compostagem. Mesmo sendo biodegradável, grandes volumes podem entupir encanamentos antigos e nem todo sistema de esgoto trata esse tipo de resíduo.</p></details>
+      <details><summary>Ela tem cheiro?</summary><p>Não levamos perfume. O amido prende a umidade dentro do torrão, e é isso que controla o odor. Retirar os torrões todo dia faz o resto.</p></details>
+      <details><summary>Quanto tempo dura um saco de 4 kg?</summary><p>Para um gato, com limpeza diária dos torrões, em média de 4 a 5 semanas. Depende do tamanho da caixa e da rotina.</p></details>
+      <details><summary>Como faço a transição da areia de argila?</summary><p>Misture FELUX na areia antiga, aumentando a proporção ao longo de 7 dias. Gatos estranham mudanças bruscas de textura e cheiro.</p></details>
+      <details><summary>Atraem insetos ou mofo?</summary><p>Guarde o saco fechado em local seco e retire os torrões todos os dias. Assim a areia limpa fica seca e não atrai carunchos nem mofo.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="logo" href="#inicio" style="color:var(--band-fg)" aria-label="FELUX"><svg class="mark" viewBox="0 0 412 488" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M279.5 482.9C264.6 482.6 250.2 481.8 247.5 481.2C244.8 480.6 238.0 479.2 232.5 478.1C202.3 471.8 167.6 458.2 139.0 441.3C75.0 403.6 26.8 341.3 11.9 277.0C8.7 263.1 6.4 250.0 5.0 237.3C3.3 221.8 3.7 7.0 5.5 6.4C7.0 5.8 17.3 13.8 35.0 29.4C79.4 68.7 87.6 75.9 91.5 79.0C93.9 80.9 102.3 88.3 110.1 95.5C117.9 102.7 128.1 111.7 132.6 115.5C143.1 124.4 166.5 144.9 179.4 156.5C185.0 161.5 191.8 167.5 194.5 169.9C197.2 172.3 211.8 185.1 226.8 198.4C241.8 211.7 265.4 232.2 279.1 244.1C306.6 268.0 308.0 269.4 308.0 274.0C308.0 281.7 300.5 290.8 265.6 325.5C234.2 356.7 230.7 360.6 226.5 369.0C222.2 377.6 221.0 383.3 221.0 397.0C221.0 410.3 224.8 433.0 227.5 435.9C229.1 437.5 231.0 436.6 231.0 434.2C231.0 433.3 232.2 428.0 233.6 422.5C235.0 417.0 236.8 409.6 237.5 406.1C239.5 397.3 244.7 381.6 247.8 375.0C250.8 368.6 257.9 361.3 279.9 342.1C288.3 334.7 301.9 321.6 310.1 313.0C318.3 304.5 326.3 296.7 327.8 295.8C331.4 293.7 331.1 293.5 351.2 311.0C359.0 317.9 370.5 327.7 376.6 332.7C390.8 344.5 402.2 356.6 405.4 363.4L407.9 368.7L408.0 425.3C408.0 473.6 407.8 481.9 406.5 483.0C405.0 484.2 338.9 484.2 279.5 482.9ZM196.9 321.6C199.8 318.1 191.9 297.8 183.7 287.9C177.1 279.8 167.5 276.4 140.5 272.5C124.3 270.1 124.4 270.1 126.7 279.0C130.1 292.6 139.4 307.5 147.3 312.0C160.9 319.8 193.2 326.1 196.9 321.6Z"/><path fill="var(--gold)" d="M326.5 254.1C323.2 252.0 300.7 232.1 300.2 230.8C300.0 230.4 299.3 230.0 298.8 230.0C298.2 230.0 294.9 227.4 291.5 224.2C281.2 214.5 266.9 201.7 259.5 195.5C255.7 192.3 252.2 189.1 251.7 188.4C251.3 187.7 247.7 184.7 243.7 181.7C234.3 174.6 225.6 165.4 226.4 163.4C226.7 162.5 227.0 161.7 227.0 161.5C227.0 161.4 237.0 152.1 249.2 140.9C261.4 129.7 273.8 118.2 276.6 115.5C284.9 107.5 297.6 96.1 302.2 92.5C304.6 90.7 307.4 88.2 308.6 86.9C311.0 84.1 321.6 74.9 323.9 73.6C324.8 73.1 327.8 70.4 330.6 67.6C338.7 59.6 344.0 54.7 348.0 51.5C354.2 46.5 367.9 34.3 378.7 24.1C394.2 9.4 401.9 3.5 403.9 4.7C406.3 6.2 406.2 185.8 403.7 190.5C401.9 194.0 379.6 215.8 370.1 223.4C366.5 226.2 359.8 232.2 355.1 236.7C350.4 241.2 345.1 246.0 343.5 247.5C341.9 248.9 339.8 250.6 339.0 251.4C337.3 252.9 331.5 256.0 330.3 256.0C329.9 256.0 328.1 255.1 326.5 254.1Z"/></svg><svg class="word" viewBox="0 0 843 151" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M548.0 145.9C522.9 143.3 506.1 133.3 497.8 116.2L493.6 107.5L493.1 85.0C492.1 48.6 493.2 6.1 495.0 5.0C497.5 3.4 525.5 3.7 526.9 5.4C527.8 6.4 527.9 17.7 527.6 48.2C527.1 94.1 527.8 108.0 531.2 114.8C540.4 133.2 571.6 140.7 595.3 130.2C601.5 127.5 611.4 117.6 613.1 112.4C614.1 109.5 614.6 95.6 615.0 57.9C615.6 1.0 615.1 4.0 623.0 4.0C630.9 4.0 630.5 0.9 630.5 57.9C630.5 113.9 630.5 113.9 623.8 124.2C612.9 141.3 583.7 149.6 548.0 145.9ZM10.5 142.2C8.3 142.0 6.0 141.4 5.3 140.8C3.3 139.1 3.4 6.7 5.4 5.0C7.5 3.3 115.5 4.3 117.6 6.1C119.3 7.5 119.4 12.4 117.7 13.8C116.9 14.5 103.2 15.0 79.4 15.2C49.8 15.4 42.0 15.8 40.7 16.9C38.2 18.9 38.2 59.4 40.6 62.8C42.1 65.0 42.2 65.0 74.5 65.0C102.6 65.0 107.1 65.2 108.4 66.6C110.3 68.5 110.5 73.3 108.7 74.8C107.8 75.5 96.4 76.0 75.2 76.2C48.2 76.5 42.8 76.7 41.6 78.0C40.4 79.2 40.0 85.2 39.5 109.5C38.7 145.7 39.9 143.1 24.7 142.7C19.1 142.6 12.7 142.4 10.5 142.2ZM169.0 141.6C167.4 140.0 167.6 6.8 169.2 5.2C170.9 3.5 284.1 3.5 285.8 5.2C287.4 6.8 287.4 12.2 285.8 13.8C284.9 14.7 274.9 15.0 246.9 15.0C211.3 15.0 209.1 15.1 206.9 16.9C204.5 18.8 204.5 18.9 204.6 40.4C204.7 56.1 205.1 62.4 206.0 63.5C207.1 64.8 212.1 65.0 240.6 65.0C277.2 65.0 277.9 65.1 276.5 70.9C275.2 76.1 276.0 76.0 240.5 76.0C210.7 76.0 207.1 76.2 205.9 77.7C204.0 79.9 204.5 127.8 206.3 129.7C207.2 130.5 218.9 131.0 247.0 131.3L286.5 131.8L287.7 134.2C289.3 137.2 289.3 139.5 287.8 140.8C286.0 142.2 170.4 143.0 169.0 141.6ZM352.3 142.2C345.4 142.0 342.9 141.5 341.8 140.3C339.8 137.9 339.9 8.1 341.9 5.7C343.7 3.5 374.1 3.1 375.8 5.2C376.4 6.1 376.9 27.8 377.2 66.6C377.4 115.5 377.8 127.0 378.9 128.4C380.1 129.8 384.2 130.0 418.1 130.0C451.1 130.0 456.1 130.2 457.4 131.6C459.4 133.5 459.5 139.3 457.7 140.9C456.4 141.9 376.2 143.0 352.3 142.2ZM796.7 137.8C794.0 134.9 785.4 125.5 777.7 117.0C755.5 92.3 755.1 91.9 753.2 92.9C751.6 93.8 742.6 102.9 716.2 130.3L704.8 142.0L695.5 142.0C688.3 142.0 686.1 141.7 685.7 140.5C685.3 139.6 690.6 133.5 700.8 123.1C729.1 94.2 742.0 80.2 742.0 78.3C742.0 77.3 738.6 72.7 734.4 68.0C730.2 63.3 724.3 56.4 721.2 52.5C718.1 48.6 712.4 42.1 708.5 37.9C701.8 30.7 696.2 24.1 686.6 12.1C684.2 9.1 682.4 6.0 682.7 5.3C683.4 3.5 720.8 3.5 723.0 5.3C723.9 6.0 731.4 14.6 739.7 24.5C748.0 34.4 757.3 45.2 760.3 48.5L765.9 54.5L781.2 38.5C789.6 29.7 800.5 18.3 805.5 13.2L814.6 4.0L821.7 4.0C827.0 4.0 829.3 4.4 830.5 5.7C832.3 7.5 834.4 5.1 803.4 37.0C788.1 52.7 779.0 63.6 779.0 66.3C779.0 68.7 785.0 76.7 796.0 89.0C800.1 93.7 806.9 101.5 811.0 106.5C815.1 111.5 821.1 118.7 824.5 122.5C836.4 136.1 839.3 140.1 838.3 141.1C837.8 141.6 829.4 142.3 819.6 142.6L801.8 143.2L796.7 137.8Z"/></svg>
+        </a>
+        <p class="tagline">Natural comfort. Premium care.</p>
+        <p style="margin-top:10px;max-width:34ch">Areia higiênica biodegradável de milho e mandioca. Feita no Brasil para gatos e para o planeta.</p>
+      </div>
+      <div><h4>Produtos</h4><ul><li><a href="#prod-milho">FELUX Milho</a></li><li><a href="#prod-mista">FELUX Mista</a></li><li><a href="#prod-mandioca">FELUX Mandioca</a></li></ul></div>
+      <div><h4>FELUX</h4><ul><li><a href="#ciclo">Como funciona</a></li><li><a href="#impacto">Impacto</a></li><li><a href="#comprar">Revenda</a></li><li><a href="#faq">Dúvidas</a></li></ul></div>
+      <div>
+        <h4>Novidades e cupons</h4>
+        <form class="news" id="newsForm"><label for="newsMail" class="sr" style="position:absolute;left:-9999px">E-mail</label><input id="newsMail" type="email" placeholder="seu@email.com" required><button class="btn btn-gold" type="submit" style="padding:.7em 1.1em">Assinar</button></form>
+        <p id="newsOk" hidden style="margin-top:10px;color:var(--band-fg)"></p>
+        <p style="margin-top:16px">Instagram <span style="color:var(--band-fg)">@feluxpet</span></p>
+      </div>
+    </div>
+    <div class="big-word" aria-hidden="true">FELUX</div>
+    <div class="legal"><span>© 2026 FELUX · feluxpet.com.br</span><span>CNPJ 00.000.000/0001-00</span></div>
+  </div>
+</footer>
+
+<a class="wa" href="#comprar" aria-label="Fale com a FELUX pelo WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg></a>
+
+<script>
+(() => {
+  // menu
+  const menuBtn = document.getElementById('menuBtn'), nav = document.getElementById('nav');
+  menuBtn.addEventListener('click', () => { const o = nav.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', o); });
+  nav.addEventListener('click', e => { if (e.target.tagName === 'A') { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false); } });
+
+  // ---------- caixa de areia ----------
+  const cv = document.getElementById('sand'), ctx = cv.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  let W = 0, H = 0, dpr = 1, grains = [], pal = {}, pointer = null, scooped = 0, scoop = null;
+  const countEl = document.getElementById('clumpCount');
+
+  const PALS = {
+    milho:   {bg:'#E9D9B4', a:'#E2B24E', b:'#EBC56E', c:'#D29C3C', wet:'#7A5418'},
+    mista:   {bg:'#EDE2C8', a:'#E2B24E', b:'#F1E9D6', c:'#E6D8B8', wet:'#7A5E2C'},
+    mandioca:{bg:'#D8CCB2', a:'#F3EDDF', b:'#E9E0CC', c:'#F7F3EA', wet:'#8C7444'}
+  };
+  let ver = 'mista';
+  function readPalette(){ pal = PALS[ver]; }
+  function mk(x, y){
+    const r = Math.random();
+    return {x, y, hx:x, hy:y, rx:.9 + Math.random()*1.1, ry:.75 + Math.random()*.9, rot:Math.random()*Math.PI,
+            col: r < .45 ? 'a' : r < .8 ? 'c' : 'b', wet:0, vy:0, fall:false};
+  }
+  function resize(){
+    const r = cv.getBoundingClientRect(); dpr = Math.min(devicePixelRatio || 1, 2);
+    W = r.width; H = r.height; cv.width = W*dpr; cv.height = H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    const n = Math.round(W*H/6.5);
+    grains = Array.from({length:n}, () => mk(Math.random()*W, Math.random()*H));
+    seedClump(); draw();
+  }
+  // estado inicial: um torrão já formado, para a caixa nunca parecer vazia
+  function seedClump(){ const cx = W*.62, cy = H*.55, R = Math.max(38, W*.09);
+    for (const g of grains){ const d = Math.hypot(g.x-cx, g.y-cy); if (d < R*.9){ g.wet = 1 - d/R*.6; g.x += (cx-g.x)*.3; g.y += (cy-g.y)*.3; } } }
+  function lerpColor(a, b, t){
+    const p = h => [1,3,5].map(i => parseInt(h.slice(i,i+2),16));
+    const A = p(a), B = p(b); return `rgb(${A.map((v,i)=>Math.round(v+(B[i]-v)*t)).join(',')})`;
+  }
+  function draw(){
+    ctx.fillStyle = pal.bg; ctx.fillRect(0,0,W,H);
+    const groups = new Map();
+    for (const g of grains){
+      const w = g.wet > .02 ? Math.min(4, Math.ceil(g.wet*4)) : 0, key = g.col + w;
+      let arr = groups.get(key); if (!arr) groups.set(key, arr = []); arr.push(g);
+    }
+    [...groups.keys()].sort((a,b) => a.slice(1) - b.slice(1)).forEach(key => { // grãos molhados por cima
+      const w = +key.slice(1), col = key[0];
+      ctx.fillStyle = w ? lerpColor(pal[col], pal.wet, w/4) : pal[col];
+      ctx.beginPath();
+      for (const g of groups.get(key)){ ctx.moveTo(g.x + g.rx, g.y); ctx.ellipse(g.x, g.y, g.rx, g.ry, g.rot, 0, Math.PI*2); }
+      ctx.fill();
+    });
+    if (scoop){ // a pá
+      ctx.save(); ctx.translate(scoop.x, scoop.y); ctx.globalAlpha = Math.max(0, 1 - scoop.t/40);
+      ctx.strokeStyle = '#242424'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(0,0,scoop.r,0,Math.PI*2); ctx.stroke(); ctx.restore();
+    }
+  }
+  function step(){
+    const R = Math.max(38, W*.09);
+    for (const g of grains){
+      if (pointer){
+        const dx = pointer.x - g.x, dy = pointer.y - g.y, d = Math.hypot(dx,dy);
+        if (d < R){ g.wet = Math.min(1, g.wet + .06*(1-d/R)); g.x += dx*.035*g.wet; g.y += dy*.035*g.wet; }
+      }
+      if (g.fall){ g.vy += .35; g.y += g.vy; if (g.y >= g.hy){ g.y = g.hy; g.fall = false; g.vy = 0; } }
+    }
+    if (scoop){ scoop.t++; if (scoop.t > 40) scoop = null; }
+    if (pointer || scoop || grains.some(g => g.fall)) draw(); requestAnimationFrame(step);
+  }
+  function scoopAt(x, y){
+    const R = Math.max(38, W*.09); let hit = 0;
+    for (const g of grains){
+      if (g.wet > .25 && Math.hypot(g.x-x, g.y-y) < R*1.1){ // torrão sai e entra areia nova
+        hit++; const nx = Math.random()*W, ny = Math.random()*H; Object.assign(g, mk(nx, ny)); g.y = -10 - Math.random()*80; g.fall = true;
+      }
+    }
+    if (hit > 30){ scooped++; countEl.textContent = scooped + (scooped === 1 ? ' torrão retirado' : ' torrões retirados'); }
+    scoop = {x, y, r:R, t:0};
+  }
+  const pos = e => { const r = cv.getBoundingClientRect(); return {x:e.clientX - r.left, y:e.clientY - r.top}; };
+  cv.addEventListener('pointermove', e => { pointer = pos(e); });
+  cv.addEventListener('pointerdown', e => { pointer = pos(e); });
+  cv.addEventListener('pointerleave', () => { pointer = null; });
+  cv.addEventListener('click', e => { const p = pos(e); scoopAt(p.x, p.y); if (reduce) draw(); });
+
+  readPalette(); resize();
+  document.querySelectorAll('.grain-pick button').forEach(b => b.addEventListener('click', () => {
+    ver = b.dataset.v; readPalette(); draw();
+    document.querySelectorAll('.grain-pick button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  }));
+  if (!reduce) requestAnimationFrame(step);
+  addEventListener('resize', () => { clearTimeout(resize.t); resize.t = setTimeout(resize, 150); });
+  
+  // ---------- quiz ----------
+  const recs = {
+    milho:{name:'FELUX Milho', why:'O amido do milho prende o xixi em segundos e o torrão se forma antes do líquido escorrer para o fundo da caixa.'},
+    mandioca:{name:'FELUX Mandioca', why:'A fécula da mandioca dá liga: o torrão sai inteiro na pá, sem esfarelar. O grão claro ainda deixa fácil ver o que retirar.'},
+    mista:{name:'FELUX Mista', why:'Junta a absorção rápida do milho com a liga da mandioca. É a versão mais equilibrada para o dia a dia.'}
+  };
+  const qf = document.getElementById('quizForm');
+  function quiz(){
+    const f = new FormData(qf), k = f.get('pain'), r = recs[k];
+    document.getElementById('rName').textContent = r.name;
+    document.getElementById('rWhy').textContent = r.why + (f.get('cats') === '2' ? ' Com dois ou mais gatos, mantenha 7 cm de areia e retire os torrões duas vezes ao dia.' : '');
+    document.getElementById('rLink').href = '#prod-' + k;
+    const img = document.getElementById('rImg'); img.src = 'assets/felux-' + k + '-4kg-pack.webp'; img.alt = 'Embalagem ' + r.name;
+    document.querySelectorAll('.prod').forEach(p => p.classList.toggle('pick', p.id === 'prod-' + k));
+  }
+  qf.addEventListener('change', quiz); quiz();
+
+  // ---------- calculadora ----------
+  const rng = document.getElementById('catsRange'), out = document.getElementById('catsOut');
+  const fmt = n => n.toLocaleString('pt-BR');
+  function calc(){
+    const n = +rng.value, felux = 3*12*n, clay = 6*12*n;
+    out.textContent = n;
+    document.getElementById('sBags').textContent = fmt(Math.ceil(felux/4));
+    document.getElementById('sClay').textContent = fmt(clay) + ' kg';
+    document.getElementById('sWeight').textContent = fmt(clay - felux) + ' kg';
+  }
+  rng.addEventListener('input', calc); calc();
+
+  // ---------- formulários ----------
+  document.getElementById('resellForm').addEventListener('submit', e => {
+    e.preventDefault(); const f = e.target, ok = document.getElementById('formOk');
+    const miss = [...f.querySelectorAll('[required]')].find(i => !i.value.trim());
+    if (miss){ ok.hidden = false; ok.textContent = 'Preencha o campo "' + miss.parentElement.firstChild.textContent.trim() + '" para continuar.'; miss.focus(); return; }
+    ok.hidden = false; ok.textContent = 'Recebemos o cadastro de ' + f.loja.value.trim() + '. Nosso time comercial chama no WhatsApp em até 2 dias úteis.'; f.reset();
+  });
+  document.getElementById('newsForm').addEventListener('submit', e => {
+    e.preventDefault(); const m = document.getElementById('newsMail'), ok = document.getElementById('newsOk');
+    ok.hidden = false; ok.textContent = m.checkValidity() ? 'Pronto, você vai receber as novidades da FELUX.' : 'Digite um e-mail válido, como nome@email.com.';
+    if (m.checkValidity()) m.value = '';
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "felux-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site da FELUX, areia higiênica biodegradável (feluxpet.com.br)",
+  "scripts": { "start": "node server.js", "build": "sh build.sh" },
+  "engines": { "node": ">=18" }
+}
