@@ -41,9 +41,16 @@ function readData() {
   }
   d.products.forEach(p => { if (!p.page) p.page = (byId[p.id] && byId[p.id].page) || null; });
   // versões salvas antes das fotos extras recebem as fotos padrão (ex.: foto real do grão)
-  d.products.forEach(p => (p.variants || []).forEach(v => {
-    if (!Array.isArray(v.gallery)) { const dv = byId[p.id] && (byId[p.id].variants || []).find(x => x.id === v.id); v.gallery = dv ? dv.gallery || [] : []; }
-  }));
+  d.products.forEach(p => (p.variants || []).forEach(v => { if (!Array.isArray(v.gallery)) v.gallery = []; }));
+  // fotos padrão novas entram uma vez nos dados salvos; se forem removidas no painel, não voltam
+  const applied = new Set(d.appliedDefaults || []);
+  def.products.forEach(dp => (dp.variants || []).forEach(dv => (dv.gallery || []).forEach(g => {
+    const key = `${dp.id}/${dv.id}/${g}`; if (applied.has(key)) return;
+    const sp = d.products.find(x => x.id === dp.id), sv = sp && (sp.variants || []).find(x => x.id === dv.id);
+    if (sv && !sv.gallery.includes(g)) sv.gallery.push(g);
+    applied.add(key);
+  })));
+  d.appliedDefaults = [...applied];
   // imagem gerada antiga do bloco dos Grãos Mistos vira a foto real, se ninguém trocou
   d.products.forEach(p => ((p.page && p.page.sections) || []).forEach(s => { if (s.image === 'assets/scenes/torrao-mistos.webp') s.image = 'assets/photos/mistos-milho-grao-wide.webp'; }));
   if (!d.settings.cycle) d.settings.cycle = def.settings.cycle;
@@ -90,6 +97,7 @@ function clean(input) {
   });
   const seen = new Set(); products.forEach(p => { while (seen.has(p.id)) p.id += '-2'; seen.add(p.id); });
   return {
+    appliedDefaults: (Array.isArray(input.appliedDefaults) ? input.appliedDefaults : []).filter(x => typeof x === 'string').slice(0, 200),
     settings: {
       whatsapp: str(s.whatsapp, 20).replace(/\D/g, ''),
       whatsappMessage: str(s.whatsappMessage, 200),

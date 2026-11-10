@@ -62,7 +62,7 @@ def make(name, seed, gran='finos'):
     g=fine_grains((W,H),PAL[name],seed,gran)
     tp=f'assets/source/grao-{gran}-{name}.jpg'
     if os.path.exists(tp):  # foto real do grão na janela
-        t=Image.open(tp).convert('RGB'); k=0.5; t=t.resize((int(t.width*k),int(t.height*k)),Image.LANCZOS)
+        t=Image.open(tp).convert('RGB'); k=max(0.5,520/t.width); t=t.resize((int(t.width*k),int(t.height*k)),Image.LANCZOS)
         g=g.copy(); g.paste(t,(290,740))
     # sombra das patas e da borda superior da janela
     top=Image.new('L',(W,H),0); ImageDraw.Draw(top).polygon(poly,fill=255)

@@ -181,7 +181,9 @@
           "salePrice": null,
           "buyUrl": "",
           "inStock": true,
-          "gallery": []
+          "gallery": [
+            "assets/photos/mistos-mandioca-grao.webp"
+          ]
         },
         {
           "id": "mista",
