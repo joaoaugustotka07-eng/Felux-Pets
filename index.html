@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="FELUX: areia higiênica biodegradável para gatos, feita de milho e mandioca. Torrão firme, baixa poeira e descarte na compostagem.">
+<meta name="description" content="FELUX: areia higiênica vegetal para gatos, feita de milho e mandioca. Torrão firme, baixa poeira e descarte no lixo orgânico.">
 <meta name="theme-color" content="#F7F4EE">
 <link rel="canonical" href="https://feluxpet.com.br/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://feluxpet.com.br/">
-<meta property="og:title" content="FELUX | A areia que volta pra terra">
-<meta property="og:description" content="Areia higiênica biodegradável de milho e mandioca para gatos.">
+<meta property="og:title" content="FELUX | Areia higiênica vegetal para gatos">
+<meta property="og:description" content="Três versões 100% vegetais: Milho, Mista e Mandioca.">
 <link rel="icon" href="assets/felux-simbolo.svg" type="image/svg+xml">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"FELUX","url":"https://feluxpet.com.br/","description":"Areia higiênica biodegradável de milho e mandioca para gatos."}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"FELUX","url":"https://feluxpet.com.br/","description":"Areia higiênica vegetal de milho e mandioca para gatos."}</script>
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>FELUX | Areia higiênica biodegradável para gatos</title>
+<title>FELUX | Areia higiênica vegetal para gatos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Figtree:wght@400;500;600;700&display=swap">
@@ -171,11 +171,91 @@ footer{border-top:1px solid var(--line);padding-block:28px}
 
 .wa{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:56px;height:56px;border-radius:50%;background:var(--ink);color:var(--gold);display:grid;place-items:center;box-shadow:0 12px 26px -10px rgba(0,0,0,.5);text-decoration:none}
 .wa svg{width:28px;height:28px}
+
+/* cartões: conhecer + comprar */
+.prod{grid-template-rows:auto auto auto auto 1fr auto}
+.prod a.pack{text-decoration:none}
+.prod h3 a{text-decoration:none}
+.prod h3 a:hover{text-decoration:underline;text-underline-offset:4px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.actions .btn{padding:.8em .6em}
+.prod .actions{padding-bottom:14px;border-bottom:1px solid var(--line)}
+
+/* natureza em ciclo */
+.cycle-sec{padding-block:56px;border-top:1px solid var(--line)}
+.cycle{display:grid;grid-template-columns:.8fr 1.2fr;gap:20px 56px}
+.cycle h2{font-size:var(--s3);margin-top:10px}
+.cycle-text{display:grid;gap:12px;color:var(--ink-soft);font-size:1.05rem;max-width:62ch}
+.steps{grid-column:1/-1;list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);counter-reset:st}
+.steps li{position:relative;display:grid;gap:2px;padding:16px 16px 0 0;border-top:2px solid var(--gold)}
+.steps li::before{counter-increment:st;content:"0" counter(st);font-size:var(--s-1);font-weight:600;color:var(--gold-text);letter-spacing:.1em}
+.steps b{font-family:var(--font-display);font-weight:400;font-size:1.3rem}
+.steps span{color:var(--ink-soft);font-size:.92rem}
+@media (max-width:760px){.cycle{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr;gap:18px}}
+
+/* página do produto */
+#pdp{padding-top:18px}
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;font-size:.9rem;color:var(--ink-soft);margin-bottom:18px}
+.crumbs a{text-decoration:none}
+.crumbs a:hover{color:var(--ink)}
+.crumbs span:last-child{color:var(--ink);font-weight:600}
+.pdp-top{display:grid;grid-template-columns:1.05fr 1fr;gap:28px 56px;align-items:start}
+.pdp-img{position:relative;background:color-mix(in srgb, var(--v) 12%, var(--surface));border-radius:var(--radius);padding:36px;display:grid;place-items:center;min-width:0}
+.pdp-img img{height:min(560px,62vh);width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 22px 26px rgba(0,0,0,.28))}
+.pdp-info{display:grid;gap:16px;align-content:start;min-width:0;padding-top:8px}
+.pdp-info h1{font-size:clamp(2.2rem,4.4vw,3.3rem)}
+.chip{justify-self:start;background:color-mix(in srgb, var(--v) 16%, var(--surface));color:var(--ink);border-radius:999px;padding:.45em 1em;font-weight:600;font-size:.92rem}
+.pdp-info .price .now{font-size:2rem}
+.pdp-info .actions{max-width:420px}
+.tabs{display:flex;gap:28px;border-bottom:2px solid var(--line);margin-top:10px}
+.tabs button{background:none;border:0;padding:10px 0;margin-bottom:-2px;border-bottom:3px solid transparent;font:600 1rem var(--font-body);color:var(--ink-soft);cursor:pointer}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tabpanel{display:grid;gap:12px;color:var(--ink-soft);max-width:60ch}
+.tabpanel ul{margin:0;padding-left:1.1em;display:grid;gap:4px}
+.specs{margin:0;display:grid}
+.specs div{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.specs dt{color:var(--ink-soft)}
+.specs dd{margin:0;color:var(--ink);font-weight:500}
+.statement{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,3rem);line-height:1.12;text-align:center;text-wrap:balance;max-width:20ch;margin:88px auto 64px}
+.features{display:grid;gap:72px}
+.feature{display:grid;grid-template-columns:1.2fr 1fr;gap:24px 56px;align-items:center}
+.feature.flip .f-img{order:2}
+.f-img{min-width:0}
+.f-img img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:var(--radius)}
+.feature.round .f-img img{aspect-ratio:1;border-radius:50%;max-width:420px;margin-inline:auto}
+.f-txt{display:grid;gap:14px;min-width:0}
+.f-txt h2{font-size:clamp(1.7rem,3vw,2.3rem)}
+.f-txt p{color:var(--ink-soft);font-size:1.08rem;max-width:46ch}
+.tip{margin:72px auto 0;max-width:760px;border:1.5px dashed var(--gold);border-radius:var(--radius);padding:22px 26px;display:grid;gap:6px}
+.tip b{font-size:var(--s-1);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-text)}
+.tip p{font-family:var(--font-display);font-size:1.3rem;line-height:1.35}
+.quote{background:var(--band);color:var(--band-fg);padding-block:72px;margin-top:80px}
+.quote blockquote{margin:0 auto;max-width:30ch;font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.3;text-align:center;text-wrap:balance}
+#pdp .cycle-sec{border-top:0}
+.others{padding-block:8px 72px}
+.others h2{font-size:var(--s2);margin-bottom:18px}
+.others-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.other{display:grid;grid-template-columns:110px 1fr;gap:18px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;text-decoration:none}
+.other:hover{border-color:var(--ink)}
+.o-img{background:color-mix(in srgb, var(--v) 12%, var(--surface));border-radius:10px;padding:10px;display:grid;place-items:center}
+.o-img img{height:130px;width:auto}
+.other > span:last-child{display:grid;gap:6px}
+.other b{font-family:var(--font-display);font-weight:400;font-size:1.4rem}
+.back{display:inline-block;margin-top:22px;font-weight:600;text-decoration:none}
+@media (max-width:860px){
+  .pdp-top{grid-template-columns:1fr}
+  .pdp-img img{height:380px}
+  .statement{margin:56px auto 40px}
+  .features{gap:48px}
+  .feature,.feature.flip{grid-template-columns:1fr}
+  .feature.flip .f-img{order:0}
+  .others-grid{grid-template-columns:1fr}
+}
 </style>
 
-<a class="announce" id="announce" href="#produtos" hidden></a>
 </head>
 <body>
+<a class="announce" id="announce" href="#produtos" hidden></a>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="#produtos" aria-label="FELUX, produtos"><svg class="mark" viewBox="0 0 412 488" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M279.5 482.9C264.6 482.6 250.2 481.8 247.5 481.2C244.8 480.6 238.0 479.2 232.5 478.1C202.3 471.8 167.6 458.2 139.0 441.3C75.0 403.6 26.8 341.3 11.9 277.0C8.7 263.1 6.4 250.0 5.0 237.3C3.3 221.8 3.7 7.0 5.5 6.4C7.0 5.8 17.3 13.8 35.0 29.4C79.4 68.7 87.6 75.9 91.5 79.0C93.9 80.9 102.3 88.3 110.1 95.5C117.9 102.7 128.1 111.7 132.6 115.5C143.1 124.4 166.5 144.9 179.4 156.5C185.0 161.5 191.8 167.5 194.5 169.9C197.2 172.3 211.8 185.1 226.8 198.4C241.8 211.7 265.4 232.2 279.1 244.1C306.6 268.0 308.0 269.4 308.0 274.0C308.0 281.7 300.5 290.8 265.6 325.5C234.2 356.7 230.7 360.6 226.5 369.0C222.2 377.6 221.0 383.3 221.0 397.0C221.0 410.3 224.8 433.0 227.5 435.9C229.1 437.5 231.0 436.6 231.0 434.2C231.0 433.3 232.2 428.0 233.6 422.5C235.0 417.0 236.8 409.6 237.5 406.1C239.5 397.3 244.7 381.6 247.8 375.0C250.8 368.6 257.9 361.3 279.9 342.1C288.3 334.7 301.9 321.6 310.1 313.0C318.3 304.5 326.3 296.7 327.8 295.8C331.4 293.7 331.1 293.5 351.2 311.0C359.0 317.9 370.5 327.7 376.6 332.7C390.8 344.5 402.2 356.6 405.4 363.4L407.9 368.7L408.0 425.3C408.0 473.6 407.8 481.9 406.5 483.0C405.0 484.2 338.9 484.2 279.5 482.9ZM196.9 321.6C199.8 318.1 191.9 297.8 183.7 287.9C177.1 279.8 167.5 276.4 140.5 272.5C124.3 270.1 124.4 270.1 126.7 279.0C130.1 292.6 139.4 307.5 147.3 312.0C160.9 319.8 193.2 326.1 196.9 321.6Z"/><path fill="var(--gold)" d="M326.5 254.1C323.2 252.0 300.7 232.1 300.2 230.8C300.0 230.4 299.3 230.0 298.8 230.0C298.2 230.0 294.9 227.4 291.5 224.2C281.2 214.5 266.9 201.7 259.5 195.5C255.7 192.3 252.2 189.1 251.7 188.4C251.3 187.7 247.7 184.7 243.7 181.7C234.3 174.6 225.6 165.4 226.4 163.4C226.7 162.5 227.0 161.7 227.0 161.5C227.0 161.4 237.0 152.1 249.2 140.9C261.4 129.7 273.8 118.2 276.6 115.5C284.9 107.5 297.6 96.1 302.2 92.5C304.6 90.7 307.4 88.2 308.6 86.9C311.0 84.1 321.6 74.9 323.9 73.6C324.8 73.1 327.8 70.4 330.6 67.6C338.7 59.6 344.0 54.7 348.0 51.5C354.2 46.5 367.9 34.3 378.7 24.1C394.2 9.4 401.9 3.5 403.9 4.7C406.3 6.2 406.2 185.8 403.7 190.5C401.9 194.0 379.6 215.8 370.1 223.4C366.5 226.2 359.8 232.2 355.1 236.7C350.4 241.2 345.1 246.0 343.5 247.5C341.9 248.9 339.8 250.6 339.0 251.4C337.3 252.9 331.5 256.0 330.3 256.0C329.9 256.0 328.1 255.1 326.5 254.1Z"/></svg><svg class="word" viewBox="0 0 843 151" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M548.0 145.9C522.9 143.3 506.1 133.3 497.8 116.2L493.6 107.5L493.1 85.0C492.1 48.6 493.2 6.1 495.0 5.0C497.5 3.4 525.5 3.7 526.9 5.4C527.8 6.4 527.9 17.7 527.6 48.2C527.1 94.1 527.8 108.0 531.2 114.8C540.4 133.2 571.6 140.7 595.3 130.2C601.5 127.5 611.4 117.6 613.1 112.4C614.1 109.5 614.6 95.6 615.0 57.9C615.6 1.0 615.1 4.0 623.0 4.0C630.9 4.0 630.5 0.9 630.5 57.9C630.5 113.9 630.5 113.9 623.8 124.2C612.9 141.3 583.7 149.6 548.0 145.9ZM10.5 142.2C8.3 142.0 6.0 141.4 5.3 140.8C3.3 139.1 3.4 6.7 5.4 5.0C7.5 3.3 115.5 4.3 117.6 6.1C119.3 7.5 119.4 12.4 117.7 13.8C116.9 14.5 103.2 15.0 79.4 15.2C49.8 15.4 42.0 15.8 40.7 16.9C38.2 18.9 38.2 59.4 40.6 62.8C42.1 65.0 42.2 65.0 74.5 65.0C102.6 65.0 107.1 65.2 108.4 66.6C110.3 68.5 110.5 73.3 108.7 74.8C107.8 75.5 96.4 76.0 75.2 76.2C48.2 76.5 42.8 76.7 41.6 78.0C40.4 79.2 40.0 85.2 39.5 109.5C38.7 145.7 39.9 143.1 24.7 142.7C19.1 142.6 12.7 142.4 10.5 142.2ZM169.0 141.6C167.4 140.0 167.6 6.8 169.2 5.2C170.9 3.5 284.1 3.5 285.8 5.2C287.4 6.8 287.4 12.2 285.8 13.8C284.9 14.7 274.9 15.0 246.9 15.0C211.3 15.0 209.1 15.1 206.9 16.9C204.5 18.8 204.5 18.9 204.6 40.4C204.7 56.1 205.1 62.4 206.0 63.5C207.1 64.8 212.1 65.0 240.6 65.0C277.2 65.0 277.9 65.1 276.5 70.9C275.2 76.1 276.0 76.0 240.5 76.0C210.7 76.0 207.1 76.2 205.9 77.7C204.0 79.9 204.5 127.8 206.3 129.7C207.2 130.5 218.9 131.0 247.0 131.3L286.5 131.8L287.7 134.2C289.3 137.2 289.3 139.5 287.8 140.8C286.0 142.2 170.4 143.0 169.0 141.6ZM352.3 142.2C345.4 142.0 342.9 141.5 341.8 140.3C339.8 137.9 339.9 8.1 341.9 5.7C343.7 3.5 374.1 3.1 375.8 5.2C376.4 6.1 376.9 27.8 377.2 66.6C377.4 115.5 377.8 127.0 378.9 128.4C380.1 129.8 384.2 130.0 418.1 130.0C451.1 130.0 456.1 130.2 457.4 131.6C459.4 133.5 459.5 139.3 457.7 140.9C456.4 141.9 376.2 143.0 352.3 142.2ZM796.7 137.8C794.0 134.9 785.4 125.5 777.7 117.0C755.5 92.3 755.1 91.9 753.2 92.9C751.6 93.8 742.6 102.9 716.2 130.3L704.8 142.0L695.5 142.0C688.3 142.0 686.1 141.7 685.7 140.5C685.3 139.6 690.6 133.5 700.8 123.1C729.1 94.2 742.0 80.2 742.0 78.3C742.0 77.3 738.6 72.7 734.4 68.0C730.2 63.3 724.3 56.4 721.2 52.5C718.1 48.6 712.4 42.1 708.5 37.9C701.8 30.7 696.2 24.1 686.6 12.1C684.2 9.1 682.4 6.0 682.7 5.3C683.4 3.5 720.8 3.5 723.0 5.3C723.9 6.0 731.4 14.6 739.7 24.5C748.0 34.4 757.3 45.2 760.3 48.5L765.9 54.5L781.2 38.5C789.6 29.7 800.5 18.3 805.5 13.2L814.6 4.0L821.7 4.0C827.0 4.0 829.3 4.4 830.5 5.7C832.3 7.5 834.4 5.1 803.4 37.0C788.1 52.7 779.0 63.6 779.0 66.3C779.0 68.7 785.0 76.7 796.0 89.0C800.1 93.7 806.9 101.5 811.0 106.5C815.1 111.5 821.1 118.7 824.5 122.5C836.4 136.1 839.3 140.1 838.3 141.1C837.8 141.6 829.4 142.3 819.6 142.6L801.8 143.2L796.7 137.8Z"/></svg></a>
@@ -188,7 +268,7 @@ footer{border-top:1px solid var(--line);padding-block:28px}
   </div>
 </header>
 
-<main>
+<main id="home">
 <section class="catalog" id="produtos">
   <div class="wrap">
     <div class="intro">
@@ -198,33 +278,31 @@ footer{border-top:1px solid var(--line);padding-block:28px}
       </div>
       <p class="sub">Três versões 100% vegetais, de milho e mandioca. Torrão firme, baixa poeira e descarte no lixo orgânico.</p>
     </div>
-
-    <div class="products">
-      <article class="prod" id="prod-milho" style="--v:#1F3F86">
-        <div class="pack"><img src="assets/felux-milho-4kg-pack.webp" alt="Embalagem FELUX Milho 4 kg" width="530" height="896"></div>
-        <div><p class="tag"><i></i>100% Milho · Azul</p><h3>FELUX Milho</h3></div>
-        <div class="buy-row"><div class="price"><span class="ask">Consulte o preço</span></div><a class="btn btn-gold js-wa" href="#comprar">Comprar</a></div>
-        <ul><li>Absorve o xixi em segundos</li><li>Torrão forma antes de chegar ao fundo</li><li>Milho de fonte renovável</li></ul>
-        <div class="sizes">Embalagem <span>4 kg</span></div>
-      </article>
-      <article class="prod" id="prod-mista" style="--v:#2B6144">
-        <div class="pack"><img src="assets/felux-mista-4kg-pack.webp" alt="Embalagem FELUX Mista 4 kg" width="530" height="896"></div>
-        <div><p class="tag"><i></i>Milho + Mandioca · Verde</p><h3>FELUX Mista</h3></div>
-        <div class="buy-row"><div class="price"><span class="ask">Consulte o preço</span></div><a class="btn btn-gold js-wa" href="#comprar">Comprar</a></div>
-        <ul><li>Absorção do milho com a liga da mandioca</li><li>A mais equilibrada para o dia a dia</li><li>Milho e mandioca de fonte renovável</li></ul>
-        <div class="sizes">Embalagem <span>4 kg</span></div>
-      </article>
-      <article class="prod" id="prod-mandioca" style="--v:#8E3B22">
-        <div class="pack"><img src="assets/felux-mandioca-4kg-pack.webp" alt="Embalagem FELUX Mandioca 4 kg" width="530" height="896"></div>
-        <div><p class="tag"><i></i>100% Mandioca · Terracota</p><h3>FELUX Mandioca</h3></div>
-        <div class="buy-row"><div class="price"><span class="ask">Consulte o preço</span></div><a class="btn btn-gold js-wa" href="#comprar">Comprar</a></div>
-        <ul><li>Torrão firme, sai inteiro na pá</li><li>Grão claro, fácil de ver o que retirar</li><li>Mandioca de fonte renovável</li></ul>
-        <div class="sizes">Embalagem <span>4 kg</span></div>
-      </article>
-    </div>
-
-    <p class="guide"><span>Qual escolher?</span><span><b>Absorver rápido:</b> Milho</span><span><b>Equilíbrio:</b> Mista</span><span><b>Torrão mais firme:</b> Mandioca</span></p>
-
+    <div class="products" id="grid"><article class="prod" style="--v:#1F3F86">
+      <a class="pack" href="#milho" aria-label="Conhecer FELUX Milho"><img src="assets/felux-milho-4kg-pack.webp" alt="Embalagem FELUX Milho" width="530" height="896"></a>
+      <div><p class="tag"><i></i>100% Milho · Azul</p><h3><a href="#milho">FELUX Milho</a></h3></div>
+      <div class="price"><span class="ask">Consulte o preço</span></div>
+      <div class="actions"><a class="btn btn-ghost" href="#milho">Quero conhecer</a><a class="btn btn-gold js-wa" href="#comprar">Comprar</a></div>
+      <ul><li>O amido do milho gelifica em contato com o xixi e absorve em segundos</li><li>Torrão formado antes do líquido chegar ao fundo da caixa</li><li>Feita com milho de fonte renovável</li></ul>
+      <div class="sizes">Embalagem <span>4 kg</span></div>
+    </article>
+      <article class="prod" style="--v:#2B6144">
+      <a class="pack" href="#mista" aria-label="Conhecer FELUX Mista"><img src="assets/felux-mista-4kg-pack.webp" alt="Embalagem FELUX Mista" width="530" height="896"></a>
+      <div><p class="tag"><i></i>Milho + Mandioca · Verde</p><h3><a href="#mista">FELUX Mista</a></h3></div>
+      <div class="price"><span class="ask">Consulte o preço</span></div>
+      <div class="actions"><a class="btn btn-ghost" href="#mista">Quero conhecer</a><a class="btn btn-gold js-wa" href="#comprar">Comprar</a></div>
+      <ul><li>A absorção rápida do milho com a liga da mandioca</li><li>A versão mais equilibrada para o dia a dia</li><li>Feita com milho e mandioca de fonte renovável</li></ul>
+      <div class="sizes">Embalagem <span>4 kg</span></div>
+    </article>
+      <article class="prod" style="--v:#8E3B22">
+      <a class="pack" href="#mandioca" aria-label="Conhecer FELUX Mandioca"><img src="assets/felux-mandioca-4kg-pack.webp" alt="Embalagem FELUX Mandioca" width="530" height="896"></a>
+      <div><p class="tag"><i></i>100% Mandioca · Terracota</p><h3><a href="#mandioca">FELUX Mandioca</a></h3></div>
+      <div class="price"><span class="ask">Consulte o preço</span></div>
+      <div class="actions"><a class="btn btn-ghost" href="#mandioca">Quero conhecer</a><a class="btn btn-gold js-wa" href="#comprar">Comprar</a></div>
+      <ul><li>A fécula da mandioca dá liga e o torrão sai inteiro na pá</li><li>Grão claro, fácil de ver onde está o torrão</li><li>Feita com mandioca de fonte renovável</li></ul>
+      <div class="sizes">Embalagem <span>4 kg</span></div>
+    </article></div>
+    <p class="guide"><span>Qual escolher?</span><span><b>Absorver rápido:</b> Milho</span><span><b>Equilíbrio:</b> Mista</span><span><b>Mínimo rastro:</b> Mandioca</span></p>
     <ul class="perks">
       <li><b>Alta absorção</b><span>torrões firmes e rápidos</span></li>
       <li><b>Controle de odores</b><span>sem perfume sintético</span></li>
@@ -233,6 +311,10 @@ footer{border-top:1px solid var(--line);padding-block:28px}
       <li><b>Embalagem reciclável</b><span>de fonte renovável</span></li>
     </ul>
   </div>
+</section>
+
+<section class="cycle-sec" id="ciclo">
+  <div class="wrap" data-cycle></div>
 </section>
 
 <section class="band" id="comprar">
@@ -245,9 +327,6 @@ footer{border-top:1px solid var(--line);padding-block:28px}
     <div>
       <div class="stores" id="stores">
         <a class="store js-wa" href="#comprar">WhatsApp <span aria-hidden="true">→</span></a>
-        <a class="store" href="#comprar">Mercado Livre <span aria-hidden="true">→</span></a>
-        <a class="store" href="#comprar">Amazon <span aria-hidden="true">→</span></a>
-        <a class="store" href="#comprar">Shopee <span aria-hidden="true">→</span></a>
       </div>
       <p class="resell">Pet shop ou distribuidor? <a class="js-wa" data-msg="Olá! Tenho interesse em revender FELUX." href="#comprar">Seja um revendedor</a></p>
     </div>
@@ -258,7 +337,7 @@ footer{border-top:1px solid var(--line);padding-block:28px}
   <div class="wrap">
     <div><p class="eyebrow">Dúvidas</p><h2>Perguntas frequentes</h2></div>
     <div class="faq">
-      <details open><summary>Qual a diferença entre Milho, Mista e Mandioca?</summary><p>As três são 100% vegetais, em grão fino e saco de 4 kg. A de milho absorve mais rápido, a de mandioca forma o torrão mais firme e a Mista junta as duas. Na dúvida, comece pela Mista.</p></details>
+      <details open><summary>Qual a diferença entre Milho, Mista e Mandioca?</summary><p>As três são 100% vegetais, em grão fino e saco de 4 kg. A de milho forma o torrão em instantes, a de mandioca deixa o mínimo de rastro e a Mista equilibra as duas. Na dúvida, comece pela Mista.</p></details>
       <details><summary>Quanto dura um saco de 4 kg?</summary><p>Para um gato, retirando os torrões todo dia, em média de 4 a 5 semanas.</p></details>
       <details><summary>Como descarto a areia usada?</summary><p>No lixo orgânico ou em composteira. Não use em hortas e evite jogar grandes quantidades no vaso sanitário.</p></details>
       <details><summary>Como faço a troca da areia antiga?</summary><p>Misture FELUX na areia que o gato já usa e aumente a quantidade ao longo de 7 dias.</p></details>
@@ -266,6 +345,8 @@ footer{border-top:1px solid var(--line);padding-block:28px}
   </div>
 </section>
 </main>
+
+<main id="pdp" hidden></main>
 
 <footer>
   <div class="wrap foot">
@@ -278,54 +359,136 @@ footer{border-top:1px solid var(--line);padding-block:28px}
 
 <a class="wa js-wa" href="#comprar" aria-label="Falar com a FELUX pelo WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg></a>
 
+<script type="application/json" id="felux-data">{"settings":{"whatsapp":"","whatsappMessage":"Olá! Quero comprar a areia FELUX.","instagram":"@feluxpet","cnpj":"00.000.000/0001-00","announcement":{"active":false,"text":"Frete grátis para compras acima de R$ 150","link":"#produtos"},"stores":[{"name":"Loja oficial","url":""},{"name":"Mercado Livre","url":""},{"name":"Amazon","url":""},{"name":"Shopee","url":""}],"coupons":[{"code":"BEMVINDO10","text":"10% na primeira compra","active":false}],"cycle":{"title":"Natureza em ciclo","text":"A FELUX promove o ciclo da natureza e o seu gato pode fazer parte disso. Tudo começa com a planta nascendo da terra e se transformando em uma areia macia e segura para ele. O seu gato usa, o torrão se forma e depois volta para a terra, nutrindo o novo ciclo.\n\nE essa escolha começa com você. No momento em que decide colocar a FELUX na caixa do seu gato, você dá o primeiro passo para que a natureza continue em ciclo, e para que ele faça parte disso todos os dias."}},"products":[{"id":"milho","name":"FELUX Milho","tag":"100% Milho · Azul","color":"#1F3F86","image":"assets/felux-milho-4kg-pack.webp","weight":"4 kg","bullets":["O amido do milho gelifica em contato com o xixi e absorve em segundos","Torrão formado antes do líquido chegar ao fundo da caixa","Feita com milho de fonte renovável"],"price":null,"salePrice":null,"badge":"","buyUrl":"","inStock":true,"active":true,"page":{"chip":"Torrão em instantes","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Milho forma o torrão em instantes e segura o odor dentro dele. Feita apenas de milho, tem grãos finos e macios, baixa poeira e é 100% vegetal.","sections":[{"title":"Fez xixi, tem torrão. Tem torrão, não tem cheiro.","text":"O torrão se forma em instantes e sai inteiro. Menos areia jogada fora, mais tempo de caixa limpa.","image":"assets/scenes/torrao-milho.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/scenes/gato.webp","round":true},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/scenes/caixa-milho.webp","round":false}],"tip":"Use um tapete anti-rastro na saída da caixa. Assim os grãos ficam retidos nele, e não na sua sala.","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Composição","value":"100% milho"},{"label":"Granulação","value":"Fina"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]}},{"id":"mista","name":"FELUX Mista","tag":"Milho + Mandioca · Verde","color":"#2B6144","image":"assets/felux-mista-4kg-pack.webp","weight":"4 kg","bullets":["A absorção rápida do milho com a liga da mandioca","A versão mais equilibrada para o dia a dia","Feita com milho e mandioca de fonte renovável"],"price":null,"salePrice":null,"badge":"","buyUrl":"","inStock":true,"active":true,"page":{"chip":"Equilíbrio","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Mista une milho e mandioca: o torrão fica firme num instante, o odor fica retido e menos areia se espalha pela casa. Grãos finos, baixa poeira e 100% vegetal.","sections":[{"title":"O equilíbrio perfeito","text":"Os grânulos mistos equilibram economia com menos rastro. Fez xixi: odor retido e torrão pronto. Torrão firme num instante e menos areia espalhada pela casa.","image":"assets/scenes/torrao-mista.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para ele ficar protegido até quando se lambe durante o banho.","image":"assets/scenes/gato.webp","round":true},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/scenes/caixa-mista.webp","round":false}],"tip":"Use um tapete anti-rastro na saída da caixa. Assim os grãos ficam retidos nele, e não na sua sala.","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Composição","value":"Milho e mandioca"},{"label":"Granulação","value":"Fina, grãos mistos"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]}},{"id":"mandioca","name":"FELUX Mandioca","tag":"100% Mandioca · Terracota","color":"#8E3B22","image":"assets/felux-mandioca-4kg-pack.webp","weight":"4 kg","bullets":["A fécula da mandioca dá liga e o torrão sai inteiro na pá","Grão claro, fácil de ver onde está o torrão","Feita com mandioca de fonte renovável"],"price":null,"salePrice":null,"badge":"","buyUrl":"","inStock":true,"active":true,"page":{"chip":"Mínimo rastro","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Mandioca forma o torrão rapidamente e mantém os grãos dentro da caixa. Feita apenas de mandioca, tem grão claro e macio, baixa poeira e é 100% vegetal.","sections":[{"title":"Mínimo rastro, máxima tranquilidade","text":"O torrão se forma rapidamente e os grãos ficam onde devem: na caixa, e não pela casa.","image":"assets/scenes/torrao-mandioca.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos que o seu gato aprova, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/scenes/gato.webp","round":true},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você fica feliz em vê-lo assim, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa para todos curtirem.","image":"assets/scenes/caixa-mandioca.webp","round":false}],"tip":"Para deixar tudo ainda mais limpo, use um tapete anti-rastro na saída da caixa.","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Composição","value":"100% mandioca"},{"label":"Granulação","value":"Fina"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]}}]}</script>
 <script>
 (() => {
-  // Dados do painel (/admin). Sem servidor (ex.: prévia), a página fica com o conteúdo fixo acima.
+  // Conteúdo vem do painel (/admin) pela rota api/site. Sem servidor (ex.: prévia), usa os dados embutidos acima.
+  const $ = s => document.querySelector(s);
   const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const brl = n => n.toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
   const ext = href => /^https?:/.test(href) ? ' target="_blank" rel="noopener"' : '';
-  function waLink(s, text){
-    let n = (s.whatsapp || '').replace(/\D/g, ''); if (!n) return '';
+  const paras = t => String(t || '').split(/\n\s*\n/).map(x => `<p>${esc(x)}</p>`).join('');
+  let data = JSON.parse(document.getElementById('felux-data').textContent);
+  data.products = data.products.filter(p => p.active !== false);
+
+  function waLink(text){
+    const s = data.settings; let n = (s.whatsapp || '').replace(/\D/g, ''); if (!n) return '';
     if (n.length <= 11) n = '55' + n;
     return 'https://wa.me/' + n + '?text=' + encodeURIComponent(text || s.whatsappMessage || 'Olá!');
   }
-  function card(p, s){
+  function priceHTML(p){
     const sale = p.price != null && p.salePrice != null && p.salePrice < p.price;
-    const price = p.price == null ? '<span class="ask">Consulte o preço</span>'
-      : sale ? `<span class="now">${brl(p.salePrice)}</span><span class="old">${brl(p.price)}</span><span class="off">-${Math.round((1 - p.salePrice/p.price)*100)}%</span>`
-      : `<span class="now">${brl(p.price)}</span>`;
-    const buy = p.buyUrl || waLink(s, `Olá! Quero comprar ${p.name}${p.weight ? ' ' + p.weight : ''}.`) || '#comprar';
-    const notify = waLink(s, `Olá! Quero ser avisado quando ${p.name} voltar ao estoque.`) || '#comprar';
-    const btn = p.inStock ? `<a class="btn btn-gold" href="${esc(buy)}"${ext(buy)}>Comprar</a>` : `<a class="btn btn-ghost" href="${esc(notify)}"${ext(notify)}>Avise-me</a>`;
-    return `<article class="prod${p.inStock ? '' : ' soldout'}" id="prod-${esc(p.id)}" style="--v:${esc(p.color)}">
-      <div class="pack">${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${p.image ? `<img src="${esc(p.image)}" alt="Embalagem ${esc(p.name)}" width="530" height="896">` : ''}</div>
-      <div><p class="tag"><i></i>${esc(p.tag)}</p><h3>${esc(p.name)}</h3></div>
-      <div class="buy-row"><div class="price">${price}</div>${btn}</div>
+    if (p.price == null) return '<span class="ask">Consulte o preço</span>';
+    return sale ? `<span class="now">${brl(p.salePrice)}</span><span class="old">${brl(p.price)}</span><span class="off">-${Math.round((1 - p.salePrice/p.price)*100)}%</span>` : `<span class="now">${brl(p.price)}</span>`;
+  }
+  function buyBtn(p, cls = ''){
+    if (!p.inStock){ const l = waLink(`Olá! Quero ser avisado quando ${p.name} voltar ao estoque.`) || '#comprar'; return `<a class="btn btn-ghost ${cls}" href="${esc(l)}"${ext(l)}>Avise-me</a>`; }
+    const l = p.buyUrl || waLink(`Olá! Quero comprar ${p.name}${p.weight ? ' ' + p.weight : ''}.`) || '#comprar';
+    return `<a class="btn btn-gold ${cls}" href="${esc(l)}"${ext(l)}>Comprar</a>`;
+  }
+  const card = p => `<article class="prod${p.inStock ? '' : ' soldout'}" style="--v:${esc(p.color)}">
+      <a class="pack" href="#${esc(p.id)}" aria-label="Conhecer ${esc(p.name)}">${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${p.image ? `<img src="${esc(p.image)}" alt="Embalagem ${esc(p.name)}" width="530" height="896">` : ''}</a>
+      <div><p class="tag"><i></i>${esc(p.tag)}</p><h3><a href="#${esc(p.id)}">${esc(p.name)}</a></h3></div>
+      <div class="price">${priceHTML(p)}</div>
+      <div class="actions"><a class="btn btn-ghost" href="#${esc(p.id)}">Quero conhecer</a>${buyBtn(p)}</div>
       <ul>${p.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>
       ${p.weight ? `<div class="sizes">Embalagem <span>${esc(p.weight)}</span>${p.inStock ? '' : '<span>Esgotado</span>'}</div>` : ''}
     </article>`;
+
+  const STEPS = [['Planta','nasce da terra'],['Areia','macia e segura para ele'],['Torrão','se forma na caixa'],['Terra','volta e nutre o novo ciclo']];
+  const cycleHTML = (c, full) => !c || !c.text ? '' : `<div class="cycle">
+      <div><p class="eyebrow">O ciclo FELUX</p><h2>${esc(c.title || 'Natureza em ciclo')}</h2></div>
+      <div class="cycle-text">${full ? paras(c.text) : `<p>${esc(c.text.split(/\n\s*\n/)[0])}</p>`}</div>
+      <ol class="steps">${STEPS.map(([t, d]) => `<li><b>${t}</b><span>${d}</span></li>`).join('')}</ol>
+    </div>`;
+
+  function renderHome(){
+    if (data.products.length) $('#grid').innerHTML = data.products.map(card).join('');
+    $('[data-cycle]').innerHTML = cycleHTML(data.settings.cycle, false);
   }
-  fetch('api/site', {cache:'no-store'}).then(r => r.ok ? r.json() : Promise.reject()).then(({settings: s, products}) => {
-    if (products.length) document.querySelector('#produtos .products').innerHTML = products.map(p => card(p, s)).join('');
-    const ann = s.announcement;
-    if (ann && ann.active && ann.text){ const a = document.getElementById('announce'); a.textContent = ann.text; a.href = ann.link || '#produtos'; a.hidden = false; }
-    const wa = waLink(s);
-    if (s.stores && s.stores.length){
-      document.getElementById('stores').innerHTML = (wa ? `<a class="store" href="${esc(wa)}"${ext(wa)}>WhatsApp <span aria-hidden="true">→</span></a>` : '') +
-        s.stores.filter(x => x.url).map(x => `<a class="store" href="${esc(x.url)}"${ext(x.url)}>${esc(x.name)} <span aria-hidden="true">→</span></a>`).join('');
+
+  function renderPDP(p){
+    const pg = p.page || {}, others = data.products.filter(x => x.id !== p.id);
+    const wa = waLink(`Olá! Tenho uma dúvida sobre ${p.name}.`);
+    $('#pdp').innerHTML = `
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Você está em"><a href="#produtos">Início</a><span aria-hidden="true">›</span><a href="#produtos">Areias</a><span aria-hidden="true">›</span><span>${esc(p.name)}${p.weight ? ' ' + esc(p.weight) : ''}</span></nav>
+      <section class="pdp-top" style="--v:${esc(p.color)}">
+        <div class="pdp-img">${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${p.image ? `<img src="${esc(p.image)}" alt="Embalagem ${esc(p.name)}" width="530" height="896">` : ''}</div>
+        <div class="pdp-info">
+          <p class="tag"><i></i>${esc(p.tag)}</p>
+          <h1>${esc(p.name)}</h1>
+          ${pg.chip ? `<span class="chip">${esc(pg.chip)}</span>` : ''}
+          <div class="price">${priceHTML(p)}</div>
+          <div class="actions">${buyBtn(p)}${wa ? `<a class="btn btn-ghost" href="${esc(wa)}" target="_blank" rel="noopener">Tirar dúvida</a>` : ''}</div>
+          <div class="tabs" role="tablist">
+            <button role="tab" id="t-desc" aria-selected="true" aria-controls="p-desc">Descrição</button>
+            <button role="tab" id="t-spec" aria-selected="false" aria-controls="p-spec">Especificações</button>
+          </div>
+          <div class="tabpanel" id="p-desc" role="tabpanel" aria-labelledby="t-desc">${paras(pg.description)}${p.bullets.length ? `<ul>${p.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>` : ''}</div>
+          <div class="tabpanel" id="p-spec" role="tabpanel" aria-labelledby="t-spec" hidden><dl class="specs">${(pg.specs || []).map(s => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}</dl></div>
+        </div>
+      </section>
+      ${pg.statement ? `<p class="statement">${esc(pg.statement)}</p>` : ''}
+      <div class="features">${(pg.sections || []).map((s, i) => `
+        <section class="feature${s.round ? ' round' : ''}${i % 2 ? ' flip' : ''}">
+          ${s.image ? `<div class="f-img"><img src="${esc(s.image)}" alt="" loading="lazy"></div>` : ''}
+          <div class="f-txt"><h2>${esc(s.title)}</h2>${paras(s.text)}</div>
+        </section>`).join('')}
+      </div>
+      ${pg.tip ? `<aside class="tip"><b>Dica da FELUX</b><p>${esc(pg.tip)}</p></aside>` : ''}
+    </div>
+    ${pg.quote ? `<section class="quote"><div class="wrap"><blockquote>“${esc(pg.quote)}”</blockquote></div></section>` : ''}
+    <section class="cycle-sec"><div class="wrap">${cycleHTML(data.settings.cycle, true)}</div></section>
+    ${others.length ? `<section class="others"><div class="wrap"><h2>Conheça também</h2><div class="others-grid">${others.map(o => `
+      <a class="other" href="#${esc(o.id)}" style="--v:${esc(o.color)}"><span class="o-img">${o.image ? `<img src="${esc(o.image)}" alt="" loading="lazy">` : ''}</span><span><span class="tag"><i></i>${esc(o.tag)}</span><b>${esc(o.name)}</b><span class="price">${priceHTML(o)}</span></span></a>`).join('')}
+      </div><a class="back" href="#produtos">← Ver todas as areias</a></div></section>` : ''}`;
+    $('#pdp').querySelectorAll('[role=tab]').forEach(t => t.addEventListener('click', () => {
+      $('#pdp').querySelectorAll('[role=tab]').forEach(x => { const on = x === t; x.setAttribute('aria-selected', on); document.getElementById(x.getAttribute('aria-controls')).hidden = !on; });
+    }));
+  }
+
+  function renderShared(){
+    const s = data.settings, ann = s.announcement;
+    const a = $('#announce'); a.hidden = !(ann && ann.active && ann.text); if (!a.hidden){ a.textContent = ann.text; a.href = ann.link || '#produtos'; }
+    const wa = waLink();
+    if (s.stores && s.stores.some(x => x.url) || wa){
+      $('#stores').innerHTML = (wa ? `<a class="store" href="${esc(wa)}"${ext(wa)}>WhatsApp <span aria-hidden="true">→</span></a>` : '') +
+        (s.stores || []).filter(x => x.url).map(x => `<a class="store" href="${esc(x.url)}"${ext(x.url)}>${esc(x.name)} <span aria-hidden="true">→</span></a>`).join('');
     }
-    document.querySelectorAll('.js-wa').forEach(a => { const l = waLink(s, a.dataset.msg); if (l){ a.href = l; a.target = '_blank'; a.rel = 'noopener'; } });
+    document.querySelectorAll('.js-wa').forEach(el => { const l = waLink(el.dataset.msg); if (l){ el.href = l; el.target = '_blank'; el.rel = 'noopener'; } });
+    document.querySelector('.coupons')?.remove();
     const cps = (s.coupons || []).filter(c => c.active);
     if (cps.length){
       const box = document.createElement('div'); box.className = 'coupons';
       box.innerHTML = cps.map(c => `<div class="coupon"><code>${esc(c.code)}</code><span>${esc(c.text)}</span><button type="button" data-code="${esc(c.code)}">Copiar</button></div>`).join('');
       box.addEventListener('click', e => { const b = e.target.closest('[data-code]'); if (!b) return;
         navigator.clipboard.writeText(b.dataset.code).then(() => { b.textContent = 'Copiado'; }, () => { b.textContent = b.dataset.code; }); });
-      document.getElementById('stores').after(box);
+      $('#stores').after(box);
     }
-    if (s.instagram) document.getElementById('igOut').textContent = s.instagram;
-    if (s.cnpj) document.getElementById('cnpjOut').textContent = 'CNPJ ' + s.cnpj;
-  }).catch(() => {});
+    if (s.instagram) $('#igOut').textContent = s.instagram;
+    if (s.cnpj) $('#cnpjOut').textContent = 'CNPJ ' + s.cnpj;
+  }
+
+  // ---------- navegação: #milho abre a página do produto; outros links voltam ao catálogo ----------
+  const baseTitle = document.title;
+  function route(scroll = true){
+    const id = location.hash.slice(1), p = data.products.find(x => x.id === id);
+    $('#home').hidden = !!p; $('#pdp').hidden = !p;
+    if (p){
+      renderPDP(p); document.title = p.name + ' | FELUX';
+      if (scroll) window.scrollTo(0, 0);
+    } else {
+      document.title = baseTitle;
+      const el = id && document.getElementById(id);
+      if (scroll && el) requestAnimationFrame(() => el.scrollIntoView());
+    }
+  }
+  addEventListener('hashchange', () => route(true));
+
+  function renderAll(scroll){ renderHome(); renderShared(); route(scroll); }
+  renderAll(true);
+  fetch('api/site', {cache:'no-store'}).then(r => r.ok ? r.json() : Promise.reject()).then(d => { data = d; renderAll(false); }).catch(() => {});
 })();
 </script>
 </body>

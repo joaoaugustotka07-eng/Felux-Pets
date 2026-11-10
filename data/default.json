@@ -4,35 +4,269 @@
     "whatsappMessage": "Olá! Quero comprar a areia FELUX.",
     "instagram": "@feluxpet",
     "cnpj": "00.000.000/0001-00",
-    "announcement": { "active": false, "text": "Frete grátis para compras acima de R$ 150", "link": "#produtos" },
+    "announcement": {
+      "active": false,
+      "text": "Frete grátis para compras acima de R$ 150",
+      "link": "#produtos"
+    },
     "stores": [
-      { "name": "Loja oficial", "url": "" },
-      { "name": "Mercado Livre", "url": "" },
-      { "name": "Amazon", "url": "" },
-      { "name": "Shopee", "url": "" }
+      {
+        "name": "Loja oficial",
+        "url": ""
+      },
+      {
+        "name": "Mercado Livre",
+        "url": ""
+      },
+      {
+        "name": "Amazon",
+        "url": ""
+      },
+      {
+        "name": "Shopee",
+        "url": ""
+      }
     ],
     "coupons": [
-      { "code": "BEMVINDO10", "text": "10% na primeira compra", "active": false }
-    ]
+      {
+        "code": "BEMVINDO10",
+        "text": "10% na primeira compra",
+        "active": false
+      }
+    ],
+    "cycle": {
+      "title": "Natureza em ciclo",
+      "text": "A FELUX promove o ciclo da natureza e o seu gato pode fazer parte disso. Tudo começa com a planta nascendo da terra e se transformando em uma areia macia e segura para ele. O seu gato usa, o torrão se forma e depois volta para a terra, nutrindo o novo ciclo.\n\nE essa escolha começa com você. No momento em que decide colocar a FELUX na caixa do seu gato, você dá o primeiro passo para que a natureza continue em ciclo, e para que ele faça parte disso todos os dias."
+    }
   },
   "products": [
     {
-      "id": "milho", "name": "FELUX Milho", "tag": "100% Milho · Azul", "color": "#1F3F86",
-      "image": "assets/felux-milho-4kg-pack.webp", "weight": "4 kg",
-      "bullets": ["O amido do milho gelifica em contato com o xixi e absorve em segundos", "Torrão formado antes do líquido chegar ao fundo da caixa", "Feita com milho de fonte renovável"],
-      "price": null, "salePrice": null, "badge": "", "buyUrl": "", "inStock": true, "active": true
+      "id": "milho",
+      "name": "FELUX Milho",
+      "tag": "100% Milho · Azul",
+      "color": "#1F3F86",
+      "image": "assets/felux-milho-4kg-pack.webp",
+      "weight": "4 kg",
+      "bullets": [
+        "O amido do milho gelifica em contato com o xixi e absorve em segundos",
+        "Torrão formado antes do líquido chegar ao fundo da caixa",
+        "Feita com milho de fonte renovável"
+      ],
+      "price": null,
+      "salePrice": null,
+      "badge": "",
+      "buyUrl": "",
+      "inStock": true,
+      "active": true,
+      "page": {
+        "chip": "Torrão em instantes",
+        "statement": "Para todo gato. Até aquele que finge que não liga.",
+        "description": "A FELUX Milho forma o torrão em instantes e segura o odor dentro dele. Feita apenas de milho, tem grãos finos e macios, baixa poeira e é 100% vegetal.",
+        "sections": [
+          {
+            "title": "Fez xixi, tem torrão. Tem torrão, não tem cheiro.",
+            "text": "O torrão se forma em instantes e sai inteiro. Menos areia jogada fora, mais tempo de caixa limpa.",
+            "image": "assets/scenes/torrao-milho.webp",
+            "round": false
+          },
+          {
+            "title": "Aprovada pelo chefe da casa",
+            "text": "Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.",
+            "image": "assets/scenes/gato.webp",
+            "round": true
+          },
+          {
+            "title": "Todo mundo sai ganhando",
+            "text": "Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.",
+            "image": "assets/scenes/caixa-milho.webp",
+            "round": false
+          }
+        ],
+        "tip": "Use um tapete anti-rastro na saída da caixa. Assim os grãos ficam retidos nele, e não na sua sala.",
+        "quote": "O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.",
+        "specs": [
+          {
+            "label": "Peso líquido",
+            "value": "4 kg"
+          },
+          {
+            "label": "Composição",
+            "value": "100% milho"
+          },
+          {
+            "label": "Granulação",
+            "value": "Fina"
+          },
+          {
+            "label": "Poeira",
+            "value": "Baixa"
+          },
+          {
+            "label": "Perfume",
+            "value": "Sem perfume sintético"
+          },
+          {
+            "label": "Descarte",
+            "value": "Lixo orgânico ou compostagem"
+          },
+          {
+            "label": "Embalagem",
+            "value": "Reciclável, de fonte renovável"
+          }
+        ]
+      }
     },
     {
-      "id": "mista", "name": "FELUX Mista", "tag": "Milho + Mandioca · Verde", "color": "#2B6144",
-      "image": "assets/felux-mista-4kg-pack.webp", "weight": "4 kg",
-      "bullets": ["A absorção rápida do milho com a liga da mandioca", "A versão mais equilibrada para o dia a dia", "Feita com milho e mandioca de fonte renovável"],
-      "price": null, "salePrice": null, "badge": "", "buyUrl": "", "inStock": true, "active": true
+      "id": "mista",
+      "name": "FELUX Mista",
+      "tag": "Milho + Mandioca · Verde",
+      "color": "#2B6144",
+      "image": "assets/felux-mista-4kg-pack.webp",
+      "weight": "4 kg",
+      "bullets": [
+        "A absorção rápida do milho com a liga da mandioca",
+        "A versão mais equilibrada para o dia a dia",
+        "Feita com milho e mandioca de fonte renovável"
+      ],
+      "price": null,
+      "salePrice": null,
+      "badge": "",
+      "buyUrl": "",
+      "inStock": true,
+      "active": true,
+      "page": {
+        "chip": "Equilíbrio",
+        "statement": "Para todo gato. Até aquele que finge que não liga.",
+        "description": "A FELUX Mista une milho e mandioca: o torrão fica firme num instante, o odor fica retido e menos areia se espalha pela casa. Grãos finos, baixa poeira e 100% vegetal.",
+        "sections": [
+          {
+            "title": "O equilíbrio perfeito",
+            "text": "Os grânulos mistos equilibram economia com menos rastro. Fez xixi: odor retido e torrão pronto. Torrão firme num instante e menos areia espalhada pela casa.",
+            "image": "assets/scenes/torrao-mista.webp",
+            "round": false
+          },
+          {
+            "title": "Aprovada pelo chefe da casa",
+            "text": "Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para ele ficar protegido até quando se lambe durante o banho.",
+            "image": "assets/scenes/gato.webp",
+            "round": true
+          },
+          {
+            "title": "Todo mundo sai ganhando",
+            "text": "Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.",
+            "image": "assets/scenes/caixa-mista.webp",
+            "round": false
+          }
+        ],
+        "tip": "Use um tapete anti-rastro na saída da caixa. Assim os grãos ficam retidos nele, e não na sua sala.",
+        "quote": "O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.",
+        "specs": [
+          {
+            "label": "Peso líquido",
+            "value": "4 kg"
+          },
+          {
+            "label": "Composição",
+            "value": "Milho e mandioca"
+          },
+          {
+            "label": "Granulação",
+            "value": "Fina, grãos mistos"
+          },
+          {
+            "label": "Poeira",
+            "value": "Baixa"
+          },
+          {
+            "label": "Perfume",
+            "value": "Sem perfume sintético"
+          },
+          {
+            "label": "Descarte",
+            "value": "Lixo orgânico ou compostagem"
+          },
+          {
+            "label": "Embalagem",
+            "value": "Reciclável, de fonte renovável"
+          }
+        ]
+      }
     },
     {
-      "id": "mandioca", "name": "FELUX Mandioca", "tag": "100% Mandioca · Terracota", "color": "#8E3B22",
-      "image": "assets/felux-mandioca-4kg-pack.webp", "weight": "4 kg",
-      "bullets": ["A fécula da mandioca dá liga e o torrão sai inteiro na pá", "Grão claro, fácil de ver onde está o torrão", "Feita com mandioca de fonte renovável"],
-      "price": null, "salePrice": null, "badge": "", "buyUrl": "", "inStock": true, "active": true
+      "id": "mandioca",
+      "name": "FELUX Mandioca",
+      "tag": "100% Mandioca · Terracota",
+      "color": "#8E3B22",
+      "image": "assets/felux-mandioca-4kg-pack.webp",
+      "weight": "4 kg",
+      "bullets": [
+        "A fécula da mandioca dá liga e o torrão sai inteiro na pá",
+        "Grão claro, fácil de ver onde está o torrão",
+        "Feita com mandioca de fonte renovável"
+      ],
+      "price": null,
+      "salePrice": null,
+      "badge": "",
+      "buyUrl": "",
+      "inStock": true,
+      "active": true,
+      "page": {
+        "chip": "Mínimo rastro",
+        "statement": "Para todo gato. Até aquele que finge que não liga.",
+        "description": "A FELUX Mandioca forma o torrão rapidamente e mantém os grãos dentro da caixa. Feita apenas de mandioca, tem grão claro e macio, baixa poeira e é 100% vegetal.",
+        "sections": [
+          {
+            "title": "Mínimo rastro, máxima tranquilidade",
+            "text": "O torrão se forma rapidamente e os grãos ficam onde devem: na caixa, e não pela casa.",
+            "image": "assets/scenes/torrao-mandioca.webp",
+            "round": false
+          },
+          {
+            "title": "Aprovada pelo chefe da casa",
+            "text": "Grãos que o seu gato aprova, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.",
+            "image": "assets/scenes/gato.webp",
+            "round": true
+          },
+          {
+            "title": "Todo mundo sai ganhando",
+            "text": "Ele fica feliz, você fica feliz em vê-lo assim, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa para todos curtirem.",
+            "image": "assets/scenes/caixa-mandioca.webp",
+            "round": false
+          }
+        ],
+        "tip": "Para deixar tudo ainda mais limpo, use um tapete anti-rastro na saída da caixa.",
+        "quote": "O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.",
+        "specs": [
+          {
+            "label": "Peso líquido",
+            "value": "4 kg"
+          },
+          {
+            "label": "Composição",
+            "value": "100% mandioca"
+          },
+          {
+            "label": "Granulação",
+            "value": "Fina"
+          },
+          {
+            "label": "Poeira",
+            "value": "Baixa"
+          },
+          {
+            "label": "Perfume",
+            "value": "Sem perfume sintético"
+          },
+          {
+            "label": "Descarte",
+            "value": "Lixo orgânico ou compostagem"
+          },
+          {
+            "label": "Embalagem",
+            "value": "Reciclável, de fonte renovável"
+          }
+        ]
+      }
     }
   ]
 }

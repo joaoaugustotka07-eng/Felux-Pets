@@ -26,9 +26,14 @@ const TYPES = {
 const PUBLIC = new Set(['index.html', 'robots.txt', 'sitemap.xml']);
 
 // ---------- dados ----------
+const DEFAULTS = () => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'default.json'), 'utf8'));
 function readData() {
-  try { return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')); }
-  catch { return JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'default.json'), 'utf8')); }
+  let d; try { d = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')); } catch { return DEFAULTS(); }
+  // dados salvos antes das páginas de produto: completa com os textos padrão
+  const def = DEFAULTS(), byId = Object.fromEntries(def.products.map(p => [p.id, p]));
+  d.products.forEach(p => { if (!p.page) p.page = (byId[p.id] && byId[p.id].page) || null; });
+  if (!d.settings.cycle) d.settings.cycle = def.settings.cycle;
+  return d;
 }
 function writeData(data) {
   if (fs.existsSync(DATA_FILE)) fs.copyFileSync(DATA_FILE, DATA_FILE + '.bak');
@@ -40,6 +45,15 @@ const str = (v, max = 300) => (typeof v === 'string' ? v.trim().slice(0, max) : 
 const money = v => { if (v === '' || v === null || v === undefined) return null; const n = Math.round(Number(String(v).replace(',', '.')) * 100) / 100; return Number.isFinite(n) && n >= 0 && n < 100000 ? n : null; };
 const url = v => { const s = str(v, 500); return /^(https?:\/\/|#|\/|assets\/|uploads\/)/i.test(s) || s === '' ? s : ''; };
 const color = v => (/^#[0-9a-f]{6}$/i.test(v) ? v : '#242424');
+function cleanPage(pg) {
+  pg = pg && typeof pg === 'object' ? pg : {};
+  return {
+    chip: str(pg.chip, 40), statement: str(pg.statement, 160), description: str(pg.description, 800),
+    sections: (Array.isArray(pg.sections) ? pg.sections : []).slice(0, 8).map(x => ({ title: str(x.title, 120), text: str(x.text, 800), image: url(x.image), round: !!x.round })).filter(x => x.title || x.text),
+    tip: str(pg.tip, 300), quote: str(pg.quote, 400),
+    specs: (Array.isArray(pg.specs) ? pg.specs : []).slice(0, 16).map(x => ({ label: str(x.label, 40), value: str(x.value, 120) })).filter(x => x.label && x.value)
+  };
+}
 function clean(input) {
   const s = input.settings || {};
   const products = (Array.isArray(input.products) ? input.products : []).slice(0, 40).map((p, i) => {
@@ -49,7 +63,8 @@ function clean(input) {
     return {
       id, name: str(p.name, 80) || 'Produto', tag: str(p.tag, 80), color: color(p.color), image: url(p.image), weight: str(p.weight, 20),
       bullets: (Array.isArray(p.bullets) ? p.bullets : []).map(b => str(b, 160)).filter(Boolean).slice(0, 6),
-      price, salePrice, badge: str(p.badge, 30), buyUrl: url(p.buyUrl), inStock: p.inStock !== false, active: p.active !== false
+      price, salePrice, badge: str(p.badge, 30), buyUrl: url(p.buyUrl), inStock: p.inStock !== false, active: p.active !== false,
+      page: cleanPage(p.page)
     };
   });
   const seen = new Set(); products.forEach(p => { while (seen.has(p.id)) p.id += '-2'; seen.add(p.id); });
@@ -61,6 +76,7 @@ function clean(input) {
       cnpj: str(s.cnpj, 30),
       announcement: { active: !!(s.announcement && s.announcement.active), text: str(s.announcement && s.announcement.text, 140), link: url(s.announcement && s.announcement.link) },
       stores: (Array.isArray(s.stores) ? s.stores : []).slice(0, 8).map(x => ({ name: str(x.name, 40), url: url(x.url) })).filter(x => x.name),
+      cycle: { title: str(s.cycle && s.cycle.title, 80), text: str(s.cycle && s.cycle.text, 1500) },
       coupons: (Array.isArray(s.coupons) ? s.coupons : []).slice(0, 10).map(c => ({ code: str(c.code, 30).toUpperCase(), text: str(c.text, 100), active: !!c.active })).filter(c => c.code)
     },
     products
@@ -158,6 +174,8 @@ http.createServer(async (req, res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url, 'http://x').pathname);
     if (pathname.startsWith('/api/')) return await api(req, res, pathname.slice(5).replace(/\/+$/, ''));
+    const pm = /^\/produto\/([a-z0-9-]+)\/?$/.exec(pathname); // link bonito: /produto/milho
+    if (pm) { res.writeHead(302, { Location: '/#' + pm[1] }); return res.end(); }
     if (pathname === '/admin' || pathname === '/admin/') return serveFile(res, path.join(ROOT, 'admin.html'), 'no-cache');
     if (pathname.startsWith('/uploads/')) {
       const f = path.normalize(path.join(UPLOADS, pathname.slice(9)));

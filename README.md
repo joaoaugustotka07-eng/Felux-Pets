@@ -3,7 +3,9 @@
 Site da FELUX, areia higiênica biodegradável de milho e mandioca.
 
 ## Estrutura
-- `index.html`: o site pronto (gerado a partir de `src/content.html` por `build.sh`)
+- `index.html`: o site pronto (gerado por `build.sh` a partir de `src/template.html` e `data/default.json`)
+- `src/content.html`: a mesma página, usada como prévia
+- `assets/scenes/`: imagens das páginas de produto (torrão, caixa, gato)
 - `assets/`: logo em SVG e embalagens (Milho, Mista, Mandioca)
 - `server.js`: servidor sem dependências (site + painel), usado no Railway
 - `admin.html`: painel em `/admin` para editar produtos, preços, descontos, lojas, cupons e WhatsApp
@@ -34,6 +36,7 @@ Configure uma vez no Railway, no serviço do site:
 3. Acesse `https://SEU-SITE/admin`, entre com a senha e edite.
 
 O que dá para fazer no painel:
+- Página de cada produto (abre em "Quero conhecer" ou em `/produto/milho`): destaque, frase grande, descrição, especificações, blocos com imagem e texto, dica e frase final.
 - Produtos: nome, etiqueta, cor, peso, foto, benefícios, preço, preço promocional ou desconto em %, selo ("Mais vendido", "Oferta"...), link de compra, esgotado, visível ou oculto, ordem, duplicar e excluir.
 - Loja: WhatsApp e mensagem inicial, Instagram, CNPJ, faixa de aviso no topo, lojas de "Onde comprar" e cupons.
 
@@ -46,4 +49,5 @@ Produto sem link de compra abre o WhatsApp com a mensagem "Quero comprar FELUX .
 4. O certificado HTTPS é emitido automaticamente pelo Railway.
 
 ## Editar o site
-Edite `src/content.html` e rode `sh build.sh` para gerar o `index.html` de novo.
+Edite `src/template.html` (layout) ou `data/default.json` (textos padrão) e rode `sh build.sh`.
+Textos, preços e imagens do dia a dia se editam no painel `/admin`, sem mexer no código.

@@ -73,6 +73,15 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
 .err{color:var(--bad);font-weight:500}
 .confirm{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--bad);font-weight:500}
 [hidden]{display:none!important}
+.pagebox{grid-column:span 6;border:1.5px solid var(--line);border-radius:12px;padding:0 14px}
+.pagebox > summary{cursor:pointer;padding:12px 0;font-weight:700}
+.pagebox[open] > summary{border-bottom:1px solid var(--line);margin-bottom:12px}
+.pagebox .fields{padding-bottom:14px}
+.secbox{grid-column:span 6;display:grid;grid-template-columns:110px 1fr;gap:12px;background:var(--ground);border-radius:10px;padding:12px}
+.secbox .thumb{aspect-ratio:1;border-radius:8px;background:#ddd center/cover no-repeat}
+.secbox .thumb.round{border-radius:50%}
+.secbox .in{display:grid;gap:8px;min-width:0}
+.secbox .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 @media (max-width:760px){.prod{grid-template-columns:1fr}.img{grid-template-columns:120px 1fr;align-items:start}.fields{grid-template-columns:1fr 1fr}.f,.f.s2,.f.s1{grid-column:span 1}.f.s6,.toggles,.row-actions,.pricebox{grid-column:span 2}.grid2{grid-template-columns:1fr}.mini,.mini.c3{grid-template-columns:1fr 1fr}}
 </style>
 </head>
@@ -118,6 +127,12 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
           <label class="f" style="grid-column:span 1"><span>Instagram</span><input type="text" id="s-instagram" placeholder="@feluxpet"></label>
           <label class="f" style="grid-column:1/-1"><span>Mensagem inicial do WhatsApp</span><input type="text" id="s-whatsappMessage"></label>
           <label class="f" style="grid-column:1/-1"><span>CNPJ (rodapé)</span><input type="text" id="s-cnpj"></label>
+        </div>
+        <div class="card fields" style="grid-template-columns:1fr;grid-column:1/-1">
+          <h3>Natureza em ciclo</h3>
+          <p class="hint">Aparece no catálogo (primeiro parágrafo) e completo no fim de cada página de produto. Separe parágrafos com uma linha em branco.</p>
+          <label class="f" style="grid-column:1/-1"><span>Título</span><input type="text" id="s-cycle-title"></label>
+          <label class="f" style="grid-column:1/-1"><span>Texto</span><textarea id="s-cycle-text" style="min-height:160px"></textarea></label>
         </div>
         <div class="card fields" style="grid-template-columns:1fr 1fr">
           <h3 style="grid-column:1/-1">Faixa de aviso no topo do site</h3>
@@ -223,6 +238,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
         <label class="f s2"><span>Selo (opcional)</span><input type="text" data-k="badge" list="badges" value="${esc(p.badge)}" placeholder="Mais vendido"></label>
         <label class="f s4" style="grid-column:span 4"><span>Link de compra (vazio = WhatsApp)</span><input type="text" data-k="buyUrl" value="${esc(p.buyUrl)}" placeholder="https://..."></label>
         <label class="f s6"><span>Benefícios (um por linha)</span><textarea data-k="bullets">${esc(p.bullets.join('\n'))}</textarea></label>
+        ${pageEditor(p, i)}
         <div class="toggles">
           <label><input type="checkbox" data-k="active" ${p.active ? 'checked' : ''}> Visível no site</label>
           <label><input type="checkbox" data-k="inStock" ${p.inStock ? 'checked' : ''}> Em estoque</label>
@@ -239,10 +255,50 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
       </div>
     </article>`;
   }
+  const openPages = new Set();
+  function blankPage(){ return {chip:'', statement:'', description:'', sections:[], tip:'', quote:'', specs:[]}; }
+  function pageEditor(p, i){
+    const pg = p.page || (p.page = blankPage());
+    return `<details class="pagebox" data-page ${openPages.has(i) ? 'open' : ''}><summary>Página do produto (abre ao clicar em "Quero conhecer")</summary>
+      <div class="fields">
+        <label class="f s2"><span>Destaque curto (ex.: Torrão em instantes)</span><input type="text" data-pk="chip" value="${esc(pg.chip)}"></label>
+        <label class="f s4" style="grid-column:span 4"><span>Frase grande no meio da página</span><input type="text" data-pk="statement" value="${esc(pg.statement)}"></label>
+        <label class="f s6"><span>Descrição (aba Descrição)</span><textarea data-pk="description">${esc(pg.description)}</textarea></label>
+        <label class="f s6"><span>Especificações (uma por linha, no formato Rótulo: valor)</span><textarea data-pk="specs" placeholder="Peso líquido: 4 kg">${esc((pg.specs || []).map(x => x.label + ': ' + x.value).join('\n'))}</textarea></label>
+        <div class="f s6"><span>Blocos com imagem e texto</span></div>
+        ${(pg.sections || []).map((sec, j) => `<div class="secbox" data-s="${j}">
+          <div class="thumb${sec.round ? ' round' : ''}" style="background-image:url('${esc(sec.image)}')"></div>
+          <div class="in">
+            <input type="text" data-sk="title" value="${esc(sec.title)}" placeholder="Título" aria-label="Título do bloco">
+            <textarea data-sk="text" placeholder="Texto" aria-label="Texto do bloco" style="min-height:70px">${esc(sec.text)}</textarea>
+            <div class="row">
+              <button class="btn ghost small" data-act="upload-sec">Trocar imagem</button>
+              <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-sk="round" ${sec.round ? 'checked' : ''}> Imagem redonda</label>
+              <span style="margin-left:auto"></span>
+              <button class="btn ghost small" data-act="sec-up" ${j === 0 ? 'disabled' : ''}>↑</button>
+              <button class="btn danger small" data-act="sec-del">Remover bloco</button>
+            </div>
+          </div>
+        </div>`).join('')}
+        <div class="f s6"><button class="btn ghost small" data-act="sec-add" style="justify-self:start">+ Bloco</button></div>
+        <label class="f s6"><span>Dica da FELUX</span><input type="text" data-pk="tip" value="${esc(pg.tip)}"></label>
+        <label class="f s6"><span>Frase final (faixa escura)</span><textarea data-pk="quote" style="min-height:60px">${esc(pg.quote)}</textarea></label>
+      </div>
+    </details>`;
+  }
+  document.addEventListener('toggle', e => { const d = e.target; if (!d.matches || !d.matches('[data-page]')) return; const i = +d.closest('.prod').dataset.i; d.open ? openPages.add(i) : openPages.delete(i); }, true);
   function renderProducts(){ $('#products').innerHTML = data.products.map(productCard).join('') || '<p class="hint">Nenhum produto. Clique em "Novo produto".</p>'; }
 
   $('#products').addEventListener('input', e => {
-    const el = e.target, card = el.closest('.prod'); if (!card || !el.dataset.k) return;
+    const el = e.target, card = el.closest('.prod'); if (!card) return;
+    if (el.dataset.pk || el.dataset.sk){
+      const pg = data.products[+card.dataset.i].page;
+      if (el.dataset.pk === 'specs') pg.specs = el.value.split('\n').map(l => { const k = l.indexOf(':'); return k > 0 ? {label:l.slice(0, k).trim(), value:l.slice(k + 1).trim()} : null; }).filter(Boolean);
+      else if (el.dataset.pk) pg[el.dataset.pk] = el.value;
+      else { const sec = pg.sections[+el.closest('[data-s]').dataset.s]; sec[el.dataset.sk] = el.type === 'checkbox' ? el.checked : el.value; if (el.dataset.sk === 'round') el.closest('.secbox').querySelector('.thumb').classList.toggle('round', el.checked); }
+      changed(); return;
+    }
+    if (!el.dataset.k) return;
     const p = data.products[+card.dataset.i], k = el.dataset.k;
     if (k === 'price' || k === 'salePrice'){ p[k] = num(el.value); const pctEl = card.querySelector('[data-k=pct]'); pctEl.value = p.price && p.salePrice != null && p.salePrice < p.price ? Math.round((1-p.salePrice/p.price)*100) : ''; }
     else if (k === 'pct'){ const pc = Number(el.value); if (p.price && pc > 0 && pc < 100){ p.salePrice = Math.round(p.price*(1-pc/100)*100)/100; card.querySelector('[data-k=salePrice]').value = dec(p.salePrice); } else if (!el.value){ p.salePrice = null; card.querySelector('[data-k=salePrice]').value = ''; } }
@@ -255,7 +311,13 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   $('#products').addEventListener('click', e => {
     const b = e.target.closest('[data-act]'); if (!b) return;
     const card = b.closest('.prod'), i = +card.dataset.i, ps = data.products, act = b.dataset.act;
-    if (act === 'upload'){ uploadFor = i; $('#fileIn').click(); return; }
+    if (act === 'upload'){ uploadFor = {i}; $('#fileIn').click(); return; }
+    const pg = ps[i].page, j = b.closest('[data-s]') ? +b.closest('[data-s]').dataset.s : -1;
+    if (act === 'upload-sec'){ uploadFor = {i, j}; $('#fileIn').click(); return; }
+    if (act === 'sec-add') pg.sections.push({title:'', text:'', image:'', round:false});
+    if (act === 'sec-del') pg.sections.splice(j, 1);
+    if (act === 'sec-up' && j > 0) [pg.sections[j-1], pg.sections[j]] = [pg.sections[j], pg.sections[j-1]];
+    if (act.startsWith('sec-')) openPages.add(i);
     if (act === 'del'){ card.querySelector('.confirm').hidden = false; b.hidden = true; return; }
     if (act === 'del-no'){ card.querySelector('.confirm').hidden = true; card.querySelector('[data-act=del]').hidden = false; return; }
     if (act === 'del-yes') ps.splice(i, 1);
@@ -265,7 +327,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     renderProducts(); changed();
   });
   $('#addProduct').addEventListener('click', () => {
-    data.products.push({id:'novo-' + Date.now().toString(36), name:'Novo produto', tag:'', color:'#242424', image:'', weight:'4 kg', bullets:[], price:null, salePrice:null, badge:'', buyUrl:'', inStock:true, active:false});
+    data.products.push({id:'novo-' + Date.now().toString(36), name:'Novo produto', tag:'', color:'#242424', image:'', weight:'4 kg', bullets:[], page:blankPage(), price:null, salePrice:null, badge:'', buyUrl:'', inStock:true, active:false});
     renderProducts(); changed(); $('#products').lastElementChild.scrollIntoView({behavior:'smooth', block:'center'});
   });
   $('#fileIn').addEventListener('change', () => {
@@ -274,7 +336,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     const rd = new FileReader();
     rd.onload = async () => {
       msg('Enviando imagem…');
-      try { const r = await call('admin/upload', {method:'POST', body:JSON.stringify({data:rd.result})}); data.products[uploadFor].image = r.url; renderProducts(); changed(); }
+      try { const r = await call('admin/upload', {method:'POST', body:JSON.stringify({data:rd.result})}); const t = data.products[uploadFor.i]; if (uploadFor.j != null) t.page.sections[uploadFor.j].image = r.url; else t.image = r.url; if (uploadFor.j != null) openPages.add(uploadFor.i); renderProducts(); changed(); }
       catch (err){ msg(err.message, true); }
     };
     rd.readAsDataURL(f);
@@ -283,7 +345,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   // ---------- loja ----------
   const S = () => data.settings;
   function renderSettings(){
-    $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-cnpj').value = S().cnpj;
+    $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-cnpj').value = S().cnpj; const cy = S().cycle || {title:'', text:''}; $('#s-cycle-title').value = cy.title; $('#s-cycle-text').value = cy.text;
     $('#s-ann-active').checked = S().announcement.active; $('#s-ann-text').value = S().announcement.text; $('#s-ann-link').value = S().announcement.link;
     $('#stores').innerHTML = S().stores.map((s, i) => `<div class="mini" data-i="${i}"><input type="text" data-k="name" value="${esc(s.name)}" placeholder="Nome" aria-label="Nome da loja"><input type="text" data-k="url" value="${esc(s.url)}" placeholder="https://..." aria-label="Link da loja"><button class="btn danger small" data-del>Remover</button></div>`).join('');
     $('#coupons').innerHTML = S().coupons.map((c, i) => `<div class="mini c3" data-i="${i}"><input type="text" data-k="code" value="${esc(c.code)}" placeholder="CÓDIGO" aria-label="Código do cupom"><input type="text" data-k="text" value="${esc(c.text)}" placeholder="10% na primeira compra" aria-label="Descrição do cupom"><label style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-k="active" ${c.active ? 'checked' : ''}> Ativo</label><button class="btn danger small" data-del>Remover</button></div>`).join('');
@@ -293,6 +355,8 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   bindS('#s-instagram', el => S().instagram = el.value);
   bindS('#s-whatsappMessage', el => S().whatsappMessage = el.value);
   bindS('#s-cnpj', el => S().cnpj = el.value);
+  bindS('#s-cycle-title', el => (S().cycle = S().cycle || {title:'', text:''}).title = el.value);
+  bindS('#s-cycle-text', el => (S().cycle = S().cycle || {title:'', text:''}).text = el.value);
   bindS('#s-ann-active', el => S().announcement.active = el.checked);
   bindS('#s-ann-text', el => S().announcement.text = el.value);
   bindS('#s-ann-link', el => S().announcement.link = el.value);
