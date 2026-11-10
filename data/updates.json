@@ -1,0 +1,28 @@
+{
+  "text": {
+    "Mínimo rastro": "Grãos maiores",
+    "Grãos maiores, mínimo rastro": "Grãos maiores e macios",
+    "Mínimo rastro, máxima tranquilidade": "Grãos maiores, máxima tranquilidade",
+    "Equilíbrio entre economia e menos rastro": "Equilíbrio entre economia e rendimento",
+    "Os grânulos mistos equilibram economia com menos rastro. Fez xixi: odor retido e torrão pronto. Torrão firme num instante e menos areia espalhada pela casa.": "Os grânulos mistos unem o melhor do grão fino e do grosso, com economia e sem rastro. Fez xixi: odor retido e torrão pronto, firme num instante.",
+    "A FELUX Grãos Mistos junta grãos finos e grossos: torrão firme num instante, odor retido e menos areia espalhada pela casa. Baixa poeira e 100% vegetal. Escolha entre milho, mandioca ou milho + mandioca.": "A FELUX Grãos Mistos junta grãos finos e grossos: torrão firme num instante, odor retido e nenhum grão espalhado pela casa. Baixa poeira e 100% vegetal. Escolha entre milho, mandioca ou milho + mandioca."
+  },
+  "img": {
+    "assets/scenes/gato.webp": [
+      "assets/photos/gato-deitado.webp",
+      false
+    ],
+    "assets/scenes/caixa-finos.webp": [
+      "assets/photos/gato-dormindo.webp",
+      true
+    ],
+    "assets/scenes/caixa-mistos.webp": [
+      "assets/photos/gato-dormindo.webp",
+      true
+    ],
+    "assets/scenes/caixa-grossos.webp": [
+      "assets/photos/gato-dormindo.webp",
+      true
+    ]
+  }
+}

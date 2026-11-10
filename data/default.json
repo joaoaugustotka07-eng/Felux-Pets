@@ -104,17 +104,17 @@
           {
             "title": "Aprovada pelo chefe da casa",
             "text": "Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.",
-            "image": "assets/scenes/gato.webp",
-            "round": true
+            "image": "assets/photos/gato-deitado.webp",
+            "round": false
           },
           {
             "title": "Todo mundo sai ganhando",
             "text": "Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.",
-            "image": "assets/scenes/caixa-finos.webp",
-            "round": false
+            "image": "assets/photos/gato-dormindo.webp",
+            "round": true
           }
         ],
-        "tip": "Use um tapete anti-rastro na saída da caixa. Assim os grãos ficam retidos nele, e não na sua sala.",
+        "tip": "",
         "quote": "O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.",
         "specs": [
           {
@@ -152,7 +152,7 @@
       "badge": "",
       "active": true,
       "bullets": [
-        "Equilíbrio entre economia e menos rastro",
+        "Equilíbrio entre economia e rendimento",
         "Torrão firme num instante",
         "Odor retido no torrão"
       ],
@@ -201,28 +201,28 @@
       "page": {
         "chip": "Equilíbrio",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Grãos Mistos junta grãos finos e grossos: torrão firme num instante, odor retido e menos areia espalhada pela casa. Baixa poeira e 100% vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
+        "description": "A FELUX Grãos Mistos junta grãos finos e grossos: torrão firme num instante, odor retido e nenhum grão espalhado pela casa. Baixa poeira e 100% vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
         "sections": [
           {
             "title": "O equilíbrio perfeito",
-            "text": "Os grânulos mistos equilibram economia com menos rastro. Fez xixi: odor retido e torrão pronto. Torrão firme num instante e menos areia espalhada pela casa.",
+            "text": "Os grânulos mistos unem o melhor do grão fino e do grosso, com economia e sem rastro. Fez xixi: odor retido e torrão pronto, firme num instante.",
             "image": "assets/photos/mistos-milho-grao-wide.webp",
             "round": false
           },
           {
             "title": "Aprovada pelo chefe da casa",
             "text": "Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para ele ficar protegido até quando se lambe durante o banho.",
-            "image": "assets/scenes/gato.webp",
-            "round": true
+            "image": "assets/photos/gato-deitado.webp",
+            "round": false
           },
           {
             "title": "Todo mundo sai ganhando",
             "text": "Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.",
-            "image": "assets/scenes/caixa-mistos.webp",
-            "round": false
+            "image": "assets/photos/gato-dormindo.webp",
+            "round": true
           }
         ],
-        "tip": "Use um tapete anti-rastro na saída da caixa. Assim os grãos ficam retidos nele, e não na sua sala.",
+        "tip": "",
         "quote": "O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.",
         "specs": [
           {
@@ -260,7 +260,7 @@
       "badge": "",
       "active": true,
       "bullets": [
-        "Grãos maiores, mínimo rastro",
+        "Grãos maiores e macios",
         "Torrão formado rapidamente",
         "Os grãos ficam na caixa, não pela casa"
       ],
@@ -303,12 +303,12 @@
         }
       ],
       "page": {
-        "chip": "Mínimo rastro",
+        "chip": "Grãos maiores",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
         "description": "A FELUX Grãos Grossos tem grãos maiores, que formam o torrão rapidamente e ficam dentro da caixa. Baixa poeira e 100% vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
         "sections": [
           {
-            "title": "Mínimo rastro, máxima tranquilidade",
+            "title": "Grãos maiores, máxima tranquilidade",
             "text": "Os grãos maiores formam o torrão rapidamente e ficam onde devem: na caixa, e não pela casa.",
             "image": "assets/scenes/torrao-grossos.webp",
             "round": false
@@ -316,17 +316,17 @@
           {
             "title": "Aprovada pelo chefe da casa",
             "text": "Grãos que o seu gato aprova, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.",
-            "image": "assets/scenes/gato.webp",
-            "round": true
+            "image": "assets/photos/gato-deitado.webp",
+            "round": false
           },
           {
             "title": "Todo mundo sai ganhando",
             "text": "Ele fica feliz, você fica feliz em vê-lo assim, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa para todos curtirem.",
-            "image": "assets/scenes/caixa-grossos.webp",
-            "round": false
+            "image": "assets/photos/gato-dormindo.webp",
+            "round": true
           }
         ],
-        "tip": "Para deixar tudo ainda mais limpo, use um tapete anti-rastro na saída da caixa.",
+        "tip": "",
         "quote": "O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.",
         "specs": [
           {

@@ -51,6 +51,16 @@ function readData() {
     applied.add(key);
   })));
   d.appliedDefaults = [...applied];
+  // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
+  let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
+  const T = up.text || {}, I = up.img || {}, fix = v => (typeof v === 'string' && T[v]) || v;
+  d.products.forEach(p => {
+    p.bullets = (p.bullets || []).map(fix);
+    const pg = p.page; if (!pg) return;
+    pg.chip = fix(pg.chip); pg.description = fix(pg.description);
+    if (/tapete anti-rastro/i.test(pg.tip || '')) pg.tip = '';
+    (pg.sections || []).forEach(x => { x.title = fix(x.title); x.text = fix(x.text); if (I[x.image]) [x.image, x.round] = I[x.image]; });
+  });
   // imagem gerada antiga do bloco dos Grãos Mistos vira a foto real, se ninguém trocou
   d.products.forEach(p => ((p.page && p.page.sections) || []).forEach(s => { if (s.image === 'assets/scenes/torrao-mistos.webp') s.image = 'assets/photos/mistos-milho-grao-wide.webp'; }));
   if (!d.settings.cycle) d.settings.cycle = def.settings.cycle;

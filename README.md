@@ -53,3 +53,8 @@ Produto sem link de compra abre o WhatsApp com a mensagem "Quero comprar FELUX .
 ## Editar o site
 Edite `src/template.html` (layout) ou `data/default.json` (textos padrão) e rode `sh build.sh`.
 Textos, preços e imagens do dia a dia se editam no painel `/admin`, sem mexer no código.
+
+## Créditos das fotos
+- `assets/photos/gato-deitado.webp`: Peng Louis, Pexels (pexels.com/photo/1450331)
+- `assets/photos/gato-dormindo.webp`: Pixabay, Pexels (pexels.com/photo/256632)
+Licença Pexels: uso gratuito, inclusive comercial, sem atribuição obrigatória.

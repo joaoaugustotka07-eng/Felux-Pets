@@ -108,11 +108,12 @@ a{color:inherit}
 
 .guide{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:22px;color:var(--ink-soft);font-size:.95rem}
 .guide b{color:var(--ink);font-weight:600}
-.perks{list-style:none;margin:36px 0 0;padding:20px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.perks{list-style:none;margin:36px 0 0;padding:20px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
 .perks li{display:grid;gap:2px}
 .perks b{font-family:var(--font-display);font-weight:400;font-size:1.05rem}
 .perks span{color:var(--ink-soft);font-size:.88rem}
-@media (max-width:860px){.perks{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:1100px){.perks{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:600px){.perks{grid-template-columns:repeat(2,1fr)}}
 
 /* onde comprar */
 .band{background:var(--band);color:var(--band-fg);padding-block:64px}
@@ -279,11 +280,12 @@ footer{border-top:1px solid var(--line);padding-block:28px}
       <p class="sub">Três granulações, cada uma em milho, mandioca ou milho + mandioca. 100% vegetal, torrão firme e baixa poeira.</p>
     </div>
     <div class="products" id="grid">{{STATIC_CARDS}}</div>
-    <p class="guide"><span>Qual escolher?</span><span><b>Torrão em instantes:</b> Finos</span><span><b>Equilíbrio:</b> Mistos</span><span><b>Mínimo rastro:</b> Grossos</span></p>
+    <p class="guide"><span>Qual escolher?</span><span><b>Torrão em instantes:</b> Finos</span><span><b>Equilíbrio:</b> Mistos</span><span><b>Grãos maiores:</b> Grossos</span></p>
     <ul class="perks">
       <li><b>Alta absorção</b><span>torrões firmes e rápidos</span></li>
       <li><b>Controle de odores</b><span>sem perfume sintético</span></li>
       <li><b>Baixa poeira</b><span>mais limpeza na casa</span></li>
+      <li><b>Sem rastro</b><span>os grãos ficam na caixa</span></li>
       <li><b>100% vegetal</b><span>biodegradável</span></li>
       <li><b>Embalagem reciclável</b><span>de fonte renovável</span></li>
     </ul>
@@ -314,7 +316,7 @@ footer{border-top:1px solid var(--line);padding-block:28px}
   <div class="wrap">
     <div><p class="eyebrow">Dúvidas</p><h2>Perguntas frequentes</h2></div>
     <div class="faq">
-      <details open><summary>Qual a diferença entre Finos, Mistos e Grossos?</summary><p>É o tamanho do grão. A Grãos Finos forma o torrão em instantes, a Grãos Grossos deixa o mínimo de rastro e a Grãos Mistos equilibra as duas. Todas vêm em saco de 4 kg.</p></details>
+      <details open><summary>Qual a diferença entre Finos, Mistos e Grossos?</summary><p>É o tamanho do grão. A Grãos Finos forma o torrão em instantes, a Grãos Grossos tem grãos maiores e a Grãos Mistos equilibra as duas. Nenhuma deixa rastro pela casa, e todas vêm em saco de 4 kg.</p></details>
       <details><summary>Milho, mandioca ou milho + mandioca?</summary><p>As três matérias-primas são 100% vegetais e biodegradáveis e existem em todas as granulações. Escolha a que o seu gato preferir. Na dúvida, comece por milho + mandioca.</p></details>
       <details><summary>Quanto dura um saco de 4 kg?</summary><p>Para um gato, retirando os torrões todo dia, em média de 4 a 5 semanas.</p></details>
       <details><summary>Como descarto a areia usada?</summary><p>No lixo orgânico ou em composteira. Não use em hortas e evite jogar grandes quantidades no vaso sanitário.</p></details>
