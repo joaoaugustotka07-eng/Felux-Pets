@@ -39,6 +39,23 @@ function readData() {
       const o = old[v.id]; return o ? { ...v, price: o.price ?? null, salePrice: o.salePrice ?? null, buyUrl: o.buyUrl || '', inStock: o.inStock !== false } : v;
     }) }));
   }
+  // Grãos Grossos virou Grãos Médios (embalagens novas): leva preços, links, estoque e fotos extras
+  const gi = d.products.findIndex(p => p.id === 'grossos');
+  if (gi >= 0 && !d.products.some(p => p.id === 'medios') && byId.medios) {
+    const old = d.products[gi], m = JSON.parse(JSON.stringify(byId.medios));
+    m.badge = old.badge || ''; m.active = old.active !== false;
+    m.variants.forEach(v => { const o = (old.variants || []).find(x => x.id === v.id); if (o) Object.assign(v, { price: o.price ?? null, salePrice: o.salePrice ?? null, buyUrl: o.buyUrl || '', inStock: o.inStock !== false, gallery: o.gallery || [] }); });
+    d.products[gi] = m;
+    const order = def.products.map(p => p.id); d.products.sort((a, b) => (order.indexOf(a.id) + 1 || 99) - (order.indexOf(b.id) + 1 || 99));
+  }
+  d.products.forEach(p => {
+    const dp = byId[p.id];
+    if (!p.color && dp) p.color = dp.color;
+    // embalagens geradas antigas viram as fotos oficiais
+    const OLDV = { '#1F3F86': 'milho', '#8E3B22': 'mandioca', '#2B6144': 'mista' }; // cores antigas das versões
+    (p.variants || []).forEach(v => { if (OLDV[(v.color || '').toUpperCase()] === v.id && dp) { const dv = dp.variants.find(x => x.id === v.id); if (dv) v.color = dv.color; } });
+    (p.variants || []).forEach(v => { const m = /^assets\/packs\/felux-(finos|mistos|grossos)-[a-z]+\.webp$/.exec(v.image || ''); if (m) v.image = `assets/packs/felux-${m[1] === 'grossos' ? 'medios' : m[1]}.webp`; });
+  });
   d.products.forEach(p => { if (!p.page) p.page = (byId[p.id] && byId[p.id].page) || null; });
   // versões salvas antes das fotos extras recebem as fotos padrão (ex.: foto real do grão)
   d.products.forEach(p => (p.variants || []).forEach(v => { if (!Array.isArray(v.gallery)) v.gallery = []; }));
@@ -100,7 +117,7 @@ function clean(input) {
                gallery: (Array.isArray(v.gallery) ? v.gallery : []).map(url).filter(Boolean).slice(0, 8) };
     });
     return {
-      id, name: str(p.name, 80) || 'Produto', tag: str(p.tag, 80), weight: str(p.weight, 20),
+      id, name: str(p.name, 80) || 'Produto', tag: str(p.tag, 80), color: color(p.color), weight: str(p.weight, 20),
       bullets: (Array.isArray(p.bullets) ? p.bullets : []).map(b => str(b, 160)).filter(Boolean).slice(0, 6),
       badge: str(p.badge, 30), active: p.active !== false, variants, page: cleanPage(p.page)
     };

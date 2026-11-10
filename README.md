@@ -6,7 +6,7 @@ Site da FELUX, areia higiênica biodegradável de milho e mandioca.
 - `index.html`: o site pronto (gerado por `build.sh` a partir de `src/template.html` e `data/default.json`)
 - `src/content.html`: a mesma página, usada como prévia
 - `assets/scenes/`: imagens das páginas de produto (torrão, caixa, gato)
-- `assets/packs/`: as 9 embalagens (Grãos Finos, Mistos e Grossos × Milho, Mandioca, Milho + Mandioca)
+- `assets/packs/`: embalagens oficiais (Grãos Finos, Médios e Mistos); `assets/source/` guarda as fotos originais
 - `assets/`: logo em SVG
 - `server.js`: servidor sem dependências (site + painel), usado no Railway
 - `admin.html`: painel em `/admin` para editar produtos, preços, descontos, lojas, cupons e WhatsApp

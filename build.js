@@ -28,19 +28,19 @@ const head = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="FELUX: areia higiênica vegetal para gatos, feita de milho e mandioca. Torrão firme, baixa poeira e descarte no lixo orgânico.">
-<meta name="theme-color" content="#F7F4EE">
+<meta name="description" content="FELUX: areia higiênica feita de planta, sem mineral. Grãos finos, médios ou mistos de milho e mandioca.">
+<meta name="theme-color" content="#3B193A">
 <link rel="canonical" href="https://feluxpet.com.br/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://feluxpet.com.br/">
-<meta property="og:title" content="FELUX | Areia higiênica vegetal para gatos">
-<meta property="og:description" content="Grãos Finos, Mistos e Grossos, em milho, mandioca ou milho + mandioca.">
+<meta property="og:title" content="FELUX | Areia feita de planta">
+<meta property="og:description" content="Areia feita de planta: Grãos Finos, Médios e Mistos, em milho, mandioca ou milho + mandioca.">
 <link rel="icon" href="assets/felux-simbolo.svg" type="image/svg+xml">
 <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'Organization', name: 'FELUX', url: 'https://feluxpet.com.br/', description: 'Areia higiênica vegetal de milho e mandioca para gatos.' })}</script>
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 `;
-const site = page.replace('<title>FELUX Areia Biodegradável</title>', '<title>FELUX | Areia higiênica vegetal para gatos</title>')
+const site = page.replace('<title>FELUX Areia Biodegradável</title>', '<title>FELUX | Areia feita de planta</title>')
                  .replace(/<meta name="claude:viewport-fit-sides"[^>]*>\n/, '')
                  .replace('<!-- body -->', '</head>\n<body>');
 fs.writeFileSync(R('index.html'), head + site + '</body>\n</html>\n');

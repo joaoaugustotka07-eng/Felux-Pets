@@ -56,8 +56,8 @@
         {
           "id": "milho",
           "label": "Milho",
-          "color": "#1F3F86",
-          "image": "assets/packs/felux-finos-milho.webp",
+          "color": "#E0A526",
+          "image": "assets/packs/felux-finos.webp",
           "composition": "100% milho",
           "price": null,
           "salePrice": null,
@@ -68,8 +68,8 @@
         {
           "id": "mandioca",
           "label": "Mandioca",
-          "color": "#8E3B22",
-          "image": "assets/packs/felux-finos-mandioca.webp",
+          "color": "#B79B72",
+          "image": "assets/packs/felux-finos.webp",
           "composition": "100% mandioca",
           "price": null,
           "salePrice": null,
@@ -80,8 +80,8 @@
         {
           "id": "mista",
           "label": "Milho + Mandioca",
-          "color": "#2B6144",
-          "image": "assets/packs/felux-finos-mista.webp",
+          "color": "#6E9A3C",
+          "image": "assets/packs/felux-finos.webp",
           "composition": "Milho e mandioca",
           "price": null,
           "salePrice": null,
@@ -93,7 +93,7 @@
       "page": {
         "chip": "Torrão em instantes",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Grãos Finos forma o torrão em instantes e segura o odor dentro dele. Grãos finos e macios, baixa poeira e 100% vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
+        "description": "A FELUX Grãos Finos forma o torrão em instantes e segura o odor dentro dele. Grãos finos e macios, sem mineral, baixa poeira e 100% de origem vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
         "sections": [
           {
             "title": "Fez xixi, tem torrão. Tem torrão, não tem cheiro.",
@@ -126,6 +126,10 @@
             "value": "Fina"
           },
           {
+            "label": "Mineral",
+            "value": "Sem mineral, 100% de origem vegetal"
+          },
+          {
             "label": "Poeira",
             "value": "Baixa"
           },
@@ -142,7 +146,117 @@
             "value": "Reciclável, de fonte renovável"
           }
         ]
-      }
+      },
+      "color": "#3B193A"
+    },
+    {
+      "id": "medios",
+      "name": "FELUX Grãos Médios",
+      "tag": "Granulação média",
+      "weight": "4 kg",
+      "badge": "",
+      "active": true,
+      "bullets": [
+        "Grão médio e macio",
+        "Torrão formado rapidamente",
+        "Os grãos ficam na caixa, não pela casa"
+      ],
+      "variants": [
+        {
+          "id": "milho",
+          "label": "Milho",
+          "color": "#E0A526",
+          "image": "assets/packs/felux-medios.webp",
+          "composition": "100% milho",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true,
+          "gallery": []
+        },
+        {
+          "id": "mandioca",
+          "label": "Mandioca",
+          "color": "#B79B72",
+          "image": "assets/packs/felux-medios.webp",
+          "composition": "100% mandioca",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true,
+          "gallery": []
+        },
+        {
+          "id": "mista",
+          "label": "Milho + Mandioca",
+          "color": "#6E9A3C",
+          "image": "assets/packs/felux-medios.webp",
+          "composition": "Milho e mandioca",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true,
+          "gallery": []
+        }
+      ],
+      "page": {
+        "chip": "Grão médio",
+        "statement": "Para todo gato. Até aquele que finge que não liga.",
+        "description": "A FELUX Grãos Médios tem grão de tamanho médio, que forma o torrão rapidamente e fica dentro da caixa. Sem mineral, baixa poeira e 100% de origem vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
+        "sections": [
+          {
+            "title": "Grãos médios, máxima tranquilidade",
+            "text": "Os grãos médios formam o torrão rapidamente e ficam onde devem: na caixa, e não pela casa.",
+            "image": "assets/scenes/torrao-medios.webp",
+            "round": false
+          },
+          {
+            "title": "Aprovada pelo chefe da casa",
+            "text": "Grãos que o seu gato aprova, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.",
+            "image": "assets/photos/gato-deitado.webp",
+            "round": false
+          },
+          {
+            "title": "Todo mundo sai ganhando",
+            "text": "Ele fica feliz, você fica feliz em vê-lo assim, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa para todos curtirem.",
+            "image": "assets/photos/gato-dormindo.webp",
+            "round": true
+          }
+        ],
+        "tip": "",
+        "quote": "O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.",
+        "specs": [
+          {
+            "label": "Peso líquido",
+            "value": "4 kg"
+          },
+          {
+            "label": "Granulação",
+            "value": "Média"
+          },
+          {
+            "label": "Mineral",
+            "value": "Sem mineral, 100% de origem vegetal"
+          },
+          {
+            "label": "Poeira",
+            "value": "Baixa"
+          },
+          {
+            "label": "Perfume",
+            "value": "Sem perfume sintético"
+          },
+          {
+            "label": "Descarte",
+            "value": "Lixo orgânico ou compostagem"
+          },
+          {
+            "label": "Embalagem",
+            "value": "Reciclável, de fonte renovável"
+          }
+        ]
+      },
+      "color": "#55A51B"
     },
     {
       "id": "mistos",
@@ -160,8 +274,8 @@
         {
           "id": "milho",
           "label": "Milho",
-          "color": "#1F3F86",
-          "image": "assets/packs/felux-mistos-milho.webp",
+          "color": "#E0A526",
+          "image": "assets/packs/felux-mistos.webp",
           "composition": "100% milho",
           "price": null,
           "salePrice": null,
@@ -174,8 +288,8 @@
         {
           "id": "mandioca",
           "label": "Mandioca",
-          "color": "#8E3B22",
-          "image": "assets/packs/felux-mistos-mandioca.webp",
+          "color": "#B79B72",
+          "image": "assets/packs/felux-mistos.webp",
           "composition": "100% mandioca",
           "price": null,
           "salePrice": null,
@@ -188,8 +302,8 @@
         {
           "id": "mista",
           "label": "Milho + Mandioca",
-          "color": "#2B6144",
-          "image": "assets/packs/felux-mistos-mista.webp",
+          "color": "#6E9A3C",
+          "image": "assets/packs/felux-mistos.webp",
           "composition": "Milho e mandioca",
           "price": null,
           "salePrice": null,
@@ -201,11 +315,11 @@
       "page": {
         "chip": "Equilíbrio",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Grãos Mistos junta grãos finos e grossos: torrão firme num instante, odor retido e nenhum grão espalhado pela casa. Baixa poeira e 100% vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
+        "description": "A FELUX Grãos Mistos junta grãos de vários tamanhos: torrão firme num instante, odor retido e nenhum grão espalhado pela casa. Sem mineral, baixa poeira e 100% de origem vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
         "sections": [
           {
             "title": "O equilíbrio perfeito",
-            "text": "Os grânulos mistos unem o melhor do grão fino e do grosso, com economia e sem rastro. Fez xixi: odor retido e torrão pronto, firme num instante.",
+            "text": "Os grânulos mistos unem grãos de vários tamanhos, com economia e sem rastro. Fez xixi: odor retido e torrão pronto, firme num instante.",
             "image": "assets/photos/mistos-milho-grao-wide.webp",
             "round": false
           },
@@ -231,7 +345,11 @@
           },
           {
             "label": "Granulação",
-            "value": "Mista (grãos finos e grossos)"
+            "value": "Mista (grãos de vários tamanhos)"
+          },
+          {
+            "label": "Mineral",
+            "value": "Sem mineral, 100% de origem vegetal"
           },
           {
             "label": "Poeira",
@@ -250,111 +368,8 @@
             "value": "Reciclável, de fonte renovável"
           }
         ]
-      }
-    },
-    {
-      "id": "grossos",
-      "name": "FELUX Grãos Grossos",
-      "tag": "Granulação grossa",
-      "weight": "4 kg",
-      "badge": "",
-      "active": true,
-      "bullets": [
-        "Grãos maiores e macios",
-        "Torrão formado rapidamente",
-        "Os grãos ficam na caixa, não pela casa"
-      ],
-      "variants": [
-        {
-          "id": "milho",
-          "label": "Milho",
-          "color": "#1F3F86",
-          "image": "assets/packs/felux-grossos-milho.webp",
-          "composition": "100% milho",
-          "price": null,
-          "salePrice": null,
-          "buyUrl": "",
-          "inStock": true,
-          "gallery": []
-        },
-        {
-          "id": "mandioca",
-          "label": "Mandioca",
-          "color": "#8E3B22",
-          "image": "assets/packs/felux-grossos-mandioca.webp",
-          "composition": "100% mandioca",
-          "price": null,
-          "salePrice": null,
-          "buyUrl": "",
-          "inStock": true,
-          "gallery": []
-        },
-        {
-          "id": "mista",
-          "label": "Milho + Mandioca",
-          "color": "#2B6144",
-          "image": "assets/packs/felux-grossos-mista.webp",
-          "composition": "Milho e mandioca",
-          "price": null,
-          "salePrice": null,
-          "buyUrl": "",
-          "inStock": true,
-          "gallery": []
-        }
-      ],
-      "page": {
-        "chip": "Grãos maiores",
-        "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Grãos Grossos tem grãos maiores, que formam o torrão rapidamente e ficam dentro da caixa. Baixa poeira e 100% vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
-        "sections": [
-          {
-            "title": "Grãos maiores, máxima tranquilidade",
-            "text": "Os grãos maiores formam o torrão rapidamente e ficam onde devem: na caixa, e não pela casa.",
-            "image": "assets/scenes/torrao-grossos.webp",
-            "round": false
-          },
-          {
-            "title": "Aprovada pelo chefe da casa",
-            "text": "Grãos que o seu gato aprova, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.",
-            "image": "assets/photos/gato-deitado.webp",
-            "round": false
-          },
-          {
-            "title": "Todo mundo sai ganhando",
-            "text": "Ele fica feliz, você fica feliz em vê-lo assim, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa para todos curtirem.",
-            "image": "assets/photos/gato-dormindo.webp",
-            "round": true
-          }
-        ],
-        "tip": "",
-        "quote": "O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.",
-        "specs": [
-          {
-            "label": "Peso líquido",
-            "value": "4 kg"
-          },
-          {
-            "label": "Granulação",
-            "value": "Grossa"
-          },
-          {
-            "label": "Poeira",
-            "value": "Baixa"
-          },
-          {
-            "label": "Perfume",
-            "value": "Sem perfume sintético"
-          },
-          {
-            "label": "Descarte",
-            "value": "Lixo orgânico ou compostagem"
-          },
-          {
-            "label": "Embalagem",
-            "value": "Reciclável, de fonte renovável"
-          }
-        ]
-      }
+      },
+      "color": "#1F2756"
     }
   ]
 }
