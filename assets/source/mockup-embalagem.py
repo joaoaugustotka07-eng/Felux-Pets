@@ -11,13 +11,17 @@ PAL={ # cores dos grãos (base, variações)
  'mista':[(226,186,112),(236,226,200),(214,172,100),(244,236,214)],
  'mandioca':[(238,230,208),(228,218,192),(246,240,224)],
 }
-def fine_grains(size, cols, seed):
+GR={'finos':(2.4,3.4),'mistos':None,'grossos':(4.6,6.6)}
+LABEL={'finos':None,'mistos':'GRANULAÇÃO MISTA','grossos':'GRANULAÇÃO GROSSA'}
+def fine_grains(size, cols, seed, gran='finos'):
     rnd=random.Random(seed); W,H=size
     base=tuple(int(c*0.62) for c in cols[0])
     img=Image.new('RGB',(W,H),base); d=ImageDraw.Draw(img)
-    n=int(W*H/12)
+    n=int(W*H/{'finos':12,'mistos':20,'grossos':34}[gran])
     for _ in range(n):
-        x=rnd.uniform(0,W); y=rnd.uniform(0,H); r=rnd.uniform(2.4,3.4)
+        x=rnd.uniform(0,W); y=rnd.uniform(0,H)
+        rng_=GR[gran] or ((2.4,3.4) if rnd.random()<.55 else (4.4,6.2))
+        r=rnd.uniform(*rng_)
         c=rnd.choice(cols); k=rnd.uniform(.86,1.04)
         cc=tuple(min(255,int(v*k)) for v in c)
         sh=tuple(int(v*.62) for v in cc)
@@ -26,8 +30,26 @@ def fine_grains(size, cols, seed):
         d.ellipse([x-r*.55,y-r*.6,x-r*.05,y-r*.15],fill=tuple(min(255,int(v*1.12)+8) for v in cc))
     return img.filter(ImageFilter.GaussianBlur(.3))
 
-def make(name, seed):
+from PIL import ImageFont
+def relabel(src, gran):
+    if not LABEL[gran]: return src
+    a=np.asarray(src).copy()
+    bg=np.median(a[252:254,30:100].reshape(-1,3),axis=0)
+    fg=np.percentile(a[256:262,30:92].reshape(-1,3),97,axis=0)
+    a[254:264,27:106]=bg
+    im=Image.fromarray(a); k=8
+    big=Image.new('L',(110*k,12*k),0); d=ImageDraw.Draw(big)
+    f=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',int(5.2*k))
+    x=0
+    for ch in LABEL[gran]:  # espaçamento largo como no rótulo original
+        d.text((x,int(2.6*k)),ch,font=f,fill=255); x+=d.textlength(ch,font=f)+int(.55*k)
+    big=big.crop((0,0,int(x),12*k)); w=max(1,round(big.width/k)); m=big.resize((w,12),Image.LANCZOS)
+    col=Image.new('RGB',m.size,tuple(int(v) for v in fg))
+    im.paste(col,(30,252),m)
+    return im
+def make(name, seed, gran='finos'):
     src=Image.open(f'assets/source/felux-{name}-4kg.webp').convert('RGB')
+    src=relabel(src, gran)
     src=src.crop((2,2,src.width-2,src.height-2))       # tira a linha do molde
     im=src.resize((src.width*S,src.height*S),Image.LANCZOS)
     W,H=im.size
@@ -36,7 +58,7 @@ def make(name, seed):
     poly=[(x+off[0],y+off[1]) for x,y in WIN]
     m=Image.new('L',(W,H),0); ImageDraw.Draw(m).polygon(poly,fill=255)
     m=m.filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.GaussianBlur(1.0))
-    g=fine_grains((W,H),PAL[name],seed)
+    g=fine_grains((W,H),PAL[name],seed,gran)
     # sombra das patas e da borda superior da janela
     top=Image.new('L',(W,H),0); ImageDraw.Draw(top).polygon(poly,fill=255)
     ta=np.asarray(top).astype(float)/255
@@ -90,11 +112,14 @@ def make(name, seed):
     alpha*=np.asarray(cm).astype(float)/255
     out=Image.fromarray(np.dstack([a,alpha]).astype(np.uint8),'RGBA')
     out=out.resize((W*2//S,H*2//S),Image.LANCZOS)  # 2x para telas retina
-    out.save(f'assets/felux-{name}-4kg-pack.webp',quality=90)
+    out.save(f'assets/packs/felux-{gran}-{name}.webp',quality=90)
     return out
-outs=[make(n,i) for i,n in enumerate(['milho','mista','mandioca'])]
+import os; os.makedirs('assets/packs',exist_ok=True)
+outs=[]
+for gi,gran in enumerate(['finos','mistos','grossos']):
+    for i,n in enumerate(['milho','mista','mandioca']): outs.append(make(n,i+10*gi,gran))
 w,h=outs[0].size
-sheet=Image.new('RGB',(w*3+80,h+40),(246,243,238))
-for i,o in enumerate(outs): sheet.paste(o,(20+i*(w+20),20),o)
+sheet=Image.new('RGB',(w*3+80,h*3+80),(246,243,238))
+for i,o in enumerate(outs): sheet.paste(o,(20+(i%3)*(w+20),20+(i//3)*(h+20)),o)
 sheet.save('sheet.png'); print(w,h)
-o=outs[0]; Image.composite(o,Image.new('RGBA',o.size,(246,243,238,255)),o).crop((180,500,540,720)).resize((720,440)).save('zoom.png')
+o=outs[6]; Image.composite(o,Image.new('RGBA',o.size,(246,243,238,255)),o).crop((180,500,540,720)).resize((720,440)).save('zoom.png')

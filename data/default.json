@@ -41,32 +41,61 @@
   },
   "products": [
     {
-      "id": "milho",
-      "name": "FELUX Milho",
-      "tag": "100% Milho · Azul",
-      "color": "#1F3F86",
-      "image": "assets/felux-milho-4kg-pack.webp",
+      "id": "finos",
+      "name": "FELUX Grãos Finos",
+      "tag": "Granulação fina",
       "weight": "4 kg",
-      "bullets": [
-        "O amido do milho gelifica em contato com o xixi e absorve em segundos",
-        "Torrão formado antes do líquido chegar ao fundo da caixa",
-        "Feita com milho de fonte renovável"
-      ],
-      "price": null,
-      "salePrice": null,
       "badge": "",
-      "buyUrl": "",
-      "inStock": true,
       "active": true,
+      "bullets": [
+        "Torrão em instantes, sai inteiro",
+        "Grãos macios para as patinhas",
+        "Menos areia jogada fora"
+      ],
+      "variants": [
+        {
+          "id": "milho",
+          "label": "Milho",
+          "color": "#1F3F86",
+          "image": "assets/packs/felux-finos-milho.webp",
+          "composition": "100% milho",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true
+        },
+        {
+          "id": "mandioca",
+          "label": "Mandioca",
+          "color": "#8E3B22",
+          "image": "assets/packs/felux-finos-mandioca.webp",
+          "composition": "100% mandioca",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true
+        },
+        {
+          "id": "mista",
+          "label": "Milho + Mandioca",
+          "color": "#2B6144",
+          "image": "assets/packs/felux-finos-mista.webp",
+          "composition": "Milho e mandioca",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true
+        }
+      ],
       "page": {
         "chip": "Torrão em instantes",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Milho forma o torrão em instantes e segura o odor dentro dele. Feita apenas de milho, tem grãos finos e macios, baixa poeira e é 100% vegetal.",
+        "description": "A FELUX Grãos Finos forma o torrão em instantes e segura o odor dentro dele. Grãos finos e macios, baixa poeira e 100% vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
         "sections": [
           {
             "title": "Fez xixi, tem torrão. Tem torrão, não tem cheiro.",
             "text": "O torrão se forma em instantes e sai inteiro. Menos areia jogada fora, mais tempo de caixa limpa.",
-            "image": "assets/scenes/torrao-milho.webp",
+            "image": "assets/scenes/torrao-finos.webp",
             "round": false
           },
           {
@@ -78,7 +107,7 @@
           {
             "title": "Todo mundo sai ganhando",
             "text": "Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.",
-            "image": "assets/scenes/caixa-milho.webp",
+            "image": "assets/scenes/caixa-finos.webp",
             "round": false
           }
         ],
@@ -88,10 +117,6 @@
           {
             "label": "Peso líquido",
             "value": "4 kg"
-          },
-          {
-            "label": "Composição",
-            "value": "100% milho"
           },
           {
             "label": "Granulação",
@@ -117,32 +142,61 @@
       }
     },
     {
-      "id": "mista",
-      "name": "FELUX Mista",
-      "tag": "Milho + Mandioca · Verde",
-      "color": "#2B6144",
-      "image": "assets/felux-mista-4kg-pack.webp",
+      "id": "mistos",
+      "name": "FELUX Grãos Mistos",
+      "tag": "Granulação mista",
       "weight": "4 kg",
-      "bullets": [
-        "A absorção rápida do milho com a liga da mandioca",
-        "A versão mais equilibrada para o dia a dia",
-        "Feita com milho e mandioca de fonte renovável"
-      ],
-      "price": null,
-      "salePrice": null,
       "badge": "",
-      "buyUrl": "",
-      "inStock": true,
       "active": true,
+      "bullets": [
+        "Equilíbrio entre economia e menos rastro",
+        "Torrão firme num instante",
+        "Odor retido no torrão"
+      ],
+      "variants": [
+        {
+          "id": "milho",
+          "label": "Milho",
+          "color": "#1F3F86",
+          "image": "assets/packs/felux-mistos-milho.webp",
+          "composition": "100% milho",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true
+        },
+        {
+          "id": "mandioca",
+          "label": "Mandioca",
+          "color": "#8E3B22",
+          "image": "assets/packs/felux-mistos-mandioca.webp",
+          "composition": "100% mandioca",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true
+        },
+        {
+          "id": "mista",
+          "label": "Milho + Mandioca",
+          "color": "#2B6144",
+          "image": "assets/packs/felux-mistos-mista.webp",
+          "composition": "Milho e mandioca",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true
+        }
+      ],
       "page": {
         "chip": "Equilíbrio",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Mista une milho e mandioca: o torrão fica firme num instante, o odor fica retido e menos areia se espalha pela casa. Grãos finos, baixa poeira e 100% vegetal.",
+        "description": "A FELUX Grãos Mistos junta grãos finos e grossos: torrão firme num instante, odor retido e menos areia espalhada pela casa. Baixa poeira e 100% vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
         "sections": [
           {
             "title": "O equilíbrio perfeito",
             "text": "Os grânulos mistos equilibram economia com menos rastro. Fez xixi: odor retido e torrão pronto. Torrão firme num instante e menos areia espalhada pela casa.",
-            "image": "assets/scenes/torrao-mista.webp",
+            "image": "assets/scenes/torrao-mistos.webp",
             "round": false
           },
           {
@@ -154,7 +208,7 @@
           {
             "title": "Todo mundo sai ganhando",
             "text": "Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.",
-            "image": "assets/scenes/caixa-mista.webp",
+            "image": "assets/scenes/caixa-mistos.webp",
             "round": false
           }
         ],
@@ -166,12 +220,8 @@
             "value": "4 kg"
           },
           {
-            "label": "Composição",
-            "value": "Milho e mandioca"
-          },
-          {
             "label": "Granulação",
-            "value": "Fina, grãos mistos"
+            "value": "Mista (grãos finos e grossos)"
           },
           {
             "label": "Poeira",
@@ -193,32 +243,61 @@
       }
     },
     {
-      "id": "mandioca",
-      "name": "FELUX Mandioca",
-      "tag": "100% Mandioca · Terracota",
-      "color": "#8E3B22",
-      "image": "assets/felux-mandioca-4kg-pack.webp",
+      "id": "grossos",
+      "name": "FELUX Grãos Grossos",
+      "tag": "Granulação grossa",
       "weight": "4 kg",
-      "bullets": [
-        "A fécula da mandioca dá liga e o torrão sai inteiro na pá",
-        "Grão claro, fácil de ver onde está o torrão",
-        "Feita com mandioca de fonte renovável"
-      ],
-      "price": null,
-      "salePrice": null,
       "badge": "",
-      "buyUrl": "",
-      "inStock": true,
       "active": true,
+      "bullets": [
+        "Grãos maiores, mínimo rastro",
+        "Torrão formado rapidamente",
+        "Os grãos ficam na caixa, não pela casa"
+      ],
+      "variants": [
+        {
+          "id": "milho",
+          "label": "Milho",
+          "color": "#1F3F86",
+          "image": "assets/packs/felux-grossos-milho.webp",
+          "composition": "100% milho",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true
+        },
+        {
+          "id": "mandioca",
+          "label": "Mandioca",
+          "color": "#8E3B22",
+          "image": "assets/packs/felux-grossos-mandioca.webp",
+          "composition": "100% mandioca",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true
+        },
+        {
+          "id": "mista",
+          "label": "Milho + Mandioca",
+          "color": "#2B6144",
+          "image": "assets/packs/felux-grossos-mista.webp",
+          "composition": "Milho e mandioca",
+          "price": null,
+          "salePrice": null,
+          "buyUrl": "",
+          "inStock": true
+        }
+      ],
       "page": {
         "chip": "Mínimo rastro",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Mandioca forma o torrão rapidamente e mantém os grãos dentro da caixa. Feita apenas de mandioca, tem grão claro e macio, baixa poeira e é 100% vegetal.",
+        "description": "A FELUX Grãos Grossos tem grãos maiores, que formam o torrão rapidamente e ficam dentro da caixa. Baixa poeira e 100% vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
         "sections": [
           {
             "title": "Mínimo rastro, máxima tranquilidade",
-            "text": "O torrão se forma rapidamente e os grãos ficam onde devem: na caixa, e não pela casa.",
-            "image": "assets/scenes/torrao-mandioca.webp",
+            "text": "Os grãos maiores formam o torrão rapidamente e ficam onde devem: na caixa, e não pela casa.",
+            "image": "assets/scenes/torrao-grossos.webp",
             "round": false
           },
           {
@@ -230,7 +309,7 @@
           {
             "title": "Todo mundo sai ganhando",
             "text": "Ele fica feliz, você fica feliz em vê-lo assim, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa para todos curtirem.",
-            "image": "assets/scenes/caixa-mandioca.webp",
+            "image": "assets/scenes/caixa-grossos.webp",
             "round": false
           }
         ],
@@ -242,12 +321,8 @@
             "value": "4 kg"
           },
           {
-            "label": "Composição",
-            "value": "100% mandioca"
-          },
-          {
             "label": "Granulação",
-            "value": "Fina"
+            "value": "Grossa"
           },
           {
             "label": "Poeira",

@@ -6,7 +6,8 @@ Site da FELUX, areia higiênica biodegradável de milho e mandioca.
 - `index.html`: o site pronto (gerado por `build.sh` a partir de `src/template.html` e `data/default.json`)
 - `src/content.html`: a mesma página, usada como prévia
 - `assets/scenes/`: imagens das páginas de produto (torrão, caixa, gato)
-- `assets/`: logo em SVG e embalagens (Milho, Mista, Mandioca)
+- `assets/packs/`: as 9 embalagens (Grãos Finos, Mistos e Grossos × Milho, Mandioca, Milho + Mandioca)
+- `assets/`: logo em SVG
 - `server.js`: servidor sem dependências (site + painel), usado no Railway
 - `admin.html`: painel em `/admin` para editar produtos, preços, descontos, lojas, cupons e WhatsApp
 - `data/default.json`: dados iniciais dos produtos (usados até o primeiro salvamento no painel)
@@ -37,6 +38,7 @@ Configure uma vez no Railway, no serviço do site:
 
 O que dá para fazer no painel:
 - Página de cada produto (abre em "Quero conhecer" ou em `/produto/milho`): destaque, frase grande, descrição, especificações, blocos com imagem e texto, dica e frase final.
+- Cada produto (Grãos Finos, Mistos, Grossos) tem versões por matéria-prima, cada uma com foto, cor, composição, preço, promoção, link de compra e estoque.
 - Produtos: nome, etiqueta, cor, peso, foto, benefícios, preço, preço promocional ou desconto em %, selo ("Mais vendido", "Oferta"...), link de compra, esgotado, visível ou oculto, ordem, duplicar e excluir.
 - Loja: WhatsApp e mensagem inicial, Instagram, CNPJ, faixa de aviso no topo, lojas de "Onde comprar" e cupons.
 

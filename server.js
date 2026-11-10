@@ -31,6 +31,14 @@ function readData() {
   let d; try { d = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')); } catch { return DEFAULTS(); }
   // dados salvos antes das páginas de produto: completa com os textos padrão
   const def = DEFAULTS(), byId = Object.fromEntries(def.products.map(p => [p.id, p]));
+  if (!d.products.some(p => Array.isArray(p.variants))) {
+    // formato antigo (Milho, Mista, Mandioca como produtos): vira Finos/Mistos/Grossos com versões,
+    // levando preço, promoção, link e estoque de cada matéria-prima para as três granulações
+    const old = Object.fromEntries(d.products.map(p => [p.id, p]));
+    d.products = def.products.map(p => ({ ...p, variants: p.variants.map(v => {
+      const o = old[v.id]; return o ? { ...v, price: o.price ?? null, salePrice: o.salePrice ?? null, buyUrl: o.buyUrl || '', inStock: o.inStock !== false } : v;
+    }) }));
+  }
   d.products.forEach(p => { if (!p.page) p.page = (byId[p.id] && byId[p.id].page) || null; });
   if (!d.settings.cycle) d.settings.cycle = def.settings.cycle;
   return d;
@@ -58,13 +66,19 @@ function clean(input) {
   const s = input.settings || {};
   const products = (Array.isArray(input.products) ? input.products : []).slice(0, 40).map((p, i) => {
     let id = str(p.id, 40).toLowerCase().replace(/[^a-z0-9-]/g, '-').replace(/^-+|-+$/g, '') || 'produto-' + (i + 1);
-    let price = money(p.price), salePrice = money(p.salePrice);
-    if (salePrice !== null && (price === null || salePrice >= price)) salePrice = null; // promoção só se for menor que o preço
+    const vseen = new Set();
+    const variants = (Array.isArray(p.variants) ? p.variants : []).slice(0, 12).map((v, j) => {
+      let vid = str(v.id, 30).toLowerCase().replace(/[^a-z0-9]/g, '') || 'v' + (j + 1);
+      while (vseen.has(vid)) vid += '2'; vseen.add(vid);
+      let price = money(v.price), salePrice = money(v.salePrice);
+      if (salePrice !== null && (price === null || salePrice >= price)) salePrice = null; // promoção só se for menor que o preço
+      return { id: vid, label: str(v.label, 40) || 'Versão', color: color(v.color), image: url(v.image), composition: str(v.composition, 80),
+               price, salePrice, buyUrl: url(v.buyUrl), inStock: v.inStock !== false };
+    });
     return {
-      id, name: str(p.name, 80) || 'Produto', tag: str(p.tag, 80), color: color(p.color), image: url(p.image), weight: str(p.weight, 20),
+      id, name: str(p.name, 80) || 'Produto', tag: str(p.tag, 80), weight: str(p.weight, 20),
       bullets: (Array.isArray(p.bullets) ? p.bullets : []).map(b => str(b, 160)).filter(Boolean).slice(0, 6),
-      price, salePrice, badge: str(p.badge, 30), buyUrl: url(p.buyUrl), inStock: p.inStock !== false, active: p.active !== false,
-      page: cleanPage(p.page)
+      badge: str(p.badge, 30), active: p.active !== false, variants, page: cleanPage(p.page)
     };
   });
   const seen = new Set(); products.forEach(p => { while (seen.has(p.id)) p.id += '-2'; seen.add(p.id); });

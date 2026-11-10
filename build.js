@@ -7,14 +7,15 @@ const data = JSON.parse(fs.readFileSync(R('data/default.json'), 'utf8'));
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
 // mesmo HTML que o cartão gerado no navegador (sem preço: "Consulte o preço")
-const card = p => `<article class="prod" style="--v:${esc(p.color)}">
-      <a class="pack" href="#${esc(p.id)}" aria-label="Conhecer ${esc(p.name)}">${p.image ? `<img src="${esc(p.image)}" alt="Embalagem ${esc(p.name)}" width="530" height="896">` : ''}</a>
-      <div><p class="tag"><i></i>${esc(p.tag)}</p><h3><a href="#${esc(p.id)}">${esc(p.name)}</a></h3></div>
+const card = p => { const v = p.variants[0], link = `#${esc(p.id)}-${esc(v.id)}`; return `<article class="prod" data-card="${esc(p.id)}" style="--v:${esc(v.color)}">
+      <a class="pack" href="${link}" aria-label="Conhecer ${esc(p.name)}"><img src="${esc(v.image)}" alt="Embalagem ${esc(p.name)} ${esc(v.label)}" width="530" height="896"></a>
+      <div><p class="tag"><i></i>${esc(p.tag)}</p><h3><a href="${link}">${esc(p.name)}</a></h3></div>
+      <div class="swatches" role="radiogroup" aria-label="Matéria-prima">${p.variants.map((x, i) => `<button type="button" role="radio" aria-checked="${i === 0}" data-p="${esc(p.id)}" data-v="${esc(x.id)}" style="--sw:${esc(x.color)}"><i></i>${esc(x.label)}</button>`).join('')}</div>
       <div class="price"><span class="ask">Consulte o preço</span></div>
-      <div class="actions"><a class="btn btn-ghost" href="#${esc(p.id)}">Quero conhecer</a><a class="btn btn-gold js-wa" href="#comprar">Comprar</a></div>
+      <div class="actions"><a class="btn btn-ghost" href="${link}">Quero conhecer</a><a class="btn btn-gold js-wa" href="#comprar">Comprar</a></div>
       <ul>${p.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>
       <div class="sizes">Embalagem <span>${esc(p.weight)}</span></div>
-    </article>`;
+    </article>`; };
 
 const json = JSON.stringify(data).replace(/</g, '\\u003c');
 const page = tpl.replace('{{STATIC_CARDS}}', data.products.filter(p => p.active !== false).map(card).join('\n      '))
@@ -34,7 +35,7 @@ const head = `<!doctype html>
 <meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://feluxpet.com.br/">
 <meta property="og:title" content="FELUX | Areia higiênica vegetal para gatos">
-<meta property="og:description" content="Três versões 100% vegetais: Milho, Mista e Mandioca.">
+<meta property="og:description" content="Grãos Finos, Mistos e Grossos, em milho, mandioca ou milho + mandioca.">
 <link rel="icon" href="assets/felux-simbolo.svg" type="image/svg+xml">
 <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'Organization', name: 'FELUX', url: 'https://feluxpet.com.br/', description: 'Areia higiênica vegetal de milho e mandioca para gatos.' })}</script>
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>

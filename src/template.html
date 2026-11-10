@@ -157,8 +157,15 @@ footer{border-top:1px solid var(--line);padding-block:28px}
 .wa{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:56px;height:56px;border-radius:50%;background:var(--ink);color:var(--gold);display:grid;place-items:center;box-shadow:0 12px 26px -10px rgba(0,0,0,.5);text-decoration:none}
 .wa svg{width:28px;height:28px}
 
-/* cartões: conhecer + comprar */
-.prod{grid-template-rows:auto auto auto auto 1fr auto}
+/* cartões: versão + conhecer + comprar */
+.prod{grid-template-rows:auto auto auto auto auto 1fr auto}
+.swatches{display:flex;flex-wrap:wrap;gap:6px}
+.swatches button{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:.38em .8em;font:600 .8rem var(--font-body);cursor:pointer}
+.swatches button i{width:10px;height:10px;border-radius:50%;background:var(--sw);flex:none}
+.swatches button[aria-checked="true"]{border-color:var(--ink);background:color-mix(in srgb, var(--sw) 14%, var(--surface))}
+.swatches.big{gap:8px}
+.swatches.big button{font-size:.92rem;padding:.6em 1.05em}
+.pick-label{font-size:var(--s-1);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
 .prod a.pack{text-decoration:none}
 .prod h3 a{text-decoration:none}
 .prod h3 a:hover{text-decoration:underline;text-underline-offset:4px}
@@ -257,13 +264,13 @@ footer{border-top:1px solid var(--line);padding-block:28px}
   <div class="wrap">
     <div class="intro">
       <div>
-        <p class="eyebrow">Areia higiênica vegetal · 4 kg · grão fino</p>
+        <p class="eyebrow">Areia higiênica vegetal · 4 kg</p>
         <h1>Escolha a sua FELUX.</h1>
       </div>
-      <p class="sub">Três versões 100% vegetais, de milho e mandioca. Torrão firme, baixa poeira e descarte no lixo orgânico.</p>
+      <p class="sub">Três granulações, cada uma em milho, mandioca ou milho + mandioca. 100% vegetal, torrão firme e baixa poeira.</p>
     </div>
     <div class="products" id="grid">{{STATIC_CARDS}}</div>
-    <p class="guide"><span>Qual escolher?</span><span><b>Absorver rápido:</b> Milho</span><span><b>Equilíbrio:</b> Mista</span><span><b>Mínimo rastro:</b> Mandioca</span></p>
+    <p class="guide"><span>Qual escolher?</span><span><b>Torrão em instantes:</b> Finos</span><span><b>Equilíbrio:</b> Mistos</span><span><b>Mínimo rastro:</b> Grossos</span></p>
     <ul class="perks">
       <li><b>Alta absorção</b><span>torrões firmes e rápidos</span></li>
       <li><b>Controle de odores</b><span>sem perfume sintético</span></li>
@@ -298,7 +305,8 @@ footer{border-top:1px solid var(--line);padding-block:28px}
   <div class="wrap">
     <div><p class="eyebrow">Dúvidas</p><h2>Perguntas frequentes</h2></div>
     <div class="faq">
-      <details open><summary>Qual a diferença entre Milho, Mista e Mandioca?</summary><p>As três são 100% vegetais, em grão fino e saco de 4 kg. A de milho forma o torrão em instantes, a de mandioca deixa o mínimo de rastro e a Mista equilibra as duas. Na dúvida, comece pela Mista.</p></details>
+      <details open><summary>Qual a diferença entre Finos, Mistos e Grossos?</summary><p>É o tamanho do grão. A Grãos Finos forma o torrão em instantes, a Grãos Grossos deixa o mínimo de rastro e a Grãos Mistos equilibra as duas. Todas vêm em saco de 4 kg.</p></details>
+      <details><summary>Milho, mandioca ou milho + mandioca?</summary><p>As três matérias-primas são 100% vegetais e biodegradáveis e existem em todas as granulações. Escolha a que o seu gato preferir. Na dúvida, comece por milho + mandioca.</p></details>
       <details><summary>Quanto dura um saco de 4 kg?</summary><p>Para um gato, retirando os torrões todo dia, em média de 4 a 5 semanas.</p></details>
       <details><summary>Como descarto a areia usada?</summary><p>No lixo orgânico ou em composteira. Não use em hortas e evite jogar grandes quantidades no vaso sanitário.</p></details>
       <details><summary>Como faço a troca da areia antiga?</summary><p>Misture FELUX na areia que o gato já usa e aumente a quantidade ao longo de 7 dias.</p></details>
@@ -337,24 +345,30 @@ footer{border-top:1px solid var(--line);padding-block:28px}
     if (n.length <= 11) n = '55' + n;
     return 'https://wa.me/' + n + '?text=' + encodeURIComponent(text || s.whatsappMessage || 'Olá!');
   }
+  const sel = {}; // produto -> versão escolhida
+  const V = p => (p.variants || []).find(v => v.id === sel[p.id]) || (p.variants || [])[0] || {};
+  const swatches = (p, big) => (p.variants || []).length > 1 ? `<div class="swatches${big ? ' big' : ''}" role="radiogroup" aria-label="Matéria-prima">${p.variants.map(v =>
+      `<button type="button" role="radio" aria-checked="${v.id === V(p).id}" data-p="${esc(p.id)}" data-v="${esc(v.id)}" style="--sw:${esc(v.color)}"><i></i>${esc(v.label)}</button>`).join('')}</div>` : '';
   function priceHTML(p){
     const sale = p.price != null && p.salePrice != null && p.salePrice < p.price;
     if (p.price == null) return '<span class="ask">Consulte o preço</span>';
     return sale ? `<span class="now">${brl(p.salePrice)}</span><span class="old">${brl(p.price)}</span><span class="off">-${Math.round((1 - p.salePrice/p.price)*100)}%</span>` : `<span class="now">${brl(p.price)}</span>`;
   }
   function buyBtn(p, cls = ''){
-    if (!p.inStock){ const l = waLink(`Olá! Quero ser avisado quando ${p.name} voltar ao estoque.`) || '#comprar'; return `<a class="btn btn-ghost ${cls}" href="${esc(l)}"${ext(l)}>Avise-me</a>`; }
-    const l = p.buyUrl || waLink(`Olá! Quero comprar ${p.name}${p.weight ? ' ' + p.weight : ''}.`) || '#comprar';
+    const v = V(p), nm = `${p.name} ${v.label || ''}`.trim();
+    if (v.inStock === false){ const l = waLink(`Olá! Quero ser avisado quando ${nm} voltar ao estoque.`) || '#comprar'; return `<a class="btn btn-ghost ${cls}" href="${esc(l)}"${ext(l)}>Avise-me</a>`; }
+    const l = v.buyUrl || waLink(`Olá! Quero comprar ${nm}${p.weight ? ' ' + p.weight : ''}.`) || '#comprar';
     return `<a class="btn btn-gold ${cls}" href="${esc(l)}"${ext(l)}>Comprar</a>`;
   }
-  const card = p => `<article class="prod${p.inStock ? '' : ' soldout'}" style="--v:${esc(p.color)}">
-      <a class="pack" href="#${esc(p.id)}" aria-label="Conhecer ${esc(p.name)}">${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${p.image ? `<img src="${esc(p.image)}" alt="Embalagem ${esc(p.name)}" width="530" height="896">` : ''}</a>
-      <div><p class="tag"><i></i>${esc(p.tag)}</p><h3><a href="#${esc(p.id)}">${esc(p.name)}</a></h3></div>
-      <div class="price">${priceHTML(p)}</div>
-      <div class="actions"><a class="btn btn-ghost" href="#${esc(p.id)}">Quero conhecer</a>${buyBtn(p)}</div>
+  const card = p => { const v = V(p), link = `#${esc(p.id)}-${esc(v.id)}`; return `<article class="prod${v.inStock === false ? ' soldout' : ''}" data-card="${esc(p.id)}" style="--v:${esc(v.color)}">
+      <a class="pack" href="${link}" aria-label="Conhecer ${esc(p.name)}">${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${v.image ? `<img src="${esc(v.image)}" alt="Embalagem ${esc(p.name)} ${esc(v.label)}" width="530" height="896">` : ''}</a>
+      <div><p class="tag"><i></i>${esc(p.tag)}</p><h3><a href="${link}">${esc(p.name)}</a></h3></div>
+      ${swatches(p)}
+      <div class="price">${priceHTML(v)}</div>
+      <div class="actions"><a class="btn btn-ghost" href="${link}">Quero conhecer</a>${buyBtn(p)}</div>
       <ul>${p.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>
-      ${p.weight ? `<div class="sizes">Embalagem <span>${esc(p.weight)}</span>${p.inStock ? '' : '<span>Esgotado</span>'}</div>` : ''}
-    </article>`;
+      ${p.weight ? `<div class="sizes">Embalagem <span>${esc(p.weight)}</span>${v.inStock === false ? '<span>Esgotado</span>' : ''}</div>` : ''}
+    </article>`; };
 
   const STEPS = [['Planta','nasce da terra'],['Areia','macia e segura para ele'],['Torrão','se forma na caixa'],['Terra','volta e nutre o novo ciclo']];
   const cycleHTML = (c, full) => !c || !c.text ? '' : `<div class="cycle">
@@ -369,25 +383,27 @@ footer{border-top:1px solid var(--line);padding-block:28px}
   }
 
   function renderPDP(p){
-    const pg = p.page || {}, others = data.products.filter(x => x.id !== p.id);
+    const pg = p.page || {}, others = data.products.filter(x => x.id !== p.id), v = V(p);
+    const specs = (pg.specs || []).slice(); if (v.composition) specs.splice(Math.min(1, specs.length), 0, {label:'Composição', value:v.composition});
     const wa = waLink(`Olá! Tenho uma dúvida sobre ${p.name}.`);
     $('#pdp').innerHTML = `
     <div class="wrap">
       <nav class="crumbs" aria-label="Você está em"><a href="#produtos">Início</a><span aria-hidden="true">›</span><a href="#produtos">Areias</a><span aria-hidden="true">›</span><span>${esc(p.name)}${p.weight ? ' ' + esc(p.weight) : ''}</span></nav>
-      <section class="pdp-top" style="--v:${esc(p.color)}">
-        <div class="pdp-img">${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${p.image ? `<img src="${esc(p.image)}" alt="Embalagem ${esc(p.name)}" width="530" height="896">` : ''}</div>
+      <section class="pdp-top" style="--v:${esc(v.color)}">
+        <div class="pdp-img">${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${v.image ? `<img src="${esc(v.image)}" alt="Embalagem ${esc(p.name)} ${esc(v.label)}" width="530" height="896">` : ''}</div>
         <div class="pdp-info">
           <p class="tag"><i></i>${esc(p.tag)}</p>
           <h1>${esc(p.name)}</h1>
           ${pg.chip ? `<span class="chip">${esc(pg.chip)}</span>` : ''}
-          <div class="price">${priceHTML(p)}</div>
+          ${(p.variants || []).length > 1 ? `<p class="pick-label">Matéria-prima</p>${swatches(p, true)}` : ''}
+          <div class="price">${priceHTML(v)}${v.inStock === false ? ' <span class="ask">· Esgotado</span>' : ''}</div>
           <div class="actions">${buyBtn(p)}${wa ? `<a class="btn btn-ghost" href="${esc(wa)}" target="_blank" rel="noopener">Tirar dúvida</a>` : ''}</div>
           <div class="tabs" role="tablist">
             <button role="tab" id="t-desc" aria-selected="true" aria-controls="p-desc">Descrição</button>
             <button role="tab" id="t-spec" aria-selected="false" aria-controls="p-spec">Especificações</button>
           </div>
           <div class="tabpanel" id="p-desc" role="tabpanel" aria-labelledby="t-desc">${paras(pg.description)}${p.bullets.length ? `<ul>${p.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>` : ''}</div>
-          <div class="tabpanel" id="p-spec" role="tabpanel" aria-labelledby="t-spec" hidden><dl class="specs">${(pg.specs || []).map(s => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}</dl></div>
+          <div class="tabpanel" id="p-spec" role="tabpanel" aria-labelledby="t-spec" hidden><dl class="specs">${specs.map(s => `<div><dt>${esc(s.label)}</dt><dd>${esc(s.value)}</dd></div>`).join('')}</dl></div>
         </div>
       </section>
       ${pg.statement ? `<p class="statement">${esc(pg.statement)}</p>` : ''}
@@ -402,7 +418,7 @@ footer{border-top:1px solid var(--line);padding-block:28px}
     ${pg.quote ? `<section class="quote"><div class="wrap"><blockquote>“${esc(pg.quote)}”</blockquote></div></section>` : ''}
     <section class="cycle-sec"><div class="wrap">${cycleHTML(data.settings.cycle, true)}</div></section>
     ${others.length ? `<section class="others"><div class="wrap"><h2>Conheça também</h2><div class="others-grid">${others.map(o => `
-      <a class="other" href="#${esc(o.id)}" style="--v:${esc(o.color)}"><span class="o-img">${o.image ? `<img src="${esc(o.image)}" alt="" loading="lazy">` : ''}</span><span><span class="tag"><i></i>${esc(o.tag)}</span><b>${esc(o.name)}</b><span class="price">${priceHTML(o)}</span></span></a>`).join('')}
+      <a class="other" href="#${esc(o.id)}" style="--v:${esc(V(o).color)}"><span class="o-img">${V(o).image ? `<img src="${esc(V(o).image)}" alt="" loading="lazy">` : ''}</span><span><span class="tag"><i></i>${esc(o.tag)}</span><b>${esc(o.name)}</b><span class="price">${priceHTML(V(o))}</span></span></a>`).join('')}
       </div><a class="back" href="#produtos">← Ver todas as areias</a></div></section>` : ''}`;
     $('#pdp').querySelectorAll('[role=tab]').forEach(t => t.addEventListener('click', () => {
       $('#pdp').querySelectorAll('[role=tab]').forEach(x => { const on = x === t; x.setAttribute('aria-selected', on); document.getElementById(x.getAttribute('aria-controls')).hidden = !on; });
@@ -434,7 +450,9 @@ footer{border-top:1px solid var(--line);padding-block:28px}
   // ---------- navegação: #milho abre a página do produto; outros links voltam ao catálogo ----------
   const baseTitle = document.title;
   function route(scroll = true){
-    const id = location.hash.slice(1), p = data.products.find(x => x.id === id);
+    const id = location.hash.slice(1);
+    const p = data.products.find(x => x.id === id) || data.products.find(x => id.startsWith(x.id + '-') && (x.variants || []).some(v => v.id === id.slice(x.id.length + 1)));
+    if (p && id !== p.id) sel[p.id] = id.slice(p.id.length + 1);
     $('#home').hidden = !!p; $('#pdp').hidden = !p;
     if (p){
       renderPDP(p); document.title = p.name + ' | FELUX';
@@ -446,6 +464,14 @@ footer{border-top:1px solid var(--line);padding-block:28px}
     }
   }
   addEventListener('hashchange', () => route(true));
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-p][data-v]'); if (!b) return;
+    const p = data.products.find(x => x.id === b.dataset.p); if (!p) return;
+    sel[p.id] = b.dataset.v;
+    if (b.closest('#pdp')){ renderPDP(p); try { history.replaceState(null, '', '#' + p.id + '-' + b.dataset.v); } catch {} }
+    const c = document.querySelector(`[data-card="${CSS.escape(p.id)}"]`); if (c) c.outerHTML = card(p);
+    document.querySelector(`[data-p="${CSS.escape(p.id)}"][data-v="${CSS.escape(b.dataset.v)}"]`)?.focus();
+  });
 
   function renderAll(scroll){ renderHome(); renderShared(); route(scroll); }
   renderAll(true);

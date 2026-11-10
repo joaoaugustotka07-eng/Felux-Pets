@@ -77,6 +77,12 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
 .pagebox > summary{cursor:pointer;padding:12px 0;font-weight:700}
 .pagebox[open] > summary{border-bottom:1px solid var(--line);margin-bottom:12px}
 .pagebox .fields{padding-bottom:14px}
+.varbox{grid-column:span 6;display:grid;grid-template-columns:110px 1fr;gap:14px;border:1.5px solid var(--line);border-left:6px solid var(--c);border-radius:12px;padding:12px}
+.varbox .vimg{display:grid;gap:8px;align-content:start}
+.varbox .ph{aspect-ratio:3/5;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,#fff);overflow:hidden}
+.varbox .ph img{max-height:100%;max-width:100%;object-fit:contain}
+.varbox .fields{grid-template-columns:repeat(6,1fr)}
+@media (max-width:760px){.varbox{grid-template-columns:1fr}.varbox .vimg{grid-template-columns:90px 1fr;align-items:start}}
 .secbox{grid-column:span 6;display:grid;grid-template-columns:110px 1fr;gap:12px;background:var(--ground);border-radius:10px;padding:12px}
 .secbox .thumb{aspect-ratio:1;border-radius:8px;background:#ddd center/cover no-repeat}
 .secbox .thumb.round{border-radius:50%}
@@ -216,33 +222,48 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     if (p.salePrice != null) return `<span class="now">${brl(p.price)}</span><span class="err">O preço promocional precisa ser menor que o preço normal.</span>`;
     return `<span class="hint">No site:</span><span class="now">${brl(p.price)}</span>`;
   }
-  function productCard(p, i){
-    const off = p.price && p.salePrice != null && p.salePrice < p.price ? Math.round((1 - p.salePrice/p.price)*100) : '';
-    return `<article class="card prod ${p.active ? '' : 'off'}" data-i="${i}" style="--c:${esc(p.color)}">
-      <div class="img">
-        <div class="ph">${p.image ? `<img src="${esc(p.image)}" alt="">` : '<span class="hint">Sem foto</span>'}</div>
-        <div style="display:grid;gap:8px">
-          <button class="btn ghost small" data-act="upload">Trocar foto</button>
-          <span class="hint" style="font-size:.78rem">PNG, JPG ou WEBP até 4 MB. Fundo transparente fica melhor.</span>
+  const pctOf = v => v.price && v.salePrice != null && v.salePrice < v.price ? Math.round((1 - v.salePrice/v.price)*100) : '';
+  function variantBox(v, j, n){
+    return `<div class="varbox" data-v="${j}" style="--c:${esc(v.color)}">
+      <div class="vimg"><div class="ph">${v.image ? `<img src="${esc(v.image)}" alt="">` : '<span class="hint">Sem foto</span>'}</div><button class="btn ghost small" data-act="upload-var">Trocar foto</button></div>
+      <div class="fields">
+        <label class="f s2"><span>Versão</span><input type="text" data-vk="label" value="${esc(v.label)}" placeholder="Milho"></label>
+        <label class="f s1"><span>Cor</span><input type="color" data-vk="color" value="${esc(v.color)}"></label>
+        <label class="f s3" style="grid-column:span 3"><span>Composição</span><input type="text" data-vk="composition" value="${esc(v.composition)}" placeholder="100% milho"></label>
+        <label class="f s2"><span>Preço</span><div class="money"><input type="text" inputmode="decimal" data-vk="price" value="${dec(v.price)}" placeholder="59,90"></div></label>
+        <label class="f s2"><span>Preço promocional</span><div class="money"><input type="text" inputmode="decimal" data-vk="salePrice" value="${dec(v.salePrice)}" placeholder="vazio = sem promoção"></div></label>
+        <label class="f s2"><span>ou desconto em %</span><input type="number" min="0" max="90" step="1" data-vk="pct" value="${pctOf(v)}" placeholder="ex.: 15"></label>
+        <div class="pricebox">${priceBox(v)}</div>
+        <label class="f s6"><span>Link de compra desta versão (vazio = WhatsApp)</span><input type="text" data-vk="buyUrl" value="${esc(v.buyUrl)}" placeholder="https://..."></label>
+        <div class="toggles">
+          <label><input type="checkbox" data-vk="inStock" ${v.inStock !== false ? 'checked' : ''}> Em estoque</label>
+          <span class="push" style="margin-left:auto"></span>
+          <button class="btn ghost small" data-act="var-up" ${j === 0 ? 'disabled' : ''}>↑</button>
+          <button class="btn danger small" data-act="var-del" ${n === 1 ? 'disabled title="O produto precisa de pelo menos uma versão"' : ''}>Remover versão</button>
         </div>
+      </div>
+    </div>`;
+  }
+  function productCard(p, i){
+    const v0 = (p.variants || [])[0] || {};
+    return `<article class="card prod ${p.active ? '' : 'off'}" data-i="${i}" style="--c:${esc(v0.color || '#999')}">
+      <div class="img">
+        <div class="ph">${v0.image ? `<img src="${esc(v0.image)}" alt="">` : '<span class="hint">Sem foto</span>'}</div>
+        <span class="hint" style="font-size:.78rem">Foto, preço e estoque ficam em cada versão, abaixo. A primeira versão aparece primeiro no site.</span>
       </div>
       <div class="fields">
         <label class="f s2"><span>Nome</span><input type="text" data-k="name" value="${esc(p.name)}"></label>
-        <label class="f s2"><span>Etiqueta (ex.: 100% Milho · Azul)</span><input type="text" data-k="tag" value="${esc(p.tag)}"></label>
-        <label class="f s1"><span>Cor</span><input type="color" data-k="color" value="${esc(p.color)}"></label>
+        <label class="f s2"><span>Etiqueta (ex.: Granulação fina)</span><input type="text" data-k="tag" value="${esc(p.tag)}"></label>
         <label class="f s1"><span>Peso</span><input type="text" data-k="weight" value="${esc(p.weight)}"></label>
-        <label class="f s2"><span>Preço</span><div class="money"><input type="text" inputmode="decimal" data-k="price" value="${dec(p.price)}" placeholder="59,90"></div></label>
-        <label class="f s2"><span>Preço promocional</span><div class="money"><input type="text" inputmode="decimal" data-k="salePrice" value="${dec(p.salePrice)}" placeholder="vazio = sem promoção"></div></label>
-        <label class="f s2"><span>ou desconto em %</span><input type="number" min="0" max="90" step="1" data-k="pct" value="${off}" placeholder="ex.: 15"></label>
-        <div class="pricebox">${priceBox(p)}</div>
-        <label class="f s2"><span>Selo (opcional)</span><input type="text" data-k="badge" list="badges" value="${esc(p.badge)}" placeholder="Mais vendido"></label>
-        <label class="f s4" style="grid-column:span 4"><span>Link de compra (vazio = WhatsApp)</span><input type="text" data-k="buyUrl" value="${esc(p.buyUrl)}" placeholder="https://..."></label>
-        <label class="f s6"><span>Benefícios (um por linha)</span><textarea data-k="bullets">${esc(p.bullets.join('\n'))}</textarea></label>
+        <label class="f s1"><span>Selo</span><input type="text" data-k="badge" list="badges" value="${esc(p.badge)}" placeholder="Oferta"></label>
+        <label class="f s6"><span>Benefícios no cartão (um por linha)</span><textarea data-k="bullets" style="min-height:70px">${esc(p.bullets.join('\n'))}</textarea></label>
+        <div class="f s6"><span>Versões (matéria-prima)</span></div>
+        ${(p.variants || []).map((v, j) => variantBox(v, j, p.variants.length)).join('')}
+        <div class="f s6"><button class="btn ghost small" data-act="var-add" style="justify-self:start">+ Versão</button></div>
         ${pageEditor(p, i)}
         <div class="toggles">
           <label><input type="checkbox" data-k="active" ${p.active ? 'checked' : ''}> Visível no site</label>
-          <label><input type="checkbox" data-k="inStock" ${p.inStock ? 'checked' : ''}> Em estoque</label>
-          <span class="hint">Código: ${esc(p.id)}</span>
+          <span class="hint">Link: /produto/${esc(p.id)}</span>
         </div>
         <div class="row-actions">
           <button class="btn ghost small" data-act="up" ${i === 0 ? 'disabled' : ''}>↑ Subir</button>
@@ -298,14 +319,20 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
       else { const sec = pg.sections[+el.closest('[data-s]').dataset.s]; sec[el.dataset.sk] = el.type === 'checkbox' ? el.checked : el.value; if (el.dataset.sk === 'round') el.closest('.secbox').querySelector('.thumb').classList.toggle('round', el.checked); }
       changed(); return;
     }
+    if (el.dataset.vk){
+      const box = el.closest('[data-v]'), v = data.products[+card.dataset.i].variants[+box.dataset.v], k = el.dataset.vk;
+      if (k === 'price' || k === 'salePrice'){ v[k] = num(el.value); box.querySelector('[data-vk=pct]').value = pctOf(v); }
+      else if (k === 'pct'){ const pc = Number(el.value); if (v.price && pc > 0 && pc < 100){ v.salePrice = Math.round(v.price*(1-pc/100)*100)/100; box.querySelector('[data-vk=salePrice]').value = dec(v.salePrice); } else if (!el.value){ v.salePrice = null; box.querySelector('[data-vk=salePrice]').value = ''; } }
+      else if (el.type === 'checkbox') v[k] = el.checked;
+      else { v[k] = el.value; if (k === 'color') box.style.setProperty('--c', el.value); }
+      box.querySelector('.pricebox').innerHTML = priceBox(v);
+      changed(); return;
+    }
     if (!el.dataset.k) return;
     const p = data.products[+card.dataset.i], k = el.dataset.k;
-    if (k === 'price' || k === 'salePrice'){ p[k] = num(el.value); const pctEl = card.querySelector('[data-k=pct]'); pctEl.value = p.price && p.salePrice != null && p.salePrice < p.price ? Math.round((1-p.salePrice/p.price)*100) : ''; }
-    else if (k === 'pct'){ const pc = Number(el.value); if (p.price && pc > 0 && pc < 100){ p.salePrice = Math.round(p.price*(1-pc/100)*100)/100; card.querySelector('[data-k=salePrice]').value = dec(p.salePrice); } else if (!el.value){ p.salePrice = null; card.querySelector('[data-k=salePrice]').value = ''; } }
-    else if (k === 'bullets') p.bullets = el.value.split('\n').map(s => s.trim()).filter(Boolean);
+    if (k === 'bullets') p.bullets = el.value.split('\n').map(s => s.trim()).filter(Boolean);
     else if (el.type === 'checkbox'){ p[k] = el.checked; if (k === 'active') card.classList.toggle('off', !el.checked); }
-    else { p[k] = el.value; if (k === 'color') card.style.setProperty('--c', el.value); }
-    card.querySelector('.pricebox').innerHTML = priceBox(p);
+    else p[k] = el.value;
     changed();
   });
   $('#products').addEventListener('click', e => {
@@ -314,6 +341,11 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     if (act === 'upload'){ uploadFor = {i}; $('#fileIn').click(); return; }
     const pg = ps[i].page, j = b.closest('[data-s]') ? +b.closest('[data-s]').dataset.s : -1;
     if (act === 'upload-sec'){ uploadFor = {i, j}; $('#fileIn').click(); return; }
+    const vb = b.closest('[data-v]'), vj = vb ? +vb.dataset.v : -1, vs = ps[i].variants;
+    if (act === 'upload-var'){ uploadFor = {i, v:vj}; $('#fileIn').click(); return; }
+    if (act === 'var-add') vs.push({id:'v' + Date.now().toString(36), label:'Nova versão', color:'#242424', image:'', composition:'', price:null, salePrice:null, buyUrl:'', inStock:true});
+    if (act === 'var-del' && vs.length > 1) vs.splice(vj, 1);
+    if (act === 'var-up' && vj > 0) [vs[vj-1], vs[vj]] = [vs[vj], vs[vj-1]];
     if (act === 'sec-add') pg.sections.push({title:'', text:'', image:'', round:false});
     if (act === 'sec-del') pg.sections.splice(j, 1);
     if (act === 'sec-up' && j > 0) [pg.sections[j-1], pg.sections[j]] = [pg.sections[j], pg.sections[j-1]];
@@ -327,7 +359,8 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     renderProducts(); changed();
   });
   $('#addProduct').addEventListener('click', () => {
-    data.products.push({id:'novo-' + Date.now().toString(36), name:'Novo produto', tag:'', color:'#242424', image:'', weight:'4 kg', bullets:[], page:blankPage(), price:null, salePrice:null, badge:'', buyUrl:'', inStock:true, active:false});
+    data.products.push({id:'novo-' + Date.now().toString(36), name:'Novo produto', tag:'', weight:'4 kg', badge:'', bullets:[], active:false, page:blankPage(),
+      variants:[{id:'v1', label:'Milho', color:'#1F3F86', image:'', composition:'', price:null, salePrice:null, buyUrl:'', inStock:true}]});
     renderProducts(); changed(); $('#products').lastElementChild.scrollIntoView({behavior:'smooth', block:'center'});
   });
   $('#fileIn').addEventListener('change', () => {
@@ -336,7 +369,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     const rd = new FileReader();
     rd.onload = async () => {
       msg('Enviando imagem…');
-      try { const r = await call('admin/upload', {method:'POST', body:JSON.stringify({data:rd.result})}); const t = data.products[uploadFor.i]; if (uploadFor.j != null) t.page.sections[uploadFor.j].image = r.url; else t.image = r.url; if (uploadFor.j != null) openPages.add(uploadFor.i); renderProducts(); changed(); }
+      try { const r = await call('admin/upload', {method:'POST', body:JSON.stringify({data:rd.result})}); const t = data.products[uploadFor.i]; if (uploadFor.v != null) t.variants[uploadFor.v].image = r.url; else if (uploadFor.j != null) t.page.sections[uploadFor.j].image = r.url; else t.image = r.url; if (uploadFor.j != null) openPages.add(uploadFor.i); renderProducts(); changed(); }
       catch (err){ msg(err.message, true); }
     };
     rd.readAsDataURL(f);
