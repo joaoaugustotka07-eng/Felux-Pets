@@ -67,6 +67,22 @@ function readData() {
     if (sv && !sv.gallery.includes(g)) sv.gallery.push(g);
     applied.add(key);
   })));
+  // linha exclusiva de milho (comunicada como "base de planta"): uma vez só, tira as outras versões e
+  // troca nomes e destaques antigos pelos da embalagem; o que foi editado no painel é mantido
+  if (!applied.has('linha-base-planta-v1')) {
+    const OLDN = { 'FELUX Grãos Finos': 'finos', 'FELUX Grãos Médios': 'medios', 'FELUX Grãos Mistos': 'mistos', 'FELUX Grãos Grossos': 'medios' };
+    d.products.forEach(p => {
+      const dp = byId[p.id]; if (!dp) return;
+      if (OLDN[p.name] === p.id) p.name = dp.name;
+      if ((p.variants || []).some(v => v.id === 'milho')) {
+        p.variants = p.variants.filter(v => v.id === 'milho');
+        const dv = dp.variants[0]; p.variants[0].label = dv.label; p.variants[0].composition = dv.composition;
+        p.variants[0].gallery = (p.variants[0].gallery || []).filter(g => !/mandioca/.test(g));
+      }
+      p.bullets = dp.bullets;
+    });
+    applied.add('linha-base-planta-v1');
+  }
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
@@ -76,6 +92,9 @@ function readData() {
     const pg = p.page; if (!pg) return;
     pg.chip = fix(pg.chip); pg.description = fix(pg.description);
     if (/tapete anti-rastro/i.test(pg.tip || '')) pg.tip = '';
+    // a linha é comunicada como "base de planta": tira a escolha de matéria-prima dos textos padrão antigos
+    pg.description = (pg.description || '').replace(/ Escolha entre milho, mandioca ou milho \+ mandioca\./g, '').replace('junta grãos finos e grossos:', 'junta grãos de vários tamanhos:').replace(/^A FELUX Grãos (Finos|Médios|Mistos)/, (m, g) => 'A FELUX Grãos ' + g.toLowerCase());
+    (pg.specs || []).forEach(x => { if (x.value === 'Mista (grãos finos e grossos)') x.value = 'Mista (grãos de vários tamanhos)'; });
     (pg.sections || []).forEach(x => { x.title = fix(x.title); x.text = fix(x.text); if (I[x.image]) [x.image, x.round] = I[x.image]; });
   });
   // imagem gerada antiga do bloco dos Grãos Mistos vira a foto real, se ninguém trocou

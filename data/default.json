@@ -42,47 +42,24 @@
   "products": [
     {
       "id": "finos",
-      "name": "FELUX Grãos Finos",
+      "name": "Grãos finos",
       "tag": "Granulação fina",
       "weight": "4 kg",
       "badge": "",
       "active": true,
       "bullets": [
-        "Torrão em instantes, sai inteiro",
-        "Grãos macios para as patinhas",
-        "Menos areia jogada fora"
+        "Controle de odores",
+        "Torrões firmes",
+        "Baixa poeira",
+        "Alta absorção"
       ],
       "variants": [
         {
           "id": "milho",
-          "label": "Milho",
+          "label": "Base de planta",
           "color": "#E0A526",
           "image": "assets/packs/felux-finos.webp",
-          "composition": "100% milho",
-          "price": null,
-          "salePrice": null,
-          "buyUrl": "",
-          "inStock": true,
-          "gallery": []
-        },
-        {
-          "id": "mandioca",
-          "label": "Mandioca",
-          "color": "#B79B72",
-          "image": "assets/packs/felux-finos.webp",
-          "composition": "100% mandioca",
-          "price": null,
-          "salePrice": null,
-          "buyUrl": "",
-          "inStock": true,
-          "gallery": []
-        },
-        {
-          "id": "mista",
-          "label": "Milho + Mandioca",
-          "color": "#6E9A3C",
-          "image": "assets/packs/felux-finos.webp",
-          "composition": "Milho e mandioca",
+          "composition": "À base de planta",
           "price": null,
           "salePrice": null,
           "buyUrl": "",
@@ -93,7 +70,7 @@
       "page": {
         "chip": "Torrão em instantes",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Grãos Finos forma o torrão em instantes e segura o odor dentro dele. Grãos finos e macios, sem mineral, baixa poeira e 100% de origem vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
+        "description": "A FELUX Grãos finos forma o torrão em instantes e segura o odor dentro dele. Grãos finos e macios, sem mineral, baixa poeira e 100% de origem vegetal.",
         "sections": [
           {
             "title": "Fez xixi, tem torrão. Tem torrão, não tem cheiro.",
@@ -151,47 +128,24 @@
     },
     {
       "id": "medios",
-      "name": "FELUX Grãos Médios",
+      "name": "Grãos médios",
       "tag": "Granulação média",
       "weight": "4 kg",
       "badge": "",
       "active": true,
       "bullets": [
-        "Grão médio e macio",
-        "Torrão formado rapidamente",
-        "Os grãos ficam na caixa, não pela casa"
+        "Controle de odores",
+        "Torrões firmes",
+        "Baixa poeira",
+        "Alta absorção"
       ],
       "variants": [
         {
           "id": "milho",
-          "label": "Milho",
+          "label": "Base de planta",
           "color": "#E0A526",
           "image": "assets/packs/felux-medios.webp",
-          "composition": "100% milho",
-          "price": null,
-          "salePrice": null,
-          "buyUrl": "",
-          "inStock": true,
-          "gallery": []
-        },
-        {
-          "id": "mandioca",
-          "label": "Mandioca",
-          "color": "#B79B72",
-          "image": "assets/packs/felux-medios.webp",
-          "composition": "100% mandioca",
-          "price": null,
-          "salePrice": null,
-          "buyUrl": "",
-          "inStock": true,
-          "gallery": []
-        },
-        {
-          "id": "mista",
-          "label": "Milho + Mandioca",
-          "color": "#6E9A3C",
-          "image": "assets/packs/felux-medios.webp",
-          "composition": "Milho e mandioca",
+          "composition": "À base de planta",
           "price": null,
           "salePrice": null,
           "buyUrl": "",
@@ -202,7 +156,7 @@
       "page": {
         "chip": "Grão médio",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Grãos Médios tem grão de tamanho médio, que forma o torrão rapidamente e fica dentro da caixa. Sem mineral, baixa poeira e 100% de origem vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
+        "description": "A FELUX Grãos médios tem grão de tamanho médio, que forma o torrão rapidamente e fica dentro da caixa. Sem mineral, baixa poeira e 100% de origem vegetal.",
         "sections": [
           {
             "title": "Grãos médios, máxima tranquilidade",
@@ -260,23 +214,24 @@
     },
     {
       "id": "mistos",
-      "name": "FELUX Grãos Mistos",
+      "name": "Grãos mistos",
       "tag": "Granulação mista",
       "weight": "4 kg",
       "badge": "",
       "active": true,
       "bullets": [
-        "Equilíbrio entre economia e rendimento",
-        "Torrão firme num instante",
-        "Odor retido no torrão"
+        "Controle de odores",
+        "Torrões firmes",
+        "Baixa poeira",
+        "Alta absorção"
       ],
       "variants": [
         {
           "id": "milho",
-          "label": "Milho",
+          "label": "Base de planta",
           "color": "#E0A526",
           "image": "assets/packs/felux-mistos.webp",
-          "composition": "100% milho",
+          "composition": "À base de planta",
           "price": null,
           "salePrice": null,
           "buyUrl": "",
@@ -284,38 +239,12 @@
           "gallery": [
             "assets/photos/mistos-milho-grao.webp"
           ]
-        },
-        {
-          "id": "mandioca",
-          "label": "Mandioca",
-          "color": "#B79B72",
-          "image": "assets/packs/felux-mistos.webp",
-          "composition": "100% mandioca",
-          "price": null,
-          "salePrice": null,
-          "buyUrl": "",
-          "inStock": true,
-          "gallery": [
-            "assets/photos/mistos-mandioca-grao.webp"
-          ]
-        },
-        {
-          "id": "mista",
-          "label": "Milho + Mandioca",
-          "color": "#6E9A3C",
-          "image": "assets/packs/felux-mistos.webp",
-          "composition": "Milho e mandioca",
-          "price": null,
-          "salePrice": null,
-          "buyUrl": "",
-          "inStock": true,
-          "gallery": []
         }
       ],
       "page": {
         "chip": "Equilíbrio",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Grãos Mistos junta grãos de vários tamanhos: torrão firme num instante, odor retido e nenhum grão espalhado pela casa. Sem mineral, baixa poeira e 100% de origem vegetal. Escolha entre milho, mandioca ou milho + mandioca.",
+        "description": "A FELUX Grãos mistos junta grãos de vários tamanhos: torrão firme num instante, odor retido e nenhum grão espalhado pela casa. Sem mineral, baixa poeira e 100% de origem vegetal.",
         "sections": [
           {
             "title": "O equilíbrio perfeito",
