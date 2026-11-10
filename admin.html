@@ -83,6 +83,9 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
 .varbox .ph img{max-height:100%;max-width:100%;object-fit:contain}
 .varbox .fields{grid-template-columns:repeat(6,1fr)}
 @media (max-width:760px){.varbox{grid-template-columns:1fr}.varbox .vimg{grid-template-columns:90px 1fr;align-items:start}}
+.gal{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.gimg{position:relative;width:64px;height:64px;border-radius:8px;background:#ddd center/cover no-repeat}
+.gdel{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:var(--bad);color:#fff;font-weight:700;cursor:pointer;line-height:1}
 .secbox{grid-column:span 6;display:grid;grid-template-columns:110px 1fr;gap:12px;background:var(--ground);border-radius:10px;padding:12px}
 .secbox .thumb{aspect-ratio:1;border-radius:8px;background:#ddd center/cover no-repeat}
 .secbox .thumb.round{border-radius:50%}
@@ -234,6 +237,9 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
         <label class="f s2"><span>Preço promocional</span><div class="money"><input type="text" inputmode="decimal" data-vk="salePrice" value="${dec(v.salePrice)}" placeholder="vazio = sem promoção"></div></label>
         <label class="f s2"><span>ou desconto em %</span><input type="number" min="0" max="90" step="1" data-vk="pct" value="${pctOf(v)}" placeholder="ex.: 15"></label>
         <div class="pricebox">${priceBox(v)}</div>
+        <div class="f s6"><span>Fotos extras (aparecem como miniaturas na página do produto, ex.: foto do grão)</span>
+          <div class="gal">${(v.gallery || []).map((g, k) => `<span class="gimg" style="background-image:url('${esc(g)}')"><button class="gdel" data-act="gal-del" data-k="${k}" aria-label="Remover foto">×</button></span>`).join('')}<button class="btn ghost small" data-act="gal-add">+ Foto</button></div>
+        </div>
         <label class="f s6"><span>Link de compra desta versão (vazio = WhatsApp)</span><input type="text" data-vk="buyUrl" value="${esc(v.buyUrl)}" placeholder="https://..."></label>
         <div class="toggles">
           <label><input type="checkbox" data-vk="inStock" ${v.inStock !== false ? 'checked' : ''}> Em estoque</label>
@@ -343,7 +349,9 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     if (act === 'upload-sec'){ uploadFor = {i, j}; $('#fileIn').click(); return; }
     const vb = b.closest('[data-v]'), vj = vb ? +vb.dataset.v : -1, vs = ps[i].variants;
     if (act === 'upload-var'){ uploadFor = {i, v:vj}; $('#fileIn').click(); return; }
-    if (act === 'var-add') vs.push({id:'v' + Date.now().toString(36), label:'Nova versão', color:'#242424', image:'', composition:'', price:null, salePrice:null, buyUrl:'', inStock:true});
+    if (act === 'gal-add'){ uploadFor = {i, v:vj, gal:true}; $('#fileIn').click(); return; }
+    if (act === 'gal-del') (vs[vj].gallery = vs[vj].gallery || []).splice(+b.dataset.k, 1);
+    if (act === 'var-add') vs.push({id:'v' + Date.now().toString(36), label:'Nova versão', color:'#242424', image:'', composition:'', price:null, salePrice:null, buyUrl:'', inStock:true, gallery:[]});
     if (act === 'var-del' && vs.length > 1) vs.splice(vj, 1);
     if (act === 'var-up' && vj > 0) [vs[vj-1], vs[vj]] = [vs[vj], vs[vj-1]];
     if (act === 'sec-add') pg.sections.push({title:'', text:'', image:'', round:false});
@@ -369,7 +377,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     const rd = new FileReader();
     rd.onload = async () => {
       msg('Enviando imagem…');
-      try { const r = await call('admin/upload', {method:'POST', body:JSON.stringify({data:rd.result})}); const t = data.products[uploadFor.i]; if (uploadFor.v != null) t.variants[uploadFor.v].image = r.url; else if (uploadFor.j != null) t.page.sections[uploadFor.j].image = r.url; else t.image = r.url; if (uploadFor.j != null) openPages.add(uploadFor.i); renderProducts(); changed(); }
+      try { const r = await call('admin/upload', {method:'POST', body:JSON.stringify({data:rd.result})}); const t = data.products[uploadFor.i]; if (uploadFor.gal) (t.variants[uploadFor.v].gallery = t.variants[uploadFor.v].gallery || []).push(r.url); else if (uploadFor.v != null) t.variants[uploadFor.v].image = r.url; else if (uploadFor.j != null) t.page.sections[uploadFor.j].image = r.url; else t.image = r.url; if (uploadFor.j != null) openPages.add(uploadFor.i); renderProducts(); changed(); }
       catch (err){ msg(err.message, true); }
     };
     rd.readAsDataURL(f);

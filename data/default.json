@@ -62,7 +62,8 @@
           "price": null,
           "salePrice": null,
           "buyUrl": "",
-          "inStock": true
+          "inStock": true,
+          "gallery": []
         },
         {
           "id": "mandioca",
@@ -73,7 +74,8 @@
           "price": null,
           "salePrice": null,
           "buyUrl": "",
-          "inStock": true
+          "inStock": true,
+          "gallery": []
         },
         {
           "id": "mista",
@@ -84,7 +86,8 @@
           "price": null,
           "salePrice": null,
           "buyUrl": "",
-          "inStock": true
+          "inStock": true,
+          "gallery": []
         }
       ],
       "page": {
@@ -163,7 +166,10 @@
           "price": null,
           "salePrice": null,
           "buyUrl": "",
-          "inStock": true
+          "inStock": true,
+          "gallery": [
+            "assets/photos/mistos-milho-grao.webp"
+          ]
         },
         {
           "id": "mandioca",
@@ -174,7 +180,8 @@
           "price": null,
           "salePrice": null,
           "buyUrl": "",
-          "inStock": true
+          "inStock": true,
+          "gallery": []
         },
         {
           "id": "mista",
@@ -185,7 +192,8 @@
           "price": null,
           "salePrice": null,
           "buyUrl": "",
-          "inStock": true
+          "inStock": true,
+          "gallery": []
         }
       ],
       "page": {
@@ -196,7 +204,7 @@
           {
             "title": "O equilíbrio perfeito",
             "text": "Os grânulos mistos equilibram economia com menos rastro. Fez xixi: odor retido e torrão pronto. Torrão firme num instante e menos areia espalhada pela casa.",
-            "image": "assets/scenes/torrao-mistos.webp",
+            "image": "assets/photos/mistos-milho-grao-wide.webp",
             "round": false
           },
           {
@@ -264,7 +272,8 @@
           "price": null,
           "salePrice": null,
           "buyUrl": "",
-          "inStock": true
+          "inStock": true,
+          "gallery": []
         },
         {
           "id": "mandioca",
@@ -275,7 +284,8 @@
           "price": null,
           "salePrice": null,
           "buyUrl": "",
-          "inStock": true
+          "inStock": true,
+          "gallery": []
         },
         {
           "id": "mista",
@@ -286,7 +296,8 @@
           "price": null,
           "salePrice": null,
           "buyUrl": "",
-          "inStock": true
+          "inStock": true,
+          "gallery": []
         }
       ],
       "page": {

@@ -40,6 +40,12 @@ function readData() {
     }) }));
   }
   d.products.forEach(p => { if (!p.page) p.page = (byId[p.id] && byId[p.id].page) || null; });
+  // versões salvas antes das fotos extras recebem as fotos padrão (ex.: foto real do grão)
+  d.products.forEach(p => (p.variants || []).forEach(v => {
+    if (!Array.isArray(v.gallery)) { const dv = byId[p.id] && (byId[p.id].variants || []).find(x => x.id === v.id); v.gallery = dv ? dv.gallery || [] : []; }
+  }));
+  // imagem gerada antiga do bloco dos Grãos Mistos vira a foto real, se ninguém trocou
+  d.products.forEach(p => ((p.page && p.page.sections) || []).forEach(s => { if (s.image === 'assets/scenes/torrao-mistos.webp') s.image = 'assets/photos/mistos-milho-grao-wide.webp'; }));
   if (!d.settings.cycle) d.settings.cycle = def.settings.cycle;
   return d;
 }
@@ -73,7 +79,8 @@ function clean(input) {
       let price = money(v.price), salePrice = money(v.salePrice);
       if (salePrice !== null && (price === null || salePrice >= price)) salePrice = null; // promoção só se for menor que o preço
       return { id: vid, label: str(v.label, 40) || 'Versão', color: color(v.color), image: url(v.image), composition: str(v.composition, 80),
-               price, salePrice, buyUrl: url(v.buyUrl), inStock: v.inStock !== false };
+               price, salePrice, buyUrl: url(v.buyUrl), inStock: v.inStock !== false,
+               gallery: (Array.isArray(v.gallery) ? v.gallery : []).map(url).filter(Boolean).slice(0, 8) };
     });
     return {
       id, name: str(p.name, 80) || 'Produto', tag: str(p.tag, 80), weight: str(p.weight, 20),

@@ -31,6 +31,7 @@ def fine_grains(size, cols, seed, gran='finos'):
     return img.filter(ImageFilter.GaussianBlur(.3))
 
 from PIL import ImageFont
+import os
 def relabel(src, gran):
     if not LABEL[gran]: return src
     a=np.asarray(src).copy()
@@ -59,6 +60,10 @@ def make(name, seed, gran='finos'):
     m=Image.new('L',(W,H),0); ImageDraw.Draw(m).polygon(poly,fill=255)
     m=m.filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.GaussianBlur(1.0))
     g=fine_grains((W,H),PAL[name],seed,gran)
+    tp=f'assets/source/grao-{gran}-{name}.jpg'
+    if os.path.exists(tp):  # foto real do grão na janela
+        t=Image.open(tp).convert('RGB'); k=0.5; t=t.resize((int(t.width*k),int(t.height*k)),Image.LANCZOS)
+        g=g.copy(); g.paste(t,(290,740))
     # sombra das patas e da borda superior da janela
     top=Image.new('L',(W,H),0); ImageDraw.Draw(top).polygon(poly,fill=255)
     ta=np.asarray(top).astype(float)/255
@@ -116,9 +121,15 @@ def make(name, seed, gran='finos'):
     return out
 import os; os.makedirs('assets/packs',exist_ok=True)
 outs=[]
+import sys
+only=sys.argv[1] if len(sys.argv)>1 else None
 for gi,gran in enumerate(['finos','mistos','grossos']):
-    for i,n in enumerate(['milho','mista','mandioca']): outs.append(make(n,i+10*gi,gran))
+    for i,n in enumerate(['milho','mista','mandioca']):
+        if only and only!=f'{gran}-{n}': continue
+        outs.append(make(n,i+10*gi,gran))
 w,h=outs[0].size
+if only:
+    o=outs[0]; Image.composite(o,Image.new('RGBA',o.size,(246,243,238,255)),o).save('one.png'); raise SystemExit
 sheet=Image.new('RGB',(w*3+80,h*3+80),(246,243,238))
 for i,o in enumerate(outs): sheet.paste(o,(20+(i%3)*(w+20),20+(i//3)*(h+20)),o)
 sheet.save('sheet.png'); print(w,h)
