@@ -20,7 +20,6 @@
   --band:#3B193A;        /* roxo das embalagens */
   --band-fg:#FFFFFF;
   --band-soft:#CDB9CF;
-  --logo-bar:#6E3B9A;
   --font-display:"Montserrat", "Avenir Next", "Segoe UI", sans-serif;
   --font-body:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
   --font-mono:"Figtree", "Segoe UI", system-ui, sans-serif;
@@ -33,14 +32,14 @@
   :root:not([data-theme="light"]){
     --ground:#141118; --surface:#1D1922; --ink:#F2EFF5; --ink-soft:#ADA6B5; --line:#332D3B;
     --gold:#5BB02A; --gold-text:#7DCB4C; --gold-ink:#0F1A07; --on-band:#9BD86A; --olive:#7DCB4C; --clay:#8F8898;
-    --band:#2A1229; --band-fg:#F6F1F6; --band-soft:#BCA9BE; --logo-bar:#A879D6;
+    --band:#2A1229; --band-fg:#F6F1F6; --band-soft:#BCA9BE;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --ground:#141118; --surface:#1D1922; --ink:#F2EFF5; --ink-soft:#ADA6B5; --line:#332D3B;
   --gold:#5BB02A; --gold-text:#7DCB4C; --gold-ink:#0F1A07; --on-band:#9BD86A; --olive:#7DCB4C; --clay:#8F8898;
-  --band:#2A1229; --band-fg:#F6F1F6; --band-soft:#BCA9BE; --logo-bar:#A879D6;
+  --band:#2A1229; --band-fg:#F6F1F6; --band-soft:#BCA9BE;
   color-scheme:dark;
 }
 
@@ -67,7 +66,7 @@ a{color:inherit}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb, var(--ground) 92%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:24px;padding-block:12px}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);margin-right:auto}
-.logo .wordmark{width:auto;height:24px;display:block}
+.logo .wordmark{width:auto;height:26px;display:block}
 .foot .logo .wordmark{height:22px}
 .nav{display:flex;gap:22px}
 .nav a{text-decoration:none;font-weight:500;font-size:.95rem;color:var(--ink-soft)}
@@ -103,8 +102,7 @@ a{color:inherit}
 .price .ask{color:var(--ink-soft);font-size:.95rem}
 .sizes{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:var(--s-1);color:var(--ink-soft)}
 .sizes span{border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--ink)}
-@media (max-width:960px){.products{grid-template-columns:1fr 1fr}}
-@media (max-width:600px){.products{grid-template-columns:1fr}.pack img{height:230px}}
+
 
 .guide{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:22px;color:var(--ink-soft);font-size:.95rem}
 .guide b{color:var(--ink);font-weight:600}
@@ -287,13 +285,44 @@ footer{border-top:1px solid var(--line);padding-block:28px}
 .brand-line{font-size:.95rem;color:var(--ink-soft)}
 .brand-line b{color:var(--ink)}
 .badge{background:var(--olive);color:#fff}
+
+/* celular: os 3 produtos lado a lado, como no computador, em versão compacta */
+@media (max-width:860px){
+  .products{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .pack{padding:12px}
+  .pack img{height:190px}
+  .prod-body{padding:14px;gap:10px}
+  .prod h3{font-size:1.35rem}
+  .feats li{font-size:.8rem}
+}
+@media (max-width:600px){
+  .products{gap:8px}
+  .prod{border-radius:12px}
+  .pack{padding:6px}
+  .pack img{height:118px}
+  .badge{top:6px;left:6px;font-size:.6rem;padding:3px 7px}
+  .prod-body{padding:10px 8px 12px;gap:8px}
+  .prod h3{font-size:1rem;line-height:1.1}
+  .prod h3 .n2{display:block}
+  .prod-body{display:flex;flex-direction:column}
+  .prod .actions{margin-top:auto}
+  .prod .feats,.prod .net,.prod .actions .btn-ghost{display:none}
+  .prod .price{display:grid;gap:2px}
+  .prod .price .now{font-size:1.05rem}
+  .prod .price .old{font-size:.7rem}
+  .prod .price .off{justify-self:start;font-size:.65rem;padding:1px 6px}
+  .prod .price .ask{font-size:.75rem;line-height:1.25}
+  .prod .actions{grid-template-columns:1fr}
+  .prod .actions .btn{padding:.65em .4em;font-size:.8rem}
+  .prod:hover .pack img{transform:none}
+}
 </style>
 
 <!-- body -->
 <a class="announce" id="announce" href="#produtos" hidden></a>
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#produtos" aria-label="FELUX, produtos"><svg class="wordmark" role="img" aria-label="FELUX" viewBox="0 -175 3607 875"><path fill="currentColor" d="M254 307H577V460H254ZM268 700H70V0H619V153H268ZM934 271H1259V419H934ZM948 547H1314V700H752V0H1301V153H948ZM1464 700V0H1662V543H1996V700ZM2437 714Q2282 714 2195.0 629.0Q2108 544 2108 388V0H2306V382Q2306 472 2341.5 511.0Q2377 550 2439 550Q2501 550 2536.0 511.0Q2571 472 2571 382V0H2766V388Q2766 544 2679.0 629.0Q2592 714 2437 714ZM2868 700 3174 275 3173 416 2879 0H3102L3290 271L3195 272L3380 0H3594L3300 408V268L3610 700H3382L3191 415H3282L3094 700Z"/><rect class="bar" x="2180" y="-175" width="513" height="77" fill="var(--logo-bar)"/></svg></a>
+    <a class="logo" href="#produtos" aria-label="FELUX, produtos"><svg class="wordmark" role="img" aria-label="FELUX" viewBox="0 0 1975 433"><path fill="currentColor" fill-rule="evenodd" d="M1208.7 431.4C1164.9 425.4 1132.7 411.0 1107.9 386.1C1089.0 367.2 1076.2 343.5 1070.5 316.9C1066.4 297.9 1066.0 288.1 1066.0 193.2L1066.0 102.0L1112.0 102.0L1157.9 102.0L1158.2 197.2L1158.5 292.5L1161.3 300.5C1164.9 310.7 1168.7 316.6 1175.8 323.2C1185.1 331.6 1199.2 337.1 1219.3 340.1C1223.2 340.7 1245.4 341.4 1268.5 341.7C1326.5 342.3 1346.2 340.2 1364.0 331.3C1372.8 326.8 1382.2 318.0 1386.3 310.3C1387.8 307.5 1390.0 301.6 1391.3 297.3C1393.5 289.5 1393.5 289.0 1393.8 195.8L1394.1 102.0L1439.5 102.0L1485.0 102.0L1485.0 198.1C1485.0 280.6 1484.8 295.7 1483.4 304.4C1480.6 322.6 1477.1 334.5 1470.4 348.7C1448.3 395.2 1405.0 423.2 1342.0 431.5C1326.6 433.5 1223.7 433.5 1208.7 431.4ZM0.0 263.5L0.0 102.0L167.0 102.0L334.0 102.0L334.0 147.5L334.0 193.0L212.8 193.2L91.5 193.5L91.5 210.5L91.5 227.5L198.7 227.8L306.0 228.0L306.0 263.5L306.0 299.0L198.7 299.2L91.5 299.5L91.2 362.2L91.0 425.0L45.5 425.0L0.0 425.0L0.0 263.5ZM360.0 263.5L360.0 102.0L527.0 102.0L694.0 102.0L694.0 147.5L694.0 193.0L573.0 193.0L452.0 193.0L452.0 210.5L452.0 228.0L558.5 228.0L665.0 228.0L665.0 263.5L665.0 299.0L558.5 299.0L452.0 299.0L452.0 316.5L452.0 334.0L573.0 334.0L694.0 334.0L694.0 379.5L694.0 425.0L527.0 425.0L360.0 425.0L360.0 263.5ZM732.0 263.5L732.0 102.0L777.5 102.0L823.0 102.0L823.0 218.0L823.0 334.0L944.5 334.0L1066.0 334.0L1066.0 379.5L1066.0 425.0L899.0 425.0L732.0 425.0L732.0 263.5ZM1496.1 422.8C1497.4 421.6 1507.7 412.0 1519.0 401.5C1530.3 390.9 1552.9 369.9 1569.3 354.7C1615.4 311.9 1653.8 276.1 1660.9 269.5L1667.3 263.4L1631.9 230.5C1612.4 212.4 1596.3 197.3 1596.0 197.0C1595.4 196.4 1535.4 140.6 1510.4 117.4L1494.3 102.5L1565.9 102.2L1637.5 102.0L1658.0 122.7C1669.3 134.2 1691.0 156.2 1706.4 171.8C1721.7 187.3 1734.5 200.0 1734.9 200.0C1735.3 200.0 1741.4 194.0 1748.5 186.8C1755.7 179.5 1777.4 157.4 1796.8 137.7L1832.2 102.0L1903.7 102.2L1975.1 102.5L1963.8 113.0C1957.5 118.8 1936.2 138.6 1916.5 156.9C1896.7 175.3 1865.2 204.6 1846.6 221.9C1827.9 239.3 1810.2 255.8 1807.2 258.5L1801.9 263.5L1832.5 292.0C1849.4 307.7 1864.5 321.6 1866.0 323.0C1867.5 324.4 1892.7 347.8 1922.0 375.0L1975.2 424.5L1903.8 424.8L1832.4 425.0L1800.4 392.8C1782.8 375.0 1761.1 353.0 1752.0 343.8C1743.0 334.5 1735.2 327.0 1734.8 327.0C1734.3 327.0 1719.9 341.3 1702.8 358.8C1685.6 376.2 1663.9 398.3 1654.6 407.8L1637.6 425.0L1565.6 425.0L1493.6 425.0L1496.1 422.8ZM1063.0 28.0L1063.0 0.0L1270.5 0.0L1478.0 0.0L1478.0 28.0L1478.0 56.0L1270.5 56.0L1063.0 56.0L1063.0 28.0Z"/></svg></a>
     <nav class="nav" aria-label="Seções">
       <a href="#produtos">Produtos</a>
       <a href="#comprar">Onde comprar</a>
@@ -363,7 +392,7 @@ footer{border-top:1px solid var(--line);padding-block:28px}
 
 <footer>
   <div class="wrap foot">
-    <a class="logo" href="#produtos" aria-label="FELUX"><svg class="wordmark" role="img" aria-label="FELUX" viewBox="0 -175 3607 875"><path fill="currentColor" d="M254 307H577V460H254ZM268 700H70V0H619V153H268ZM934 271H1259V419H934ZM948 547H1314V700H752V0H1301V153H948ZM1464 700V0H1662V543H1996V700ZM2437 714Q2282 714 2195.0 629.0Q2108 544 2108 388V0H2306V382Q2306 472 2341.5 511.0Q2377 550 2439 550Q2501 550 2536.0 511.0Q2571 472 2571 382V0H2766V388Q2766 544 2679.0 629.0Q2592 714 2437 714ZM2868 700 3174 275 3173 416 2879 0H3102L3290 271L3195 272L3380 0H3594L3300 408V268L3610 700H3382L3191 415H3282L3094 700Z"/><rect class="bar" x="2180" y="-175" width="513" height="77" fill="var(--logo-bar)"/></svg></a>
+    <a class="logo" href="#produtos" aria-label="FELUX"><svg class="wordmark" role="img" aria-label="FELUX" viewBox="0 0 1975 433"><path fill="currentColor" fill-rule="evenodd" d="M1208.7 431.4C1164.9 425.4 1132.7 411.0 1107.9 386.1C1089.0 367.2 1076.2 343.5 1070.5 316.9C1066.4 297.9 1066.0 288.1 1066.0 193.2L1066.0 102.0L1112.0 102.0L1157.9 102.0L1158.2 197.2L1158.5 292.5L1161.3 300.5C1164.9 310.7 1168.7 316.6 1175.8 323.2C1185.1 331.6 1199.2 337.1 1219.3 340.1C1223.2 340.7 1245.4 341.4 1268.5 341.7C1326.5 342.3 1346.2 340.2 1364.0 331.3C1372.8 326.8 1382.2 318.0 1386.3 310.3C1387.8 307.5 1390.0 301.6 1391.3 297.3C1393.5 289.5 1393.5 289.0 1393.8 195.8L1394.1 102.0L1439.5 102.0L1485.0 102.0L1485.0 198.1C1485.0 280.6 1484.8 295.7 1483.4 304.4C1480.6 322.6 1477.1 334.5 1470.4 348.7C1448.3 395.2 1405.0 423.2 1342.0 431.5C1326.6 433.5 1223.7 433.5 1208.7 431.4ZM0.0 263.5L0.0 102.0L167.0 102.0L334.0 102.0L334.0 147.5L334.0 193.0L212.8 193.2L91.5 193.5L91.5 210.5L91.5 227.5L198.7 227.8L306.0 228.0L306.0 263.5L306.0 299.0L198.7 299.2L91.5 299.5L91.2 362.2L91.0 425.0L45.5 425.0L0.0 425.0L0.0 263.5ZM360.0 263.5L360.0 102.0L527.0 102.0L694.0 102.0L694.0 147.5L694.0 193.0L573.0 193.0L452.0 193.0L452.0 210.5L452.0 228.0L558.5 228.0L665.0 228.0L665.0 263.5L665.0 299.0L558.5 299.0L452.0 299.0L452.0 316.5L452.0 334.0L573.0 334.0L694.0 334.0L694.0 379.5L694.0 425.0L527.0 425.0L360.0 425.0L360.0 263.5ZM732.0 263.5L732.0 102.0L777.5 102.0L823.0 102.0L823.0 218.0L823.0 334.0L944.5 334.0L1066.0 334.0L1066.0 379.5L1066.0 425.0L899.0 425.0L732.0 425.0L732.0 263.5ZM1496.1 422.8C1497.4 421.6 1507.7 412.0 1519.0 401.5C1530.3 390.9 1552.9 369.9 1569.3 354.7C1615.4 311.9 1653.8 276.1 1660.9 269.5L1667.3 263.4L1631.9 230.5C1612.4 212.4 1596.3 197.3 1596.0 197.0C1595.4 196.4 1535.4 140.6 1510.4 117.4L1494.3 102.5L1565.9 102.2L1637.5 102.0L1658.0 122.7C1669.3 134.2 1691.0 156.2 1706.4 171.8C1721.7 187.3 1734.5 200.0 1734.9 200.0C1735.3 200.0 1741.4 194.0 1748.5 186.8C1755.7 179.5 1777.4 157.4 1796.8 137.7L1832.2 102.0L1903.7 102.2L1975.1 102.5L1963.8 113.0C1957.5 118.8 1936.2 138.6 1916.5 156.9C1896.7 175.3 1865.2 204.6 1846.6 221.9C1827.9 239.3 1810.2 255.8 1807.2 258.5L1801.9 263.5L1832.5 292.0C1849.4 307.7 1864.5 321.6 1866.0 323.0C1867.5 324.4 1892.7 347.8 1922.0 375.0L1975.2 424.5L1903.8 424.8L1832.4 425.0L1800.4 392.8C1782.8 375.0 1761.1 353.0 1752.0 343.8C1743.0 334.5 1735.2 327.0 1734.8 327.0C1734.3 327.0 1719.9 341.3 1702.8 358.8C1685.6 376.2 1663.9 398.3 1654.6 407.8L1637.6 425.0L1565.6 425.0L1493.6 425.0L1496.1 422.8ZM1063.0 28.0L1063.0 0.0L1270.5 0.0L1478.0 0.0L1478.0 28.0L1478.0 56.0L1270.5 56.0L1063.0 56.0L1063.0 28.0Z"/></svg></a>
     <span class="tagline">Areia feita de <b>planta.</b></span>
     <nav aria-label="Rodapé"><a href="#produtos">Produtos</a><a href="#comprar">Onde comprar</a><a href="#duvidas">Dúvidas</a><span>Instagram <span id="igOut">@feluxpet</span></span></nav>
     <span>© 2026 FELUX · feluxpet.com.br · <span id="cnpjOut">CNPJ 00.000.000/0001-00</span></span>
@@ -404,10 +433,12 @@ footer{border-top:1px solid var(--line);padding-block:28px}
     const l = v.buyUrl || waLink(`Olá! Quero comprar ${nm}${p.weight ? ' ' + p.weight : ''}.`) || '#comprar';
     return `<a class="btn btn-gold ${cls}" href="${esc(l)}"${ext(l)}>Comprar</a>`;
   }
+  // nome em duas linhas no celular, como na embalagem: "Grãos / finos"
+  const splitName = n => { const i = String(n).indexOf(' '); return i < 0 ? esc(n) : esc(n.slice(0, i)) + ' <span class="n2">' + esc(n.slice(i + 1)) + '</span>'; };
   const card = p => { const v = V(p), link = `#${esc(p.id)}`; return `<article class="prod${v.inStock === false ? ' soldout' : ''}" data-card="${esc(p.id)}" style="--v:${esc(p.color || v.color)}">
       <a class="pack" href="${link}" aria-label="Conhecer ${esc(p.name)}">${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${v.image ? `<img src="${esc(v.image)}" alt="Embalagem FELUX ${esc(p.name)}" width="675" height="900">` : ''}</a>
       <div class="prod-body">
-        <h3><a href="${link}">${esc(p.name)}</a></h3>
+        <h3><a href="${link}">${splitName(p.name)}</a></h3>
         <ul class="feats">${p.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>
         <div class="price">${priceHTML(v)}</div>
         <div class="actions"><a class="btn btn-ghost" href="${link}">Quero conhecer</a>${buyBtn(p, 'btn-white')}</div>

@@ -10,7 +10,7 @@ const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': 
 const card = p => { const v = p.variants[0], link = `#${esc(p.id)}`; return `<article class="prod" data-card="${esc(p.id)}" style="--v:${esc(p.color || v.color)}">
       <a class="pack" href="${link}" aria-label="Conhecer ${esc(p.name)}"><img src="${esc(v.image)}" alt="Embalagem FELUX ${esc(p.name)}" width="675" height="900"></a>
       <div class="prod-body">
-        <h3><a href="${link}">${esc(p.name)}</a></h3>
+        <h3><a href="${link}">${(i => i < 0 ? esc(p.name) : esc(p.name.slice(0, i)) + ' <span class="n2">' + esc(p.name.slice(i + 1)) + '</span>')(p.name.indexOf(' '))}</a></h3>
         <ul class="feats">${p.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>
         <div class="price"><span class="ask">Consulte o preço</span></div>
         <div class="actions"><a class="btn btn-ghost" href="${link}">Quero conhecer</a><a class="btn btn-gold btn-white js-wa" href="#comprar">Comprar</a></div>
