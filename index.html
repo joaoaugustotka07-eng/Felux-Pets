@@ -119,8 +119,6 @@ a{color:inherit}
 .sizes span{border:1px solid var(--line);border-radius:999px;padding:3px 10px;color:var(--ink)}
 
 
-.guide{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:22px;color:var(--ink-soft);font-size:.95rem}
-.guide b{color:var(--ink);font-weight:600}
 .perks{list-style:none;margin:36px 0 0;padding:20px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
 .perks li{display:grid;gap:2px}
 .perks b{font-family:var(--font-display);font-weight:400;font-size:1.05rem}
@@ -335,6 +333,36 @@ footer{border-top:1px solid var(--line);padding-block:28px}
 /* logo dentro do título: altura das maiúsculas, traço do U acima da linha */
 .intro h1 .h1-logo{display:inline-block;height:.98em;width:auto;vertical-align:-.04em;margin-left:.12em}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Sinta a FELUX */
+.feel{position:fixed;inset:0;z-index:100;background:rgba(20,12,24,.62);backdrop-filter:blur(6px);display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.feel[hidden]{display:none!important}
+html.feel-open{overflow:hidden}
+.feel-box{position:relative;width:min(920px,100%);max-height:100%;overflow:auto;display:grid;grid-template-columns:1.1fr 1fr;border-radius:22px;background:var(--v);color:#fff;box-shadow:0 30px 80px -20px rgba(0,0,0,.6);animation:feelIn .35s ease}
+@keyframes feelIn{from{transform:translateY(16px) scale(.98);opacity:0}}
+@media (prefers-reduced-motion: reduce){.feel-box{animation:none}}
+.feel-x{position:absolute;top:10px;right:12px;z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:rgba(20,12,24,.55);color:#fff;font-size:1.5rem;line-height:1;cursor:pointer}
+.feel-stage{position:relative;background:linear-gradient(#FFFDF8,#F3EBDD);min-height:380px;display:grid}
+.feel-stage canvas{width:100%;height:100%;min-height:380px;display:block;touch-action:none;cursor:grab}
+.feel-kicker{position:absolute;top:16px;left:18px;font-size:var(--s-1);letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#3E8714;pointer-events:none}
+.feel-hint{position:absolute;left:18px;top:38px;font-size:.82rem;color:#6B6150;pointer-events:none}
+.feel-info{display:grid;gap:16px;align-content:center;padding:28px 26px}
+.feel-prod{display:grid;grid-template-columns:72px 1fr;gap:14px;align-items:center}
+.feel-prod img{width:72px;height:auto;background:#fff;border-radius:10px;padding:4px}
+.feel-brand{font-size:.8rem;opacity:.85}
+.feel-info h2{font-weight:300;font-size:1.9rem;line-height:1.02;margin:2px 0 6px;color:#fff}
+.feel-info h2 .n2{display:inline}
+.feel-info .price .now{color:#fff;font-size:1.5rem}
+.feel-info .price .old,.feel-info .price .ask{color:rgba(255,255,255,.8)}
+.feel-go{width:100%;padding:1em;font-size:1.05rem;font-weight:700}
+.feel-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.feel-foot button{background:none;border:0;color:rgba(255,255,255,.9);font:600 .88rem var(--font-body);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px 0}
+@media (max-width:700px){
+  .feel{place-items:end center;padding-bottom:0;padding-left:0;padding-right:0}
+  .feel-box{grid-template-columns:1fr;border-radius:22px 22px 0 0;max-height:94%}
+  .feel-stage,.feel-stage canvas{min-height:250px}
+  .feel-info{padding:20px 18px calc(20px + env(safe-area-inset-bottom,0px))}
+}
 </style>
 
 </head>
@@ -392,7 +420,6 @@ footer{border-top:1px solid var(--line);padding-block:28px}
         <p class="net"><b>4 kg</b> | peso líquido</p>
       </div>
     </article></div>
-    <p class="guide"><span>Qual escolher?</span><span><b>Torrão em instantes:</b> Finos</span><span><b>Equilíbrio:</b> Mistos</span><span><b>Grão médio:</b> Médios</span></p>
     <ul class="perks">
       <li><b>Alta absorção</b><span>torrões firmes e rápidos</span></li>
       <li><b>Controle de odores</b><span>sem perfume sintético</span></li>
@@ -450,6 +477,23 @@ footer{border-top:1px solid var(--line);padding-block:28px}
 
 <a class="wa js-wa" href="#comprar" aria-label="Falar com a FELUX pelo WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg></a>
 
+<div class="feel" id="feel" role="dialog" aria-modal="true" aria-labelledby="feelTitle" hidden>
+  <div class="feel-box">
+    <button type="button" class="feel-x" data-f="close" aria-label="Fechar">×</button>
+    <div class="feel-stage">
+      <p class="feel-kicker" id="feelTitle">Sinta a FELUX</p>
+      <canvas id="feelSand" aria-label="Areia FELUX caindo. Toque ou arraste para mexer nos grãos."></canvas>
+      <p class="feel-hint">Toque e arraste para mexer nos grãos</p>
+    </div>
+    <div class="feel-info">
+      <div class="feel-prod"><img data-f="img" alt="" width="675" height="900"><div><p class="feel-brand">FELUX · Areia feita de <b>planta.</b></p><h2 data-f="name"></h2><div class="price" data-f="price"></div></div></div>
+      <ul class="feats" data-f="feats"></ul>
+      <a class="btn btn-white feel-go" data-f="go" href="#comprar">Finalizar compra</a>
+      <div class="feel-foot"><button type="button" data-f="close">Continuar olhando</button><button type="button" data-f="sound" aria-pressed="false">Som ligado</button></div>
+    </div>
+  </div>
+</div>
+
 <script type="application/json" id="felux-data">{"settings":{"whatsapp":"","whatsappMessage":"Olá! Quero comprar a areia FELUX.","instagram":"@feluxpet","cnpj":"00.000.000/0001-00","announcement":{"active":false,"text":"Frete grátis para compras acima de R$ 150","link":"#produtos"},"stores":[{"name":"Loja oficial","url":""},{"name":"Mercado Livre","url":""},{"name":"Amazon","url":""},{"name":"Shopee","url":""}],"coupons":[{"code":"BEMVINDO10","text":"10% na primeira compra","active":false}],"cycle":{"title":"Natureza em ciclo","text":"A FELUX promove o ciclo da natureza e o seu gato pode fazer parte disso. Tudo começa com a planta nascendo da terra e se transformando em uma areia macia e segura para ele. O seu gato usa, o torrão se forma e depois volta para a terra, nutrindo o novo ciclo.\n\nE essa escolha começa com você. No momento em que decide colocar a FELUX na caixa do seu gato, você dá o primeiro passo para que a natureza continue em ciclo, e para que ele faça parte disso todos os dias."}},"products":[{"id":"finos","name":"Grãos finos","tag":"Granulação fina","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-finos.webp","composition":"À base de planta","price":null,"salePrice":null,"buyUrl":"","inStock":true,"gallery":[]}],"page":{"chip":"Torrão em instantes","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos finos forma o torrão em instantes e segura o odor dentro dele. Grãos finos e macios, sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"Fez xixi, tem torrão. Tem torrão, não tem cheiro.","text":"O torrão se forma em instantes e sai inteiro. Menos areia jogada fora, mais tempo de caixa limpa.","image":"assets/scenes/torrao-finos.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Fina"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#3B193A"},{"id":"medios","name":"Grãos médios","tag":"Granulação média","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-medios.webp","composition":"À base de planta","price":null,"salePrice":null,"buyUrl":"","inStock":true,"gallery":[]}],"page":{"chip":"Grão médio","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos médios tem grão de tamanho médio, que forma o torrão rapidamente e fica dentro da caixa. Sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"Grãos médios, máxima tranquilidade","text":"Os grãos médios formam o torrão rapidamente e ficam onde devem: na caixa, e não pela casa.","image":"assets/scenes/torrao-medios.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos que o seu gato aprova, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você fica feliz em vê-lo assim, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa para todos curtirem.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Média"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#55A51B"},{"id":"mistos","name":"Grãos mistos","tag":"Granulação mista","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-mistos.webp","composition":"À base de planta","price":null,"salePrice":null,"buyUrl":"","inStock":true,"gallery":["assets/photos/mistos-milho-grao.webp"]}],"page":{"chip":"Equilíbrio","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos mistos junta grãos de vários tamanhos: torrão firme num instante, odor retido e nenhum grão espalhado pela casa. Sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"O equilíbrio perfeito","text":"Os grânulos mistos unem grãos de vários tamanhos, com economia e sem rastro. Fez xixi: odor retido e torrão pronto, firme num instante.","image":"assets/photos/mistos-milho-grao-wide.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para ele ficar protegido até quando se lambe durante o banho.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Mista (grãos de vários tamanhos)"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#1F2756"}]}</script>
 <script>
 (() => {
@@ -480,7 +524,7 @@ footer{border-top:1px solid var(--line);padding-block:28px}
     const v = V(p), nm = `FELUX ${p.name}${(p.variants || []).length > 1 && v.label ? ' ' + v.label : ''}`;
     if (v.inStock === false){ const l = waLink(`Olá! Quero ser avisado quando ${nm} voltar ao estoque.`) || '#comprar'; return `<a class="btn btn-ghost ${cls}" href="${esc(l)}"${ext(l)}>Avise-me</a>`; }
     const l = v.buyUrl || waLink(`Olá! Quero comprar ${nm}${p.weight ? ' ' + p.weight : ''}.`) || '#comprar';
-    return `<a class="btn btn-gold ${cls}" href="${esc(l)}"${ext(l)}>Comprar</a>`;
+    return `<a class="btn btn-gold ${cls}" data-buy="${esc(p.id)}" href="${esc(l)}"${ext(l)}>Comprar</a>`;
   }
   // nome em duas linhas no celular, como na embalagem: "Grãos / finos"
   const splitName = n => { const i = String(n).indexOf(' '); return i < 0 ? esc(n) : esc(n.slice(0, i)) + ' <span class="n2">' + esc(n.slice(i + 1)) + '</span>'; };
@@ -598,6 +642,129 @@ footer{border-top:1px solid var(--line);padding-block:28px}
       if (scroll && el) requestAnimationFrame(() => el.scrollIntoView());
     }
   }
+
+  // ---------- "Sinta a FELUX": ao clicar em Comprar, o cliente vê, ouve e toca os grãos antes de finalizar ----------
+  const feel = (() => {
+    const dlg = document.getElementById('feel'), cv = document.getElementById('feelSand'), ctx = cv.getContext('2d');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SIZE = { finos: [1.3, 2.1], medios: [2.2, 3.4], mistos: null };
+    const COLS = ['#E6C27A', '#D9AE5E', '#EED39A', '#C99A4B', '#F1DDB0'];
+    let W = 0, H = 0, dpr = 1, cols = [], colW = 4, grains = [], flying = [], pile, pctx, raf = 0, t0 = 0, sizeKey = 'finos';
+    let audio = null, soundOn = true, lastBuzz = 0, lastTick = 0, pointer = null, opener = null;
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const gsize = () => { const s = SIZE[sizeKey]; return s ? rnd(...s) : (Math.random() < .55 ? rnd(1.3, 2.1) : rnd(2.6, 3.8)); };
+
+    // som de areia: ruído filtrado, bem baixo, só depois do clique do cliente
+    function startAudio(){
+      if (!soundOn || audio) return;
+      try {
+        const A = new (window.AudioContext || window.webkitAudioContext)();
+        const buf = A.createBuffer(1, A.sampleRate * 2, A.sampleRate), d = buf.getChannelData(0);
+        for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (Math.random() < .08 ? 1 : .25);
+        const src = A.createBufferSource(); src.buffer = buf; src.loop = true;
+        const bp = A.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2600; bp.Q.value = .7;
+        const g = A.createGain(); g.gain.value = 0;
+        src.connect(bp).connect(g).connect(A.destination); src.start();
+        audio = { A, g };
+      } catch {}
+    }
+    const vol = v => { if (audio) audio.g.gain.setTargetAtTime(soundOn ? v : 0, audio.A.currentTime, .08); };
+    function tick(){
+      if (!audio || !soundOn) return; const { A } = audio, n = A.currentTime;
+      const o = A.createBufferSource(), b = A.createBuffer(1, 600, A.sampleRate), d = b.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / 90);
+      o.buffer = b; const g = A.createGain(); g.gain.value = .12; const f = A.createBiquadFilter(); f.type = 'highpass'; f.frequency.value = 1800;
+      o.connect(f).connect(g).connect(A.destination); o.start(n);
+    }
+    const buzz = ms => { const now = performance.now(); if (now - lastBuzz > 60 && navigator.vibrate) { try { navigator.vibrate(ms); } catch {} lastBuzz = now; } };
+
+    function size(){
+      const r = cv.getBoundingClientRect(); dpr = Math.min(devicePixelRatio || 1, 2);
+      W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = new Array(Math.ceil(W / colW) + 1).fill(0);
+      pile = document.createElement('canvas'); pile.width = cv.width; pile.height = cv.height; pctx = pile.getContext('2d'); pctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      grains = []; flying = [];
+    }
+    function land(x, r, c){
+      const i = Math.max(0, Math.min(cols.length - 1, Math.round(x / colW)));
+      // escorrega para o lado mais baixo, formando um monte
+      let j = i;
+      for (let k = 0; k < 120; k++){ // ângulo de repouso: o grão rola até achar apoio
+        const l = cols[j - 1] ?? Infinity, rr = cols[j + 1] ?? Infinity, h = cols[j], lim = colW * .55;
+        const goL = l < h - lim, goR = rr < h - lim;
+        if (goL && goR) j += Math.random() < .5 ? -1 : 1; else if (goL) j--; else if (goR) j++; else break;
+      }
+      const y = H - cols[j] - r; cols[j] += r * r * 2.4 / colW;
+      pctx.fillStyle = c; pctx.beginPath(); pctx.ellipse(j * colW + rnd(-1.5, 1.5), y, r * 1.1, r * .85, rnd(0, 3), 0, 6.28); pctx.fill();
+      pctx.fillStyle = 'rgba(255,255,255,.25)'; pctx.beginPath(); pctx.arc(j * colW - r * .3, y - r * .3, r * .35, 0, 6.28); pctx.fill();
+    }
+    function frame(t){
+      const el = t - t0, pouring = el < 3000 && Math.max(...cols) < H * .5;
+      if (pouring) for (let k = 0, n = Math.round(W / 22); k < n; k++){ // fio de areia caindo do centro
+        const r = gsize(); flying.push({ x: W / 2 + rnd(-10, 10), y: -r, vx: rnd(-.5, .5), vy: rnd(1, 3), r, c: COLS[Math.random() * COLS.length | 0] });
+      }
+      vol(pouring ? .16 : 0);
+      if (pouring && el % 400 < 17) buzz(12);
+      ctx.clearRect(0, 0, W, H); ctx.drawImage(pile, 0, 0, W, H);
+      const next = [];
+      for (const g of flying){
+        g.vy += .35; g.x += g.vx; g.y += g.vy;
+        const i = Math.max(0, Math.min(cols.length - 1, Math.round(g.x / colW)));
+        if (g.y >= H - cols[i] - g.r) land(g.x, g.r, g.c); else { next.push(g); ctx.fillStyle = g.c; ctx.beginPath(); ctx.arc(g.x, g.y, g.r, 0, 6.28); ctx.fill(); }
+      }
+      flying = next;
+      raf = (flying.length || pouring) ? requestAnimationFrame(frame) : 0;
+    }
+    function run(){ if (!raf) raf = requestAnimationFrame(frame); }
+
+    // toque: o dedo levanta grãos do monte, com vibração e som de grãos
+    function poke(e){
+      const r = cv.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      const i = Math.max(0, Math.min(cols.length - 1, Math.round(x / colW)));
+      if (y < H - cols[i] - 30) { pointer = { x, y }; return; }
+      const dx = pointer ? x - pointer.x : 0; pointer = { x, y };
+      for (let k = 0; k < 7; k++){
+        const r = gsize(); flying.push({ x: x + rnd(-8, 8), y: Math.min(y, H - cols[i] - 2), vx: dx * .15 + rnd(-1.6, 1.6), vy: rnd(-5, -2), r, c: COLS[Math.random() * COLS.length | 0] });
+      }
+      buzz(8); const now = performance.now(); if (now - lastTick > 70){ tick(); lastTick = now; }
+      run();
+    }
+
+    function open(p, v, href, isExt){
+      opener = document.activeElement; sizeKey = SIZE.hasOwnProperty(p.id) ? p.id : 'finos';
+      dlg.style.setProperty('--v', p.color || v.color);
+      dlg.querySelector('[data-f=img]').src = v.image || '';
+      dlg.querySelector('[data-f=name]').innerHTML = splitName(p.name);
+      dlg.querySelector('[data-f=price]').innerHTML = priceHTML(v);
+      dlg.querySelector('[data-f=feats]').innerHTML = p.bullets.map(b => `<li>${esc(b)}</li>`).join('');
+      const go = dlg.querySelector('[data-f=go]'); go.href = href;
+      if (isExt){ go.target = '_blank'; go.rel = 'noopener'; } else { go.removeAttribute('target'); }
+      dlg.hidden = false; document.documentElement.classList.add('feel-open');
+      size(); startAudio(); if (audio) audio.A.resume?.();
+      if (reduce){ for (let k = 0; k < 1400; k++){ const r = gsize(); land(W / 2 + rnd(-W * .35, W * .35) * Math.random(), r, COLS[k % COLS.length]); } ctx.drawImage(pile, 0, 0, W, H); }
+      else { t0 = performance.now(); run(); }
+      go.focus();
+    }
+    function close(){
+      dlg.hidden = true; document.documentElement.classList.remove('feel-open'); vol(0);
+      cancelAnimationFrame(raf); raf = 0; if (opener) opener.focus();
+    }
+    cv.addEventListener('pointerdown', e => { pointer = null; poke(e); });
+    cv.addEventListener('pointermove', e => { if (e.buttons || e.pointerType !== 'mouse') poke(e); });
+    cv.addEventListener('pointerleave', () => { pointer = null; });
+    dlg.querySelectorAll('[data-f=close]').forEach(b => b.addEventListener('click', close));
+    dlg.querySelector('[data-f=go]').addEventListener('click', () => setTimeout(close, 300));
+    const snd = dlg.querySelector('[data-f=sound]');
+    snd.addEventListener('click', () => { soundOn = !soundOn; snd.setAttribute('aria-pressed', !soundOn); snd.textContent = soundOn ? 'Som ligado' : 'Som desligado'; if (soundOn) startAudio(); vol(0); });
+    addEventListener('keydown', e => { if (e.key === 'Escape' && !dlg.hidden) close(); });
+    return { open };
+  })();
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[data-buy]'); if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    const p = data.products.find(x => x.id === a.dataset.buy); if (!p) return;
+    e.preventDefault(); feel.open(p, V(p), a.getAttribute('href'), a.target === '_blank');
+  });
+
   addEventListener('hashchange', () => route(true));
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-p][data-v]'); if (!b) return;
