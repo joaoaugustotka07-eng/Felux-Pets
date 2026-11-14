@@ -83,6 +83,8 @@ function readData() {
     });
     applied.add('linha-base-planta-v1');
   }
+  // WhatsApp oficial de compras e representantes: entra uma vez se o painel ainda estava sem número
+  if (!applied.has('whatsapp-44991292930')) { if (!(d.settings.whatsapp || '').trim()) d.settings.whatsapp = def.settings.whatsapp; applied.add('whatsapp-44991292930'); }
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
