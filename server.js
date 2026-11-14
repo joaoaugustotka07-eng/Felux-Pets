@@ -85,6 +85,10 @@ function readData() {
   }
   // WhatsApp oficial de compras e representantes: entra uma vez se o painel ainda estava sem número
   if (!applied.has('whatsapp-44991292930')) { if (!(d.settings.whatsapp || '').trim()) d.settings.whatsapp = def.settings.whatsapp; applied.add('whatsapp-44991292930'); }
+  // mensagens automáticas do WhatsApp: preenche as que ainda não existem; a mensagem geral antiga padrão vira a nova
+  if (!d.settings.whatsappBuyMessage) d.settings.whatsappBuyMessage = def.settings.whatsappBuyMessage;
+  if (!d.settings.whatsappRepMessage) d.settings.whatsappRepMessage = def.settings.whatsappRepMessage;
+  if (!d.settings.whatsappMessage || d.settings.whatsappMessage === 'Olá! Quero comprar a areia FELUX.') d.settings.whatsappMessage = def.settings.whatsappMessage;
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
@@ -149,6 +153,8 @@ function clean(input) {
     settings: {
       whatsapp: str(s.whatsapp, 20).replace(/\D/g, ''),
       whatsappMessage: str(s.whatsappMessage, 200),
+      whatsappBuyMessage: str(s.whatsappBuyMessage, 300),
+      whatsappRepMessage: str(s.whatsappRepMessage, 300),
       instagram: str(s.instagram, 60),
       cnpj: str(s.cnpj, 30),
       announcement: { active: !!(s.announcement && s.announcement.active), text: str(s.announcement && s.announcement.text, 140), link: url(s.announcement && s.announcement.link) },

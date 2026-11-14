@@ -413,8 +413,8 @@ html.feel-open{overflow:hidden}
     </div>
     <div>
       <div class="wa-cards">
-        <a class="wa-card js-wa" data-msg="Olá! Quero comprar a areia FELUX." href="#comprar"><b>Comprar</b><span>Faça seu pedido e combine pagamento e entrega</span><i aria-hidden="true">→</i></a>
-        <a class="wa-card js-wa" data-msg="Olá! Quero ser representante da FELUX." href="#comprar"><b>Seja um representante</b><span>Pet shops, distribuidores e revendedores</span><i aria-hidden="true">→</i></a>
+        <a class="wa-card js-wa" href="#comprar"><b>Comprar</b><span>Faça seu pedido e combine pagamento e entrega</span><i aria-hidden="true">→</i></a>
+        <a class="wa-card js-wa" data-rep href="#comprar"><b>Seja um representante</b><span>Pet shops, distribuidores e revendedores</span><i aria-hidden="true">→</i></a>
       </div>
       <div class="stores" id="stores"></div>
     </div>
@@ -476,6 +476,11 @@ html.feel-open{overflow:hidden}
   let data = JSON.parse(document.getElementById('felux-data').textContent);
   data.products = data.products.filter(p => p.active !== false);
 
+  // mensagem de compra com o nome da areia: {produto} = Grãos finos, {peso} = 4 kg
+  function buyMsg(p){
+    const t = data.settings.whatsappBuyMessage || 'Olá! Gostaria de adquirir a areia FELUX {produto} {peso}.';
+    return t.replace(/\{produto\}/g, p.name).replace(/\{peso\}/g, p.weight || '').replace(/\s+([.!?,])/g, '$1').replace(/\s{2,}/g, ' ').trim();
+  }
   function waLink(text){
     const s = data.settings; let n = (s.whatsapp || '').replace(/\D/g, ''); if (!n) return '';
     if (n.length <= 11) n = '55' + n;
@@ -493,7 +498,7 @@ html.feel-open{overflow:hidden}
   function buyBtn(p, cls = ''){
     const v = V(p), nm = `FELUX ${p.name}${(p.variants || []).length > 1 && v.label ? ' ' + v.label : ''}`;
     if (v.inStock === false){ const l = waLink(`Olá! Quero ser avisado quando ${nm} voltar ao estoque.`) || '#comprar'; return `<a class="btn btn-ghost ${cls}" href="${esc(l)}"${ext(l)}>Avise-me</a>`; }
-    const l = v.buyUrl || waLink(`Olá! Quero comprar ${nm}${p.weight ? ' ' + p.weight : ''}.`) || '#comprar';
+    const l = v.buyUrl || waLink(buyMsg(p)) || '#comprar';
     return `<a class="btn btn-gold ${cls}" data-buy="${esc(p.id)}" href="${esc(l)}"${ext(l)}>Comprar</a>`;
   }
   // nome em duas linhas no celular, como na embalagem: "Grãos / finos"
@@ -581,7 +586,7 @@ html.feel-open{overflow:hidden}
     $('#stores').innerHTML = (s.stores || []).filter(x => x.url).map(x => `<a class="store" href="${esc(x.url)}"${ext(x.url)}>${esc(x.name)} <span aria-hidden="true">→</span></a>`).join('');
     const num = (s.whatsapp || '').replace(/\D/g, '').replace(/^55(?=\d{10,11}$)/, '');
     const wn = $('#waNum'); if (wn) { wn.textContent = num.length === 11 ? `(${num.slice(0,2)}) ${num.slice(2,7)}-${num.slice(7)}` : num.length === 10 ? `(${num.slice(0,2)}) ${num.slice(2,6)}-${num.slice(6)}` : num; wn.parentElement.hidden = !num; }
-    document.querySelectorAll('.js-wa').forEach(el => { const l = waLink(el.dataset.msg); if (l){ el.href = l; el.target = '_blank'; el.rel = 'noopener'; } });
+    document.querySelectorAll('.js-wa').forEach(el => { const l = waLink(el.hasAttribute('data-rep') ? (s.whatsappRepMessage || 'Olá! Tenho interesse em ser representante da FELUX.') : el.dataset.msg); if (l){ el.href = l; el.target = '_blank'; el.rel = 'noopener'; } });
     document.querySelector('.coupons')?.remove();
     const cps = (s.coupons || []).filter(c => c.active);
     if (cps.length){
