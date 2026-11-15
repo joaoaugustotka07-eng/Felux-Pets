@@ -134,6 +134,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
           <h3 class="f s6" style="grid-column:1/-1">Contato</h3>
           <label class="f" style="grid-column:span 1"><span>WhatsApp (com DDD)</span><input type="tel" id="s-whatsapp" placeholder="11 99999-9999"></label>
           <label class="f" style="grid-column:span 1"><span>Instagram</span><input type="text" id="s-instagram" placeholder="@feluxpet"></label>
+          <label class="f" style="grid-column:1/-1"><span>E-mail comercial</span><input type="email" id="s-email" placeholder="comercial@felux.com.br"></label>
           <label class="f" style="grid-column:1/-1"><span>Mensagem ao comprar um produto</span><input type="text" id="s-whatsappBuyMessage"><small class="hint">Use {produto} para o nome da areia e {peso} para o peso. Ex.: Olá! Gostaria de adquirir a areia FELUX {produto} {peso}.</small></label>
           <p class="f hint" style="grid-column:1/-1;margin:-4px 0 0" id="buyPreview"></p>
           <label class="f" style="grid-column:1/-1"><span>Mensagem de representante</span><input type="text" id="s-whatsappRepMessage"><small class="hint">Usada no botão "Seja um representante".</small></label>
@@ -390,7 +391,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   // ---------- loja ----------
   const S = () => data.settings;
   function renderSettings(){
-    $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-whatsappBuyMessage').value = S().whatsappBuyMessage || ''; $('#s-whatsappRepMessage').value = S().whatsappRepMessage || ''; buyPrev(); $('#s-cnpj').value = S().cnpj; const cy = S().cycle || {title:'', text:''}; $('#s-cycle-title').value = cy.title; $('#s-cycle-text').value = cy.text;
+    $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-email').value = S().email || ''; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-whatsappBuyMessage').value = S().whatsappBuyMessage || ''; $('#s-whatsappRepMessage').value = S().whatsappRepMessage || ''; buyPrev(); $('#s-cnpj').value = S().cnpj; const cy = S().cycle || {title:'', text:''}; $('#s-cycle-title').value = cy.title; $('#s-cycle-text').value = cy.text;
     $('#s-ann-active').checked = S().announcement.active; $('#s-ann-text').value = S().announcement.text; $('#s-ann-link').value = S().announcement.link;
     $('#stores').innerHTML = S().stores.map((s, i) => `<div class="mini" data-i="${i}"><input type="text" data-k="name" value="${esc(s.name)}" placeholder="Nome" aria-label="Nome da loja"><input type="text" data-k="url" value="${esc(s.url)}" placeholder="https://..." aria-label="Link da loja"><button class="btn danger small" data-del>Remover</button></div>`).join('');
     $('#coupons').innerHTML = S().coupons.map((c, i) => `<div class="mini c3" data-i="${i}"><input type="text" data-k="code" value="${esc(c.code)}" placeholder="CÓDIGO" aria-label="Código do cupom"><input type="text" data-k="text" value="${esc(c.text)}" placeholder="10% na primeira compra" aria-label="Descrição do cupom"><label style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-k="active" ${c.active ? 'checked' : ''}> Ativo</label><button class="btn danger small" data-del>Remover</button></div>`).join('');
@@ -398,6 +399,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   const bindS = (id, fn) => $(id).addEventListener('input', e => { fn(e.target); changed(); });
   bindS('#s-whatsapp', el => S().whatsapp = el.value.replace(/\D/g, ''));
   bindS('#s-instagram', el => S().instagram = el.value);
+  bindS('#s-email', el => S().email = el.value.trim());
   bindS('#s-whatsappMessage', el => S().whatsappMessage = el.value);
   const buyPrev = () => { const p = data.products[0]; $('#buyPreview').textContent = p ? 'Exemplo: ' + (S().whatsappBuyMessage || '').replace(/\{produto\}/g, p.name).replace(/\{peso\}/g, p.weight || '').replace(/\s+([.!?,])/g, '$1').replace(/\s{2,}/g, ' ').trim() : ''; };
   bindS('#s-whatsappBuyMessage', el => { S().whatsappBuyMessage = el.value; buyPrev(); });

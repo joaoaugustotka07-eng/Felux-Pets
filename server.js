@@ -89,6 +89,7 @@ function readData() {
   if (!d.settings.whatsappBuyMessage) d.settings.whatsappBuyMessage = def.settings.whatsappBuyMessage;
   if (!d.settings.whatsappRepMessage) d.settings.whatsappRepMessage = def.settings.whatsappRepMessage;
   if (!d.settings.whatsappMessage || d.settings.whatsappMessage === 'Olá! Quero comprar a areia FELUX.') d.settings.whatsappMessage = def.settings.whatsappMessage;
+  if (!applied.has('email-comercial')) { if (!d.settings.email) d.settings.email = def.settings.email; applied.add('email-comercial'); }
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
@@ -156,6 +157,7 @@ function clean(input) {
       whatsappBuyMessage: str(s.whatsappBuyMessage, 300),
       whatsappRepMessage: str(s.whatsappRepMessage, 300),
       instagram: str(s.instagram, 60),
+      email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str(s.email, 120)) ? str(s.email, 120).toLowerCase() : '',
       cnpj: str(s.cnpj, 30),
       announcement: { active: !!(s.announcement && s.announcement.active), text: str(s.announcement && s.announcement.text, 140), link: url(s.announcement && s.announcement.link) },
       stores: (Array.isArray(s.stores) ? s.stores : []).slice(0, 8).map(x => ({ name: str(x.name, 40), url: url(x.url) })).filter(x => x.name),
