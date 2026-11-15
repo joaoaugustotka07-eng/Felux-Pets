@@ -90,6 +90,8 @@ function readData() {
   if (!d.settings.whatsappRepMessage) d.settings.whatsappRepMessage = def.settings.whatsappRepMessage;
   if (!d.settings.whatsappMessage || d.settings.whatsappMessage === 'Olá! Quero comprar a areia FELUX.') d.settings.whatsappMessage = def.settings.whatsappMessage;
   if (!applied.has('email-comercial')) { if (!d.settings.email) d.settings.email = def.settings.email; applied.add('email-comercial'); }
+  // troca do número oficial: (44) 99129-2930 -> (44) 99999-3262
+  if (!applied.has('whatsapp-44999993262')) { if (['', '44991292930', '5544991292930'].includes((d.settings.whatsapp || '').replace(/\D/g, ''))) d.settings.whatsapp = def.settings.whatsapp; applied.add('whatsapp-44999993262'); }
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
