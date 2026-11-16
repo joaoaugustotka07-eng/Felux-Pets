@@ -388,6 +388,19 @@ html.feel-open{overflow:hidden}
 .clump span{position:absolute;left:10px;bottom:10px;background:rgba(20,12,24,.62);color:#fff;font-size:.75rem;font-weight:600;letter-spacing:.04em;padding:4px 10px;border-radius:999px}
 @media (prefers-reduced-motion: reduce){.prod:hover .clump img{transform:none}}
 @media (max-width:600px){.clump{border-radius:8px;aspect-ratio:4/3}.clump span{display:none}}
+
+/* quantidade */
+.buyline{display:flex;gap:12px;align-items:center;flex-wrap:wrap;max-width:460px}
+.buyline .btn{flex:1;min-width:200px;padding:.95em 1.2em}
+.qty{display:inline-flex;align-items:center;border:2px solid var(--ink);border-radius:999px;height:52px;flex:none}
+.qty button{width:46px;height:100%;border:0;background:none;color:inherit;font-size:1.4rem;line-height:1;cursor:pointer;border-radius:999px}
+.qty button:disabled{opacity:.3;cursor:default}
+.qty output{min-width:28px;text-align:center;font-weight:700;font-size:1.05rem;font-variant-numeric:tabular-nums}
+.feel-buy{display:flex;gap:10px;align-items:center}
+.feel-buy .qty{border-color:rgba(255,255,255,.85);color:#fff;height:56px}
+.feel-buy .feel-go{flex:1}
+@media (max-width:420px){.buyline .btn{min-width:0}.feel-go .w{display:none}}
+.feel-go{white-space:nowrap}
 </style>
 
 </head>
@@ -515,13 +528,13 @@ html.feel-open{overflow:hidden}
     <div class="feel-info">
       <div class="feel-prod"><img data-f="img" alt="" width="675" height="900"><div><p class="feel-brand">FELUX · Areia feita de <b>planta.</b></p><h2 data-f="name"></h2><div class="price" data-f="price"></div></div></div>
       <ul class="feats" data-f="feats"></ul>
-      <a class="btn btn-white feel-go" data-f="go" href="#comprar">Finalizar compra</a>
+      <div class="feel-buy"><div data-f="qty"></div><a class="btn btn-white feel-go" data-f="go" href="#comprar">Finalizar compra</a></div>
       <div class="feel-foot"><button type="button" data-f="close">Continuar olhando</button><button type="button" data-f="sound" aria-pressed="false">Som ligado</button></div>
     </div>
   </div>
 </div>
 
-<script type="application/json" id="felux-data">{"settings":{"whatsapp":"44999993262","whatsappMessage":"Olá! Gostaria de adquirir a areia FELUX.","instagram":"@feluxpet","cnpj":"00.000.000/0001-00","announcement":{"active":false,"text":"Frete grátis para compras acima de R$ 150","link":"#produtos"},"stores":[{"name":"Loja oficial","url":""},{"name":"Mercado Livre","url":""},{"name":"Amazon","url":""},{"name":"Shopee","url":""}],"coupons":[{"code":"BEMVINDO10","text":"10% na primeira compra","active":false}],"cycle":{"title":"Natureza em ciclo","text":"A FELUX promove o ciclo da natureza e o seu gato pode fazer parte disso. Tudo começa com a planta nascendo da terra e se transformando em uma areia macia e segura para ele. O seu gato usa, o torrão se forma e depois volta para a terra, nutrindo o novo ciclo.\n\nE essa escolha começa com você. No momento em que decide colocar a FELUX na caixa do seu gato, você dá o primeiro passo para que a natureza continue em ciclo, e para que ele faça parte disso todos os dias."},"whatsappBuyMessage":"Olá! Gostaria de adquirir a areia FELUX {produto} {peso}.","whatsappRepMessage":"Olá! Tenho interesse em ser representante da FELUX. Pode me passar as condições?","email":"comercial@felux.com.br"},"products":[{"id":"finos","name":"Grãos finos","tag":"Granulação fina","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-finos.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":[]}],"page":{"chip":"Torrão em instantes","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos finos forma o torrão em instantes e segura o odor dentro dele. Grãos finos e macios, sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"Fez xixi, tem torrão. Tem torrão, não tem cheiro.","text":"O torrão se forma em instantes e sai inteiro. Menos areia jogada fora, mais tempo de caixa limpa.","image":"assets/scenes/torrao-finos.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Fina"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#3B193A","cardImage":"assets/scenes/torrao-finos.webp"},{"id":"medios","name":"Grãos médios","tag":"Granulação média","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-medios.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":[]}],"page":{"chip":"Grão médio","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos médios tem grão de tamanho médio, que forma o torrão rapidamente e fica dentro da caixa. Sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"Grãos médios, máxima tranquilidade","text":"Os grãos médios formam o torrão rapidamente e ficam onde devem: na caixa, e não pela casa.","image":"assets/scenes/torrao-medios.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos que o seu gato aprova, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você fica feliz em vê-lo assim, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa para todos curtirem.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Média"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#55A51B","cardImage":"assets/scenes/torrao-medios.webp"},{"id":"mistos","name":"Grãos mistos","tag":"Granulação mista","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-mistos.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":["assets/photos/mistos-milho-grao.webp"]}],"page":{"chip":"Equilíbrio","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos mistos junta grãos de vários tamanhos: torrão firme num instante, odor retido e nenhum grão espalhado pela casa. Sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"O equilíbrio perfeito","text":"Os grânulos mistos unem grãos de vários tamanhos, com economia e sem rastro. Fez xixi: odor retido e torrão pronto, firme num instante.","image":"assets/photos/mistos-milho-grao-wide.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para ele ficar protegido até quando se lambe durante o banho.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Mista (grãos de vários tamanhos)"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#1F2756","cardImage":"assets/scenes/torrao-mistos.webp"}]}</script>
+<script type="application/json" id="felux-data">{"settings":{"whatsapp":"44999993262","whatsappMessage":"Olá! Gostaria de adquirir a areia FELUX.","instagram":"@feluxpet","cnpj":"00.000.000/0001-00","announcement":{"active":false,"text":"Frete grátis para compras acima de R$ 150","link":"#produtos"},"stores":[{"name":"Loja oficial","url":""},{"name":"Mercado Livre","url":""},{"name":"Amazon","url":""},{"name":"Shopee","url":""}],"coupons":[{"code":"BEMVINDO10","text":"10% na primeira compra","active":false}],"cycle":{"title":"Natureza em ciclo","text":"A FELUX promove o ciclo da natureza e o seu gato pode fazer parte disso. Tudo começa com a planta nascendo da terra e se transformando em uma areia macia e segura para ele. O seu gato usa, o torrão se forma e depois volta para a terra, nutrindo o novo ciclo.\n\nE essa escolha começa com você. No momento em que decide colocar a FELUX na caixa do seu gato, você dá o primeiro passo para que a natureza continue em ciclo, e para que ele faça parte disso todos os dias."},"whatsappBuyMessage":"Olá! Gostaria de adquirir {quantidade} da areia FELUX {produto} {peso}.","whatsappRepMessage":"Olá! Tenho interesse em ser representante da FELUX. Pode me passar as condições?","email":"comercial@felux.com.br"},"products":[{"id":"finos","name":"Grãos finos","tag":"Granulação fina","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-finos.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":[]}],"page":{"chip":"Torrão em instantes","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos finos forma o torrão em instantes e segura o odor dentro dele. Grãos finos e macios, sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"Fez xixi, tem torrão. Tem torrão, não tem cheiro.","text":"O torrão se forma em instantes e sai inteiro. Menos areia jogada fora, mais tempo de caixa limpa.","image":"assets/scenes/torrao-finos.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Fina"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#3B193A","cardImage":"assets/scenes/torrao-finos.webp"},{"id":"medios","name":"Grãos médios","tag":"Granulação média","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-medios.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":[]}],"page":{"chip":"Grão médio","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos médios tem grão de tamanho médio, que forma o torrão rapidamente e fica dentro da caixa. Sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"Grãos médios, máxima tranquilidade","text":"Os grãos médios formam o torrão rapidamente e ficam onde devem: na caixa, e não pela casa.","image":"assets/scenes/torrao-medios.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos que o seu gato aprova, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você fica feliz em vê-lo assim, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa para todos curtirem.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Média"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#55A51B","cardImage":"assets/scenes/torrao-medios.webp"},{"id":"mistos","name":"Grãos mistos","tag":"Granulação mista","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-mistos.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":["assets/photos/mistos-milho-grao.webp"]}],"page":{"chip":"Equilíbrio","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos mistos junta grãos de vários tamanhos: torrão firme num instante, odor retido e nenhum grão espalhado pela casa. Sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"O equilíbrio perfeito","text":"Os grânulos mistos unem grãos de vários tamanhos, com economia e sem rastro. Fez xixi: odor retido e torrão pronto, firme num instante.","image":"assets/photos/mistos-milho-grao-wide.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para ele ficar protegido até quando se lambe durante o banho.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Mista (grãos de vários tamanhos)"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#1F2756","cardImage":"assets/scenes/torrao-mistos.webp"}]}</script>
 <script>
 (() => {
   // Conteúdo vem do painel (/admin) pela rota api/site. Sem servidor (ex.: prévia), usa os dados embutidos acima.
@@ -534,9 +547,14 @@ html.feel-open{overflow:hidden}
   data.products = data.products.filter(p => p.active !== false);
 
   // mensagem de compra com o nome da areia: {produto} = Grãos finos, {peso} = 4 kg
-  function buyMsg(p){
-    const t = data.settings.whatsappBuyMessage || 'Olá! Gostaria de adquirir a areia FELUX {produto} {peso}.';
-    return t.replace(/\{produto\}/g, p.name).replace(/\{peso\}/g, p.weight || '').replace(/\s+([.!?,])/g, '$1').replace(/\s{2,}/g, ' ').trim();
+  const qty = {}; // quantidade escolhida por produto
+  const Q = p => qty[p.id] || 1;
+  const unidades = n => n === 1 ? '1 unidade' : n + ' unidades';
+  const unit = v => v.price == null ? null : (v.salePrice != null && v.salePrice < v.price ? v.salePrice : v.price);
+  function buyMsg(p, n = Q(p)){
+    let t = data.settings.whatsappBuyMessage || 'Olá! Gostaria de adquirir {quantidade} da areia FELUX {produto} {peso}.';
+    if (!/\{quantidade\}/.test(t)) t += ' Quantidade: {quantidade}.';
+    return t.replace(/\{quantidade\}/g, unidades(n)).replace(/\{produto\}/g, p.name).replace(/\{peso\}/g, p.weight || '').replace(/\s+([.!?,])/g, '$1').replace(/\s{2,}/g, ' ').trim();
   }
   function waLink(text){
     const s = data.settings; let n = (s.whatsapp || '').replace(/\D/g, ''); if (!n) return '';
@@ -558,6 +576,26 @@ html.feel-open{overflow:hidden}
     const l = v.buyUrl || waLink(buyMsg(p)) || '#comprar';
     return `<a class="btn btn-gold ${cls}" data-buy="${esc(p.id)}" href="${esc(l)}"${ext(l)}>Comprar</a>`;
   }
+  const buyHref = p => { const v = V(p); return v.buyUrl || waLink(buyMsg(p)) || '#comprar'; };
+  const buyLabel = p => { const u = unit(V(p)); return u == null ? 'Comprar' : 'Comprar por ' + brl(u * Q(p)); };
+  const stepper = (p, where) => `<div class="qty" data-qty="${esc(p.id)}" role="group" aria-label="Quantidade">
+      <button type="button" data-step="-1" aria-label="Diminuir quantidade" ${Q(p) <= 1 ? 'disabled' : ''}>−</button>
+      <output aria-live="polite">${Q(p)}</output>
+      <button type="button" data-step="1" aria-label="Aumentar quantidade" ${Q(p) >= 99 ? 'disabled' : ''}>+</button></div>`;
+  // atualiza todos os seletores, botões e mensagens do produto
+  function syncQty(p){
+    document.querySelectorAll(`[data-qty="${CSS.escape(p.id)}"]`).forEach(s => {
+      s.querySelector('output').textContent = Q(p);
+      s.querySelector('[data-step="-1"]').disabled = Q(p) <= 1; s.querySelector('[data-step="1"]').disabled = Q(p) >= 99;
+    });
+    document.querySelectorAll(`a[data-buy="${CSS.escape(p.id)}"]`).forEach(a => { a.href = buyHref(p); if (a.hasAttribute('data-label')) a.textContent = buyLabel(p); });
+    feel.sync(p);
+  }
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-step]'); if (!b) return;
+    const p = data.products.find(x => x.id === b.closest('[data-qty]').dataset.qty); if (!p) return;
+    qty[p.id] = Math.max(1, Math.min(99, Q(p) + +b.dataset.step)); syncQty(p);
+  });
   // nome em duas linhas no celular, como na embalagem: "Grãos / finos"
   const splitName = n => { const i = String(n).indexOf(' '); return i < 0 ? esc(n) : esc(n.slice(0, i)) + ' <span class="n2">' + esc(n.slice(i + 1)) + '</span>'; };
   const card = p => { const v = V(p), link = `#${esc(p.id)}`; return `<article class="prod${v.inStock === false ? ' soldout' : ''}" data-card="${esc(p.id)}" style="--v:${esc(p.color || v.color)}">
@@ -603,7 +641,8 @@ html.feel-open{overflow:hidden}
           ${pg.chip ? `<span class="chip">${esc(pg.chip)}</span>` : ''}
           ${(p.variants || []).length > 1 ? `<p class="pick-label">Matéria-prima</p>${swatches(p, true)}` : ''}
           <div class="price">${priceHTML(v)}${v.inStock === false ? ' <span class="ask">· Esgotado</span>' : ''}</div>
-          <div class="actions">${buyBtn(p)}${wa ? `<a class="btn btn-ghost" href="${esc(wa)}" target="_blank" rel="noopener">Tirar dúvida</a>` : ''}</div>
+          ${V(p).inStock !== false ? `<div class="buyline">${stepper(p)}<a class="btn btn-gold" data-buy="${esc(p.id)}" data-label href="${esc(buyHref(p))}"${ext(buyHref(p))}>${buyLabel(p)}</a></div>` : ''}
+          <div class="actions">${V(p).inStock === false ? buyBtn(p) : ''}${wa ? `<a class="btn btn-ghost" href="${esc(wa)}" target="_blank" rel="noopener">Tirar dúvida</a>` : ''}</div>
           <div class="tabs" role="tablist">
             <button role="tab" id="t-desc" aria-selected="true" aria-controls="p-desc">Descrição</button>
             <button role="tab" id="t-spec" aria-selected="false" aria-controls="p-spec">Especificações</button>
@@ -762,6 +801,12 @@ html.feel-open{overflow:hidden}
       run();
     }
 
+    let cur = null;
+    function sync(p){
+      if (!cur || p.id !== cur.id) return;
+      const go = dlg.querySelector('[data-f=go]'), u = unit(V(p));
+      go.href = buyHref(p); go.innerHTML = 'Finalizar<span class="w"> compra</span>' + (u == null ? '' : ' · ' + brl(u * Q(p)));
+    }
     function open(p, v, href, isExt){
       opener = document.activeElement; sizeKey = SIZE.hasOwnProperty(p.id) ? p.id : 'finos';
       dlg.style.setProperty('--v', p.color || v.color);
@@ -769,7 +814,8 @@ html.feel-open{overflow:hidden}
       dlg.querySelector('[data-f=name]').innerHTML = splitName(p.name);
       dlg.querySelector('[data-f=price]').innerHTML = priceHTML(v);
       dlg.querySelector('[data-f=feats]').innerHTML = p.bullets.map(b => `<li>${esc(b)}</li>`).join('');
-      const go = dlg.querySelector('[data-f=go]'); go.href = href;
+      cur = p; dlg.querySelector('[data-f=qty]').innerHTML = stepper(p); sync(p);
+      const go = dlg.querySelector('[data-f=go]');
       if (isExt){ go.target = '_blank'; go.rel = 'noopener'; } else { go.removeAttribute('target'); }
       dlg.hidden = false; document.documentElement.classList.add('feel-open');
       size(); startAudio(); if (audio) audio.A.resume?.();
@@ -789,12 +835,12 @@ html.feel-open{overflow:hidden}
     const snd = dlg.querySelector('[data-f=sound]');
     snd.addEventListener('click', () => { soundOn = !soundOn; snd.setAttribute('aria-pressed', !soundOn); snd.textContent = soundOn ? 'Som ligado' : 'Som desligado'; if (soundOn) startAudio(); vol(0); });
     addEventListener('keydown', e => { if (e.key === 'Escape' && !dlg.hidden) close(); });
-    return { open };
+    return { open, sync };
   })();
   document.addEventListener('click', e => {
     const a = e.target.closest('a[data-buy]'); if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return;
     const p = data.products.find(x => x.id === a.dataset.buy); if (!p) return;
-    e.preventDefault(); feel.open(p, V(p), a.getAttribute('href'), a.target === '_blank');
+    e.preventDefault(); feel.open(p, V(p), buyHref(p), /^https?:/.test(buyHref(p)));
   });
 
   addEventListener('hashchange', () => route(true));

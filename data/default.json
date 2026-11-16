@@ -38,7 +38,7 @@
       "title": "Natureza em ciclo",
       "text": "A FELUX promove o ciclo da natureza e o seu gato pode fazer parte disso. Tudo começa com a planta nascendo da terra e se transformando em uma areia macia e segura para ele. O seu gato usa, o torrão se forma e depois volta para a terra, nutrindo o novo ciclo.\n\nE essa escolha começa com você. No momento em que decide colocar a FELUX na caixa do seu gato, você dá o primeiro passo para que a natureza continue em ciclo, e para que ele faça parte disso todos os dias."
     },
-    "whatsappBuyMessage": "Olá! Gostaria de adquirir a areia FELUX {produto} {peso}.",
+    "whatsappBuyMessage": "Olá! Gostaria de adquirir {quantidade} da areia FELUX {produto} {peso}.",
     "whatsappRepMessage": "Olá! Tenho interesse em ser representante da FELUX. Pode me passar as condições?",
     "email": "comercial@felux.com.br"
   },

@@ -135,7 +135,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
           <label class="f" style="grid-column:span 1"><span>WhatsApp (com DDD)</span><input type="tel" id="s-whatsapp" placeholder="11 99999-9999"></label>
           <label class="f" style="grid-column:span 1"><span>Instagram</span><input type="text" id="s-instagram" placeholder="@feluxpet"></label>
           <label class="f" style="grid-column:1/-1"><span>E-mail comercial</span><input type="email" id="s-email" placeholder="comercial@felux.com.br"></label>
-          <label class="f" style="grid-column:1/-1"><span>Mensagem ao comprar um produto</span><input type="text" id="s-whatsappBuyMessage"><small class="hint">Use {produto} para o nome da areia e {peso} para o peso. Ex.: Olá! Gostaria de adquirir a areia FELUX {produto} {peso}.</small></label>
+          <label class="f" style="grid-column:1/-1"><span>Mensagem ao comprar um produto</span><input type="text" id="s-whatsappBuyMessage"><small class="hint">Use {quantidade} (ex.: 2 unidades), {produto} para o nome da areia e {peso} para o peso. Ex.: Olá! Gostaria de adquirir {quantidade} da areia FELUX {produto} {peso}.</small></label>
           <p class="f hint" style="grid-column:1/-1;margin:-4px 0 0" id="buyPreview"></p>
           <label class="f" style="grid-column:1/-1"><span>Mensagem de representante</span><input type="text" id="s-whatsappRepMessage"><small class="hint">Usada no botão "Seja um representante".</small></label>
           <label class="f" style="grid-column:1/-1"><span>Mensagem geral (topo e botão flutuante)</span><input type="text" id="s-whatsappMessage"></label>
@@ -406,7 +406,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   bindS('#s-instagram', el => S().instagram = el.value);
   bindS('#s-email', el => S().email = el.value.trim());
   bindS('#s-whatsappMessage', el => S().whatsappMessage = el.value);
-  const buyPrev = () => { const p = data.products[0]; $('#buyPreview').textContent = p ? 'Exemplo: ' + (S().whatsappBuyMessage || '').replace(/\{produto\}/g, p.name).replace(/\{peso\}/g, p.weight || '').replace(/\s+([.!?,])/g, '$1').replace(/\s{2,}/g, ' ').trim() : ''; };
+  const buyPrev = () => { const p = data.products[0]; $('#buyPreview').textContent = p ? 'Exemplo: ' + (S().whatsappBuyMessage || '').replace(/\{quantidade\}/g, '2 unidades').replace(/\{produto\}/g, p.name).replace(/\{peso\}/g, p.weight || '').replace(/\s+([.!?,])/g, '$1').replace(/\s{2,}/g, ' ').trim() : ''; };
   bindS('#s-whatsappBuyMessage', el => { S().whatsappBuyMessage = el.value; buyPrev(); });
   bindS('#s-whatsappRepMessage', el => S().whatsappRepMessage = el.value);
   bindS('#s-cnpj', el => S().cnpj = el.value);

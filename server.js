@@ -100,6 +100,7 @@ function readData() {
     });
     applied.add('cartao-torrao-preco-6990');
   }
+  if (d.settings.whatsappBuyMessage === 'Olá! Gostaria de adquirir a areia FELUX {produto} {peso}.') d.settings.whatsappBuyMessage = def.settings.whatsappBuyMessage; // passa a incluir a quantidade
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
