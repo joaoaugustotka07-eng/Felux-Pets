@@ -21,7 +21,7 @@ fs.mkdirSync(UPLOADS, { recursive: true });
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
-  '.ico': 'image/x-icon', '.json': 'application/json; charset=utf-8', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml'
+  '.ico': 'image/x-icon', '.json': 'application/json; charset=utf-8', '.txt': 'text/plain; charset=utf-8', '.xml': 'application/xml', '.mp4': 'video/mp4', '.webm': 'video/webm'
 };
 const PUBLIC = new Set(['index.html', 'robots.txt', 'sitemap.xml']);
 
@@ -212,12 +212,23 @@ function readBody(req, limit) {
     req.on('error', reject);
   });
 }
-function serveFile(res, file, cache) {
-  fs.readFile(file, (err, data) => {
-    if (err) return send(res, 404, 'Página não encontrada');
-    const ext = path.extname(file).toLowerCase();
-    res.writeHead(200, { 'Content-Type': TYPES[ext] || 'application/octet-stream', 'Cache-Control': cache, 'X-Content-Type-Options': 'nosniff' });
-    res.end(data);
+function serveFile(res, file, cache, req) {
+  fs.stat(file, (err, st) => {
+    if (err || !st.isFile()) return send(res, 404, 'Página não encontrada');
+    const ext = path.extname(file).toLowerCase(), type = TYPES[ext] || 'application/octet-stream';
+    const head = { 'Content-Type': type, 'Cache-Control': cache, 'X-Content-Type-Options': 'nosniff', 'Accept-Ranges': 'bytes' };
+    // vídeo: entrega em partes (o Safari/iPhone exige)
+    const m = req && /^bytes=(\d*)-(\d*)$/.exec(req.headers.range || '');
+    if (m && (m[1] || m[2])) {
+      let start = m[1] ? +m[1] : st.size - +m[2], end = m[1] && m[2] ? +m[2] : st.size - 1;
+      if (start >= st.size || start > end) { res.writeHead(416, { 'Content-Range': `bytes */${st.size}` }); return res.end(); }
+      end = Math.min(end, st.size - 1);
+      res.writeHead(206, { ...head, 'Content-Range': `bytes ${start}-${end}/${st.size}`, 'Content-Length': end - start + 1 });
+      return fs.createReadStream(file, { start, end }).pipe(res);
+    }
+    res.writeHead(200, { ...head, 'Content-Length': st.size });
+    if (req && req.method === 'HEAD') return res.end();
+    fs.createReadStream(file).pipe(res);
   });
 }
 
@@ -282,7 +293,7 @@ http.createServer(async (req, res) => {
     const file = path.normalize(path.join(ROOT, rel));
     const allowed = file.startsWith(path.join(ROOT, 'assets') + path.sep) || PUBLIC.has(rel);
     if (!allowed) return serveFile(res, path.join(ROOT, 'index.html'), 'no-cache');
-    return serveFile(res, file, path.extname(file) === '.html' ? 'no-cache' : 'public, max-age=604800');
+    return serveFile(res, file, path.extname(file) === '.html' ? 'no-cache' : 'public, max-age=604800', req);
   } catch (e) {
     console.error(e); send(res, 500, 'Erro interno');
   }

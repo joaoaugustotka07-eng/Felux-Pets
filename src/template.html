@@ -375,6 +375,13 @@ html.feel-open{overflow:hidden}
 .feel-buy .feel-go{flex:1}
 @media (max-width:420px){.buyline .btn{min-width:0}.feel-go .w{display:none}}
 .feel-go{white-space:nowrap}
+
+/* vídeo principal */
+.film{padding-block:8px 56px}
+.film-box{position:relative;border-radius:var(--radius);overflow:hidden;background:var(--band);aspect-ratio:16/9;max-width:100%}
+.film-box video{width:100%;height:100%;object-fit:cover;display:block}
+.film-play{position:absolute;right:14px;bottom:14px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(20,12,24,.55);color:#fff;font-size:.9rem;cursor:pointer}
+@media (max-width:600px){.film-box{aspect-ratio:9/16;max-height:82vh;margin-inline:auto}}
 </style>
 
 <!-- body -->
@@ -410,6 +417,17 @@ html.feel-open{overflow:hidden}
       <li><b>Sem mineral</b><span>100% de origem vegetal</span></li>
       <li><b>Embalagem reciclável</b><span>de fonte renovável</span></li>
     </ul>
+  </div>
+</section>
+
+<section class="film" id="video" aria-label="Vídeo FELUX">
+  <div class="wrap">
+    <div class="film-box">
+      <video id="filmVideo" muted loop playsinline preload="metadata" poster="assets/video/poster-1920x1080.webp" aria-label="Vídeo FELUX: areia caindo, as três embalagens e o torrão firme">
+        <source src="assets/video/felux-video-1920x1080.mp4" type="video/mp4">
+      </video>
+      <button type="button" class="film-play" id="filmPlay" aria-label="Pausar vídeo">❚❚</button>
+    </div>
   </div>
 </section>
 
@@ -797,6 +815,20 @@ html.feel-open{overflow:hidden}
     e.preventDefault(); feel.open(p, V(p), buyHref(p), /^https?:/.test(buyHref(p)));
   });
 
+  // vídeo: versão vertical no celular; toca só quando aparece na tela; respeita "reduzir movimento"
+  (() => {
+    const v = document.getElementById('filmVideo'), btn = document.getElementById('filmPlay'); if (!v) return;
+    const tall = matchMedia('(max-width:600px)').matches;
+    if (tall){ v.poster = 'assets/video/poster-1080x1920.webp'; v.querySelector('source').src = 'assets/video/felux-video-1080x1920.mp4'; v.load(); }
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let paused = still;
+    const sync = () => { btn.textContent = v.paused ? '▶' : '❚❚'; btn.setAttribute('aria-label', v.paused ? 'Tocar vídeo' : 'Pausar vídeo'); };
+    btn.addEventListener('click', () => { paused = !v.paused; v.paused ? v.play().catch(() => {}) : v.pause(); });
+    v.addEventListener('play', sync); v.addEventListener('pause', sync); sync();
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting && !paused) v.play().catch(() => {}); else if (!e.isIntersecting) v.pause();
+    }), { threshold: .35 }).observe(v);
+  })();
   addEventListener('hashchange', () => route(true));
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-p][data-v]'); if (!b) return;

@@ -1,0 +1,192 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:M;font-weight:300;src:url(fonts/montserrat-latin-300-normal.woff2)}
+@font-face{font-family:M;font-weight:400;src:url(fonts/montserrat-latin-400-normal.woff2)}
+@font-face{font-family:M;font-weight:600;src:url(fonts/montserrat-latin-600-normal.woff2)}
+@font-face{font-family:M;font-weight:800;src:url(fonts/montserrat-latin-800-normal.woff2)}
+html,body{margin:0;background:#000}
+canvas{display:block}
+</style></head>
+<body><canvas id="c"></canvas>
+<script>
+// Vídeo FELUX: render(frame) é determinístico e chamado em ordem, quadro a quadro.
+const A = 'assets/';
+const P = { purple:'#3B193A', purpleDark:'#24102A', green:'#3E8714', greenLight:'#9BD86A', paper:'#F8F8F5', ink:'#24192F', soft:'#5E5768' };
+const SAND = ['#E6C27A','#D9AE5E','#EED39A','#C99A4B','#F1DDB0','#E2B867'];
+let spawned = 0; window.BUDGET = 9000;
+let W, H, V, ctx, img = {}, sand, pile, pctx, cols, colW;
+const FPS = 30, DUR = 15;
+
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const easeOut = x => 1 - Math.pow(1 - x, 3);
+const easeInOut = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const back = x => { const c = 1.5; return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2); };
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+function load(src){ return new Promise(r => { const i = new Image(); i.onload = () => r(i); i.src = src; }); }
+async function svgWhite(){
+  const t = await (await fetch(A + 'felux-logo.svg')).text();
+  return load('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(t.replace('fill="#000"', 'fill="#ffffff"')));
+}
+async function svgDark(){
+  const t = await (await fetch(A + 'felux-logo.svg')).text();
+  return load('data:image/svg+xml;charset=utf-8,' + encodeURIComponent(t.replace('fill="#000"', 'fill="#24192F"')));
+}
+
+window.setup = async (w, h) => {
+  W = w; H = h; V = H > W; const c = document.getElementById('c'); c.width = W; c.height = H; ctx = c.getContext('2d');
+  await document.fonts.load('300 40px M'); await document.fonts.load('600 40px M'); await document.fonts.load('800 40px M'); await document.fonts.load('400 40px M');
+  [img.finos, img.medios, img.mistos, img.clump, img.logoW, img.logoD] = await Promise.all([
+    load(A + 'packs/felux-finos.webp'), load(A + 'packs/felux-medios.webp'), load(A + 'packs/felux-mistos.webp'),
+    load('torrao.png'), svgWhite(), svgDark()]);
+  pile = document.createElement('canvas'); pile.width = W; pile.height = H; pctx = pile.getContext('2d');
+  colW = Math.max(3, Math.round(W / 480)); cols = new Array(Math.ceil(W / colW) + 2).fill(0); sand = [];
+  return true;
+};
+
+// ---------- areia caindo e formando o monte ----------
+const S = () => Math.min(W, H) / 1080; // escala geral
+function land(x, r, c){
+  let j = Math.max(1, Math.min(cols.length - 2, Math.round(x / colW)));
+  for (let k = 0; k < 200; k++){
+    const l = cols[j - 1], rr = cols[j + 1], h0 = cols[j], lim = colW * .5;
+    const goL = l < h0 - lim, goR = rr < h0 - lim;
+    if (goL && goR) j += rnd() < .5 ? -1 : 1; else if (goL) j--; else if (goR) j++; else break;
+  }
+  const y = H - cols[j] - r; cols[j] += r * r * 2.3 / colW;
+  pctx.fillStyle = c; pctx.beginPath(); pctx.ellipse(j * colW + (rnd() - .5) * 2, y, r * 1.1, r * .85, rnd() * 3, 0, 6.283); pctx.fill();
+  pctx.fillStyle = 'rgba(255,255,255,.28)'; pctx.beginPath(); pctx.arc(j * colW - r * .3, y - r * .3, r * .35, 0, 6.283); pctx.fill();
+}
+function stepSand(t){
+  const pour = t > .15 && t < 4.2 && spawned < (V ? 2900 : 1300) * S() * S();
+  if (pour){
+    const n = Math.round(110 * S() * (t < .6 ? t / .6 : 1));
+    for (let k = 0; k < n; k++){
+      const r = (1.6 + rnd() * 2.6) * S() * 1.6;
+      spawned++; sand.push({ x: W / 2 + (rnd() - .5) * 40 * S(), y: -r - rnd() * 40, vx: (rnd() - .5) * 1.2, vy: 6 + rnd() * 6, r, c: SAND[(rnd() * SAND.length) | 0] });
+    }
+  }
+  const g = .9 * S() * 1.4, next = [];
+  for (const p of sand){
+    p.vy += g; p.x += p.vx; p.y += p.vy;
+    const j = Math.max(0, Math.min(cols.length - 1, Math.round(p.x / colW)));
+    if (p.y >= H - cols[j] - p.r) land(p.x, p.r, p.c); else next.push(p);
+  }
+  sand = next;
+}
+function drawSand(){
+  ctx.drawImage(pile, 0, 0);
+  for (const p of sand){ ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fill(); }
+}
+
+// ---------- utilidades de desenho ----------
+function bg(c1, c2){ const g = ctx.createRadialGradient(W * .5, H * .38, 0, W * .5, H * .5, Math.max(W, H) * .75); g.addColorStop(0, c1); g.addColorStop(1, c2); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); }
+function text(s, x, y, size, weight, color, align = 'center', alpha = 1, track = 0){
+  ctx.save(); ctx.globalAlpha *= alpha; ctx.font = `${weight} ${size}px M`; ctx.fillStyle = color; ctx.textAlign = align; ctx.textBaseline = 'alphabetic';
+  if ('letterSpacing' in ctx) ctx.letterSpacing = track + 'px';
+  ctx.fillText(s, x, y); ctx.restore();
+}
+// texto com uma parte em negrito: ["Areia feita de ", "planta."]
+function mixed(parts, x, y, size, color, alpha = 1){
+  ctx.save(); ctx.globalAlpha *= alpha; ctx.fillStyle = color; ctx.textBaseline = 'alphabetic';
+  const ws = parts.map((p, i) => { ctx.font = `${i % 2 ? 800 : 300} ${size}px M`; return ctx.measureText(p).width; });
+  let cx = x - ws.reduce((a, b) => a + b, 0) / 2;
+  parts.forEach((p, i) => { ctx.font = `${i % 2 ? 800 : 300} ${size}px M`; ctx.textAlign = 'left'; ctx.fillText(p, cx, y); cx += ws[i]; });
+  ctx.restore();
+}
+function logo(im, cx, cy, w, alpha = 1){ const h = w * im.height / im.width; ctx.save(); ctx.globalAlpha *= alpha; ctx.drawImage(im, cx - w / 2, cy - h / 2, w, h); ctx.restore(); return h; }
+function pill(label, cx, cy, size, fill, color, alpha = 1){
+  ctx.save(); ctx.globalAlpha *= alpha; ctx.font = `600 ${size}px M`;
+  const w = ctx.measureText(label).width + size * 2.2, h = size * 2.3;
+  ctx.fillStyle = fill; ctx.beginPath(); ctx.roundRect(cx - w / 2, cy - h / 2, w, h, h / 2); ctx.fill();
+  ctx.fillStyle = color; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(label, cx, cy + size * .05); ctx.restore();
+}
+
+// ---------- cenas ----------
+function sceneSand(t, a){
+  ctx.save(); ctx.globalAlpha = a;
+  bg('#4A2149', P.purpleDark);
+  drawSand();
+  const k = easeOut(prog(t, 2.2, 3.4)), u = S();
+  const ly = V ? H * .28 : H * .24;
+  logo(img.logoW, W / 2, ly + (1 - k) * 30 * u, (V ? 760 : 820) * u * (0.92 + .08 * k), k);
+  mixed(['Areia feita de ', 'planta.'], W / 2, ly + (V ? 150 : 165) * u, (V ? 64 : 62) * u, '#fff', easeOut(prog(t, 3.0, 4.0)));
+  ctx.restore();
+}
+function scenePacks(t, a){
+  ctx.save(); ctx.globalAlpha = a;
+  bg('#FFFFFF', '#ECEBE6');
+  const u = S(), names = [['Grãos finos', P.purple, img.finos], ['Grãos médios', '#55A51B', img.medios], ['Grãos mistos', '#1F2756', img.mistos]];
+  const top = V ? H * .17 : H * .13;
+  const k0 = easeOut(prog(t, 5.6, 6.3));
+  ctx.save(); ctx.globalAlpha *= k0;
+  const tw = (V ? 70 : 64) * u; ctx.font = `300 ${tw}px M`;
+  const lw = (V ? 330 : 300) * u, txt = 'Escolha a sua', gap = 22 * u, total = ctx.measureText(txt).width + gap + lw;
+  const sx = W / 2 - total / 2; text(txt, sx, top, tw, 300, P.ink, 'left');
+  logo(img.logoD, sx + ctx.measureText(txt).width + gap + lw / 2, top - tw * .36, lw);
+  ctx.restore();
+  const ph = V ? H * .235 : H * .56, pw = ph * img.finos.width / img.finos.height, cy = V ? H * .52 : H * .56;
+  names.forEach(([n, c, im], i) => {
+    const s = 6.0 + i * .35, k = prog(t, s, s + .8), e = back(k);
+    const x = W / 2 + (i - 1) * (V ? W * .315 : W * .29), y = cy + (1 - e) * H * .6 + Math.sin((t - s) * 1.6 + i) * 4 * u * (k >= 1 ? 1 : 0);
+    ctx.save(); ctx.globalAlpha *= clamp(k * 3);
+    ctx.drawImage(im, x - pw / 2, y - ph / 2, pw, ph);
+    const ny = cy + ph / 2 + (V ? 70 : 64) * u;
+    text(n, x, ny, (V ? 46 : 40) * u, 400, P.ink, 'center', easeOut(prog(t, s + .4, s + 1)));
+    ctx.fillStyle = c; ctx.globalAlpha *= easeOut(prog(t, s + .4, s + 1));
+    ctx.beginPath(); ctx.roundRect(x - 40 * u, ny + 22 * u, 80 * u, 7 * u, 4 * u); ctx.fill();
+    ctx.restore();
+  });
+  ctx.restore();
+}
+function sceneClump(t, a){
+  ctx.save(); ctx.globalAlpha = a;
+  bg('#F4F2EC', '#DAD8D1');
+  const u = S(), k = easeOut(prog(t, 10.0, 11.0)), cw = (V ? 1250 : 1300) * u * (0.85 + .15 * k);
+  const cx = V ? W / 2 : W * .31, cy = V ? H * .34 : H * .52, ch = cw * img.clump.height / img.clump.width;
+  ctx.save(); ctx.translate(cx, cy); ctx.rotate((t - 10) * .06); ctx.globalAlpha *= clamp(k * 2);
+  ctx.drawImage(img.clump, -cw / 2, -ch / 2, cw, ch); ctx.restore();
+  const lines = [['Torrão firme.', 800], ['Sem mineral.', 300], ['100% de origem', 300], ['vegetal.', 300]];
+  const tx = V ? W / 2 : W * .57, ty = V ? H * .60 : H * .33, size = (V ? 92 : 80) * u, al = V ? 'center' : 'left';
+  lines.forEach(([s, w], i) => {
+    const st = 10.4 + i * .35, e = easeOut(prog(t, st, st + .6));
+    text(s, tx + (V ? 0 : (1 - e) * 40 * u), ty + i * size * 1.12 + (V ? (1 - e) * 30 * u : 0), size, w, P.ink, al, e);
+  });
+  ctx.save(); ctx.globalAlpha *= easeOut(prog(t, 11.8, 12.4));
+  const by = ty + lines.length * size * 1.12 + 10 * u;
+  ctx.fillStyle = P.green; ctx.beginPath(); ctx.roundRect(V ? W / 2 - 60 * u : tx, by, 120 * u, 10 * u, 5 * u); ctx.fill();
+  ctx.restore();
+  ctx.restore();
+}
+function sceneEnd(t, a){
+  ctx.save(); ctx.globalAlpha = a;
+  bg('#4A2149', P.purpleDark);
+  const u = S(), k = easeOut(prog(t, 12.9, 13.6));
+  const ly = V ? H * .36 : H * .30;
+  logo(img.logoW, W / 2, ly - (1 - k) * 20 * u, (V ? 700 : 640) * u, k);
+  mixed(['Areia feita de ', 'planta.'], W / 2, ly + (V ? 140 : 130) * u, (V ? 58 : 52) * u, '#fff', easeOut(prog(t, 13.2, 13.8)));
+  text('Grãos finos · médios · mistos  |  4 kg', W / 2, ly + (V ? 240 : 215) * u, (V ? 38 : 34) * u, 400, '#CDB9CF', 'center', easeOut(prog(t, 13.4, 14.0)));
+  const e = back(prog(t, 13.7, 14.3));
+  pill('Peça pelo WhatsApp  (44) 99999-3262', W / 2, ly + (V ? 400 : 345) * u, (V ? 40 : 36) * u * (0.9 + .1 * e), P.green, '#fff', clamp(e));
+  text('feluxpet.com.br', W / 2, H - (V ? 140 : 70) * u, (V ? 36 : 30) * u, 600, P.greenLight, 'center', easeOut(prog(t, 14.0, 14.5)), 2);
+  ctx.restore();
+}
+
+window.pileH = () => Math.max(...cols) / H;
+window.render = f => {
+  const t = f / FPS;
+  stepSand(t);
+  ctx.globalAlpha = 1; ctx.clearRect(0, 0, W, H);
+  const aSand = 1 - easeInOut(prog(t, 5.3, 5.9));
+  const aPacks = easeInOut(prog(t, 5.3, 5.9)) * (1 - easeInOut(prog(t, 9.6, 10.2)));
+  const aClump = easeInOut(prog(t, 9.6, 10.2)) * (1 - easeInOut(prog(t, 12.4, 12.9)));
+  const aEnd = easeInOut(prog(t, 12.4, 12.9));
+  if (aSand > 0) sceneSand(t, aSand);
+  if (aPacks > 0) scenePacks(t, aPacks);
+  if (aClump > 0) sceneClump(t, aClump);
+  if (aEnd > 0) sceneEnd(t, aEnd);
+  return document.getElementById('c').toDataURL('image/jpeg', .92);
+};
+</script></body></html>
