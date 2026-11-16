@@ -92,6 +92,14 @@ function readData() {
   if (!applied.has('email-comercial')) { if (!d.settings.email) d.settings.email = def.settings.email; applied.add('email-comercial'); }
   // troca do número oficial: (44) 99129-2930 -> (44) 99999-3262
   if (!applied.has('whatsapp-44999993262')) { if (['', '44991292930', '5544991292930'].includes((d.settings.whatsapp || '').replace(/\D/g, ''))) d.settings.whatsapp = def.settings.whatsapp; applied.add('whatsapp-44999993262'); }
+  // foto de torrão nos cartões e preço inicial de R$ 69,90 (uma vez; promoções ficam no painel)
+  if (!applied.has('cartao-torrao-preco-6990')) {
+    d.products.forEach(p => { const dp = byId[p.id];
+      if (!p.cardImage && dp) p.cardImage = dp.cardImage;
+      (p.variants || []).forEach(v => { if (v.price == null) { v.price = 69.9; v.salePrice = null; } });
+    });
+    applied.add('cartao-torrao-preco-6990');
+  }
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
@@ -147,7 +155,7 @@ function clean(input) {
     return {
       id, name: str(p.name, 80) || 'Produto', tag: str(p.tag, 80), color: color(p.color), weight: str(p.weight, 20),
       bullets: (Array.isArray(p.bullets) ? p.bullets : []).map(b => str(b, 160)).filter(Boolean).slice(0, 6),
-      badge: str(p.badge, 30), active: p.active !== false, variants, page: cleanPage(p.page)
+      badge: str(p.badge, 30), cardImage: url(p.cardImage), active: p.active !== false, variants, page: cleanPage(p.page)
     };
   });
   const seen = new Set(); products.forEach(p => { while (seen.has(p.id)) p.id += '-2'; seen.add(p.id); });

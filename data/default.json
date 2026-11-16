@@ -63,7 +63,7 @@
           "color": "#E0A526",
           "image": "assets/packs/felux-finos.webp",
           "composition": "À base de planta",
-          "price": null,
+          "price": 69.9,
           "salePrice": null,
           "buyUrl": "",
           "inStock": true,
@@ -127,7 +127,8 @@
           }
         ]
       },
-      "color": "#3B193A"
+      "color": "#3B193A",
+      "cardImage": "assets/scenes/torrao-finos.webp"
     },
     {
       "id": "medios",
@@ -149,7 +150,7 @@
           "color": "#E0A526",
           "image": "assets/packs/felux-medios.webp",
           "composition": "À base de planta",
-          "price": null,
+          "price": 69.9,
           "salePrice": null,
           "buyUrl": "",
           "inStock": true,
@@ -213,7 +214,8 @@
           }
         ]
       },
-      "color": "#55A51B"
+      "color": "#55A51B",
+      "cardImage": "assets/scenes/torrao-medios.webp"
     },
     {
       "id": "mistos",
@@ -235,7 +237,7 @@
           "color": "#E0A526",
           "image": "assets/packs/felux-mistos.webp",
           "composition": "À base de planta",
-          "price": null,
+          "price": 69.9,
           "salePrice": null,
           "buyUrl": "",
           "inStock": true,
@@ -301,7 +303,8 @@
           }
         ]
       },
-      "color": "#1F2756"
+      "color": "#1F2756",
+      "cardImage": "assets/scenes/torrao-mistos.webp"
     }
   ]
 }

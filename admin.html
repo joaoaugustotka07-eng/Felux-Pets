@@ -268,6 +268,9 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
         <label class="f s1"><span>Peso</span><input type="text" data-k="weight" value="${esc(p.weight)}"></label>
         <label class="f s1"><span>Selo</span><input type="text" data-k="badge" list="badges" value="${esc(p.badge)}" placeholder="Oferta"></label>
         <label class="f s6"><span>Benefícios no cartão (um por linha)</span><textarea data-k="bullets" style="min-height:70px">${esc(p.bullets.join('\n'))}</textarea></label>
+        <div class="f s6"><span>Foto do cartão (torrão)</span>
+          <div class="gal">${p.cardImage ? `<span class="gimg" style="background-image:url('${esc(p.cardImage)}');width:120px;height:68px"></span>` : '<span class="hint">Sem foto: o cartão mostra os benefícios</span>'}<button class="btn ghost small" data-act="card-img">Trocar foto</button>${p.cardImage ? '<button class="btn danger small" data-act="card-img-del">Remover</button>' : ''}</div>
+        </div>
         <div class="f s6"><span>Versões (matéria-prima)</span></div>
         ${(p.variants || []).map((v, j) => variantBox(v, j, p.variants.length)).join('')}
         <div class="f s6"><button class="btn ghost small" data-act="var-add" style="justify-self:start">+ Versão</button></div>
@@ -350,6 +353,8 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     const b = e.target.closest('[data-act]'); if (!b) return;
     const card = b.closest('.prod'), i = +card.dataset.i, ps = data.products, act = b.dataset.act;
     if (act === 'upload'){ uploadFor = {i}; $('#fileIn').click(); return; }
+    if (act === 'card-img'){ uploadFor = {i, card:true}; $('#fileIn').click(); return; }
+    if (act === 'card-img-del') ps[i].cardImage = '';
     const pg = ps[i].page, j = b.closest('[data-s]') ? +b.closest('[data-s]').dataset.s : -1;
     if (act === 'upload-sec'){ uploadFor = {i, j}; $('#fileIn').click(); return; }
     const vb = b.closest('[data-v]'), vj = vb ? +vb.dataset.v : -1, vs = ps[i].variants;
@@ -382,7 +387,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     const rd = new FileReader();
     rd.onload = async () => {
       msg('Enviando imagem…');
-      try { const r = await call('admin/upload', {method:'POST', body:JSON.stringify({data:rd.result})}); const t = data.products[uploadFor.i]; if (uploadFor.gal) (t.variants[uploadFor.v].gallery = t.variants[uploadFor.v].gallery || []).push(r.url); else if (uploadFor.v != null) t.variants[uploadFor.v].image = r.url; else if (uploadFor.j != null) t.page.sections[uploadFor.j].image = r.url; else t.image = r.url; if (uploadFor.j != null) openPages.add(uploadFor.i); renderProducts(); changed(); }
+      try { const r = await call('admin/upload', {method:'POST', body:JSON.stringify({data:rd.result})}); const t = data.products[uploadFor.i]; if (uploadFor.card) t.cardImage = r.url; else if (uploadFor.gal) (t.variants[uploadFor.v].gallery = t.variants[uploadFor.v].gallery || []).push(r.url); else if (uploadFor.v != null) t.variants[uploadFor.v].image = r.url; else if (uploadFor.j != null) t.page.sections[uploadFor.j].image = r.url; else t.image = r.url; if (uploadFor.j != null) openPages.add(uploadFor.i); renderProducts(); changed(); }
       catch (err){ msg(err.message, true); }
     };
     rd.readAsDataURL(f);
