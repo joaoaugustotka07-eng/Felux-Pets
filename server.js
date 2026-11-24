@@ -131,6 +131,21 @@ function readData() {
     applied.add('descontos-2026-11-24');
   }
   if (!applied.has('clube-essencial')) { if (!d.settings.club) d.settings.club = def.settings.club; applied.add('clube-essencial'); }
+  // brinde sortido, frete grátis acima de R$ 269,90 e textos legais (Política de Privacidade e Termos de Uso)
+  if (!applied.has('clube-brinde-frete-legal')) {
+    const c = d.settings.club, dc = def.settings.club;
+    if (c) {
+      if (!c.gift || ['Brinde exclusivo para assinantes', 'Brinde sortido para assinantes'].includes(c.gift)) c.gift = dc.gift;
+      if (!c.shipping || c.shipping === 'Frete especial para assinantes') c.shipping = dc.shipping;
+      if (c.terms) {
+        const sec = (txt, n) => (txt.match(new RegExp('(^|\\n\\n)' + n + '\\. [^\\n]*\\n[^\\n]*')) || [])[0];
+        [5, 6].forEach(n => { const o = sec(c.terms, n), nw = sec(dc.terms, n); if (o && nw && /exclusivo|condições especiais de frete/.test(o)) c.terms = c.terms.replace(o, nw); });
+        c.terms = c.terms.replace('O assinante tem 15% de desconto', 'O assinante tem {desconto}% de desconto');
+      }
+    }
+    if (!d.settings.legal || !d.settings.legal.privacy) d.settings.legal = def.settings.legal;
+    applied.add('clube-brinde-frete-legal');
+  }
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
@@ -211,6 +226,7 @@ function clean(input) {
       club: { active: !!(s.club && s.club.active), name: str(s.club && s.club.name, 60) || 'Clube FELUX Essencial',
         pct: Math.max(0, Math.min(50, Math.round(Number(s.club && s.club.pct) || 0))), gift: str(s.club && s.club.gift, 120),
         shipping: str(s.club && s.club.shipping, 120), terms: str(s.club && s.club.terms, 8000) },
+      legal: { privacy: str(s.legal && s.legal.privacy, 20000), terms: str(s.legal && s.legal.terms, 20000) },
       volumeTiers: (Array.isArray(s.volumeTiers) ? s.volumeTiers : []).slice(0, 6).map(x => ({ min: Math.max(2, Math.min(99, Math.round(Number(x.min) || 0))), pct: Math.max(0, Math.min(50, Math.round(Number(x.pct) || 0))) }))
         .filter(x => x.pct > 0).sort((a, b) => a.min - b.min)
     },

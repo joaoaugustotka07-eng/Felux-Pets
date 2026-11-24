@@ -190,6 +190,12 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
           <label class="f" style="grid-column:1/-1"><span>Texto do frete especial</span><input type="text" id="c-ship"></label>
           <label class="f" style="grid-column:1/-1"><span>Regulamento (parágrafos separados por linha em branco; títulos começam com número, ex.: "4. Desconto"; {desconto} vira o percentual do clube)</span><textarea id="c-terms" style="min-height:220px"></textarea></label>
         </div>
+        <div class="card fields" style="grid-template-columns:1fr;grid-column:1/-1">
+          <h3>Política de Privacidade e Termos de Uso</h3>
+          <p class="hint">Aparecem em feluxpet.com.br/#privacidade e /#termos-de-uso. Ao mudar algo importante, atualize a data "Última atualização" no topo do texto.</p>
+          <label class="f"><span>Política de Privacidade</span><textarea id="l-privacy" style="min-height:260px"></textarea></label>
+          <label class="f"><span>Termos de Uso</span><textarea id="l-terms" style="min-height:260px"></textarea></label>
+        </div>
         <div class="card">
           <h3>Leve mais, pague menos</h3>
           <p class="hint">Desconto automático pela quantidade de sacos no mesmo pedido.</p>
@@ -461,7 +467,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   // ---------- loja ----------
   const S = () => data.settings;
   function renderSettings(){
-    $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-email').value = S().email || ''; const cl = S().club || {}; $('#c-active').checked = cl.active !== false; $('#c-name').value = cl.name || ''; $('#c-pct').value = cl.pct ?? ''; $('#c-gift').value = cl.gift || ''; $('#c-ship').value = cl.shipping || ''; $('#c-terms').value = cl.terms || ''; $('#s-sac').value = S().sac || ''; $('#s-city').value = S().city || ''; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-whatsappBuyMessage').value = S().whatsappBuyMessage || ''; $('#s-whatsappRepMessage').value = S().whatsappRepMessage || ''; buyPrev(); $('#s-cnpj').value = S().cnpj; const cy = S().cycle || {title:'', text:''}; $('#s-cycle-title').value = cy.title; $('#s-cycle-text').value = cy.text;
+    $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-email').value = S().email || ''; const lg = S().legal || {}; $('#l-privacy').value = lg.privacy || ''; $('#l-terms').value = lg.terms || ''; const cl = S().club || {}; $('#c-active').checked = cl.active !== false; $('#c-name').value = cl.name || ''; $('#c-pct').value = cl.pct ?? ''; $('#c-gift').value = cl.gift || ''; $('#c-ship').value = cl.shipping || ''; $('#c-terms').value = cl.terms || ''; $('#s-sac').value = S().sac || ''; $('#s-city').value = S().city || ''; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-whatsappBuyMessage').value = S().whatsappBuyMessage || ''; $('#s-whatsappRepMessage').value = S().whatsappRepMessage || ''; buyPrev(); $('#s-cnpj').value = S().cnpj; const cy = S().cycle || {title:'', text:''}; $('#s-cycle-title').value = cy.title; $('#s-cycle-text').value = cy.text;
     $('#s-ann-active').checked = S().announcement.active; $('#s-ann-text').value = S().announcement.text; $('#s-ann-link').value = S().announcement.link;
     $('#stores').innerHTML = S().stores.map((s, i) => `<div class="mini" data-i="${i}"><input type="text" data-k="name" value="${esc(s.name)}" placeholder="Nome" aria-label="Nome da loja"><input type="text" data-k="url" value="${esc(s.url)}" placeholder="https://..." aria-label="Link da loja"><button class="btn danger small" data-del>Remover</button></div>`).join('');
     $('#coupons').innerHTML = '<div class="mini c5 head"><span>Código</span><span>Descrição</span><span>%</span><span>Válido</span><span>No site</span><span></span></div>' + S().coupons.map((c, i) => `<div class="mini c5" data-i="${i}"><input type="text" data-k="code" value="${esc(c.code)}" placeholder="CÓDIGO" aria-label="Código do cupom"><input type="text" data-k="text" value="${esc(c.text)}" placeholder="10% na primeira compra" aria-label="Descrição do cupom"><input type="number" min="0" max="90" data-k="pct" value="${c.pct ?? ''}" aria-label="Desconto em %"><label class="ck"><input type="checkbox" data-k="active" ${c.active ? 'checked' : ''}> <span>válido</span></label><label class="ck"><input type="checkbox" data-k="public" ${c.public ? 'checked' : ''}> <span>no site</span></label><button class="btn danger small" data-del>Remover</button></div>`).join('');
@@ -479,6 +485,8 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   bindS('#c-gift', el => C().gift = el.value);
   bindS('#c-ship', el => C().shipping = el.value);
   bindS('#c-terms', el => C().terms = el.value);
+  bindS('#l-privacy', el => (S().legal = S().legal || {}).privacy = el.value);
+  bindS('#l-terms', el => (S().legal = S().legal || {}).terms = el.value);
   bindS('#s-city', el => S().city = el.value);
   bindS('#s-whatsappMessage', el => S().whatsappMessage = el.value);
   const buyPrev = () => { const p = data.products[0]; $('#buyPreview').textContent = p ? 'Exemplo: ' + (S().whatsappBuyMessage || '').replace(/\{quantidade\}/g, '2 unidades').replace(/\{produto\}/g, p.name).replace(/\{peso\}/g, p.weight || '').replace(/\s+([.!?,])/g, '$1').replace(/\s{2,}/g, ' ').trim() : ''; };
