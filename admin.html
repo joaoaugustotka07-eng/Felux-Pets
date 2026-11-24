@@ -113,6 +113,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" aria-selected="true" data-tab="produtos">Produtos</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="loja">Loja e promoções</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="leads">Revendedores <span id="leadCount"></span></button>
     </div>
     <a class="btn ghost small" href="/" target="_blank" rel="noopener">Ver site</a>
     <button class="btn ghost small" id="logout">Sair</button>
@@ -127,6 +128,12 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
       <div class="list" id="products"></div>
     </section>
 
+    <section id="tab-leads" hidden>
+      <div class="section-head"><div><h2>Cadastros de revenda</h2><p class="hint">Pedidos enviados pelo formulário "Quero ser revendedor" do site. Mude o status conforme o atendimento.</p></div>
+        <button class="btn ghost" id="leadCsv">Baixar planilha (CSV)</button></div>
+      <div class="list" id="leads"><p class="hint">Carregando…</p></div>
+    </section>
+
     <section id="tab-loja" hidden>
       <div class="section-head"><h2>Loja e promoções</h2></div>
       <div class="grid2">
@@ -134,7 +141,9 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
           <h3 class="f s6" style="grid-column:1/-1">Contato</h3>
           <label class="f" style="grid-column:span 1"><span>WhatsApp (com DDD)</span><input type="tel" id="s-whatsapp" placeholder="11 99999-9999"></label>
           <label class="f" style="grid-column:span 1"><span>Instagram</span><input type="text" id="s-instagram" placeholder="@feluxpet"></label>
-          <label class="f" style="grid-column:1/-1"><span>E-mail comercial</span><input type="email" id="s-email" placeholder="comercial@felux.com.br"></label>
+          <label class="f" style="grid-column:span 1"><span>E-mail comercial (revenda)</span><input type="email" id="s-email" placeholder="comercial@feluxpet.com.br"></label>
+          <label class="f" style="grid-column:span 1"><span>E-mail SAC (clientes)</span><input type="email" id="s-sac" placeholder="sac@feluxpet.com.br"></label>
+          <label class="f" style="grid-column:1/-1"><span>Cidade (aparece na revenda e no rodapé)</span><input type="text" id="s-city" placeholder="Loanda – PR"></label>
           <label class="f" style="grid-column:1/-1"><span>Mensagem ao comprar um produto</span><input type="text" id="s-whatsappBuyMessage"><small class="hint">Use {quantidade} (ex.: 2 unidades), {produto} para o nome da areia e {peso} para o peso. Ex.: Olá! Gostaria de adquirir {quantidade} da areia FELUX {produto} {peso}.</small></label>
           <p class="f hint" style="grid-column:1/-1;margin:-4px 0 0" id="buyPreview"></p>
           <label class="f" style="grid-column:1/-1"><span>Mensagem de representante</span><input type="text" id="s-whatsappRepMessage"><small class="hint">Usada no botão "Seja um representante".</small></label>
@@ -203,7 +212,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
       if (!me.enabled){ $('#loginErr').hidden = false; $('#loginErr').textContent = 'Painel desativado. No Railway, crie a variável ADMIN_PASSWORD com a senha desejada.'; }
       $('#pw').focus(); return;
     }
-    data = await call('admin/data'); saved = JSON.stringify(data);
+    data = await call('admin/data'); saved = JSON.stringify(data); loadLeads();
     $('#loginView').hidden = true; $('#appView').hidden = false; render();
   }
   $('#loginForm').addEventListener('submit', async e => {
@@ -216,8 +225,41 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   // ---------- abas ----------
   document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', x === t));
-    $('#tab-produtos').hidden = t.dataset.tab !== 'produtos'; $('#tab-loja').hidden = t.dataset.tab !== 'loja';
+    $('#tab-produtos').hidden = t.dataset.tab !== 'produtos'; $('#tab-loja').hidden = t.dataset.tab !== 'loja'; $('#tab-leads').hidden = t.dataset.tab !== 'leads';
+    if (t.dataset.tab === 'leads') loadLeads();
   }));
+
+  // ---------- revendedores ----------
+  let leads = [];
+  const STATUS = ['novo', 'em contato', 'cliente', 'descartado'];
+  async function loadLeads(){
+    try { leads = await call('admin/leads'); } catch (err){ $('#leads').innerHTML = `<p class="err">${esc(err.message)}</p>`; return; }
+    const novos = leads.filter(l => l.status === 'novo').length; $('#leadCount').textContent = novos ? `(${novos})` : '';
+    $('#leads').innerHTML = leads.length ? leads.map(l => {
+      const tel = (l.phone || '').replace(/\D/g, ''), wa = tel ? 'https://wa.me/' + (tel.length <= 11 ? '55' + tel : tel) + '?text=' + encodeURIComponent(`Olá, ${l.name}! Aqui é da FELUX. Recebemos seu cadastro de revenda da ${l.company}.`) : '';
+      return `<article class="card" data-id="${esc(l.id)}" style="display:grid;gap:8px">
+        <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><b style="font-size:1.1rem">${esc(l.company)}</b><span class="hint">${new Date(l.date).toLocaleString('pt-BR')}</span></div>
+        <div class="hint" style="color:inherit">${esc(l.name)} · ${esc(l.type)} · ${esc(l.volume)}${l.city ? ' · ' + esc(l.city) : ''}${l.cnpj ? ' · CNPJ ' + esc(l.cnpj) : ''}</div>
+        <div>${l.phone ? `WhatsApp: ${esc(l.phone)}` : ''}${l.phone && l.email ? ' · ' : ''}${l.email ? `E-mail: ${esc(l.email)}` : ''}</div>
+        ${l.message ? `<p style="margin:0;white-space:pre-wrap">${esc(l.message)}</p>` : ''}
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <select data-lead-status aria-label="Status">${STATUS.map(s => `<option ${s === l.status ? 'selected' : ''}>${s}</option>`).join('')}</select>
+          ${wa ? `<a class="btn gold small" href="${esc(wa)}" target="_blank" rel="noopener">Chamar no WhatsApp</a>` : ''}
+          ${l.email ? `<a class="btn ghost small" href="mailto:${esc(l.email)}">Enviar e-mail</a>` : ''}
+          <button class="btn danger small" data-lead-del>Excluir</button>
+        </div></article>`; }).join('') : '<p class="hint">Nenhum cadastro ainda. Eles aparecem aqui assim que alguém preencher o formulário de revenda do site.</p>';
+  }
+  $('#leads').addEventListener('change', async e => { const s = e.target.closest('[data-lead-status]'); if (!s) return;
+    await call('admin/leads', { method: 'PUT', body: JSON.stringify({ id: s.closest('[data-id]').dataset.id, status: s.value }) }).catch(err => alert(err.message)); loadLeads(); });
+  $('#leads').addEventListener('click', async e => { const b = e.target.closest('[data-lead-del]'); if (!b) return;
+    const card = b.closest('[data-id]');
+    if (!b.dataset.sure){ b.dataset.sure = 1; b.textContent = 'Confirmar exclusão'; return; }
+    await call('admin/leads', { method: 'PUT', body: JSON.stringify({ id: card.dataset.id, delete: true }) }).catch(() => {}); loadLeads(); });
+  $('#leadCsv').addEventListener('click', () => {
+    const cols = ['date', 'company', 'name', 'cnpj', 'city', 'phone', 'email', 'type', 'volume', 'status', 'message'];
+    const csv = [cols.join(';')].concat(leads.map(l => cols.map(c => '"' + String(l[c] || '').replace(/"/g, '""') + '"').join(';'))).join('\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv' })); a.download = 'revendedores-felux.csv'; a.click();
+  });
 
   // ---------- produtos ----------
   function priceBox(p){
@@ -267,6 +309,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
         <label class="f s1"><span>Cor da embalagem</span><input type="color" data-k="color" value="${esc(p.color || '#3B193A')}"></label>
         <label class="f s1"><span>Peso</span><input type="text" data-k="weight" value="${esc(p.weight)}"></label>
         <label class="f s1"><span>Selo</span><input type="text" data-k="badge" list="badges" value="${esc(p.badge)}" placeholder="Oferta"></label>
+        <label class="f s6"><span>Frase do cartão (aparece abaixo do nome)</span><input type="text" data-k="tagline" value="${esc(p.tagline || '')}"></label>
         <label class="f s6"><span>Benefícios no cartão (um por linha)</span><textarea data-k="bullets" style="min-height:70px">${esc(p.bullets.join('\n'))}</textarea></label>
         <div class="f s6"><span>Foto do cartão (torrão)</span>
           <div class="gal">${p.cardImage ? `<span class="gimg" style="background-image:url('${esc(p.cardImage)}');width:120px;height:68px"></span>` : '<span class="hint">Sem foto: o cartão mostra os benefícios</span>'}<button class="btn ghost small" data-act="card-img">Trocar foto</button>${p.cardImage ? '<button class="btn danger small" data-act="card-img-del">Remover</button>' : ''}</div>
@@ -396,7 +439,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   // ---------- loja ----------
   const S = () => data.settings;
   function renderSettings(){
-    $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-email').value = S().email || ''; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-whatsappBuyMessage').value = S().whatsappBuyMessage || ''; $('#s-whatsappRepMessage').value = S().whatsappRepMessage || ''; buyPrev(); $('#s-cnpj').value = S().cnpj; const cy = S().cycle || {title:'', text:''}; $('#s-cycle-title').value = cy.title; $('#s-cycle-text').value = cy.text;
+    $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-email').value = S().email || ''; $('#s-sac').value = S().sac || ''; $('#s-city').value = S().city || ''; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-whatsappBuyMessage').value = S().whatsappBuyMessage || ''; $('#s-whatsappRepMessage').value = S().whatsappRepMessage || ''; buyPrev(); $('#s-cnpj').value = S().cnpj; const cy = S().cycle || {title:'', text:''}; $('#s-cycle-title').value = cy.title; $('#s-cycle-text').value = cy.text;
     $('#s-ann-active').checked = S().announcement.active; $('#s-ann-text').value = S().announcement.text; $('#s-ann-link').value = S().announcement.link;
     $('#stores').innerHTML = S().stores.map((s, i) => `<div class="mini" data-i="${i}"><input type="text" data-k="name" value="${esc(s.name)}" placeholder="Nome" aria-label="Nome da loja"><input type="text" data-k="url" value="${esc(s.url)}" placeholder="https://..." aria-label="Link da loja"><button class="btn danger small" data-del>Remover</button></div>`).join('');
     $('#coupons').innerHTML = S().coupons.map((c, i) => `<div class="mini c3" data-i="${i}"><input type="text" data-k="code" value="${esc(c.code)}" placeholder="CÓDIGO" aria-label="Código do cupom"><input type="text" data-k="text" value="${esc(c.text)}" placeholder="10% na primeira compra" aria-label="Descrição do cupom"><label style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-k="active" ${c.active ? 'checked' : ''}> Ativo</label><button class="btn danger small" data-del>Remover</button></div>`).join('');
@@ -405,6 +448,8 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   bindS('#s-whatsapp', el => S().whatsapp = el.value.replace(/\D/g, ''));
   bindS('#s-instagram', el => S().instagram = el.value);
   bindS('#s-email', el => S().email = el.value.trim());
+  bindS('#s-sac', el => S().sac = el.value.trim());
+  bindS('#s-city', el => S().city = el.value);
   bindS('#s-whatsappMessage', el => S().whatsappMessage = el.value);
   const buyPrev = () => { const p = data.products[0]; $('#buyPreview').textContent = p ? 'Exemplo: ' + (S().whatsappBuyMessage || '').replace(/\{quantidade\}/g, '2 unidades').replace(/\{produto\}/g, p.name).replace(/\{peso\}/g, p.weight || '').replace(/\s+([.!?,])/g, '$1').replace(/\s{2,}/g, ' ').trim() : ''; };
   bindS('#s-whatsappBuyMessage', el => { S().whatsappBuyMessage = el.value; buyPrev(); });

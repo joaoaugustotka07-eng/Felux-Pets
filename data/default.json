@@ -3,7 +3,7 @@
     "whatsapp": "44999993262",
     "whatsappMessage": "Olá! Gostaria de adquirir a areia FELUX.",
     "instagram": "@feluxpet",
-    "cnpj": "00.000.000/0001-00",
+    "cnpj": "11.740.423/0002-64",
     "announcement": {
       "active": false,
       "text": "Frete grátis para compras acima de R$ 150",
@@ -40,7 +40,9 @@
     },
     "whatsappBuyMessage": "Olá! Gostaria de adquirir {quantidade} da areia FELUX {produto} {peso}.",
     "whatsappRepMessage": "Olá! Tenho interesse em ser representante da FELUX. Pode me passar as condições?",
-    "email": "comercial@felux.com.br"
+    "email": "comercial@feluxpet.com.br",
+    "sac": "sac@feluxpet.com.br",
+    "city": "Loanda – PR"
   },
   "products": [
     {
@@ -71,9 +73,9 @@
         }
       ],
       "page": {
-        "chip": "Torrão em instantes",
+        "chip": "Máxima eliminação de odor",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Grãos finos forma o torrão em instantes e segura o odor dentro dele. Grãos finos e macios, sem mineral, baixa poeira e 100% de origem vegetal.",
+        "description": "A FELUX Grãos Finos não deixa cheiro e oferece o máximo da eliminação do odor de urina, com melhor absorção e rendimento. Feita de planta, tem baixíssima poeira e é indicada por médicos veterinários.",
         "sections": [
           {
             "title": "Fez xixi, tem torrão. Tem torrão, não tem cheiro.",
@@ -111,11 +113,15 @@
           },
           {
             "label": "Poeira",
-            "value": "Baixa"
+            "value": "Baixíssima"
           },
           {
-            "label": "Perfume",
-            "value": "Sem perfume sintético"
+            "label": "Absorção",
+            "value": "Mínimo de 350% (absorve 3,5 vezes o próprio peso)"
+          },
+          {
+            "label": "Aditivos",
+            "value": "Sem fragrâncias, corantes ou aglutinantes adicionados"
           },
           {
             "label": "Descarte",
@@ -124,11 +130,16 @@
           {
             "label": "Embalagem",
             "value": "Reciclável, de fonte renovável"
+          },
+          {
+            "label": "Validade",
+            "value": "12 meses"
           }
         ]
       },
       "color": "#3B193A",
-      "cardImage": "assets/scenes/torrao-finos.webp"
+      "cardImage": "assets/photos/graos-finos.webp",
+      "tagline": "Não deixa cheiro: máximo da eliminação do odor, com melhor absorção e rendimento."
     },
     {
       "id": "medios",
@@ -158,9 +169,9 @@
         }
       ],
       "page": {
-        "chip": "Grão médio",
+        "chip": "Mínimo rastro",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Grãos médios tem grão de tamanho médio, que forma o torrão rapidamente e fica dentro da caixa. Sem mineral, baixa poeira e 100% de origem vegetal.",
+        "description": "A FELUX Grãos Médios não faz sujeira e promove a eliminação do odor de urina com mínimo rastro. Feita de planta, tem baixíssima poeira e é indicada por médicos veterinários.",
         "sections": [
           {
             "title": "Grãos médios, máxima tranquilidade",
@@ -198,11 +209,15 @@
           },
           {
             "label": "Poeira",
-            "value": "Baixa"
+            "value": "Baixíssima"
           },
           {
-            "label": "Perfume",
-            "value": "Sem perfume sintético"
+            "label": "Absorção",
+            "value": "Mínimo de 350% (absorve 3,5 vezes o próprio peso)"
+          },
+          {
+            "label": "Aditivos",
+            "value": "Sem fragrâncias, corantes ou aglutinantes adicionados"
           },
           {
             "label": "Descarte",
@@ -211,11 +226,16 @@
           {
             "label": "Embalagem",
             "value": "Reciclável, de fonte renovável"
+          },
+          {
+            "label": "Validade",
+            "value": "12 meses"
           }
         ]
       },
       "color": "#55A51B",
-      "cardImage": "assets/scenes/torrao-medios.webp"
+      "cardImage": "assets/photos/graos-medios.webp",
+      "tagline": "Não faz sujeira: elimina o odor de urina com mínimo rastro."
     },
     {
       "id": "mistos",
@@ -247,9 +267,9 @@
         }
       ],
       "page": {
-        "chip": "Equilíbrio",
+        "chip": "Equilíbrio perfeito",
         "statement": "Para todo gato. Até aquele que finge que não liga.",
-        "description": "A FELUX Grãos mistos junta grãos de vários tamanhos: torrão firme num instante, odor retido e nenhum grão espalhado pela casa. Sem mineral, baixa poeira e 100% de origem vegetal.",
+        "description": "A FELUX Grãos Mistos representa o equilíbrio entre controle de rastro e eliminação do odor de urina. Feita de planta, tem baixíssima poeira e é indicada por médicos veterinários.",
         "sections": [
           {
             "title": "O equilíbrio perfeito",
@@ -287,11 +307,15 @@
           },
           {
             "label": "Poeira",
-            "value": "Baixa"
+            "value": "Baixíssima"
           },
           {
-            "label": "Perfume",
-            "value": "Sem perfume sintético"
+            "label": "Absorção",
+            "value": "Mínimo de 350% (absorve 3,5 vezes o próprio peso)"
+          },
+          {
+            "label": "Aditivos",
+            "value": "Sem fragrâncias, corantes ou aglutinantes adicionados"
           },
           {
             "label": "Descarte",
@@ -300,11 +324,16 @@
           {
             "label": "Embalagem",
             "value": "Reciclável, de fonte renovável"
+          },
+          {
+            "label": "Validade",
+            "value": "12 meses"
           }
         ]
       },
       "color": "#1F2756",
-      "cardImage": "assets/photos/torrao-mistos-real.webp"
+      "cardImage": "assets/photos/graos-mistos.webp",
+      "tagline": "O equilíbrio entre controle de rastro e eliminação do odor de urina."
     }
   ]
 }

@@ -15,6 +15,10 @@ const UPLOADS = path.join(DATA_DIR, 'uploads');
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
 const SECRET = process.env.SESSION_SECRET || crypto.createHash('sha256').update('felux:' + ADMIN_PASSWORD).digest('hex');
 const SESSION_HOURS = 12;
+const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
+const readLeads = () => { try { return JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8')); } catch { return []; } };
+const writeLeads = l => { const t = LEADS_FILE + '.tmp'; fs.writeFileSync(t, JSON.stringify(l, null, 2)); fs.renameSync(t, LEADS_FILE); };
+const leadHits = new Map();
 
 fs.mkdirSync(UPLOADS, { recursive: true });
 
@@ -103,6 +107,21 @@ function readData() {
   if (d.settings.whatsappBuyMessage === 'Olá! Gostaria de adquirir a areia FELUX {produto} {peso}.') d.settings.whatsappBuyMessage = def.settings.whatsappBuyMessage; // passa a incluir a quantidade
   // foto real do torrão dos Grãos mistos (se o cartão ainda usa a imagem gerada)
   if (!applied.has('torrao-mistos-real')) { const m = d.products.find(p => p.id === 'mistos'); if (m && (!m.cardImage || m.cardImage === 'assets/scenes/torrao-mistos.webp')) m.cardImage = 'assets/photos/torrao-mistos-real.webp'; applied.add('torrao-mistos-real'); }
+  // atualização de 24/11: textos das granulações, especificações da ficha técnica, contatos e CNPJ
+  if (!applied.has('conteudo-2026-11-24')) {
+    d.products.forEach(p => { const dp = byId[p.id]; if (!dp) return;
+      if (!p.tagline) p.tagline = dp.tagline;
+      if (p.page && dp.page) p.page.specs = dp.page.specs;
+      // descrição e destaque antigos padrão (sem os textos novos) viram os da FELUX
+      if (p.page && dp.page && /^A FELUX Grãos/i.test(p.page.description || '') && !/médicos veterinários/.test(p.page.description || '')) { p.page.description = dp.page.description; p.page.chip = dp.page.chip; }
+    });
+    const st = d.settings;
+    if (!st.cnpj || st.cnpj === '00.000.000/0001-00') st.cnpj = def.settings.cnpj;
+    if (!st.email || st.email === 'comercial@felux.com.br') st.email = def.settings.email;
+    if (!st.sac) st.sac = def.settings.sac;
+    if (!st.city) st.city = def.settings.city;
+    applied.add('conteudo-2026-11-24');
+  }
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
@@ -116,6 +135,7 @@ function readData() {
     pg.description = (pg.description || '').replace(/ Escolha entre milho, mandioca ou milho \+ mandioca\./g, '').replace('junta grãos finos e grossos:', 'junta grãos de vários tamanhos:').replace(/^A FELUX Grãos (Finos|Médios|Mistos)/, (m, g) => 'A FELUX Grãos ' + g.toLowerCase());
     (pg.specs || []).forEach(x => { if (x.value === 'Mista (grãos finos e grossos)') x.value = 'Mista (grãos de vários tamanhos)'; });
     (pg.sections || []).forEach(x => { x.title = fix(x.title); x.text = fix(x.text); if (I[x.image]) [x.image, x.round] = I[x.image]; });
+    if (I[p.cardImage]) p.cardImage = I[p.cardImage][0]; // foto padronizada dos grãos
   });
   // imagem gerada antiga do bloco dos Grãos Mistos vira a foto real, se ninguém trocou
   d.products.forEach(p => ((p.page && p.page.sections) || []).forEach(s => { if (s.image === 'assets/scenes/torrao-mistos.webp') s.image = 'assets/photos/mistos-milho-grao-wide.webp'; }));
@@ -158,7 +178,7 @@ function clean(input) {
     return {
       id, name: str(p.name, 80) || 'Produto', tag: str(p.tag, 80), color: color(p.color), weight: str(p.weight, 20),
       bullets: (Array.isArray(p.bullets) ? p.bullets : []).map(b => str(b, 160)).filter(Boolean).slice(0, 6),
-      badge: str(p.badge, 30), cardImage: url(p.cardImage), active: p.active !== false, variants, page: cleanPage(p.page)
+      badge: str(p.badge, 30), tagline: str(p.tagline, 160), cardImage: url(p.cardImage), active: p.active !== false, variants, page: cleanPage(p.page)
     };
   });
   const seen = new Set(); products.forEach(p => { while (seen.has(p.id)) p.id += '-2'; seen.add(p.id); });
@@ -172,6 +192,8 @@ function clean(input) {
       instagram: str(s.instagram, 60),
       email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str(s.email, 120)) ? str(s.email, 120).toLowerCase() : '',
       cnpj: str(s.cnpj, 30),
+      sac: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str(s.sac, 120)) ? str(s.sac, 120).toLowerCase() : '',
+      city: str(s.city, 60),
       announcement: { active: !!(s.announcement && s.announcement.active), text: str(s.announcement && s.announcement.text, 140), link: url(s.announcement && s.announcement.link) },
       stores: (Array.isArray(s.stores) ? s.stores : []).slice(0, 8).map(x => ({ name: str(x.name, 40), url: url(x.url) })).filter(x => x.name),
       cycle: { title: str(s.cycle && s.cycle.title, 80), text: str(s.cycle && s.cycle.text, 1500) },
@@ -242,6 +264,21 @@ async function api(req, res, route) {
 
   if (route === 'site' && req.method === 'GET') return send(res, 200, publicData(), { 'Cache-Control': 'no-cache' });
 
+  // cadastro de revendedor (público, com limite por IP)
+  if (route === 'lead' && req.method === 'POST') {
+    if (!json) return send(res, 415, { error: 'Formato inválido' });
+    const now = Date.now(), h = (leadHits.get(ip) || []).filter(t => now - t < 3600e3);
+    if (h.length >= 5) return send(res, 429, { error: 'Muitos envios. Tente mais tarde ou fale pelo WhatsApp.' });
+    const b = await readBody(req, 8e3).catch(() => null);
+    if (!b || b.website) return send(res, 200, { ok: true }); // campo isca contra robôs
+    const L = { id: now.toString(36) + crypto.randomBytes(3).toString('hex'), date: new Date().toISOString(),
+      name: str(b.name, 80), company: str(b.company, 100), cnpj: str(b.cnpj, 20), city: str(b.city, 80),
+      phone: str(b.phone, 20), email: str(b.email, 120), type: str(b.type, 40), volume: str(b.volume, 40), message: str(b.message, 600), status: 'novo' };
+    if (!L.name || !L.company || (!L.phone && !L.email)) return send(res, 400, { error: 'Preencha nome, empresa e um contato.' });
+    h.push(now); leadHits.set(ip, h);
+    const all = readLeads(); all.unshift(L); writeLeads(all.slice(0, 2000));
+    return send(res, 200, { ok: true });
+  }
   if (route === 'admin/login' && req.method === 'POST') {
     if (!ADMIN_PASSWORD) return send(res, 503, { error: 'Painel desativado. Defina a variável ADMIN_PASSWORD no Railway.' });
     if (!json) return send(res, 415, { error: 'Formato inválido' });
@@ -259,6 +296,13 @@ async function api(req, res, route) {
   if (!isAdmin(req)) return send(res, 401, { error: 'Entre com a senha do painel.' });
   if (req.method !== 'GET' && !json) return send(res, 415, { error: 'Formato inválido' });
 
+  if (route === 'admin/leads' && req.method === 'GET') return send(res, 200, readLeads(), { 'Cache-Control': 'no-store' });
+  if (route === 'admin/leads' && req.method === 'PUT') {
+    const b = await readBody(req, 4e3).catch(() => ({}));
+    const all = readLeads(), L = all.find(x => x.id === b.id); if (!L) return send(res, 404, { error: 'Cadastro não encontrado' });
+    if (b.delete) all.splice(all.indexOf(L), 1); else if (['novo', 'em contato', 'cliente', 'descartado'].includes(b.status)) L.status = b.status;
+    writeLeads(all); return send(res, 200, { ok: true });
+  }
   if (route === 'admin/data' && req.method === 'GET') return send(res, 200, readData(), { 'Cache-Control': 'no-store' });
   if (route === 'admin/data' && req.method === 'PUT') {
     const body = await readBody(req, 300e3).catch(e => e);

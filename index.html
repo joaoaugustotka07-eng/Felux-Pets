@@ -398,6 +398,56 @@ html.feel-open{overflow:hidden}
 .film-play{position:absolute;right:14px;bottom:14px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(20,12,24,.55);color:#fff;font-size:.9rem;cursor:pointer}
 @media (max-width:600px){.film-box{aspect-ratio:9/16;max-height:82vh;margin-inline:auto}}
 
+
+/* cartão: frase da granulação */
+.tagline-card{font-size:.92rem;line-height:1.4;color:rgba(255,255,255,.9);margin-top:-4px}
+.clump{aspect-ratio:4/3;background:#fff}
+@media (max-width:860px){.clump{aspect-ratio:16/10}}
+
+/* onde comprar */
+.contact-list{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:14px}
+.contact-list li{display:flex;align-items:center;gap:12px}
+.contact-list svg{width:26px;height:26px;color:var(--on-band);flex:none}
+.contact-list small{display:block;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--band-soft)}
+.contact-list b{font-family:var(--font-display);font-weight:600;font-size:1.35rem;color:var(--band-fg)}
+.contact-list a{color:var(--band-fg);font-weight:600;font-size:1.05rem;text-underline-offset:4px;word-break:break-all}
+
+/* revenda */
+.resale{padding-block:80px;background:var(--surface);border-top:1px solid var(--line)}
+.resale-head{max-width:760px;display:grid;gap:14px}
+.resale-head h2{font-size:clamp(2rem,4.2vw,3rem)}
+.resale-head h2 b{font-weight:800}
+.resale-head .lede{color:var(--ink-soft);font-size:1.08rem}
+.resale-benefits{list-style:none;margin:40px 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.resale-benefits li{display:grid;gap:6px;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--ground)}
+.resale-benefits b{font-family:var(--font-display);font-weight:600;font-size:1.1rem}
+.resale-benefits span{color:var(--ink-soft);font-size:.94rem}
+.resale-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:32px 48px;align-items:start}
+.resale-steps h3,.lead-form h3{font-family:var(--font-display);font-weight:600;font-size:1.35rem;margin-bottom:14px}
+.resale-steps ol{list-style:none;margin:0;padding:0;display:grid;gap:16px;counter-reset:s}
+.resale-steps li{display:grid;grid-template-columns:40px 1fr;column-gap:14px}
+.resale-steps li::before{counter-increment:s;content:counter(s);grid-row:span 2;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--band);color:#fff;font-weight:800}
+.resale-steps li b{font-weight:600}
+.resale-steps li span{color:var(--ink-soft);font-size:.94rem}
+.resale-contacts{margin-top:28px;display:grid;gap:12px;padding-top:22px;border-top:1px solid var(--line)}
+.resale-contacts small{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.resale-contacts a{font-weight:600;color:var(--ink);text-underline-offset:4px;word-break:break-all}
+.lead-form{display:grid;gap:14px;padding:28px;border-radius:20px;background:var(--ground);border:1px solid var(--line)}
+.lead-form .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.lead-form label{display:grid;gap:6px;font-size:.85rem;font-weight:600;color:var(--ink-soft)}
+.lead-form input,.lead-form select,.lead-form textarea{font:inherit;font-size:1rem;color:var(--ink);background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:.7em .85em;width:100%;min-width:0}
+.lead-form input:focus,.lead-form select:focus,.lead-form textarea:focus{border-color:var(--gold);outline:none}
+.lead-form .btn{justify-self:start;padding:.95em 1.6em}
+.lead-form .hp{position:absolute;left:-9999px;width:1px;height:1px}
+.form-note{font-size:.85rem;color:var(--ink-soft)}
+.form-note.ok{color:var(--gold-text);font-weight:600}
+.form-note.err{color:#A23B22;font-weight:600}
+@media (max-width:960px){.resale-benefits{grid-template-columns:1fr 1fr}.resale-grid{grid-template-columns:1fr}}
+@media (max-width:520px){.resale-benefits{grid-template-columns:1fr}.lead-form .row2{grid-template-columns:1fr}.lead-form{padding:20px}}
+.faq-side{margin-top:14px;color:var(--ink-soft)}
+.faq-side a{color:var(--ink);font-weight:600}
+.faq details p b{color:var(--ink)}
+.foot nav a + a{margin-left:0}
 </style>
 
 </head>
@@ -409,6 +459,7 @@ html.feel-open{overflow:hidden}
     <nav class="nav" aria-label="Seções">
       <a href="#produtos">Produtos</a>
       <a href="#comprar">Onde comprar</a>
+      <a href="#revenda">Revenda</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
   </div>
@@ -428,7 +479,8 @@ html.feel-open{overflow:hidden}
       <a class="pack" href="#finos" aria-label="Conhecer Grãos finos"><img src="assets/packs/felux-finos.webp" alt="Embalagem FELUX Grãos finos" width="675" height="900"></a>
       <div class="prod-body">
         <h3><a href="#finos">Grãos <span class="n2">finos</span></a></h3>
-        <a class="clump" href="#finos" aria-label="Ver o torrão da FELUX Grãos finos"><img src="assets/scenes/torrao-finos.webp" alt="Torrão firme da FELUX Grãos finos" loading="lazy"><span>Torrão firme</span></a>
+        <p class="tagline-card">Não deixa cheiro: máximo da eliminação do odor, com melhor absorção e rendimento.</p>
+        <a class="clump" href="#finos" aria-label="Ver os grãos da FELUX Grãos finos"><img src="assets/photos/graos-finos.webp" alt="Grãos da FELUX Grãos finos" loading="lazy"><span>Granulação fina</span></a>
         <div class="price"><span class="now">R$ 69,90</span></div>
         <div class="actions"><a class="btn btn-ghost" href="#finos">Quero conhecer</a><a class="btn btn-gold btn-white js-wa" href="#comprar">Comprar</a></div>
         <p class="net"><b>4 kg</b> | peso líquido</p>
@@ -438,7 +490,8 @@ html.feel-open{overflow:hidden}
       <a class="pack" href="#medios" aria-label="Conhecer Grãos médios"><img src="assets/packs/felux-medios.webp" alt="Embalagem FELUX Grãos médios" width="675" height="900"></a>
       <div class="prod-body">
         <h3><a href="#medios">Grãos <span class="n2">médios</span></a></h3>
-        <a class="clump" href="#medios" aria-label="Ver o torrão da FELUX Grãos médios"><img src="assets/scenes/torrao-medios.webp" alt="Torrão firme da FELUX Grãos médios" loading="lazy"><span>Torrão firme</span></a>
+        <p class="tagline-card">Não faz sujeira: elimina o odor de urina com mínimo rastro.</p>
+        <a class="clump" href="#medios" aria-label="Ver os grãos da FELUX Grãos médios"><img src="assets/photos/graos-medios.webp" alt="Grãos da FELUX Grãos médios" loading="lazy"><span>Granulação média</span></a>
         <div class="price"><span class="now">R$ 69,90</span></div>
         <div class="actions"><a class="btn btn-ghost" href="#medios">Quero conhecer</a><a class="btn btn-gold btn-white js-wa" href="#comprar">Comprar</a></div>
         <p class="net"><b>4 kg</b> | peso líquido</p>
@@ -448,7 +501,8 @@ html.feel-open{overflow:hidden}
       <a class="pack" href="#mistos" aria-label="Conhecer Grãos mistos"><img src="assets/packs/felux-mistos.webp" alt="Embalagem FELUX Grãos mistos" width="675" height="900"></a>
       <div class="prod-body">
         <h3><a href="#mistos">Grãos <span class="n2">mistos</span></a></h3>
-        <a class="clump" href="#mistos" aria-label="Ver o torrão da FELUX Grãos mistos"><img src="assets/photos/torrao-mistos-real.webp" alt="Torrão firme da FELUX Grãos mistos" loading="lazy"><span>Torrão firme</span></a>
+        <p class="tagline-card">O equilíbrio entre controle de rastro e eliminação do odor de urina.</p>
+        <a class="clump" href="#mistos" aria-label="Ver os grãos da FELUX Grãos mistos"><img src="assets/photos/graos-mistos.webp" alt="Grãos da FELUX Grãos mistos" loading="lazy"><span>Granulação mista</span></a>
         <div class="price"><span class="now">R$ 69,90</span></div>
         <div class="actions"><a class="btn btn-ghost" href="#mistos">Quero conhecer</a><a class="btn btn-gold btn-white js-wa" href="#comprar">Comprar</a></div>
         <p class="net"><b>4 kg</b> | peso líquido</p>
@@ -485,29 +539,91 @@ html.feel-open{overflow:hidden}
   <div class="wrap buy">
     <div>
       <p class="eyebrow">Onde comprar</p>
-      <h2>Compre direto com a gente pelo WhatsApp.</h2>
-      <p class="lede">Atendimento para clientes e para representantes. Fale com a gente e combinamos pagamento e entrega.</p>
-      <p class="wa-num"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg><span id="waNum">(44) 99999-3262</span></p>
-      <p class="wa-num mail-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><a id="mailOut" href="mailto:comercial@felux.com.br">comercial@felux.com.br</a></p>
+      <h2>Compre direto da fábrica.</h2>
+      <p class="lede">Faça seu pedido pelo WhatsApp e combinamos pagamento e entrega com você. Atendimento de gente de verdade, do pedido até a sua casa.</p>
+      <ul class="contact-list">
+        <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg><span><small>WhatsApp</small><b id="waNum">(44) 99999-3262</b></span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span><small>Atendimento ao cliente (SAC)</small><a id="sacOut" href="mailto:sac@feluxpet.com.br">sac@feluxpet.com.br</a></span></li>
+      </ul>
     </div>
     <div>
       <div class="wa-cards">
-        <a class="wa-card js-wa" href="#comprar"><b>Comprar</b><span>Faça seu pedido e combine pagamento e entrega</span><i aria-hidden="true">→</i></a>
-        <a class="wa-card js-wa" data-rep href="#comprar"><b>Seja um representante</b><span>Pet shops, distribuidores e revendedores</span><i aria-hidden="true">→</i></a>
+        <a class="wa-card js-wa" href="#comprar"><b>Fazer meu pedido</b><span>Escolha a granulação e a quantidade, e a gente cuida do resto</span><i aria-hidden="true">→</i></a>
+        <a class="wa-card" href="#revenda"><b>Quero revender FELUX</b><span>Condições especiais para pet shops, clínicas e distribuidores</span><i aria-hidden="true">→</i></a>
       </div>
       <div class="stores" id="stores"></div>
     </div>
   </div>
 </section>
 
+<section class="resale" id="revenda" aria-labelledby="resaleTitle">
+  <div class="wrap">
+    <div class="resale-head">
+      <p class="eyebrow">Revenda FELUX</p>
+      <h2 id="resaleTitle">Leve para a sua loja a areia que <b>faz o cliente voltar.</b></h2>
+      <p class="lede">Areia higiênica é compra de todo mês. Com a FELUX, sua loja oferece uma areia feita de planta, sem mineral, com torrão firme e baixíssima poeira, e o tutor volta para comprar de novo.</p>
+    </div>
+    <ul class="resale-benefits">
+      <li><b>Recompra garantida</b><span>Quem tem gato compra areia todo mês. É giro constante na prateleira.</span></li>
+      <li><b>Condições de fábrica</b><span>Tabela por volume e condições especiais direto com quem produz.</span></li>
+      <li><b>Kit de divulgação</b><span>Fotos, vídeo e textos prontos para o seu Instagram, WhatsApp e loja virtual.</span></li>
+      <li><b>Linha completa</b><span>Grãos finos, médios e mistos em 4 kg, além de refil de 15 kg e venda a granel.</span></li>
+    </ul>
+    <div class="resale-grid">
+      <div class="resale-steps">
+        <h3>Como funciona</h3>
+        <ol>
+          <li><b>Faça seu cadastro</b><span>Leva menos de 1 minuto.</span></li>
+          <li><b>Receba a tabela</b><span>Nosso time comercial envia preços e condições para a sua região.</span></li>
+          <li><b>Faça o primeiro pedido</b><span>Combinamos pagamento, entrega e o material de divulgação.</span></li>
+        </ol>
+        <div class="resale-contacts">
+          <p><small>Comercial e revenda</small><a id="mailOut" href="mailto:comercial@feluxpet.com.br">comercial@feluxpet.com.br</a></p>
+          <p><small>SAC</small><a id="sacOut2" href="mailto:sac@feluxpet.com.br">sac@feluxpet.com.br</a></p>
+          <p><small>WhatsApp</small><a class="js-wa" data-rep href="#revenda" id="waRep">(44) 99999-3262</a></p>
+          <p><small>Empresa</small><span>FELUX · <span id="cnpjRes">CNPJ 11.740.423/0002-64</span> · <span id="cityOut">Loanda – PR</span></span></p>
+        </div>
+      </div>
+      <form class="lead-form" id="leadForm" novalidate>
+        <h3>Quero ser revendedor</h3>
+        <div class="row2">
+          <label>Seu nome<input name="name" autocomplete="name" required></label>
+          <label>Nome da loja ou empresa<input name="company" autocomplete="organization" required></label>
+        </div>
+        <div class="row2">
+          <label>CNPJ<input name="cnpj" inputmode="numeric" placeholder="00.000.000/0000-00"></label>
+          <label>Cidade / UF<input name="city" autocomplete="address-level2" placeholder="Loanda – PR"></label>
+        </div>
+        <div class="row2">
+          <label>WhatsApp<input name="phone" inputmode="tel" autocomplete="tel" placeholder="(44) 99999-9999"></label>
+          <label>E-mail<input name="email" type="email" autocomplete="email"></label>
+        </div>
+        <div class="row2">
+          <label>Tipo de negócio<select name="type"><option>Pet shop</option><option>Clínica veterinária</option><option>Agropecuária</option><option>Distribuidor</option><option>Loja online</option><option>Outro</option></select></label>
+          <label>Volume estimado por mês<select name="volume"><option>Até 20 sacos</option><option>20 a 100 sacos</option><option>Mais de 100 sacos</option><option>Ainda não sei</option></select></label>
+        </div>
+        <label>Mensagem (opcional)<textarea name="message" rows="3"></textarea></label>
+        <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn btn-gold" type="submit">Enviar cadastro</button>
+        <p class="form-note" id="leadMsg" role="status">Respondemos em horário comercial. Seus dados ficam só com a FELUX.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <section class="faq-sec" id="duvidas">
   <div class="wrap">
-    <div><p class="eyebrow">Dúvidas</p><h2>Perguntas frequentes</h2></div>
+    <div><p class="eyebrow">Dúvidas</p><h2>Tudo o que você precisa saber antes de trocar de areia</h2><p class="faq-side">Ainda ficou alguma dúvida? Fale com a gente no <a class="js-wa" href="#comprar">WhatsApp</a> ou em <a href="mailto:sac@feluxpet.com.br" id="sacFaq">sac@feluxpet.com.br</a>.</p></div>
     <div class="faq">
-      <details open><summary>Qual a diferença entre Finos, Médios e Mistos?</summary><p>É o tamanho do grão. A Grãos Finos forma o torrão em instantes, a Grãos Médios tem grão um pouco maior e a Grãos Mistos junta grãos de vários tamanhos. Nenhuma deixa rastro pela casa, e todas vêm em saco de 4 kg.</p></details>
-      <details><summary>Quanto dura um saco de 4 kg?</summary><p>Para um gato, retirando os torrões todo dia, em média de 4 a 5 semanas.</p></details>
-      <details><summary>Como descarto a areia usada?</summary><p>No lixo orgânico ou em composteira. Não use em hortas e evite jogar grandes quantidades no vaso sanitário.</p></details>
-      <details><summary>Como faço a troca da areia antiga?</summary><p>Misture FELUX na areia que o gato já usa e aumente a quantidade ao longo de 7 dias.</p></details>
+      <details open><summary>Por que trocar a areia comum pela FELUX?</summary><p>A FELUX é feita de planta, sem mineral, sem fragrâncias, corantes ou aglutinantes adicionados. Ela absorve no mínimo 3,5 vezes o próprio peso, forma o torrão na hora e prende o odor dentro dele. Você retira só o torrão, troca menos areia e a casa fica sem cheiro.</p></details>
+      <details><summary>Qual granulação é a ideal para o meu gato?</summary><p><b>Grãos Finos:</b> para quem quer o máximo da eliminação do odor, com melhor absorção e rendimento. <b>Grãos Mistos:</b> o equilíbrio entre controle de rastro e eliminação do odor. <b>Grãos Médios:</b> para quem não quer sujeira pela casa, com mínimo rastro. Na dúvida, comece pela Grãos Mistos.</p></details>
+      <details><summary>É segura para o meu gato?</summary><p>Sim. É 100% de origem vegetal, com baixíssima poeira, e conta com médico-veterinário responsável técnico. Por não ter perfume, não irrita o olfato sensível dos gatos. Se o seu gato tiver o hábito de comer areia, converse com o veterinário dele.</p></details>
+      <details><summary>Meu gato vai se acostumar?</summary><p>A maioria se adapta rápido, porque o grão é macio nas patinhas. Para garantir, misture a FELUX na areia que ele já usa e aumente a quantidade aos poucos, ao longo de 7 dias.</p></details>
+      <details><summary>Rende mesmo?</summary><p>Rende, porque o torrão é firme e sai inteiro: você retira só a parte usada e o resto da areia continua limpo. Use uma camada de 5 a 7 cm, retire os torrões todo dia e complete quando precisar.</p></details>
+      <details><summary>Como descarto a areia usada?</summary><p>No lixo orgânico ou na compostagem, porque ela é biodegradável. Não descarte no vaso sanitário.</p></details>
+      <details><summary>Como guardar e qual a validade?</summary><p>A validade é de 12 meses. Guarde em local seco, fresco e ventilado, longe de umidade e de odores fortes.</p></details>
+      <details><summary>Como faço meu pedido?</summary><p>Clique em Comprar no produto, escolha a quantidade e finalize pelo WhatsApp. A gente confirma o pedido e combina pagamento e entrega com você.</p></details>
+      <details><summary>Tenho uma loja. Posso revender?</summary><p>Pode, e queremos muito. Preencha o <a href="#revenda">cadastro de revenda</a> ou escreva para comercial@feluxpet.com.br. Nosso time comercial envia a tabela e as condições para a sua região.</p></details>
     </div>
   </div>
 </section>
@@ -519,8 +635,8 @@ html.feel-open{overflow:hidden}
   <div class="wrap foot">
     <a class="logo" href="#produtos" aria-label="FELUX"><svg class="wordmark" role="img" aria-label="FELUX" viewBox="0 0 1975 433"><path fill="currentColor" fill-rule="evenodd" d="M1208.7 431.4C1164.9 425.4 1132.7 411.0 1107.9 386.1C1089.0 367.2 1076.2 343.5 1070.5 316.9C1066.4 297.9 1066.0 288.1 1066.0 193.2L1066.0 102.0L1112.0 102.0L1157.9 102.0L1158.2 197.2L1158.5 292.5L1161.3 300.5C1164.9 310.7 1168.7 316.6 1175.8 323.2C1185.1 331.6 1199.2 337.1 1219.3 340.1C1223.2 340.7 1245.4 341.4 1268.5 341.7C1326.5 342.3 1346.2 340.2 1364.0 331.3C1372.8 326.8 1382.2 318.0 1386.3 310.3C1387.8 307.5 1390.0 301.6 1391.3 297.3C1393.5 289.5 1393.5 289.0 1393.8 195.8L1394.1 102.0L1439.5 102.0L1485.0 102.0L1485.0 198.1C1485.0 280.6 1484.8 295.7 1483.4 304.4C1480.6 322.6 1477.1 334.5 1470.4 348.7C1448.3 395.2 1405.0 423.2 1342.0 431.5C1326.6 433.5 1223.7 433.5 1208.7 431.4ZM0.0 263.5L0.0 102.0L167.0 102.0L334.0 102.0L334.0 147.5L334.0 193.0L212.8 193.2L91.5 193.5L91.5 210.5L91.5 227.5L198.7 227.8L306.0 228.0L306.0 263.5L306.0 299.0L198.7 299.2L91.5 299.5L91.2 362.2L91.0 425.0L45.5 425.0L0.0 425.0L0.0 263.5ZM360.0 263.5L360.0 102.0L527.0 102.0L694.0 102.0L694.0 147.5L694.0 193.0L573.0 193.0L452.0 193.0L452.0 210.5L452.0 228.0L558.5 228.0L665.0 228.0L665.0 263.5L665.0 299.0L558.5 299.0L452.0 299.0L452.0 316.5L452.0 334.0L573.0 334.0L694.0 334.0L694.0 379.5L694.0 425.0L527.0 425.0L360.0 425.0L360.0 263.5ZM732.0 263.5L732.0 102.0L777.5 102.0L823.0 102.0L823.0 218.0L823.0 334.0L944.5 334.0L1066.0 334.0L1066.0 379.5L1066.0 425.0L899.0 425.0L732.0 425.0L732.0 263.5ZM1496.1 422.8C1497.4 421.6 1507.7 412.0 1519.0 401.5C1530.3 390.9 1552.9 369.9 1569.3 354.7C1615.4 311.9 1653.8 276.1 1660.9 269.5L1667.3 263.4L1631.9 230.5C1612.4 212.4 1596.3 197.3 1596.0 197.0C1595.4 196.4 1535.4 140.6 1510.4 117.4L1494.3 102.5L1565.9 102.2L1637.5 102.0L1658.0 122.7C1669.3 134.2 1691.0 156.2 1706.4 171.8C1721.7 187.3 1734.5 200.0 1734.9 200.0C1735.3 200.0 1741.4 194.0 1748.5 186.8C1755.7 179.5 1777.4 157.4 1796.8 137.7L1832.2 102.0L1903.7 102.2L1975.1 102.5L1963.8 113.0C1957.5 118.8 1936.2 138.6 1916.5 156.9C1896.7 175.3 1865.2 204.6 1846.6 221.9C1827.9 239.3 1810.2 255.8 1807.2 258.5L1801.9 263.5L1832.5 292.0C1849.4 307.7 1864.5 321.6 1866.0 323.0C1867.5 324.4 1892.7 347.8 1922.0 375.0L1975.2 424.5L1903.8 424.8L1832.4 425.0L1800.4 392.8C1782.8 375.0 1761.1 353.0 1752.0 343.8C1743.0 334.5 1735.2 327.0 1734.8 327.0C1734.3 327.0 1719.9 341.3 1702.8 358.8C1685.6 376.2 1663.9 398.3 1654.6 407.8L1637.6 425.0L1565.6 425.0L1493.6 425.0L1496.1 422.8ZM1063.0 28.0L1063.0 0.0L1270.5 0.0L1478.0 0.0L1478.0 28.0L1478.0 56.0L1270.5 56.0L1063.0 56.0L1063.0 28.0Z"/></svg></a>
     <span class="tagline">Areia feita de <b>planta.</b></span>
-    <nav aria-label="Rodapé"><a href="#produtos">Produtos</a><a href="#comprar">Onde comprar</a><a href="#duvidas">Dúvidas</a><span>Instagram <span id="igOut">@feluxpet</span></span><a id="mailFoot" href="mailto:comercial@felux.com.br">comercial@felux.com.br</a></nav>
-    <span>© 2026 FELUX · feluxpet.com.br · <span id="cnpjOut">CNPJ 00.000.000/0001-00</span></span>
+    <nav aria-label="Rodapé"><a href="#produtos">Produtos</a><a href="#comprar">Onde comprar</a><a href="#duvidas">Dúvidas</a><span>Instagram <span id="igOut">@feluxpet</span></span><a id="mailFoot" href="mailto:comercial@feluxpet.com.br">comercial@feluxpet.com.br</a><a id="sacFoot" href="mailto:sac@feluxpet.com.br">sac@feluxpet.com.br</a><a href="#revenda">Seja revendedor</a></nav>
+    <span>© 2026 FELUX · feluxpet.com.br · <span id="cnpjOut">CNPJ 11.740.423/0002-64</span> · Loanda – PR</span>
   </div>
 </footer>
 
@@ -543,7 +659,7 @@ html.feel-open{overflow:hidden}
   </div>
 </div>
 
-<script type="application/json" id="felux-data">{"settings":{"whatsapp":"44999993262","whatsappMessage":"Olá! Gostaria de adquirir a areia FELUX.","instagram":"@feluxpet","cnpj":"00.000.000/0001-00","announcement":{"active":false,"text":"Frete grátis para compras acima de R$ 150","link":"#produtos"},"stores":[{"name":"Loja oficial","url":""},{"name":"Mercado Livre","url":""},{"name":"Amazon","url":""},{"name":"Shopee","url":""}],"coupons":[{"code":"BEMVINDO10","text":"10% na primeira compra","active":false}],"cycle":{"title":"Natureza em ciclo","text":"A FELUX promove o ciclo da natureza e o seu gato pode fazer parte disso. Tudo começa com a planta nascendo da terra e se transformando em uma areia macia e segura para ele. O seu gato usa, o torrão se forma e depois volta para a terra, nutrindo o novo ciclo.\n\nE essa escolha começa com você. No momento em que decide colocar a FELUX na caixa do seu gato, você dá o primeiro passo para que a natureza continue em ciclo, e para que ele faça parte disso todos os dias."},"whatsappBuyMessage":"Olá! Gostaria de adquirir {quantidade} da areia FELUX {produto} {peso}.","whatsappRepMessage":"Olá! Tenho interesse em ser representante da FELUX. Pode me passar as condições?","email":"comercial@felux.com.br"},"products":[{"id":"finos","name":"Grãos finos","tag":"Granulação fina","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-finos.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":[]}],"page":{"chip":"Torrão em instantes","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos finos forma o torrão em instantes e segura o odor dentro dele. Grãos finos e macios, sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"Fez xixi, tem torrão. Tem torrão, não tem cheiro.","text":"O torrão se forma em instantes e sai inteiro. Menos areia jogada fora, mais tempo de caixa limpa.","image":"assets/scenes/torrao-finos.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Fina"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#3B193A","cardImage":"assets/scenes/torrao-finos.webp"},{"id":"medios","name":"Grãos médios","tag":"Granulação média","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-medios.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":[]}],"page":{"chip":"Grão médio","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos médios tem grão de tamanho médio, que forma o torrão rapidamente e fica dentro da caixa. Sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"Grãos médios, máxima tranquilidade","text":"Os grãos médios formam o torrão rapidamente e ficam onde devem: na caixa, e não pela casa.","image":"assets/scenes/torrao-medios.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos que o seu gato aprova, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você fica feliz em vê-lo assim, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa para todos curtirem.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Média"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#55A51B","cardImage":"assets/scenes/torrao-medios.webp"},{"id":"mistos","name":"Grãos mistos","tag":"Granulação mista","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-mistos.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":["assets/photos/mistos-milho-grao.webp"]}],"page":{"chip":"Equilíbrio","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos mistos junta grãos de vários tamanhos: torrão firme num instante, odor retido e nenhum grão espalhado pela casa. Sem mineral, baixa poeira e 100% de origem vegetal.","sections":[{"title":"O equilíbrio perfeito","text":"Os grânulos mistos unem grãos de vários tamanhos, com economia e sem rastro. Fez xixi: odor retido e torrão pronto, firme num instante.","image":"assets/photos/mistos-milho-grao-wide.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para ele ficar protegido até quando se lambe durante o banho.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Mista (grãos de vários tamanhos)"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixa"},{"label":"Perfume","value":"Sem perfume sintético"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"}]},"color":"#1F2756","cardImage":"assets/photos/torrao-mistos-real.webp"}]}</script>
+<script type="application/json" id="felux-data">{"settings":{"whatsapp":"44999993262","whatsappMessage":"Olá! Gostaria de adquirir a areia FELUX.","instagram":"@feluxpet","cnpj":"11.740.423/0002-64","announcement":{"active":false,"text":"Frete grátis para compras acima de R$ 150","link":"#produtos"},"stores":[{"name":"Loja oficial","url":""},{"name":"Mercado Livre","url":""},{"name":"Amazon","url":""},{"name":"Shopee","url":""}],"coupons":[{"code":"BEMVINDO10","text":"10% na primeira compra","active":false}],"cycle":{"title":"Natureza em ciclo","text":"A FELUX promove o ciclo da natureza e o seu gato pode fazer parte disso. Tudo começa com a planta nascendo da terra e se transformando em uma areia macia e segura para ele. O seu gato usa, o torrão se forma e depois volta para a terra, nutrindo o novo ciclo.\n\nE essa escolha começa com você. No momento em que decide colocar a FELUX na caixa do seu gato, você dá o primeiro passo para que a natureza continue em ciclo, e para que ele faça parte disso todos os dias."},"whatsappBuyMessage":"Olá! Gostaria de adquirir {quantidade} da areia FELUX {produto} {peso}.","whatsappRepMessage":"Olá! Tenho interesse em ser representante da FELUX. Pode me passar as condições?","email":"comercial@feluxpet.com.br","sac":"sac@feluxpet.com.br","city":"Loanda – PR"},"products":[{"id":"finos","name":"Grãos finos","tag":"Granulação fina","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-finos.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":[]}],"page":{"chip":"Máxima eliminação de odor","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos Finos não deixa cheiro e oferece o máximo da eliminação do odor de urina, com melhor absorção e rendimento. Feita de planta, tem baixíssima poeira e é indicada por médicos veterinários.","sections":[{"title":"Fez xixi, tem torrão. Tem torrão, não tem cheiro.","text":"O torrão se forma em instantes e sai inteiro. Menos areia jogada fora, mais tempo de caixa limpa.","image":"assets/scenes/torrao-finos.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Fina"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixíssima"},{"label":"Absorção","value":"Mínimo de 350% (absorve 3,5 vezes o próprio peso)"},{"label":"Aditivos","value":"Sem fragrâncias, corantes ou aglutinantes adicionados"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"},{"label":"Validade","value":"12 meses"}]},"color":"#3B193A","cardImage":"assets/photos/graos-finos.webp","tagline":"Não deixa cheiro: máximo da eliminação do odor, com melhor absorção e rendimento."},{"id":"medios","name":"Grãos médios","tag":"Granulação média","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-medios.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":[]}],"page":{"chip":"Mínimo rastro","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos Médios não faz sujeira e promove a eliminação do odor de urina com mínimo rastro. Feita de planta, tem baixíssima poeira e é indicada por médicos veterinários.","sections":[{"title":"Grãos médios, máxima tranquilidade","text":"Os grãos médios formam o torrão rapidamente e ficam onde devem: na caixa, e não pela casa.","image":"assets/scenes/torrao-medios.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos que o seu gato aprova, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para a saúde dele ficar protegida até na hora de se limpar.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você fica feliz em vê-lo assim, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa para todos curtirem.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Média"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixíssima"},{"label":"Absorção","value":"Mínimo de 350% (absorve 3,5 vezes o próprio peso)"},{"label":"Aditivos","value":"Sem fragrâncias, corantes ou aglutinantes adicionados"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"},{"label":"Validade","value":"12 meses"}]},"color":"#55A51B","cardImage":"assets/photos/graos-medios.webp","tagline":"Não faz sujeira: elimina o odor de urina com mínimo rastro."},{"id":"mistos","name":"Grãos mistos","tag":"Granulação mista","weight":"4 kg","badge":"","active":true,"bullets":["Controle de odores","Torrões firmes","Baixa poeira","Alta absorção"],"variants":[{"id":"milho","label":"Base de planta","color":"#E0A526","image":"assets/packs/felux-mistos.webp","composition":"À base de planta","price":69.9,"salePrice":null,"buyUrl":"","inStock":true,"gallery":["assets/photos/mistos-milho-grao.webp"]}],"page":{"chip":"Equilíbrio perfeito","statement":"Para todo gato. Até aquele que finge que não liga.","description":"A FELUX Grãos Mistos representa o equilíbrio entre controle de rastro e eliminação do odor de urina. Feita de planta, tem baixíssima poeira e é indicada por médicos veterinários.","sections":[{"title":"O equilíbrio perfeito","text":"Os grânulos mistos unem grãos de vários tamanhos, com economia e sem rastro. Fez xixi: odor retido e torrão pronto, firme num instante.","image":"assets/photos/mistos-milho-grao-wide.webp","round":false},{"title":"Aprovada pelo chefe da casa","text":"Grãos macios, do jeitinho que as patinhas dele merecem. Feita com ingredientes da natureza, para ele ficar protegido até quando se lambe durante o banho.","image":"assets/photos/gato-deitado.webp","round":false},{"title":"Todo mundo sai ganhando","text":"Ele fica feliz, você troca menos areia, o odor fica retido no torrão com máxima eficiência e a casa fica sempre cheirosa.","image":"assets/photos/gato-dormindo.webp","round":true}],"tip":"","quote":"O seu pet é parte essencial do ciclo da natureza que a FELUX promove, e é por causa dele que esse ciclo existe dentro da sua casa.","specs":[{"label":"Peso líquido","value":"4 kg"},{"label":"Granulação","value":"Mista (grãos de vários tamanhos)"},{"label":"Mineral","value":"Sem mineral, 100% de origem vegetal"},{"label":"Poeira","value":"Baixíssima"},{"label":"Absorção","value":"Mínimo de 350% (absorve 3,5 vezes o próprio peso)"},{"label":"Aditivos","value":"Sem fragrâncias, corantes ou aglutinantes adicionados"},{"label":"Descarte","value":"Lixo orgânico ou compostagem"},{"label":"Embalagem","value":"Reciclável, de fonte renovável"},{"label":"Validade","value":"12 meses"}]},"color":"#1F2756","cardImage":"assets/photos/graos-mistos.webp","tagline":"O equilíbrio entre controle de rastro e eliminação do odor de urina."}]}</script>
 <script>
 (() => {
   // Conteúdo vem do painel (/admin) pela rota api/site. Sem servidor (ex.: prévia), usa os dados embutidos acima.
@@ -611,7 +727,8 @@ html.feel-open{overflow:hidden}
       <a class="pack" href="${link}" aria-label="Conhecer ${esc(p.name)}">${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${v.image ? `<img src="${esc(v.image)}" alt="Embalagem FELUX ${esc(p.name)}" width="675" height="900">` : ''}</a>
       <div class="prod-body">
         <h3><a href="${link}">${splitName(p.name)}</a></h3>
-        ${p.cardImage ? `<a class="clump" href="${link}" aria-label="Ver o torrão da FELUX ${esc(p.name)}"><img src="${esc(p.cardImage)}" alt="Torrão firme da FELUX ${esc(p.name)}" loading="lazy"><span>Torrão firme</span></a>` : `<ul class="feats">${p.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>`}
+        ${p.tagline ? `<p class="tagline-card">${esc(p.tagline)}</p>` : ''}
+        ${p.cardImage ? `<a class="clump" href="${link}" aria-label="Ver os grãos da FELUX ${esc(p.name)}"><img src="${esc(p.cardImage)}" alt="Grãos da FELUX ${esc(p.name)}" loading="lazy"><span>${esc(p.tag || 'Grão real')}</span></a>` : `<ul class="feats">${p.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>`}
         <div class="price">${priceHTML(v)}</div>
         <div class="actions"><a class="btn btn-ghost" href="${link}">Quero conhecer</a>${buyBtn(p, 'btn-white')}</div>
         ${p.weight ? `<p class="net"><b>${esc(p.weight)}</b> | peso líquido${v.inStock === false ? ' · esgotado' : ''}</p>` : ''}
@@ -711,6 +828,11 @@ html.feel-open{overflow:hidden}
       $('#stores').after(box);
     }
     if (s.instagram) $('#igOut').textContent = s.instagram;
+    const setMail = (q, m) => { const el = $(q); if (el && m){ el.textContent = m; el.href = 'mailto:' + m; } };
+    ['#sacOut', '#sacOut2', '#sacFoot', '#sacFaq'].forEach(q => setMail(q, s.sac));
+    if (s.city && $('#cityOut')) $('#cityOut').textContent = s.city;
+    if (s.cnpj && $('#cnpjRes')) $('#cnpjRes').textContent = 'CNPJ ' + s.cnpj;
+    const wRep = $('#waRep'), wNum = $('#waNum'); if (wRep && wNum) wRep.textContent = wNum.textContent;
     ['#mailOut', '#mailFoot'].forEach(q => { const el = $(q); if (!el) return; const m = s.email || ''; el.textContent = m; el.href = 'mailto:' + m; (q === '#mailOut' ? el.parentElement : el).hidden = !m; });
     if (s.cnpj) $('#cnpjOut').textContent = 'CNPJ ' + s.cnpj;
   }
@@ -874,6 +996,23 @@ html.feel-open{overflow:hidden}
     if ('IntersectionObserver' in window) new IntersectionObserver(es => es.forEach(e => {
       if (e.isIntersecting && !paused) v.play().catch(() => {}); else if (!e.isIntersecting) v.pause();
     }), { threshold: .35 }).observe(v);
+  })();
+  // cadastro de revenda: salva no painel e abre o WhatsApp comercial com os dados
+  (() => {
+    const f = document.getElementById('leadForm'), msg = document.getElementById('leadMsg'); if (!f) return;
+    f.addEventListener('submit', async e => {
+      e.preventDefault();
+      const d = Object.fromEntries(new FormData(f)); msg.className = 'form-note';
+      if (!d.name.trim() || !d.company.trim() || (!d.phone.trim() && !d.email.trim())){ msg.classList.add('err'); msg.textContent = 'Preencha seu nome, o nome da loja e um WhatsApp ou e-mail.'; return; }
+      const btn = f.querySelector('button'); btn.disabled = true; btn.textContent = 'Enviando…';
+      let saved = false;
+      try { const r = await fetch('api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) }); saved = r.ok; } catch {}
+      const text = `Olá! Quero ser revendedor FELUX.\nNome: ${d.name}\nEmpresa: ${d.company}${d.cnpj ? '\nCNPJ: ' + d.cnpj : ''}${d.city ? '\nCidade: ' + d.city : ''}\nTipo: ${d.type}\nVolume: ${d.volume}${d.email ? '\nE-mail: ' + d.email : ''}${d.message ? '\nMensagem: ' + d.message : ''}`;
+      const wa = waLink(text);
+      btn.disabled = false; btn.textContent = 'Enviar cadastro';
+      msg.classList.add('ok'); msg.innerHTML = 'Cadastro recebido! ' + (wa ? `Para agilizar, <a href="${esc(wa)}" target="_blank" rel="noopener">envie também pelo WhatsApp</a>.` : 'Nosso time comercial vai falar com você.');
+      if (saved) f.reset();
+    });
   })();
   addEventListener('hashchange', () => route(true));
   document.addEventListener('click', e => {

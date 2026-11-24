@@ -58,3 +58,6 @@ Textos, preços e imagens do dia a dia se editam no painel `/admin`, sem mexer n
 - `assets/photos/gato-deitado.webp`: Peng Louis, Pexels (pexels.com/photo/1450331)
 - `assets/photos/gato-dormindo.webp`: Pixabay, Pexels (pexels.com/photo/256632)
 Licença Pexels: uso gratuito, inclusive comercial, sem atribuição obrigatória.
+
+## Revendedores
+O formulário "Quero ser revendedor" (seção #revenda) salva os cadastros em `DATA_DIR/leads.json` e mostra no painel, aba **Revendedores** (status, WhatsApp, e-mail e planilha CSV).
