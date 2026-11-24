@@ -459,6 +459,48 @@ html.feel-open{overflow:hidden}
 #feel .saving{color:#fff} #feel .cpn label{color:rgba(255,255,255,.85)} #feel .cpn input{background:rgba(255,255,255,.95);border-color:transparent;color:#24192F}
 #feel .cpn button{border-color:#fff;color:#fff} #feel .cpn small{color:#fff} #feel .cpn small.bad{color:#FFD2C4}
 [data-f=deals]{display:grid;gap:10px}
+
+/* Clube FELUX Essencial */
+.club{padding-block:72px;background:linear-gradient(135deg,var(--band) 0%,#24102A 100%);color:var(--band-fg)}
+.club-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px 56px;align-items:start}
+.club .eyebrow{color:var(--on-band)}
+.club h2{font-size:clamp(2rem,4vw,2.9rem);margin-top:10px}
+.club h2 b{font-weight:800;color:var(--on-band)}
+.club .lede{color:var(--band-soft);margin-top:14px;font-size:1.05rem;max-width:48ch}
+.club-benefits{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.club-benefits li{display:grid;gap:2px;padding:16px;border-radius:14px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
+.club-benefits b{font-family:var(--font-display);font-weight:800;font-size:1.25rem;color:#fff}
+.club-benefits li > span{font-size:.9rem;color:var(--band-soft)}
+.club-steps{margin:26px 0 0;padding:0;list-style:none;counter-reset:c;display:grid;gap:10px}
+.club-steps li{display:flex;align-items:center;gap:12px;color:var(--band-fg)}
+.club-steps li::before{counter-increment:c;content:counter(c);width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--on-band);color:#1f1a24;font-weight:800;flex:none}
+.club-form{background:var(--surface);color:var(--ink)}
+.club-form .freq{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.club-form .freq legend{font-size:.85rem;font-weight:600;color:var(--ink-soft);margin-bottom:6px;width:100%}
+.club-form .freq label{display:block}
+.club-form .freq label{position:relative}
+.club-form .freq input{position:absolute;opacity:0;width:1px;height:1px;left:0;top:0;padding:0;border:0}
+.club-form .freq span{display:block;padding:.55em 1.1em;border:1.5px solid var(--line);border-radius:999px;font-weight:600;cursor:pointer;color:var(--ink)}
+.club-form .freq input:checked + span{background:var(--band);border-color:var(--band);color:#fff}
+.club-form .freq input:focus-visible + span{outline:3px solid var(--gold);outline-offset:2px}
+.club-price{font-size:.95rem;color:var(--ink-soft)}
+.club-price b{font-family:var(--font-display);font-size:1.4rem;color:var(--ink)}
+.club-price s{opacity:.7}
+.lead-form .check{display:flex;gap:10px;align-items:flex-start;font-weight:500;color:var(--ink)}
+.lead-form .check input{width:auto;margin-top:3px}
+.lead-form .check a{color:var(--gold-text);font-weight:600}
+.club-note{font-size:.9rem;color:var(--gold-text)}
+.club-note a{color:inherit;font-weight:700}
+.terms{position:fixed;inset:0;z-index:110;background:rgba(20,12,24,.62);display:grid;place-items:center;padding:16px}
+.terms[hidden]{display:none!important}
+.terms-box{position:relative;width:min(720px,100%);max-height:88vh;overflow:auto;background:var(--surface);color:var(--ink);border-radius:20px;padding:32px;display:grid;gap:16px}
+.terms-box .feel-x{background:var(--line);color:var(--ink)}
+.terms-box h2{font-size:1.6rem;padding-right:40px}
+.terms-body{display:grid;gap:10px;font-size:.95rem;color:var(--ink-soft)}
+.terms-body h4{margin:8px 0 0;font-family:var(--font-display);font-size:1rem;color:var(--ink)}
+.terms-box .btn{justify-self:start}
+@media (max-width:900px){.club-grid{grid-template-columns:1fr}}
+@media (max-width:420px){.club-benefits{grid-template-columns:1fr}}
 </style>
 
 <!-- body -->
@@ -468,6 +510,7 @@ html.feel-open{overflow:hidden}
     <a class="logo" href="#produtos" aria-label="FELUX, produtos"><svg class="wordmark" role="img" aria-label="FELUX" viewBox="0 0 1975 433"><path fill="currentColor" fill-rule="evenodd" d="M1208.7 431.4C1164.9 425.4 1132.7 411.0 1107.9 386.1C1089.0 367.2 1076.2 343.5 1070.5 316.9C1066.4 297.9 1066.0 288.1 1066.0 193.2L1066.0 102.0L1112.0 102.0L1157.9 102.0L1158.2 197.2L1158.5 292.5L1161.3 300.5C1164.9 310.7 1168.7 316.6 1175.8 323.2C1185.1 331.6 1199.2 337.1 1219.3 340.1C1223.2 340.7 1245.4 341.4 1268.5 341.7C1326.5 342.3 1346.2 340.2 1364.0 331.3C1372.8 326.8 1382.2 318.0 1386.3 310.3C1387.8 307.5 1390.0 301.6 1391.3 297.3C1393.5 289.5 1393.5 289.0 1393.8 195.8L1394.1 102.0L1439.5 102.0L1485.0 102.0L1485.0 198.1C1485.0 280.6 1484.8 295.7 1483.4 304.4C1480.6 322.6 1477.1 334.5 1470.4 348.7C1448.3 395.2 1405.0 423.2 1342.0 431.5C1326.6 433.5 1223.7 433.5 1208.7 431.4ZM0.0 263.5L0.0 102.0L167.0 102.0L334.0 102.0L334.0 147.5L334.0 193.0L212.8 193.2L91.5 193.5L91.5 210.5L91.5 227.5L198.7 227.8L306.0 228.0L306.0 263.5L306.0 299.0L198.7 299.2L91.5 299.5L91.2 362.2L91.0 425.0L45.5 425.0L0.0 425.0L0.0 263.5ZM360.0 263.5L360.0 102.0L527.0 102.0L694.0 102.0L694.0 147.5L694.0 193.0L573.0 193.0L452.0 193.0L452.0 210.5L452.0 228.0L558.5 228.0L665.0 228.0L665.0 263.5L665.0 299.0L558.5 299.0L452.0 299.0L452.0 316.5L452.0 334.0L573.0 334.0L694.0 334.0L694.0 379.5L694.0 425.0L527.0 425.0L360.0 425.0L360.0 263.5ZM732.0 263.5L732.0 102.0L777.5 102.0L823.0 102.0L823.0 218.0L823.0 334.0L944.5 334.0L1066.0 334.0L1066.0 379.5L1066.0 425.0L899.0 425.0L732.0 425.0L732.0 263.5ZM1496.1 422.8C1497.4 421.6 1507.7 412.0 1519.0 401.5C1530.3 390.9 1552.9 369.9 1569.3 354.7C1615.4 311.9 1653.8 276.1 1660.9 269.5L1667.3 263.4L1631.9 230.5C1612.4 212.4 1596.3 197.3 1596.0 197.0C1595.4 196.4 1535.4 140.6 1510.4 117.4L1494.3 102.5L1565.9 102.2L1637.5 102.0L1658.0 122.7C1669.3 134.2 1691.0 156.2 1706.4 171.8C1721.7 187.3 1734.5 200.0 1734.9 200.0C1735.3 200.0 1741.4 194.0 1748.5 186.8C1755.7 179.5 1777.4 157.4 1796.8 137.7L1832.2 102.0L1903.7 102.2L1975.1 102.5L1963.8 113.0C1957.5 118.8 1936.2 138.6 1916.5 156.9C1896.7 175.3 1865.2 204.6 1846.6 221.9C1827.9 239.3 1810.2 255.8 1807.2 258.5L1801.9 263.5L1832.5 292.0C1849.4 307.7 1864.5 321.6 1866.0 323.0C1867.5 324.4 1892.7 347.8 1922.0 375.0L1975.2 424.5L1903.8 424.8L1832.4 425.0L1800.4 392.8C1782.8 375.0 1761.1 353.0 1752.0 343.8C1743.0 334.5 1735.2 327.0 1734.8 327.0C1734.3 327.0 1719.9 341.3 1702.8 358.8C1685.6 376.2 1663.9 398.3 1654.6 407.8L1637.6 425.0L1565.6 425.0L1493.6 425.0L1496.1 422.8ZM1063.0 28.0L1063.0 0.0L1270.5 0.0L1478.0 0.0L1478.0 28.0L1478.0 56.0L1270.5 56.0L1063.0 56.0L1063.0 28.0Z"/></svg></a>
     <nav class="nav" aria-label="Seções">
       <a href="#produtos">Produtos</a>
+      <a href="#clube">Clube</a>
       <a href="#revenda">Revenda</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
@@ -497,6 +540,57 @@ html.feel-open{overflow:hidden}
     </ul>
   </div>
 </section>
+
+<section class="club" id="clube" aria-labelledby="clubTitle">
+  <div class="wrap club-grid">
+    <div class="club-txt">
+      <p class="eyebrow">Clube FELUX Essencial</p>
+      <h2 id="clubTitle">A areia chega antes de acabar. <b>Com <span data-club-pct>15</span>% de desconto.</b></h2>
+      <p class="lede">Escolha a granulação, a quantidade e a frequência. A gente confirma cada entrega com você e você nunca mais fica sem areia.</p>
+      <ul class="club-benefits">
+        <li><b><span data-club-pct>15</span>% OFF</b><span>em todos os pedidos do clube</span></li>
+        <li><b>Brinde</b><span data-club-gift>Brinde exclusivo para assinantes</span></li>
+        <li><b>Frete especial</b><span data-club-ship>Frete especial para assinantes</span></li>
+        <li><b>Sem fidelidade</b><span>pause ou cancele quando quiser</span></li>
+      </ul>
+      <ol class="club-steps"><li>Escolha sua areia e a frequência</li><li>Confirmamos cada entrega com você</li><li>Receba em casa com desconto</li></ol>
+    </div>
+    <form class="lead-form club-form" id="clubForm" novalidate>
+      <h3>Quero entrar no clube</h3>
+      <div class="row2">
+        <label>Seu nome<input name="name" autocomplete="name" required></label>
+        <label>WhatsApp<input name="phone" inputmode="tel" autocomplete="tel" placeholder="(44) 99999-9999"></label>
+      </div>
+      <div class="row2">
+        <label>E-mail<input name="email" type="email" autocomplete="email"></label>
+        <label>CEP<input name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000"></label>
+      </div>
+      <div class="row2">
+        <label>Granulação<select name="product" id="clubProduct"></select></label>
+        <label>Sacos de 4 kg por entrega<select name="qty"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select></label>
+      </div>
+      <fieldset class="freq"><legend>Receber a cada</legend>
+        <label><input type="radio" name="freq" value="30 dias" checked><span>30 dias</span></label>
+        <label><input type="radio" name="freq" value="45 dias"><span>45 dias</span></label>
+        <label><input type="radio" name="freq" value="60 dias"><span>60 dias</span></label>
+      </fieldset>
+      <p class="club-price" id="clubPrice"></p>
+      <label class="check"><input type="checkbox" name="terms" required> <span>Li e aceito o <a href="#clube-termos" id="openTerms">regulamento do Clube FELUX Essencial</a>.</span></label>
+      <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn btn-gold" type="submit">Assinar o clube</button>
+      <p class="form-note" id="clubMsg" role="status">Sem taxa de adesão. Você só paga cada pedido quando confirmamos a entrega.</p>
+    </form>
+  </div>
+</section>
+
+<div class="terms" id="termsBox" role="dialog" aria-modal="true" aria-labelledby="termsTitle" hidden>
+  <div class="terms-box">
+    <button type="button" class="feel-x" data-close-terms aria-label="Fechar">×</button>
+    <h2 id="termsTitle">Regulamento do <span data-club-name>Clube FELUX Essencial</span></h2>
+    <div class="terms-body" id="termsBody"></div>
+    <button type="button" class="btn btn-gold" data-close-terms>Entendi</button>
+  </div>
+</div>
 
 <section class="film" id="video" aria-label="Vídeo FELUX">
   <div class="wrap">
@@ -759,6 +853,7 @@ html.feel-open{overflow:hidden}
           <div class="price">${priceHTML(v)}${v.inStock === false ? ' <span class="ask">· Esgotado</span>' : ''}</div>
           ${V(p).inStock !== false ? `<div class="buyline">${stepper(p)}<a class="btn btn-gold" data-buy="${esc(p.id)}" data-label href="${esc(buyHref(p))}"${ext(buyHref(p))}>${buyLabel(p)}</a></div>` : ''}
           ${V(p).inStock !== false && unit(V(p)) != null ? tierHTML(p) + sumHTML(p) + couponHTML() : ''}
+          ${club().active !== false && club().pct && unit(V(p)) != null ? `<p class="club-note">No <a href="#clube">${esc(club().name || 'Clube FELUX Essencial')}</a>: ${brl(Math.round(unit(V(p)) * (1 - club().pct / 100) * 100) / 100)} por saco (−${club().pct}%), brinde e frete especial. Cancele quando quiser.</p>` : ''}
           <div class="actions">${V(p).inStock === false ? buyBtn(p) : ''}${wa ? `<a class="btn btn-ghost" href="${esc(wa)}" target="_blank" rel="noopener">Tirar dúvida</a>` : ''}</div>
           <div class="tabs" role="tablist">
             <button role="tab" id="t-desc" aria-selected="true" aria-controls="p-desc">Descrição</button>
@@ -1007,6 +1102,52 @@ html.feel-open{overflow:hidden}
     data.products.forEach(syncQty);
     document.querySelectorAll('[data-cpn]').forEach(x => { x.code.value = cpn ? cpn.code : ''; const m = x.querySelector('[data-cpn-msg]'); m.className = ''; m.textContent = cpn ? `Cupom ${cpn.code} aplicado: ${cpn.pct}% de desconto.` : ''; x.querySelector('button').textContent = cpn ? 'Trocar' : 'Aplicar'; });
   });
+  // ---------- Clube FELUX Essencial ----------
+  const club = () => data.settings.club || {};
+  function renderClub(){
+    const c = club(), sec = document.getElementById('clube'); if (!sec) return;
+    sec.hidden = c.active === false;
+    document.querySelectorAll('[data-club-pct]').forEach(e => e.textContent = c.pct || 0);
+    document.querySelectorAll('[data-club-gift]').forEach(e => e.textContent = c.gift || '');
+    document.querySelectorAll('[data-club-ship]').forEach(e => e.textContent = c.shipping || '');
+    document.querySelectorAll('[data-club-name]').forEach(e => e.textContent = c.name || 'Clube FELUX Essencial');
+    const sel = document.getElementById('clubProduct'), keep = sel.value;
+    sel.innerHTML = data.products.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('') + '<option value="indeciso">Ainda não sei, me ajudem a escolher</option>';
+    if (keep) sel.value = keep;
+    document.getElementById('termsBody').innerHTML = String(c.terms || '').replace(/\{desconto\}/g, c.pct || 0).split(/\n\s*\n/).map(b => { const [h, ...r] = b.split('\n'); return /^\d+\./.test(h) ? `<h4>${esc(h)}</h4><p>${esc(r.join(' '))}</p>` : `<p>${esc(b)}</p>`; }).join('');
+    clubPrice();
+  }
+  function clubPrice(){
+    const f = document.getElementById('clubForm'), out = document.getElementById('clubPrice'); if (!f) return;
+    const p = data.products.find(x => x.id === f.product.value), n = +f.qty.value || 1, pct = club().pct || 0;
+    const u = p ? unit(V(p)) : null;
+    if (u == null || !pct){ out.textContent = ''; return; }
+    const gross = u * n, tot = Math.round(gross * (1 - pct / 100) * 100) / 100;
+    out.innerHTML = `Cada entrega: <b>${brl(tot)}</b> <s>${brl(gross)}</s> · você economiza ${brl(gross - tot)} a cada ${esc(f.freq.value)}`;
+  }
+  (() => {
+    const f = document.getElementById('clubForm'), msg = document.getElementById('clubMsg'), box = document.getElementById('termsBox'); if (!f) return;
+    f.addEventListener('change', clubPrice);
+    const openT = e => { if (e) e.preventDefault(); box.hidden = false; box.querySelector('[data-close-terms]').focus(); };
+    const closeT = () => { box.hidden = true; if (location.hash === '#clube-termos') history.replaceState(null, '', '#clube'); };
+    document.getElementById('openTerms').addEventListener('click', openT);
+    box.querySelectorAll('[data-close-terms]').forEach(b => b.addEventListener('click', closeT));
+    box.addEventListener('click', e => { if (e.target === box) closeT(); });
+    addEventListener('keydown', e => { if (e.key === 'Escape' && !box.hidden) closeT(); });
+    if (location.hash === '#clube-termos') openT();
+    f.addEventListener('submit', async e => {
+      e.preventDefault(); const d = Object.fromEntries(new FormData(f)); d.terms = !!f.terms.checked; d.kind = 'clube'; msg.className = 'form-note';
+      if (!d.name.trim() || (!d.phone.trim() && !d.email.trim())){ msg.classList.add('err'); msg.textContent = 'Preencha seu nome e um WhatsApp ou e-mail.'; return; }
+      if (!d.terms){ msg.classList.add('err'); msg.textContent = 'Para entrar no clube, aceite o regulamento.'; return; }
+      const p = data.products.find(x => x.id === d.product), btn = f.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Enviando…';
+      let saved = false; try { saved = (await fetch('api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...d, product: p ? p.name : 'Ainda não sei' }) })).ok; } catch {}
+      const text = `Olá! Quero entrar no ${club().name || 'Clube FELUX Essencial'}.\nNome: ${d.name}\nAreia: ${p ? 'FELUX ' + p.name : 'quero ajuda para escolher'}\nQuantidade: ${d.qty} saco(s) de 4 kg\nReceber a cada: ${d.freq}${d.cep ? '\nCEP: ' + d.cep : ''}${d.email ? '\nE-mail: ' + d.email : ''}\nLi e aceito o regulamento.`;
+      const wa = waLink(text); btn.disabled = false; btn.textContent = 'Assinar o clube';
+      msg.classList.add('ok'); msg.innerHTML = 'Pronto! Recebemos sua adesão. ' + (wa ? `Para confirmar sua primeira entrega, <a href="${esc(wa)}" target="_blank" rel="noopener">fale com a gente no WhatsApp</a>.` : 'Vamos falar com você para confirmar a primeira entrega.');
+      if (saved) f.reset(); clubPrice();
+    });
+  })();
+  addEventListener('hashchange', () => { if (location.hash === '#clube-termos') document.getElementById('openTerms').click(); });
   addEventListener('hashchange', () => route(true));
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-p][data-v]'); if (!b) return;
@@ -1017,7 +1158,7 @@ html.feel-open{overflow:hidden}
     document.querySelector(`[data-p="${CSS.escape(p.id)}"][data-v="${CSS.escape(b.dataset.v)}"]`)?.focus();
   });
 
-  function renderAll(scroll){ renderHome(); renderShared(); route(scroll); }
+  function renderAll(scroll){ renderHome(); renderShared(); renderClub(); route(scroll); }
   renderAll(true);
   fetch('api/site', {cache:'no-store'}).then(r => r.ok ? r.json() : Promise.reject()).then(d => { data = d; renderAll(false); }).catch(() => {});
 })();

@@ -65,7 +65,15 @@
         "min": 4,
         "pct": 5
       }
-    ]
+    ],
+    "club": {
+      "active": true,
+      "name": "Clube FELUX Essencial",
+      "pct": 15,
+      "gift": "Brinde exclusivo para assinantes",
+      "shipping": "Frete especial para assinantes",
+      "terms": "1. O que é\nO Clube FELUX Essencial é um programa de compra recorrente da areia higiênica FELUX. O assinante recebe a areia na frequência que escolher, com desconto e benefícios exclusivos.\n\n2. Quem pode participar\nPessoas físicas maiores de 18 anos, com endereço de entrega no Brasil. A adesão é gratuita.\n\n3. Como funciona\nNa adesão, o assinante escolhe a granulação (Grãos Finos, Médios ou Mistos), a quantidade de sacos de 4 kg e a frequência de entrega: a cada 30, 45 ou 60 dias. Antes de cada ciclo, a FELUX confirma o pedido com o assinante pelo WhatsApp ou e-mail, e o assinante pode alterar granulação, quantidade e frequência.\n\n4. Desconto\nO assinante tem {desconto}% de desconto sobre o preço vigente no site em todos os pedidos do clube. O desconto do clube não é cumulativo com cupons ou com o \"Leve mais, pague menos\"; vale sempre o maior desconto.\n\n5. Brinde\nO assinante recebe um brinde exclusivo, enviado junto com uma das entregas, enquanto durarem os estoques. O brinde pode variar e não pode ser trocado por dinheiro ou desconto.\n\n6. Frete especial\nAssinantes têm condições especiais de frete, informadas na confirmação de cada pedido de acordo com a região de entrega.\n\n7. Pagamento\nCada ciclo é pago no momento da confirmação do pedido, pelas formas de pagamento disponíveis. Não há cobrança antecipada nem taxa de adesão.\n\n8. Cancelamento quando quiser\nO assinante pode pausar ou cancelar o clube a qualquer momento, sem multa e sem fidelidade mínima, pelo WhatsApp ou pelo e-mail sac@feluxpet.com.br. Pedidos já confirmados e pagos seguem o direito de arrependimento de 7 dias previsto no Código de Defesa do Consumidor.\n\n9. Alterações de preço e do programa\nMudanças de preço ou destas regras serão avisadas ao assinante com pelo menos 15 dias de antecedência. O assinante pode cancelar sem custo caso não concorde.\n\n10. Dados pessoais\nOs dados informados são usados apenas para gerenciar a assinatura, as entregas e o atendimento, conforme a Lei Geral de Proteção de Dados (LGPD). O assinante pode pedir a exclusão dos seus dados a qualquer momento.\n\n11. Contato\nSAC: sac@feluxpet.com.br · WhatsApp (44) 99999-3262 · FELUX · CNPJ 11.740.423/0002-64 · Loanda – PR."
+    }
   },
   "products": [
     {

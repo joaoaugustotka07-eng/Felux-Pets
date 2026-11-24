@@ -130,6 +130,7 @@ function readData() {
     def.settings.coupons.forEach(dc => { if (!st.coupons.some(c => c.code === dc.code)) st.coupons.push(dc); });
     applied.add('descontos-2026-11-24');
   }
+  if (!applied.has('clube-essencial')) { if (!d.settings.club) d.settings.club = def.settings.club; applied.add('clube-essencial'); }
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
@@ -207,6 +208,9 @@ function clean(input) {
       cycle: { title: str(s.cycle && s.cycle.title, 80), text: str(s.cycle && s.cycle.text, 1500) },
       coupons: (Array.isArray(s.coupons) ? s.coupons : []).slice(0, 20).map(c => ({ code: str(c.code, 30).toUpperCase().replace(/\s+/g, ''), text: str(c.text, 100),
         pct: Math.max(0, Math.min(90, Math.round(Number(c.pct) || 0))), active: !!c.active, public: !!c.public })).filter(c => c.code),
+      club: { active: !!(s.club && s.club.active), name: str(s.club && s.club.name, 60) || 'Clube FELUX Essencial',
+        pct: Math.max(0, Math.min(50, Math.round(Number(s.club && s.club.pct) || 0))), gift: str(s.club && s.club.gift, 120),
+        shipping: str(s.club && s.club.shipping, 120), terms: str(s.club && s.club.terms, 8000) },
       volumeTiers: (Array.isArray(s.volumeTiers) ? s.volumeTiers : []).slice(0, 6).map(x => ({ min: Math.max(2, Math.min(99, Math.round(Number(x.min) || 0))), pct: Math.max(0, Math.min(50, Math.round(Number(x.pct) || 0))) }))
         .filter(x => x.pct > 0).sort((a, b) => a.min - b.min)
     },
@@ -285,7 +289,10 @@ async function api(req, res, route) {
     const L = { id: now.toString(36) + crypto.randomBytes(3).toString('hex'), date: new Date().toISOString(),
       name: str(b.name, 80), company: str(b.company, 100), cnpj: str(b.cnpj, 20), city: str(b.city, 80),
       phone: str(b.phone, 20), email: str(b.email, 120), type: str(b.type, 40), volume: str(b.volume, 40), message: str(b.message, 600), status: 'novo' };
-    if (!L.name || !L.company || (!L.phone && !L.email)) return send(res, 400, { error: 'Preencha nome, empresa e um contato.' });
+    L.kind = b.kind === 'clube' ? 'clube' : 'revenda';
+    if (L.kind === 'clube') Object.assign(L, { product: str(b.product, 40), qty: str(b.qty, 10), freq: str(b.freq, 20), cep: str(b.cep, 12), terms: !!b.terms });
+    if (!L.name || (L.kind === 'revenda' && !L.company) || (!L.phone && !L.email) || (L.kind === 'clube' && !L.terms))
+      return send(res, 400, { error: 'Preencha os campos obrigatórios.' });
     h.push(now); leadHits.set(ip, h);
     const all = readLeads(); all.unshift(L); writeLeads(all.slice(0, 2000));
     return send(res, 200, { ok: true });
