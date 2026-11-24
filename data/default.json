@@ -31,7 +31,16 @@
       {
         "code": "BEMVINDO10",
         "text": "10% na primeira compra",
-        "active": false
+        "pct": 10,
+        "active": false,
+        "public": true
+      },
+      {
+        "code": "VOLTEI10",
+        "text": "10% na sua próxima compra",
+        "pct": 10,
+        "active": true,
+        "public": false
       }
     ],
     "cycle": {
@@ -42,7 +51,21 @@
     "whatsappRepMessage": "Olá! Tenho interesse em ser representante da FELUX. Pode me passar as condições?",
     "email": "comercial@feluxpet.com.br",
     "sac": "sac@feluxpet.com.br",
-    "city": "Loanda – PR"
+    "city": "Loanda – PR",
+    "volumeTiers": [
+      {
+        "min": 2,
+        "pct": 3
+      },
+      {
+        "min": 3,
+        "pct": 4
+      },
+      {
+        "min": 4,
+        "pct": 5
+      }
+    ]
   },
   "products": [
     {

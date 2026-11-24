@@ -122,6 +122,14 @@ function readData() {
     if (!st.city) st.city = def.settings.city;
     applied.add('conteudo-2026-11-24');
   }
+  // descontos: leve mais pague menos (2 = 3%, 3 = 4%, 4+ = 5%) e cupom de recompra VOLTEI10 (10%)
+  if (!applied.has('descontos-2026-11-24')) {
+    const st = d.settings;
+    if (!Array.isArray(st.volumeTiers) || !st.volumeTiers.length) st.volumeTiers = def.settings.volumeTiers;
+    st.coupons = (st.coupons || []).map(c => ({ public: !!c.active, pct: c.pct ?? (Number((/(\d+)\s*%/.exec(c.text || '') || [])[1]) || 0), ...c }));
+    def.settings.coupons.forEach(dc => { if (!st.coupons.some(c => c.code === dc.code)) st.coupons.push(dc); });
+    applied.add('descontos-2026-11-24');
+  }
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
@@ -197,7 +205,10 @@ function clean(input) {
       announcement: { active: !!(s.announcement && s.announcement.active), text: str(s.announcement && s.announcement.text, 140), link: url(s.announcement && s.announcement.link) },
       stores: (Array.isArray(s.stores) ? s.stores : []).slice(0, 8).map(x => ({ name: str(x.name, 40), url: url(x.url) })).filter(x => x.name),
       cycle: { title: str(s.cycle && s.cycle.title, 80), text: str(s.cycle && s.cycle.text, 1500) },
-      coupons: (Array.isArray(s.coupons) ? s.coupons : []).slice(0, 10).map(c => ({ code: str(c.code, 30).toUpperCase(), text: str(c.text, 100), active: !!c.active })).filter(c => c.code)
+      coupons: (Array.isArray(s.coupons) ? s.coupons : []).slice(0, 20).map(c => ({ code: str(c.code, 30).toUpperCase().replace(/\s+/g, ''), text: str(c.text, 100),
+        pct: Math.max(0, Math.min(90, Math.round(Number(c.pct) || 0))), active: !!c.active, public: !!c.public })).filter(c => c.code),
+      volumeTiers: (Array.isArray(s.volumeTiers) ? s.volumeTiers : []).slice(0, 6).map(x => ({ min: Math.max(2, Math.min(99, Math.round(Number(x.min) || 0))), pct: Math.max(0, Math.min(50, Math.round(Number(x.pct) || 0))) }))
+        .filter(x => x.pct > 0).sort((a, b) => a.min - b.min)
     },
     products
   };

@@ -86,6 +86,12 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
 .gal{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .gimg{position:relative;width:64px;height:64px;border-radius:8px;background:#ddd center/cover no-repeat}
 .gdel{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;border:0;background:var(--bad);color:#fff;font-weight:700;cursor:pointer;line-height:1}
+.mini.c5{display:grid;grid-template-columns:1fr 1.6fr 70px auto auto auto;gap:8px;align-items:center;margin-top:8px}
+.mini.c5.head{font-size:.75rem;font-weight:700;color:var(--ink-soft);margin-top:12px}
+.mini .ck{display:flex;gap:4px;align-items:center;font-size:.85rem}
+.mini.c3t{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
+.mini.c3t input{width:70px}
+@media (max-width:760px){.mini.c5{grid-template-columns:1fr 1fr}.mini.c5.head{display:none}}
 .secbox{grid-column:span 6;display:grid;grid-template-columns:110px 1fr;gap:12px;background:var(--ground);border-radius:10px;padding:12px}
 .secbox .thumb{aspect-ratio:1;border-radius:8px;background:#ddd center/cover no-repeat}
 .secbox .thumb.round{border-radius:50%}
@@ -170,9 +176,15 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
         </div>
         <div class="card">
           <h3>Cupons</h3>
-          <p class="hint">Cupons ativos aparecem em destaque no site, na seção "Onde comprar".</p>
+          <p class="hint"><b>Válido</b>: o cliente pode usar no campo "Tem um cupom?". <b>No site</b>: aparece em destaque abaixo dos produtos (deixe desmarcado para cupons de recompra, como o VOLTEI10 do pacote). Cupom e "leve mais, pague menos" não somam: vale o maior desconto.</p>
           <div id="coupons"></div>
           <button class="btn ghost small" id="addCoupon" style="margin-top:12px">+ Cupom</button>
+        </div>
+        <div class="card">
+          <h3>Leve mais, pague menos</h3>
+          <p class="hint">Desconto automático pela quantidade de sacos no mesmo pedido.</p>
+          <div id="tiers"></div>
+          <button class="btn ghost small" id="addTier" style="margin-top:12px">+ Faixa</button>
         </div>
       </div>
     </section>
@@ -442,7 +454,8 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-email').value = S().email || ''; $('#s-sac').value = S().sac || ''; $('#s-city').value = S().city || ''; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-whatsappBuyMessage').value = S().whatsappBuyMessage || ''; $('#s-whatsappRepMessage').value = S().whatsappRepMessage || ''; buyPrev(); $('#s-cnpj').value = S().cnpj; const cy = S().cycle || {title:'', text:''}; $('#s-cycle-title').value = cy.title; $('#s-cycle-text').value = cy.text;
     $('#s-ann-active').checked = S().announcement.active; $('#s-ann-text').value = S().announcement.text; $('#s-ann-link').value = S().announcement.link;
     $('#stores').innerHTML = S().stores.map((s, i) => `<div class="mini" data-i="${i}"><input type="text" data-k="name" value="${esc(s.name)}" placeholder="Nome" aria-label="Nome da loja"><input type="text" data-k="url" value="${esc(s.url)}" placeholder="https://..." aria-label="Link da loja"><button class="btn danger small" data-del>Remover</button></div>`).join('');
-    $('#coupons').innerHTML = S().coupons.map((c, i) => `<div class="mini c3" data-i="${i}"><input type="text" data-k="code" value="${esc(c.code)}" placeholder="CÓDIGO" aria-label="Código do cupom"><input type="text" data-k="text" value="${esc(c.text)}" placeholder="10% na primeira compra" aria-label="Descrição do cupom"><label style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-k="active" ${c.active ? 'checked' : ''}> Ativo</label><button class="btn danger small" data-del>Remover</button></div>`).join('');
+    $('#coupons').innerHTML = '<div class="mini c5 head"><span>Código</span><span>Descrição</span><span>%</span><span>Válido</span><span>No site</span><span></span></div>' + S().coupons.map((c, i) => `<div class="mini c5" data-i="${i}"><input type="text" data-k="code" value="${esc(c.code)}" placeholder="CÓDIGO" aria-label="Código do cupom"><input type="text" data-k="text" value="${esc(c.text)}" placeholder="10% na primeira compra" aria-label="Descrição do cupom"><input type="number" min="0" max="90" data-k="pct" value="${c.pct ?? ''}" aria-label="Desconto em %"><label class="ck"><input type="checkbox" data-k="active" ${c.active ? 'checked' : ''}> <span>válido</span></label><label class="ck"><input type="checkbox" data-k="public" ${c.public ? 'checked' : ''}> <span>no site</span></label><button class="btn danger small" data-del>Remover</button></div>`).join('');
+    $('#tiers').innerHTML = (S().volumeTiers || []).map((x, i) => `<div class="mini c3t" data-i="${i}"><label>A partir de <input type="number" min="2" max="99" data-k="min" value="${x.min}"> unidades</label><label><input type="number" min="0" max="50" data-k="pct" value="${x.pct}"> % de desconto</label><button class="btn danger small" data-del>Remover</button></div>`).join('') || '<p class="hint">Sem faixas: o preço não muda com a quantidade.</p>';
   }
   const bindS = (id, fn) => $(id).addEventListener('input', e => { fn(e.target); changed(); });
   bindS('#s-whatsapp', el => S().whatsapp = el.value.replace(/\D/g, ''));
@@ -460,13 +473,14 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   bindS('#s-ann-active', el => S().announcement.active = el.checked);
   bindS('#s-ann-text', el => S().announcement.text = el.value);
   bindS('#s-ann-link', el => S().announcement.link = el.value);
-  ['stores', 'coupons'].forEach(key => {
-    const box = $('#' + key);
-    box.addEventListener('input', e => { const row = e.target.closest('[data-i]'); const it = S()[key][+row.dataset.i]; const k = e.target.dataset.k; it[k] = e.target.type === 'checkbox' ? e.target.checked : (k === 'code' ? e.target.value.toUpperCase() : e.target.value); changed(); });
-    box.addEventListener('click', e => { if (!e.target.closest('[data-del]')) return; S()[key].splice(+e.target.closest('[data-i]').dataset.i, 1); renderSettings(); changed(); });
+  ['stores', 'coupons', 'tiers'].forEach(key => {
+    const box = $('#' + key); const arr = () => key === 'tiers' ? (S().volumeTiers = S().volumeTiers || []) : S()[key];
+    box.addEventListener('input', e => { const row = e.target.closest('[data-i]'); if (!row) return; const it = arr()[+row.dataset.i]; const k = e.target.dataset.k; it[k] = e.target.type === 'checkbox' ? e.target.checked : e.target.type === 'number' ? (e.target.value === '' ? null : +e.target.value) : (k === 'code' ? e.target.value.toUpperCase().replace(/\s+/g, '') : e.target.value); changed(); });
+    box.addEventListener('click', e => { if (!e.target.closest('[data-del]')) return; arr().splice(+e.target.closest('[data-i]').dataset.i, 1); renderSettings(); changed(); });
   });
   $('#addStore').addEventListener('click', () => { S().stores.push({name:'', url:''}); renderSettings(); changed(); });
-  $('#addCoupon').addEventListener('click', () => { S().coupons.push({code:'', text:'', active:true}); renderSettings(); changed(); });
+  $('#addCoupon').addEventListener('click', () => { S().coupons.push({code:'', text:'', pct:10, active:true, public:false}); renderSettings(); changed(); });
+  $('#addTier').addEventListener('click', () => { const l = (S().volumeTiers = S().volumeTiers || []); const last = l[l.length - 1]; l.push({min: last ? last.min + 1 : 2, pct: last ? last.pct + 1 : 3}); renderSettings(); changed(); });
 
   // ---------- salvar ----------
   function msg(t, bad){ $('#saveMsg').textContent = t; $('#saveMsg').classList.toggle('err', !!bad); }

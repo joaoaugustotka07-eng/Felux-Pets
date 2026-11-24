@@ -61,3 +61,8 @@ Licença Pexels: uso gratuito, inclusive comercial, sem atribuição obrigatóri
 
 ## Revendedores
 O formulário "Quero ser revendedor" (seção #revenda) salva os cadastros em `DATA_DIR/leads.json` e mostra no painel, aba **Revendedores** (status, WhatsApp, e-mail e planilha CSV).
+
+## Descontos
+- Leve mais, pague menos: faixas em `settings.volumeTiers` (padrão 2 un. 3%, 3 un. 4%, 4+ 5%), editáveis no painel.
+- Cupons: `pct` (%), `active` (válido no campo "Tem um cupom?") e `public` (aparece no site). Não cumulativos: vale o maior desconto.
+- VOLTEI10 (10%) é o cupom de recompra impresso no cartão que vai no pacote.
