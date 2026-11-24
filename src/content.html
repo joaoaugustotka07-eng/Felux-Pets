@@ -120,10 +120,7 @@ a{color:inherit}
 .stores{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .store{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 18px;border:1.5px solid var(--band-soft);border-radius:14px;text-decoration:none;font-weight:600;transition:background .15s,color .15s}
 .store:hover{background:var(--gold);color:var(--gold-ink);border-color:var(--gold)}
-.coupons{display:grid;gap:10px;margin-top:12px}
-.coupon{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1.5px dashed var(--on-band);border-radius:14px;padding:12px 16px}
-.coupon code{font:700 1.05rem var(--font-body);letter-spacing:.08em;color:var(--on-band)}
-.coupon button{margin-left:auto;background:transparent;border:1px solid var(--band-soft);color:var(--band-fg);border-radius:999px;padding:.35em .9em;cursor:pointer;font:600 .85rem var(--font-body)}
+.coupons{display:grid;gap:10px;margin-top:24px}
 .resell{margin-top:18px;color:var(--band-soft)}
 .resell a{color:var(--on-band);font-weight:600}
 @media (max-width:860px){.buy{grid-template-columns:1fr}}
@@ -433,6 +430,11 @@ html.feel-open{overflow:hidden}
 .faq-side a{color:var(--ink);font-weight:600}
 .faq details p b{color:var(--ink)}
 .foot nav a + a{margin-left:0}
+
+/* cupom ativo, abaixo dos produtos */
+.coupon{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1.5px dashed var(--gold);border-radius:14px;padding:12px 16px;background:var(--surface)}
+.coupon code{font:700 1.05rem var(--font-body);letter-spacing:.08em;color:var(--gold-text)}
+.coupon button{margin-left:auto;background:var(--gold);border:0;color:var(--gold-ink);border-radius:999px;padding:.45em 1em;cursor:pointer;font:600 .85rem var(--font-body)}
 </style>
 
 <!-- body -->
@@ -442,7 +444,6 @@ html.feel-open{overflow:hidden}
     <a class="logo" href="#produtos" aria-label="FELUX, produtos"><svg class="wordmark" role="img" aria-label="FELUX" viewBox="0 0 1975 433"><path fill="currentColor" fill-rule="evenodd" d="M1208.7 431.4C1164.9 425.4 1132.7 411.0 1107.9 386.1C1089.0 367.2 1076.2 343.5 1070.5 316.9C1066.4 297.9 1066.0 288.1 1066.0 193.2L1066.0 102.0L1112.0 102.0L1157.9 102.0L1158.2 197.2L1158.5 292.5L1161.3 300.5C1164.9 310.7 1168.7 316.6 1175.8 323.2C1185.1 331.6 1199.2 337.1 1219.3 340.1C1223.2 340.7 1245.4 341.4 1268.5 341.7C1326.5 342.3 1346.2 340.2 1364.0 331.3C1372.8 326.8 1382.2 318.0 1386.3 310.3C1387.8 307.5 1390.0 301.6 1391.3 297.3C1393.5 289.5 1393.5 289.0 1393.8 195.8L1394.1 102.0L1439.5 102.0L1485.0 102.0L1485.0 198.1C1485.0 280.6 1484.8 295.7 1483.4 304.4C1480.6 322.6 1477.1 334.5 1470.4 348.7C1448.3 395.2 1405.0 423.2 1342.0 431.5C1326.6 433.5 1223.7 433.5 1208.7 431.4ZM0.0 263.5L0.0 102.0L167.0 102.0L334.0 102.0L334.0 147.5L334.0 193.0L212.8 193.2L91.5 193.5L91.5 210.5L91.5 227.5L198.7 227.8L306.0 228.0L306.0 263.5L306.0 299.0L198.7 299.2L91.5 299.5L91.2 362.2L91.0 425.0L45.5 425.0L0.0 425.0L0.0 263.5ZM360.0 263.5L360.0 102.0L527.0 102.0L694.0 102.0L694.0 147.5L694.0 193.0L573.0 193.0L452.0 193.0L452.0 210.5L452.0 228.0L558.5 228.0L665.0 228.0L665.0 263.5L665.0 299.0L558.5 299.0L452.0 299.0L452.0 316.5L452.0 334.0L573.0 334.0L694.0 334.0L694.0 379.5L694.0 425.0L527.0 425.0L360.0 425.0L360.0 263.5ZM732.0 263.5L732.0 102.0L777.5 102.0L823.0 102.0L823.0 218.0L823.0 334.0L944.5 334.0L1066.0 334.0L1066.0 379.5L1066.0 425.0L899.0 425.0L732.0 425.0L732.0 263.5ZM1496.1 422.8C1497.4 421.6 1507.7 412.0 1519.0 401.5C1530.3 390.9 1552.9 369.9 1569.3 354.7C1615.4 311.9 1653.8 276.1 1660.9 269.5L1667.3 263.4L1631.9 230.5C1612.4 212.4 1596.3 197.3 1596.0 197.0C1595.4 196.4 1535.4 140.6 1510.4 117.4L1494.3 102.5L1565.9 102.2L1637.5 102.0L1658.0 122.7C1669.3 134.2 1691.0 156.2 1706.4 171.8C1721.7 187.3 1734.5 200.0 1734.9 200.0C1735.3 200.0 1741.4 194.0 1748.5 186.8C1755.7 179.5 1777.4 157.4 1796.8 137.7L1832.2 102.0L1903.7 102.2L1975.1 102.5L1963.8 113.0C1957.5 118.8 1936.2 138.6 1916.5 156.9C1896.7 175.3 1865.2 204.6 1846.6 221.9C1827.9 239.3 1810.2 255.8 1807.2 258.5L1801.9 263.5L1832.5 292.0C1849.4 307.7 1864.5 321.6 1866.0 323.0C1867.5 324.4 1892.7 347.8 1922.0 375.0L1975.2 424.5L1903.8 424.8L1832.4 425.0L1800.4 392.8C1782.8 375.0 1761.1 353.0 1752.0 343.8C1743.0 334.5 1735.2 327.0 1734.8 327.0C1734.3 327.0 1719.9 341.3 1702.8 358.8C1685.6 376.2 1663.9 398.3 1654.6 407.8L1637.6 425.0L1565.6 425.0L1493.6 425.0L1496.1 422.8ZM1063.0 28.0L1063.0 0.0L1270.5 0.0L1478.0 0.0L1478.0 28.0L1478.0 56.0L1270.5 56.0L1063.0 56.0L1063.0 28.0Z"/></svg></a>
     <nav class="nav" aria-label="Seções">
       <a href="#produtos">Produtos</a>
-      <a href="#comprar">Onde comprar</a>
       <a href="#revenda">Revenda</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
@@ -493,6 +494,7 @@ html.feel-open{overflow:hidden}
       </div>
     </article></div>
     <div class="dots" id="dots" role="group" aria-label="Escolher produto"></div>
+    <div id="promo"></div>
     <ul class="perks">
       <li><b>Alta absorção</b><span>torrões firmes e rápidos</span></li>
       <li><b>Controle de odores</b><span>sem perfume sintético</span></li>
@@ -517,27 +519,6 @@ html.feel-open{overflow:hidden}
 
 <section class="cycle-sec" id="ciclo">
   <div class="wrap" data-cycle></div>
-</section>
-
-<section class="band" id="comprar">
-  <div class="wrap buy">
-    <div>
-      <p class="eyebrow">Onde comprar</p>
-      <h2>Compre direto da fábrica.</h2>
-      <p class="lede">Faça seu pedido pelo WhatsApp e combinamos pagamento e entrega com você. Atendimento de gente de verdade, do pedido até a sua casa.</p>
-      <ul class="contact-list">
-        <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg><span><small>WhatsApp</small><b id="waNum">(44) 99999-3262</b></span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span><small>Atendimento ao cliente (SAC)</small><a id="sacOut" href="mailto:sac@feluxpet.com.br">sac@feluxpet.com.br</a></span></li>
-      </ul>
-    </div>
-    <div>
-      <div class="wa-cards">
-        <a class="wa-card js-wa" href="#comprar"><b>Fazer meu pedido</b><span>Escolha a granulação e a quantidade, e a gente cuida do resto</span><i aria-hidden="true">→</i></a>
-        <a class="wa-card" href="#revenda"><b>Quero revender FELUX</b><span>Condições especiais para pet shops, clínicas e distribuidores</span><i aria-hidden="true">→</i></a>
-      </div>
-      <div class="stores" id="stores"></div>
-    </div>
-  </div>
 </section>
 
 <section class="resale" id="revenda" aria-labelledby="resaleTitle">
@@ -597,7 +578,7 @@ html.feel-open{overflow:hidden}
 
 <section class="faq-sec" id="duvidas">
   <div class="wrap">
-    <div><p class="eyebrow">Dúvidas</p><h2>Tudo o que você precisa saber antes de trocar de areia</h2><p class="faq-side">Ainda ficou alguma dúvida? Fale com a gente no <a class="js-wa" href="#comprar">WhatsApp</a> ou em <a href="mailto:sac@feluxpet.com.br" id="sacFaq">sac@feluxpet.com.br</a>.</p></div>
+    <div><p class="eyebrow">Dúvidas</p><h2>Tudo o que você precisa saber antes de trocar de areia</h2><p class="faq-side">Ainda ficou alguma dúvida? Fale com a gente no <a class="js-wa" href="#produtos">WhatsApp</a> ou em <a href="mailto:sac@feluxpet.com.br" id="sacFaq">sac@feluxpet.com.br</a>.</p></div>
     <div class="faq">
       <details open><summary>Por que trocar a areia comum pela FELUX?</summary><p>A FELUX é feita de planta, sem mineral, sem fragrâncias, corantes ou aglutinantes adicionados. Ela absorve no mínimo 3,5 vezes o próprio peso, forma o torrão na hora e prende o odor dentro dele. Você retira só o torrão, troca menos areia e a casa fica sem cheiro.</p></details>
       <details><summary>Qual granulação é a ideal para o meu gato?</summary><p><b>Grãos Finos:</b> para quem quer o máximo da eliminação do odor, com melhor absorção e rendimento. <b>Grãos Mistos:</b> o equilíbrio entre controle de rastro e eliminação do odor. <b>Grãos Médios:</b> para quem não quer sujeira pela casa, com mínimo rastro. Na dúvida, comece pela Grãos Mistos.</p></details>
@@ -619,12 +600,12 @@ html.feel-open{overflow:hidden}
   <div class="wrap foot">
     <a class="logo" href="#produtos" aria-label="FELUX"><svg class="wordmark" role="img" aria-label="FELUX" viewBox="0 0 1975 433"><path fill="currentColor" fill-rule="evenodd" d="M1208.7 431.4C1164.9 425.4 1132.7 411.0 1107.9 386.1C1089.0 367.2 1076.2 343.5 1070.5 316.9C1066.4 297.9 1066.0 288.1 1066.0 193.2L1066.0 102.0L1112.0 102.0L1157.9 102.0L1158.2 197.2L1158.5 292.5L1161.3 300.5C1164.9 310.7 1168.7 316.6 1175.8 323.2C1185.1 331.6 1199.2 337.1 1219.3 340.1C1223.2 340.7 1245.4 341.4 1268.5 341.7C1326.5 342.3 1346.2 340.2 1364.0 331.3C1372.8 326.8 1382.2 318.0 1386.3 310.3C1387.8 307.5 1390.0 301.6 1391.3 297.3C1393.5 289.5 1393.5 289.0 1393.8 195.8L1394.1 102.0L1439.5 102.0L1485.0 102.0L1485.0 198.1C1485.0 280.6 1484.8 295.7 1483.4 304.4C1480.6 322.6 1477.1 334.5 1470.4 348.7C1448.3 395.2 1405.0 423.2 1342.0 431.5C1326.6 433.5 1223.7 433.5 1208.7 431.4ZM0.0 263.5L0.0 102.0L167.0 102.0L334.0 102.0L334.0 147.5L334.0 193.0L212.8 193.2L91.5 193.5L91.5 210.5L91.5 227.5L198.7 227.8L306.0 228.0L306.0 263.5L306.0 299.0L198.7 299.2L91.5 299.5L91.2 362.2L91.0 425.0L45.5 425.0L0.0 425.0L0.0 263.5ZM360.0 263.5L360.0 102.0L527.0 102.0L694.0 102.0L694.0 147.5L694.0 193.0L573.0 193.0L452.0 193.0L452.0 210.5L452.0 228.0L558.5 228.0L665.0 228.0L665.0 263.5L665.0 299.0L558.5 299.0L452.0 299.0L452.0 316.5L452.0 334.0L573.0 334.0L694.0 334.0L694.0 379.5L694.0 425.0L527.0 425.0L360.0 425.0L360.0 263.5ZM732.0 263.5L732.0 102.0L777.5 102.0L823.0 102.0L823.0 218.0L823.0 334.0L944.5 334.0L1066.0 334.0L1066.0 379.5L1066.0 425.0L899.0 425.0L732.0 425.0L732.0 263.5ZM1496.1 422.8C1497.4 421.6 1507.7 412.0 1519.0 401.5C1530.3 390.9 1552.9 369.9 1569.3 354.7C1615.4 311.9 1653.8 276.1 1660.9 269.5L1667.3 263.4L1631.9 230.5C1612.4 212.4 1596.3 197.3 1596.0 197.0C1595.4 196.4 1535.4 140.6 1510.4 117.4L1494.3 102.5L1565.9 102.2L1637.5 102.0L1658.0 122.7C1669.3 134.2 1691.0 156.2 1706.4 171.8C1721.7 187.3 1734.5 200.0 1734.9 200.0C1735.3 200.0 1741.4 194.0 1748.5 186.8C1755.7 179.5 1777.4 157.4 1796.8 137.7L1832.2 102.0L1903.7 102.2L1975.1 102.5L1963.8 113.0C1957.5 118.8 1936.2 138.6 1916.5 156.9C1896.7 175.3 1865.2 204.6 1846.6 221.9C1827.9 239.3 1810.2 255.8 1807.2 258.5L1801.9 263.5L1832.5 292.0C1849.4 307.7 1864.5 321.6 1866.0 323.0C1867.5 324.4 1892.7 347.8 1922.0 375.0L1975.2 424.5L1903.8 424.8L1832.4 425.0L1800.4 392.8C1782.8 375.0 1761.1 353.0 1752.0 343.8C1743.0 334.5 1735.2 327.0 1734.8 327.0C1734.3 327.0 1719.9 341.3 1702.8 358.8C1685.6 376.2 1663.9 398.3 1654.6 407.8L1637.6 425.0L1565.6 425.0L1493.6 425.0L1496.1 422.8ZM1063.0 28.0L1063.0 0.0L1270.5 0.0L1478.0 0.0L1478.0 28.0L1478.0 56.0L1270.5 56.0L1063.0 56.0L1063.0 28.0Z"/></svg></a>
     <span class="tagline">Areia feita de <b>planta.</b></span>
-    <nav aria-label="Rodapé"><a href="#produtos">Produtos</a><a href="#comprar">Onde comprar</a><a href="#duvidas">Dúvidas</a><span>Instagram <span id="igOut">@feluxpet</span></span><a id="mailFoot" href="mailto:comercial@feluxpet.com.br">comercial@feluxpet.com.br</a><a id="sacFoot" href="mailto:sac@feluxpet.com.br">sac@feluxpet.com.br</a><a href="#revenda">Seja revendedor</a></nav>
+    <nav aria-label="Rodapé"><a href="#produtos">Produtos</a><a href="#revenda">Revenda</a><a href="#duvidas">Dúvidas</a><span>Instagram <span id="igOut">@feluxpet</span></span><a id="mailFoot" href="mailto:comercial@feluxpet.com.br">comercial@feluxpet.com.br</a><a id="sacFoot" href="mailto:sac@feluxpet.com.br">sac@feluxpet.com.br</a><a href="#revenda">Seja revendedor</a></nav>
     <span>© 2026 FELUX · feluxpet.com.br · <span id="cnpjOut">CNPJ 11.740.423/0002-64</span> · Loanda – PR</span>
   </div>
 </footer>
 
-<a class="wa js-wa" href="#comprar" aria-label="Falar com a FELUX pelo WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg></a>
+<a class="wa js-wa" href="#produtos" aria-label="Falar com a FELUX pelo WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.7-1.2 2.2 2.2 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3Z"/></svg></a>
 
 <div class="feel" id="feel" role="dialog" aria-modal="true" aria-labelledby="feelTitle" hidden>
   <div class="feel-box">
@@ -637,7 +618,7 @@ html.feel-open{overflow:hidden}
     <div class="feel-info">
       <div class="feel-prod"><img data-f="img" alt="" width="675" height="900"><div><p class="feel-brand">FELUX · Areia feita de <b>planta.</b></p><h2 data-f="name"></h2><div class="price" data-f="price"></div></div></div>
       <ul class="feats" data-f="feats"></ul>
-      <div class="feel-buy"><div data-f="qty"></div><a class="btn btn-white feel-go" data-f="go" href="#comprar">Finalizar compra</a></div>
+      <div class="feel-buy"><div data-f="qty"></div><a class="btn btn-white feel-go" data-f="go" href="#produtos">Finalizar compra</a></div>
       <div class="feel-foot"><button type="button" data-f="close">Continuar olhando</button><button type="button" data-f="sound" aria-pressed="false">Som ligado</button></div>
     </div>
   </div>
@@ -681,11 +662,11 @@ html.feel-open{overflow:hidden}
   }
   function buyBtn(p, cls = ''){
     const v = V(p), nm = `FELUX ${p.name}${(p.variants || []).length > 1 && v.label ? ' ' + v.label : ''}`;
-    if (v.inStock === false){ const l = waLink(`Olá! Quero ser avisado quando ${nm} voltar ao estoque.`) || '#comprar'; return `<a class="btn btn-ghost ${cls}" href="${esc(l)}"${ext(l)}>Avise-me</a>`; }
-    const l = v.buyUrl || waLink(buyMsg(p)) || '#comprar';
+    if (v.inStock === false){ const l = waLink(`Olá! Quero ser avisado quando ${nm} voltar ao estoque.`) || '#produtos'; return `<a class="btn btn-ghost ${cls}" href="${esc(l)}"${ext(l)}>Avise-me</a>`; }
+    const l = v.buyUrl || waLink(buyMsg(p)) || '#produtos';
     return `<a class="btn btn-gold ${cls}" data-buy="${esc(p.id)}" href="${esc(l)}"${ext(l)}>Comprar</a>`;
   }
-  const buyHref = p => { const v = V(p); return v.buyUrl || waLink(buyMsg(p)) || '#comprar'; };
+  const buyHref = p => { const v = V(p); return v.buyUrl || waLink(buyMsg(p)) || '#produtos'; };
   const buyLabel = p => { const u = unit(V(p)); return u == null ? 'Comprar' : 'Comprar por ' + brl(u * Q(p)); };
   const stepper = (p, where) => `<div class="qty" data-qty="${esc(p.id)}" role="group" aria-label="Quantidade">
       <button type="button" data-step="-1" aria-label="Diminuir quantidade" ${Q(p) <= 1 ? 'disabled' : ''}>−</button>
@@ -798,9 +779,9 @@ html.feel-open{overflow:hidden}
     const s = data.settings, ann = s.announcement;
     const a = $('#announce'); a.hidden = !(ann && ann.active && ann.text); if (!a.hidden){ a.textContent = ann.text; a.href = ann.link || '#produtos'; }
     const wa = waLink();
-    $('#stores').innerHTML = (s.stores || []).filter(x => x.url).map(x => `<a class="store" href="${esc(x.url)}"${ext(x.url)}>${esc(x.name)} <span aria-hidden="true">→</span></a>`).join('');
+    if ($('#stores')) $('#stores').innerHTML = (s.stores || []).filter(x => x.url).map(x => `<a class="store" href="${esc(x.url)}"${ext(x.url)}>${esc(x.name)} <span aria-hidden="true">→</span></a>`).join('');
     const num = (s.whatsapp || '').replace(/\D/g, '').replace(/^55(?=\d{10,11}$)/, '');
-    const wn = $('#waNum'); if (wn) { wn.textContent = num.length === 11 ? `(${num.slice(0,2)}) ${num.slice(2,7)}-${num.slice(7)}` : num.length === 10 ? `(${num.slice(0,2)}) ${num.slice(2,6)}-${num.slice(6)}` : num; wn.parentElement.hidden = !num; }
+    const wn = $('#waNum') || $('#waRep'); if (wn) { wn.textContent = num.length === 11 ? `(${num.slice(0,2)}) ${num.slice(2,7)}-${num.slice(7)}` : num.length === 10 ? `(${num.slice(0,2)}) ${num.slice(2,6)}-${num.slice(6)}` : num; if (wn.id === 'waNum') wn.parentElement.hidden = !num; }
     document.querySelectorAll('.js-wa').forEach(el => { const l = waLink(el.hasAttribute('data-rep') ? (s.whatsappRepMessage || 'Olá! Tenho interesse em ser representante da FELUX.') : el.dataset.msg); if (l){ el.href = l; el.target = '_blank'; el.rel = 'noopener'; } });
     document.querySelector('.coupons')?.remove();
     const cps = (s.coupons || []).filter(c => c.active);
@@ -809,14 +790,13 @@ html.feel-open{overflow:hidden}
       box.innerHTML = cps.map(c => `<div class="coupon"><code>${esc(c.code)}</code><span>${esc(c.text)}</span><button type="button" data-code="${esc(c.code)}">Copiar</button></div>`).join('');
       box.addEventListener('click', e => { const b = e.target.closest('[data-code]'); if (!b) return;
         navigator.clipboard.writeText(b.dataset.code).then(() => { b.textContent = 'Copiado'; }, () => { b.textContent = b.dataset.code; }); });
-      $('#stores').after(box);
+      $('#promo').append(box);
     }
     if (s.instagram) $('#igOut').textContent = s.instagram;
     const setMail = (q, m) => { const el = $(q); if (el && m){ el.textContent = m; el.href = 'mailto:' + m; } };
     ['#sacOut', '#sacOut2', '#sacFoot', '#sacFaq'].forEach(q => setMail(q, s.sac));
     if (s.city && $('#cityOut')) $('#cityOut').textContent = s.city;
     if (s.cnpj && $('#cnpjRes')) $('#cnpjRes').textContent = 'CNPJ ' + s.cnpj;
-    const wRep = $('#waRep'), wNum = $('#waNum'); if (wRep && wNum) wRep.textContent = wNum.textContent;
     ['#mailOut', '#mailFoot'].forEach(q => { const el = $(q); if (!el) return; const m = s.email || ''; el.textContent = m; el.href = 'mailto:' + m; (q === '#mailOut' ? el.parentElement : el).hidden = !m; });
     if (s.cnpj) $('#cnpjOut').textContent = 'CNPJ ' + s.cnpj;
   }
