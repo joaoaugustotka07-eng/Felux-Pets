@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Allura&family=Montserrat:wght@300;400;600;800&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: catálogo primeiro. Cabeçalho fino, uma linha de apresentação e os produtos já na primeira tela; depois onde comprar, dúvidas e rodapé. */
 :root{
@@ -580,6 +580,104 @@ html.feel-open{overflow:hidden}
 
 .hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0}
 .prod .actions .btn{white-space:nowrap}
+
+/* carrossel principal */
+.hero{position:relative;overflow:hidden;background:#17205A;color:#fff}
+.hero-vp{overflow:hidden;touch-action:pan-y}
+.hero-track{display:flex;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+@media (prefers-reduced-motion: reduce){.hero-track{transition:none}}
+.slide{flex:0 0 100%;min-width:0;position:relative;overflow:hidden;background:var(--sb,#17205A)}
+.slide::before{content:"";position:absolute;width:1100px;height:1100px;border-radius:50%;background:var(--sc,#5B3A9E);right:-420px;top:50%;transform:translateY(-50%)}
+.slide{display:flex}
+.slide-in{position:relative;width:100%;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:32px 48px;align-items:center;min-height:560px;padding-block:56px 92px}
+.s-eyebrow{display:flex;align-items:center;gap:10px;font-size:.78rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#C9C3F0}
+.s-eyebrow::before{content:"";width:22px;height:2px;background:currentColor}
+.s-title{font-family:var(--font-display);font-weight:800;font-size:clamp(2.4rem,5.2vw,4.4rem);line-height:.98;letter-spacing:-.03em;margin:14px 0 0;color:#fff}
+.s-title .script{display:block;font-family:"Allura","Brush Script MT",cursive;font-weight:400;font-size:1.25em;letter-spacing:0;line-height:.95;margin-top:.08em}
+.s-title b{color:#B7F28A;font-weight:800}
+.s-lede{margin-top:18px;font-size:1.08rem;line-height:1.55;color:rgba(255,255,255,.85);max-width:46ch}
+.s-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.s-btn{display:inline-flex;align-items:center;justify-content:center;font:700 1rem var(--font-body);padding:.95em 1.5em;border-radius:12px;border:2px solid transparent;text-decoration:none;cursor:pointer;color:#fff;background:#6E44C9}
+.s-btn.alt{background:transparent;border-color:rgba(255,255,255,.9)}
+.s-btn.light{background:#fff;color:#17205A}
+.s-btn:hover{filter:brightness(1.08)}
+.s-pick{display:inline-flex;gap:4px;margin-top:22px;padding:5px;border-radius:14px;background:rgba(255,255,255,.1)}
+.s-pick button{display:flex;align-items:center;gap:8px;border:0;background:transparent;color:#fff;font:700 .92rem var(--font-body);padding:.6em 1em;border-radius:10px;cursor:pointer}
+.s-pick button i{width:12px;height:12px;border-radius:50%;background:var(--pc);border:2px solid rgba(255,255,255,.7)}
+.s-pick button[aria-checked="true"]{background:#fff;color:#17205A}
+.s-art{position:relative;display:grid;place-items:center;min-width:0}
+.s-card{width:min(420px,100%);background:#fff;color:#17205A;border-radius:28px;padding:18px 18px 20px;box-shadow:0 40px 80px -30px rgba(0,0,0,.55);transform:rotate(2deg)}
+.s-card img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:contain;border-radius:16px;background:#fff}
+.s-card-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px}
+.s-card-foot b{display:block;font-family:var(--font-display);font-weight:800;font-size:1.05rem}
+.s-card-foot small{color:#5E5768;font-size:.9rem}
+.s-card-foot button{border:0;background:#17205A;color:#fff;font:700 .95rem var(--font-body);padding:.75em 1.2em;border-radius:12px;cursor:pointer}
+.s-coin{width:min(360px,80vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#C9F5A6,#6CBF3A 55%,#3E8714);display:grid;place-items:center;text-align:center;color:#13300a;box-shadow:0 40px 90px -30px rgba(0,0,0,.6),inset 0 -14px 30px rgba(0,0,0,.18)}
+.s-coin b{display:block;font-family:var(--font-display);font-weight:800;font-size:clamp(4.5rem,9vw,7rem);line-height:.9;letter-spacing:-.04em}
+.s-coin span{font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:.85rem}
+.s-coin small{display:block;font-weight:600;font-size:.85rem;margin-top:6px}
+.s-tiers{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.s-tiers span{display:grid;gap:2px;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);min-width:110px}
+.s-tiers b{font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:#B7F28A;line-height:1}
+.s-tiers small{font-size:.85rem;color:rgba(255,255,255,.85)}
+.s-fan{position:relative;width:min(460px,100%);aspect-ratio:1.1}
+.s-fan img{position:absolute;width:52%;bottom:4%;filter:drop-shadow(0 30px 30px rgba(0,0,0,.45))}
+.s-fan img:nth-child(1){left:0;transform:rotate(-9deg)}.s-fan img:nth-child(2){left:24%;bottom:12%;z-index:2}.s-fan img:nth-child(3){right:0;transform:rotate(9deg)}
+.s-photo{width:min(460px,100%);border-radius:28px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.55);transform:rotate(-2deg)}
+.s-photo img{display:block;width:100%;height:auto}
+.s-price{margin-top:16px;font-family:var(--font-display);font-size:1.6rem;font-weight:800}
+.s-price small{font-family:var(--font-body);font-size:.95rem;font-weight:500;color:rgba(255,255,255,.75);margin-left:6px}
+.hero-ui{position:absolute;left:0;right:0;bottom:22px;display:flex;justify-content:space-between;align-items:center;gap:16px;pointer-events:none}
+.hero-ui > *{pointer-events:auto}
+.hero-dots{display:flex;gap:8px}
+.hero-dots button{position:relative;width:46px;height:6px;padding:0;border:0;border-radius:3px;background:rgba(255,255,255,.3);cursor:pointer;overflow:hidden}
+.hero-dots button i{position:absolute;inset:0;width:0;background:#fff}
+.hero-dots button[aria-selected="true"] i{width:100%;transition:width var(--hd,7s) linear}
+.hero.paused .hero-dots button[aria-selected="true"] i{transition:none;width:100%}
+.hero-btns{display:flex;gap:8px}
+.hero-arrow{width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.5);background:rgba(0,0,0,.15);color:#fff;font-size:1.3rem;line-height:1;cursor:pointer}
+.hero-arrow#heroPause{font-size:.8rem}
+@media (max-width:600px){
+  .slide-in{padding-block:22px 74px;gap:16px}
+  .s-title{font-size:2.05rem;margin-top:8px}
+  .s-title .script{font-size:1.2em}
+  .s-lede{font-size:.95rem;margin-top:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .s-eyebrow{font-size:.7rem}
+  .s-ctas{margin-top:16px;gap:8px}
+  .s-ctas .s-btn{flex:1 1 0;padding:.85em .6em;font-size:.92rem}
+  .s-pick{margin-top:14px}
+  .s-pick button{padding:.5em .75em;font-size:.85rem}
+  .s-card{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:center;width:100%;padding:10px 12px;border-radius:18px;transform:none}
+  .s-card img{aspect-ratio:1;border-radius:10px}
+  .s-card-foot{margin-top:0;flex-wrap:wrap;gap:8px}
+  .s-card-foot button{padding:.6em 1em;font-size:.88rem}
+  .s-coin{width:150px}.s-coin b{font-size:3.2rem}
+  .s-fan{width:230px}
+  .s-photo{width:min(300px,85%)}
+  .s-tiers{margin-top:14px;gap:8px}.s-tiers span{min-width:0;flex:1;padding:10px}.s-tiers b{font-size:1.3rem}
+  .s-price{margin-top:10px;font-size:1.35rem}
+  .hero-ui{bottom:16px}.hero-arrow{width:36px;height:36px}
+}
+@media (max-width:860px){
+  .slide::before{width:760px;height:760px;right:-380px;top:auto;bottom:-430px;transform:none}
+  .slide-in{grid-template-columns:1fr;min-height:0;padding-block:36px 88px;gap:28px}
+  .s-art{order:-1}
+  .s-card{width:min(300px,78%)}
+  .s-card img{aspect-ratio:1/1}
+  .s-coin{width:min(240px,60vw)}
+  .s-fan{width:min(340px,90%)}
+  .s-photo{width:min(340px,90%)}
+  .s-ctas .s-btn{flex:1 1 200px}
+}
+
+@media (max-width:600px){
+  .slide-in{align-content:center}
+  .s-ctas{flex-wrap:nowrap}
+  .s-ctas .s-btn .lg{display:none}
+  .s-coin{width:150px}.s-coin b{font-size:3.1rem}.s-coin span,.s-coin small{font-size:.7rem}
+  .s-fan{width:220px}
+  .s-photo{width:min(260px,80%)}
+}
 </style>
 
 <!-- body -->
@@ -598,6 +696,18 @@ html.feel-open{overflow:hidden}
 </header>
 
 <main id="home">
+<section class="hero" id="inicio" aria-roledescription="carrossel" aria-label="Destaques FELUX">
+  <div class="hero-vp"><div class="hero-track" id="heroTrack"></div></div>
+  <div class="hero-ui wrap">
+    <div class="hero-dots" id="heroDots" role="tablist" aria-label="Escolher destaque"></div>
+    <div class="hero-btns">
+      <button type="button" class="hero-arrow" data-hero="-1" aria-label="Destaque anterior">‹</button>
+      <button type="button" class="hero-arrow" id="heroPause" aria-label="Pausar troca automática">❚❚</button>
+      <button type="button" class="hero-arrow" data-hero="1" aria-label="Próximo destaque">›</button>
+    </div>
+  </div>
+</section>
+
 <section class="catalog" id="produtos">
   <div class="wrap">
     <div class="intro">
@@ -1397,7 +1507,80 @@ html.feel-open{overflow:hidden}
     document.querySelector(`[data-p="${CSS.escape(p.id)}"][data-v="${CSS.escape(b.dataset.v)}"]`)?.focus();
   });
 
-  function renderAll(scroll){ renderHome(); renderShared(); renderClub(); route(scroll); }
+  // ---------- carrossel principal ----------
+  const hero = (() => {
+    const sec = document.getElementById('inicio'); if (!sec) return { render(){} };
+    const track = document.getElementById('heroTrack'), dots = document.getElementById('heroDots'), pauseBtn = document.getElementById('heroPause');
+    const DUR = 7000, reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let i = 0, n = 0, timer = null, userPaused = reduce, hover = false, pick = null;
+    const areias = () => data.products.filter(p => (p.category || 'areia') === 'areia');
+    const P = id => data.products.find(p => p.id === id);
+    function slides(){
+      const ar = areias(), hp = P(pick) || ar.find(p => p.id === 'mistos') || ar[0], c = club(), sx = P('seca-xixi'), tl = tiers();
+      const out = [];
+      if (hp){ const v = V(hp), u = unit(v);
+        out.push({ label: 'Areia FELUX', sb: '#17205A', sc: hp.id === 'medios' ? '#55A51B' : '#5B3A9E', html: `
+          <div class="s-txt"><p class="s-eyebrow">Areia higiênica vegetal</p>
+            <h2 class="s-title">Para uma casa sempre cheirosa <span class="script">e um gato mais feliz.</span></h2>
+            <p class="s-lede">FELUX é feita de planta, sem mineral. Forma torrão firme, segura o odor e é biodegradável. Compre aqui no site${c.active !== false && c.pct ? ` e ganhe ${c.pct}% de cashback no clube` : ''}.</p>
+            <div class="s-ctas"><button type="button" class="s-btn" data-hero-add="${esc(hp.id)}">Comprar agora</button>${c.active !== false ? '<a class="s-btn alt" href="#clube">Conhecer o Clube<span class="lg"> Cashback</span></a>' : ''}</div>
+            <div class="s-pick" role="radiogroup" aria-label="Granulação">${ar.map(p => `<button type="button" role="radio" aria-checked="${p.id === hp.id}" data-hero-pick="${esc(p.id)}" style="--pc:${esc(p.color)}"><i></i>${esc(p.name.replace(/^Grãos\s+/i, '').replace(/^./, m => m.toUpperCase()))}</button>`).join('')}</div></div>
+          <div class="s-art"><div class="s-card"><img src="${esc(v.image)}" alt="Embalagem FELUX ${esc(hp.name)}"><div class="s-card-foot"><span><b>${esc(hp.name)} · ${esc(hp.weight)}</b><small>${u != null ? brl(u) : ''}</small></span><button type="button" data-hero-add="${esc(hp.id)}">Adicionar</button></div></div></div>` }); }
+      if (c.active !== false && c.pct) out.push({ label: 'Clube Cashback', sb: '#2A1229', sc: '#3E8714', html: `
+          <div class="s-txt"><p class="s-eyebrow">${esc(c.name || 'Clube FELUX Essencial')}</p>
+            <h2 class="s-title">Assine e ganhe ${c.pct}% de volta <b>em cashback.</b></h2>
+            <p class="s-lede">A areia chega a cada 30, 45 ou 60 dias. Em cada pedido, ${c.pct}% voltam como crédito para a próxima compra, com brinde sortido e frete grátis acima de ${brl(c.freeShipping ?? 269.9)}. Cancele quando quiser.</p>
+            <div class="s-ctas"><a class="s-btn light" href="#clube">Assinar o clube</a><a class="s-btn alt" href="#clube-termos">Ver regulamento</a></div></div>
+          <div class="s-art"><div class="s-coin"><div><span>cashback</span><b>${c.pct}%</b><small>válido por ${c.cashbackDays || 90} dias</small></div></div></div>` });
+      if (tl.length) out.push({ label: 'Leve mais, pague menos', sb: '#1F3D0C', sc: '#55A51B', html: `
+          <div class="s-txt"><p class="s-eyebrow">Promoção</p>
+            <h2 class="s-title">Leve mais, <b>pague menos.</b></h2>
+            <p class="s-lede">Quanto mais sacos de areia no pedido, maior o desconto. O valor já aparece no carrinho.</p>
+            <div class="s-tiers">${tl.map((x, k, a) => `<span><b>−${x.pct}%</b><small>${a[k + 1] && a[k + 1].min === x.min + 1 ? x.min + ' sacos' : a[k + 1] ? x.min + ' a ' + (a[k + 1].min - 1) + ' sacos' : x.min + ' ou mais'}</small></span>`).join('')}</div>
+            <div class="s-ctas"><a class="s-btn light" href="#produtos">Montar meu pedido</a></div></div>
+          <div class="s-art"><div class="s-fan">${ar.slice(0, 3).map(p => `<img src="${esc(V(p).image)}" alt="">`).join('')}</div></div>` });
+      if (sx && sx.active !== false){ const u = unit(V(sx));
+        out.push({ label: 'Seca Xixi', sb: '#1B1A5C', sc: '#6E44C9', html: `
+          <div class="s-txt"><p class="s-eyebrow">Novidade</p>
+            <h2 class="s-title">Toalha vegetal. <b>Seca xixi.</b></h2>
+            <p class="s-lede">${esc(sx.tagline || '')} 100% vegetal, sem aditivos minerais.</p>
+            ${u != null ? `<p class="s-price">${brl(u)}<small>pote de ${esc(sx.weight)}</small></p>` : ''}
+            <div class="s-ctas"><button type="button" class="s-btn light" data-hero-add="seca-xixi">Comprar agora</button><a class="s-btn alt" href="#seca-xixi">Conhecer</a></div></div>
+          <div class="s-art"><div class="s-photo"><img src="assets/photos/seca-xixi-anuncio.webp" alt="FELUX Seca Xixi, toalha vegetal"></div></div>` }); }
+      return out;
+    }
+    function render(){
+      const S = slides(); n = S.length; if (i >= n) i = 0;
+      track.innerHTML = S.map((s, k) => `<div class="slide" role="group" aria-roledescription="destaque" aria-label="${k + 1} de ${n}: ${esc(s.label)}" style="--sb:${s.sb};--sc:${s.sc}" ${k !== i ? 'aria-hidden="true" inert' : ''}><div class="slide-in wrap">${s.html}</div></div>`).join('');
+      dots.innerHTML = S.map((s, k) => `<button type="button" role="tab" aria-selected="${k === i}" aria-label="${esc(s.label)}"><i></i></button>`).join('');
+      dots.style.setProperty('--hd', DUR + 'ms'); go(i, true);
+    }
+    function go(k, quiet){
+      i = (k + n) % n; track.style.transform = `translateX(${-i * 100}%)`;
+      track.querySelectorAll('.slide').forEach((s, j) => { if (j === i){ s.removeAttribute('aria-hidden'); s.inert = false; } else { s.setAttribute('aria-hidden', 'true'); s.inert = true; } });
+      dots.querySelectorAll('button').forEach((d, j) => { d.setAttribute('aria-selected', 'false'); void d.offsetWidth; d.setAttribute('aria-selected', String(j === i)); });
+      schedule();
+    }
+    function schedule(){ clearTimeout(timer); const stop = userPaused || hover || n < 2; sec.classList.toggle('paused', stop); if (!stop) timer = setTimeout(() => go(i + 1), DUR); }
+    function setPaused(v){ userPaused = v; pauseBtn.textContent = v ? '▶' : '❚❚'; pauseBtn.setAttribute('aria-label', v ? 'Retomar troca automática' : 'Pausar troca automática'); schedule(); }
+    sec.addEventListener('click', e => {
+      const a = e.target.closest('[data-hero]'); if (a){ setPaused(true); return go(i + +a.dataset.hero); }
+      const d = e.target.closest('.hero-dots button'); if (d){ setPaused(true); return go([...dots.children].indexOf(d)); }
+      const pk = e.target.closest('[data-hero-pick]'); if (pk){ pick = pk.dataset.heroPick; setPaused(true); return render(); }
+      const ad = e.target.closest('[data-hero-add]'); if (ad){ cart.add(ad.dataset.heroAdd, 1); cart.open(); }
+    });
+    pauseBtn.addEventListener('click', () => setPaused(!userPaused));
+    sec.addEventListener('mouseenter', () => { hover = true; schedule(); }); sec.addEventListener('mouseleave', () => { hover = false; schedule(); });
+    sec.addEventListener('focusin', () => { hover = true; schedule(); }); sec.addEventListener('focusout', () => { hover = false; schedule(); });
+    sec.addEventListener('keydown', e => { if (e.key === 'ArrowLeft' || e.key === 'ArrowRight'){ setPaused(true); go(i + (e.key === 'ArrowRight' ? 1 : -1)); } });
+    let x0 = null; const vp = sec.querySelector('.hero-vp');
+    vp.addEventListener('pointerdown', e => { x0 = e.clientX; });
+    vp.addEventListener('pointerup', e => { if (x0 == null) return; const dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 50){ setPaused(true); go(i + (dx < 0 ? 1 : -1)); } });
+    document.addEventListener('visibilitychange', () => { hover = document.hidden; schedule(); });
+    if (reduce) setPaused(true);
+    return { render };
+  })();
+  function renderAll(scroll){ renderHome(); renderShared(); renderClub(); hero.render(); route(scroll); }
   renderAll(true);
   fetch('api/site', {cache:'no-store'}).then(r => r.ok ? r.json() : Promise.reject()).then(d => { data = d; renderAll(false); }).catch(() => {});
 })();
