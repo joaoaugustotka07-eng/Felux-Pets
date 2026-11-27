@@ -14,7 +14,7 @@ const card = p => { const v = p.variants[0], link = `#${esc(p.id)}`; return `<ar
         ${p.tagline ? `<p class="tagline-card">${esc(p.tagline)}</p>` : ''}
         ${p.cardImage ? `<a class="clump" href="${link}" aria-label="Ver os grãos da FELUX ${esc(p.name)}"><img src="${esc(p.cardImage)}" alt="Grãos da FELUX ${esc(p.name)}" loading="lazy"><span>${esc(p.tag || 'Grão real')}</span></a>` : ""}
         <div class="price">${v.price != null ? `<span class="now">${v.price.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}</span>` : `<span class="ask">Consulte o preço</span>`}</div>
-        <div class="actions"><a class="btn btn-ghost" href="${link}">Quero conhecer</a><a class="btn btn-gold btn-white js-wa" href="#comprar">Comprar</a></div>
+        <div class="actions"><a class="btn btn-ghost" href="${link}">Conhecer</a><a class="btn btn-gold btn-white js-wa" href="#comprar">Comprar</a></div>
         <p class="net"><b>${esc(p.weight)}</b> | peso líquido</p>
       </div>
     </article>`; };

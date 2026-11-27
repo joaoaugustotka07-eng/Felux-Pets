@@ -66,3 +66,9 @@ O formulário "Quero ser revendedor" (seção #revenda) salva os cadastros em `D
 - Leve mais, pague menos: faixas em `settings.volumeTiers` (padrão 2 un. 3%, 3 un. 4%, 4+ 5%), editáveis no painel.
 - Cupons: `pct` (%), `active` (válido no campo "Tem um cupom?") e `public` (aparece no site). Não cumulativos: vale o maior desconto.
 - VOLTEI10 (10%) é o cupom de recompra impresso no cartão que vai no pacote.
+
+## Carrinho, pedidos e cashback
+- Carrinho no site (guardado no navegador), checkout com endereço (CEP preenche pelo ViaCEP) e pedido salvo em `DATA_DIR/orders.json` (número FX-1001…). O cliente envia o resumo pelo WhatsApp para pagar.
+- O servidor recalcula preços, descontos e cashback (não confia no navegador).
+- Clube: 15% de volta em cashback (`settings.club.pct`), válido por `cashbackDays` (90). O crédito entra quando o pedido é marcado **pago** no painel (aba Pedidos) e sai se for **cancelado**. Saldo por cliente em `DATA_DIR/customers.json` (WhatsApp + e-mail).
+- Seca Xixi é categoria `acessorio`: não conta para o "Leve mais, pague menos".

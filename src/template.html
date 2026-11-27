@@ -79,7 +79,7 @@ a{color:inherit}
 .intro{display:flex;justify-content:space-between;align-items:end;gap:20px 40px;flex-wrap:wrap;margin-bottom:28px}
 .intro h1{font-size:clamp(2.2rem,4.6vw,3.4rem);margin-top:10px}
 .intro p.sub{color:var(--ink-soft);max-width:44ch;font-size:1.05rem}
-.products{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
 .prod{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 22px;display:grid;grid-template-rows:auto auto auto 1fr auto;gap:14px;min-width:0}
 .pack{position:relative;background:color-mix(in srgb, var(--v) 12%, var(--surface));border-radius:12px;padding:18px;display:grid;place-items:center}
 .pack img{height:250px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 16px 20px rgba(0,0,0,.26));transition:transform .3s ease}
@@ -512,6 +512,74 @@ html.feel-open{overflow:hidden}
 .doc-other{margin-top:32px!important;padding-top:18px;border-top:1px solid var(--line)}
 .doc-other a{color:var(--ink);font-weight:600}
 .foot a[href="#privacidade"],.foot a[href="#termos-de-uso"]{text-decoration:underline;text-underline-offset:3px}
+
+/* carrinho */
+.top .wrap{gap:16px}
+.cart-btn{display:inline-flex;align-items:center;gap:8px;margin-left:8px;position:relative;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:.55em 1em;font:600 .92rem var(--font-body);cursor:pointer}
+.cart-btn svg{width:20px;height:20px}
+.cart-btn b{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--gold);color:var(--gold-ink);font-size:.72rem;display:grid;place-items:center}
+@media (max-width:760px){.cart-btn span{display:none}.cart-btn{padding:.55em .7em;margin-left:auto}}
+.cart{position:fixed;inset:0;z-index:105;background:rgba(20,12,24,.55);display:flex;justify-content:flex-end}
+.cart[hidden]{display:none!important}
+.cart-panel{width:min(460px,100%);height:100%;background:var(--surface);color:var(--ink);display:flex;flex-direction:column;box-shadow:-20px 0 60px -20px rgba(0,0,0,.4);animation:cartIn .25s ease;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@keyframes cartIn{from{transform:translateX(30px);opacity:0}}
+@media (prefers-reduced-motion: reduce){.cart-panel{animation:none}}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line)}
+.cart-head h2{font-size:1.35rem;font-weight:600}
+.cart-x{width:38px;height:38px;border-radius:50%;border:0;background:var(--ground);color:var(--ink);font-size:1.5rem;cursor:pointer}
+.cart-body{flex:1;overflow:auto;padding:18px 22px 28px;display:grid;gap:16px;align-content:start}
+.cart-empty{display:grid;gap:14px;justify-items:start;padding-top:20px;color:var(--ink-soft)}
+.cart-items{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.cart-items li{display:grid;grid-template-columns:60px 1fr auto;gap:12px;align-items:center;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.cart-items img{width:60px;height:80px;object-fit:contain;background:#fff;border-radius:8px}
+.cart-items small{display:block;color:var(--ink-soft);font-size:.82rem;margin:2px 0 6px}
+.qty.sm{height:36px;border-width:1.5px}.qty.sm button{width:34px;font-size:1.1rem}.qty.sm output{min-width:22px;font-size:.95rem}
+.ci-r{display:grid;justify-items:end;gap:4px}
+.ci-del{background:none;border:0;color:var(--ink-soft);font-size:.8rem;text-decoration:underline;cursor:pointer;padding:0}
+.nudge{font-size:.9rem;background:color-mix(in srgb, var(--gold) 12%, var(--surface));border-radius:10px;padding:10px 12px;color:var(--gold-text);font-weight:600}
+.club-box{border:1.5px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:10px}
+.club-box.on{border-color:var(--band);background:color-mix(in srgb, var(--band) 6%, var(--surface))}
+.club-toggle{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.club-toggle input{margin-top:4px;width:18px;height:18px;accent-color:var(--band)}
+.club-toggle b{display:block}.club-toggle small{display:block;color:var(--ink-soft);font-size:.82rem;line-height:1.4}
+.freq-sel{display:flex;align-items:center;gap:10px;font-size:.9rem;font-weight:600}
+.freq-sel select,.co-form input,.co-form textarea{font:inherit;font-size:.95rem;padding:.6em .75em;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);min-width:0;width:100%}
+.freq-sel select{width:auto}
+.hint-s{font-size:.82rem;color:var(--ink-soft);margin:0}
+.cart-sum{display:grid;gap:6px;padding:14px;border-radius:14px;background:var(--ground)}
+.sum-row{display:flex;justify-content:space-between;gap:10px;font-size:.92rem}
+.sum-row b{font-weight:600;text-align:right}
+.sum-row.good b{color:var(--gold-text)}
+.sum-row.total{font-size:1.15rem;padding-top:8px;margin-top:4px;border-top:1px solid var(--line)}
+.sum-row.total b{font-weight:800}
+.earn{font-size:.88rem;color:var(--gold-text);margin:4px 0 0}
+.cart-next{width:100%;padding:1em;font-size:1.02rem}
+.cart-link{background:none;border:0;color:var(--ink);font:600 .9rem var(--font-body);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:4px 0;justify-self:start}
+.co-form{display:grid;gap:12px}
+.co-form h3{font-family:var(--font-display);font-weight:600;font-size:1.05rem;margin-top:6px}
+.co-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.co-form label{display:grid;gap:4px;font-size:.82rem;font-weight:600;color:var(--ink-soft)}
+.co-form label.full{grid-column:1/-1}
+.pay{display:flex;flex-wrap:wrap;gap:8px}
+.pay label{display:block;position:relative}
+.pay input{position:absolute;opacity:0;width:1px;height:1px}
+.pay span{display:block;padding:.55em 1em;border:1.5px solid var(--line);border-radius:999px;font-weight:600;color:var(--ink);cursor:pointer}
+.pay input:checked + span{background:var(--band);border-color:var(--band);color:#fff}
+.pay input:focus-visible + span{outline:3px solid var(--gold);outline-offset:2px}
+.cb-box{border:1.5px dashed var(--line);border-radius:12px;padding:12px;display:grid;gap:6px}
+.cb-use{display:flex!important;gap:8px;align-items:center;color:var(--ink)!important;font-size:.92rem!important}
+.cb-use input{width:18px;height:18px}
+.accept{display:flex!important;gap:10px;align-items:flex-start;color:var(--ink)!important;font-weight:500!important}
+.accept input{width:18px;height:18px;margin-top:2px;flex:none}
+.accept a{color:var(--gold-text)}
+.co-msg{font-size:.9rem;min-height:1em;margin:0}.co-msg.bad,.bad{color:#A23B22;font-weight:600}
+.done{display:grid;gap:12px;justify-items:center;text-align:center;padding-top:30px}
+.ok-ic{width:64px;height:64px;border-radius:50%;background:var(--gold);color:var(--gold-ink);display:grid;place-items:center;font-size:2rem;font-weight:800}
+.done h3{font-family:var(--font-display);font-size:1.5rem}
+@media (max-width:420px){.co-grid{grid-template-columns:1fr}}
+
+.hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0}
+.prod .actions .btn{white-space:nowrap}
 </style>
 
 <!-- body -->
@@ -525,6 +593,7 @@ html.feel-open{overflow:hidden}
       <a href="#revenda">Revenda</a>
       <a href="#duvidas">Dúvidas</a>
     </nav>
+    <button type="button" class="cart-btn" id="cartBtn" aria-label="Abrir carrinho"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg><span>Carrinho</span><b id="cartCount" hidden>0</b></button>
   </div>
 </header>
 
@@ -556,26 +625,18 @@ html.feel-open{overflow:hidden}
   <div class="wrap club-grid">
     <div class="club-txt">
       <p class="eyebrow">Clube FELUX Essencial</p>
-      <h2 id="clubTitle">A areia chega antes de acabar. <b>Com <span data-club-pct>15</span>% de desconto.</b></h2>
-      <p class="lede">Escolha a granulação, a quantidade e a frequência. A gente confirma cada entrega com você e você nunca mais fica sem areia.</p>
+      <h2 id="clubTitle">A areia chega antes de acabar. <b>E <span data-club-pct>15</span>% volta para você.</b></h2>
+      <p class="lede">Assine, receba na frequência que escolher e ganhe cashback em cada pedido para usar na próxima compra. Você nunca mais fica sem areia.</p>
       <ul class="club-benefits">
-        <li><b><span data-club-pct>15</span>% OFF</b><span>em todos os pedidos do clube</span></li>
+        <li><b><span data-club-pct>15</span>% de cashback</b><span>de volta em cada pedido, válido por <span data-club-days>90</span> dias</span></li>
         <li><b>Brinde sortido</b><span data-club-gift>Brinde exclusivo para assinantes</span></li>
         <li><b>Frete grátis</b><span data-club-ship>Frete especial para assinantes</span></li>
         <li><b>Sem fidelidade</b><span>pause ou cancele quando quiser</span></li>
       </ul>
-      <ol class="club-steps"><li>Escolha sua areia e a frequência</li><li>Confirmamos cada entrega com você</li><li>Receba em casa com desconto</li></ol>
+      <ol class="club-steps"><li>Escolha sua areia e a frequência</li><li>Pague o pedido e ganhe o cashback</li><li>Use o saldo na próxima entrega</li></ol>
     </div>
     <form class="lead-form club-form" id="clubForm" novalidate>
-      <h3>Quero entrar no clube</h3>
-      <div class="row2">
-        <label>Seu nome<input name="name" autocomplete="name" required></label>
-        <label>WhatsApp<input name="phone" inputmode="tel" autocomplete="tel" placeholder="(44) 99999-9999"></label>
-      </div>
-      <div class="row2">
-        <label>E-mail<input name="email" type="email" autocomplete="email"></label>
-        <label>CEP<input name="cep" inputmode="numeric" autocomplete="postal-code" placeholder="00000-000"></label>
-      </div>
+      <h3>Monte sua assinatura</h3>
       <div class="row2">
         <label>Granulação<select name="product" id="clubProduct"></select></label>
         <label>Sacos de 4 kg por entrega<select name="qty"><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option></select></label>
@@ -586,10 +647,8 @@ html.feel-open{overflow:hidden}
         <label><input type="radio" name="freq" value="60 dias"><span>60 dias</span></label>
       </fieldset>
       <p class="club-price" id="clubPrice"></p>
-      <label class="check"><input type="checkbox" name="terms" required> <span>Li e aceito o <a href="#clube-termos" id="openTerms">regulamento do Clube FELUX Essencial</a> e a <a href="#privacidade" target="_blank">Política de Privacidade</a>.</span></label>
-      <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <button class="btn btn-gold" type="submit">Assinar o clube</button>
-      <p class="form-note" id="clubMsg" role="status">Sem taxa de adesão. Você só paga cada pedido quando confirmamos a entrega.</p>
+      <button class="btn btn-gold" type="submit">Assinar: adicionar ao carrinho</button>
+      <p class="form-note" id="clubMsg">Sem taxa de adesão e sem fidelidade. Leia o <a href="#clube-termos" id="openTerms">regulamento do clube</a>.</p>
     </form>
   </div>
 </section>
@@ -715,12 +774,19 @@ html.feel-open{overflow:hidden}
       <p class="feel-hint">Toque e arraste para mexer nos grãos</p>
     </div>
     <div class="feel-info">
-      <div class="feel-prod"><img data-f="img" alt="" width="675" height="900"><div><p class="feel-brand">FELUX · Areia feita de <b>planta.</b></p><h2 data-f="name"></h2><div class="price" data-f="price"></div></div></div>
+      <div class="feel-prod"><img data-f="img" alt="" width="675" height="900"><div><p class="feel-brand" data-f="brand">FELUX · Areia feita de <b>planta.</b></p><h2 data-f="name"></h2><div class="price" data-f="price"></div></div></div>
       <ul class="feats" data-f="feats"></ul>
       <div data-f="deals"></div>
-      <div class="feel-buy"><div data-f="qty"></div><a class="btn btn-white feel-go" data-f="go" href="#produtos">Finalizar compra</a></div>
+      <div class="feel-buy"><div data-f="qty"></div><button type="button" class="btn btn-white feel-go" data-f="go">Adicionar ao carrinho</button></div>
       <div class="feel-foot"><button type="button" data-f="close">Continuar olhando</button><button type="button" data-f="sound" aria-pressed="false">Som ligado</button></div>
     </div>
+  </div>
+</div>
+
+<div class="cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
+  <div class="cart-panel">
+    <header class="cart-head"><h2 id="cartTitle">Seu carrinho</h2><button type="button" class="cart-x" data-cart-close aria-label="Fechar carrinho">×</button></header>
+    <div class="cart-body" id="cartBody"></div>
   </div>
 </div>
 
@@ -747,7 +813,7 @@ html.feel-open{overflow:hidden}
   const tierPct = n => tiers().reduce((m, x) => n >= x.min ? Math.max(m, x.pct) : m, 0);
   function deal(p, n = Q(p)){
     const u = unit(V(p)); if (u == null) return null;
-    const tp = tierPct(n), cp = cpn ? cpn.pct : 0, pct = Math.max(tp, cp);
+    const tp = (p.category || 'areia') === 'areia' ? tierPct(n) : 0, cp = cpn ? cpn.pct : 0, pct = Math.max(tp, cp);
     const src = !pct ? '' : cp >= tp ? `cupom ${cpn.code}` : 'Leve mais, pague menos';
     const gross = u * n, total = Math.round(gross * (1 - pct / 100) * 100) / 100;
     return { u, n, pct, src, gross, total, save: Math.round((gross - total) * 100) / 100 };
@@ -782,9 +848,9 @@ html.feel-open{overflow:hidden}
     return `<a class="btn btn-gold ${cls}" data-buy="${esc(p.id)}" href="${esc(l)}"${ext(l)}>Comprar</a>`;
   }
   const buyHref = p => { const v = V(p); return v.buyUrl || waLink(buyMsg(p)) || '#produtos'; };
-  const buyLabel = p => { const d = deal(p); return !d ? 'Comprar' : 'Comprar por ' + brl(d.total); };
+  const buyLabel = p => { const d = deal(p); return !d ? 'Adicionar ao carrinho' : 'Adicionar · ' + brl(d.total); };
   // faixa "leve mais, pague menos" e resumo do desconto
-  const tierHTML = p => tiers().length ? `<div class="tiers" data-tiers="${esc(p.id)}"><span>Leve mais, pague menos:</span>${tiers().map((x, i, a) => {
+  const tierHTML = p => tiers().length && (p.category || 'areia') === 'areia' ? `<div class="tiers" data-tiers="${esc(p.id)}"><span>Leve mais, pague menos:</span>${tiers().map((x, i, a) => {
       const nx = a[i + 1], lbl = nx && nx.min === x.min + 1 ? `${x.min} un.` : nx ? `${x.min} a ${nx.min - 1} un.` : `${x.min} ou mais`;
       const mx = nx ? nx.min - 1 : 999; return `<b data-min="${x.min}" data-max="${mx}"${Q(p) >= x.min && Q(p) <= mx ? ' class="on"' : ''}>${lbl} <i>−${x.pct}%</i></b>`; }).join('')}</div>` : '';
   const sumHTML = p => { const d = deal(p); return d && d.pct ? `<p class="saving" data-sum="${esc(p.id)}">Você economiza <b>${brl(d.save)}</b> (${d.pct}% · ${esc(d.src)})</p>` : `<p class="saving" data-sum="${esc(p.id)}" hidden></p>`; };
@@ -818,7 +884,7 @@ html.feel-open{overflow:hidden}
         ${p.tagline ? `<p class="tagline-card">${esc(p.tagline)}</p>` : ''}
         ${p.cardImage ? `<a class="clump" href="${link}" aria-label="Ver os grãos da FELUX ${esc(p.name)}"><img src="${esc(p.cardImage)}" alt="Grãos da FELUX ${esc(p.name)}" loading="lazy"><span>${esc(p.tag || 'Grão real')}</span></a>` : `<ul class="feats">${p.bullets.map(b => `<li>${esc(b)}</li>`).join('')}</ul>`}
         <div class="price">${priceHTML(v)}</div>
-        <div class="actions"><a class="btn btn-ghost" href="${link}">Quero conhecer</a>${buyBtn(p, 'btn-white')}</div>
+        <div class="actions"><a class="btn btn-ghost" href="${link}">Conhecer</a>${buyBtn(p, 'btn-white')}</div>
         ${p.weight ? `<p class="net"><b>${esc(p.weight)}</b> | peso líquido${v.inStock === false ? ' · esgotado' : ''}</p>` : ''}
       </div>
     </article>`; };
@@ -850,7 +916,7 @@ html.feel-open{overflow:hidden}
     const wa = waLink(`Olá! Tenho uma dúvida sobre a FELUX ${p.name}.`);
     $('#pdp').innerHTML = `
     <div class="wrap">
-      <nav class="crumbs" aria-label="Você está em"><a href="#produtos">Início</a><span aria-hidden="true">›</span><a href="#produtos">Areias</a><span aria-hidden="true">›</span><span>${esc(p.name)}${p.weight ? ' ' + esc(p.weight) : ''}</span></nav>
+      <nav class="crumbs" aria-label="Você está em"><a href="#produtos">Início</a><span aria-hidden="true">›</span><a href="#produtos">${(p.category || 'areia') === 'areia' ? 'Areias' : 'Acessórios'}</a><span aria-hidden="true">›</span><span>${esc(p.name)}${p.weight ? ' ' + esc(p.weight) : ''}</span></nav>
       <section class="pdp-top" style="--v:${esc(p.color || v.color)}">
         <div class="pdp-gallery">
           <div class="pdp-img">${p.badge ? `<span class="badge">${esc(p.badge)}</span>` : ''}${v.image ? `<img id="mainImg" src="${esc(v.image)}" alt="Embalagem FELUX ${esc(p.name)}" width="675" height="900">` : ''}</div>
@@ -859,14 +925,14 @@ html.feel-open{overflow:hidden}
         </div>
         <div class="pdp-info">
           <p class="tag"><i></i>${esc(p.tag)}</p>
-          <p class="brand-line">FELUX · Areia feita de <b>planta.</b></p>
+          <p class="brand-line">FELUX · ${(p.category || 'areia') === 'areia' ? 'Areia' : esc(p.tag || 'Produto')} feita de <b>planta.</b></p>
           <h1>${esc(p.name)}</h1>
           ${pg.chip ? `<span class="chip">${esc(pg.chip)}</span>` : ''}
           ${(p.variants || []).length > 1 ? `<p class="pick-label">Matéria-prima</p>${swatches(p, true)}` : ''}
           <div class="price">${priceHTML(v)}${v.inStock === false ? ' <span class="ask">· Esgotado</span>' : ''}</div>
-          ${V(p).inStock !== false ? `<div class="buyline">${stepper(p)}<a class="btn btn-gold" data-buy="${esc(p.id)}" data-label href="${esc(buyHref(p))}"${ext(buyHref(p))}>${buyLabel(p)}</a></div>` : ''}
+          ${V(p).inStock !== false ? `<div class="buyline">${stepper(p)}<a class="btn btn-gold" data-buy="${esc(p.id)}" data-label href="${esc(buyHref(p))}">${buyLabel(p)}</a></div>` : ''}
           ${V(p).inStock !== false && unit(V(p)) != null ? tierHTML(p) + sumHTML(p) + couponHTML() : ''}
-          ${club().active !== false && club().pct && unit(V(p)) != null ? `<p class="club-note">No <a href="#clube">${esc(club().name || 'Clube FELUX Essencial')}</a>: ${brl(Math.round(unit(V(p)) * (1 - club().pct / 100) * 100) / 100)} por saco (−${club().pct}%), brinde sortido e ${esc((club().shipping || 'frete especial').replace(/^F/, 'f'))}. Cancele quando quiser.</p>` : ''}
+          ${club().active !== false && club().pct && unit(V(p)) != null ? `<p class="club-note">No <a href="#clube">${esc(club().name || 'Clube FELUX Essencial')}</a>: ganhe ${club().pct}% de volta em cashback (${brl(Math.round(unit(V(p)) * club().pct) / 100)} por unidade), brinde sortido e frete grátis acima de ${brl(club().freeShipping ?? 269.9)}. Ative no carrinho.</p>` : ''}
           <div class="actions">${V(p).inStock === false ? buyBtn(p) : ''}${wa ? `<a class="btn btn-ghost" href="${esc(wa)}" target="_blank" rel="noopener">Tirar dúvida</a>` : ''}</div>
           <div class="tabs" role="tablist">
             <button role="tab" id="t-desc" aria-selected="true" aria-controls="p-desc">Descrição</button>
@@ -889,7 +955,7 @@ html.feel-open{overflow:hidden}
     <section class="cycle-sec"><div class="wrap">${cycleHTML(data.settings.cycle, true)}</div></section>
     ${others.length ? `<section class="others"><div class="wrap"><h2>Conheça também</h2><div class="others-grid">${others.map(o => `
       <a class="other" href="#${esc(o.id)}" style="--v:${esc(o.color || V(o).color)}"><span class="o-img">${V(o).image ? `<img src="${esc(V(o).image)}" alt="" loading="lazy">` : ''}</span><span><span class="tag"><i></i>${esc(o.tag)}</span><b>${esc(o.name)}</b><span class="price">${priceHTML(V(o))}</span></span></a>`).join('')}
-      </div><a class="back" href="#produtos">← Ver todas as areias</a></div></section>` : ''}`;
+      </div><a class="back" href="#produtos">← Ver todos os produtos</a></div></section>` : ''}`;
     $('#pdp').querySelectorAll('.thumb').forEach(t => t.addEventListener('click', () => {
       const img = $('#mainImg'); img.src = t.dataset.img; img.closest('.pdp-img').classList.toggle('photo', t.dataset.photo === '1');
       img.alt = t.dataset.photo === '1' ? `Grão da ${p.name} ${v.label}` : `Embalagem ${p.name} ${v.label}`;
@@ -963,7 +1029,7 @@ html.feel-open{overflow:hidden}
     const dlg = document.getElementById('feel'), cv = document.getElementById('feelSand'), ctx = cv.getContext('2d');
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const SIZE = { finos: [1.3, 2.1], medios: [2.2, 3.4], mistos: null };
-    const COLS = ['#E6C27A', '#D9AE5E', '#EED39A', '#C99A4B', '#F1DDB0'];
+    const SAND = ['#E6C27A', '#D9AE5E', '#EED39A', '#C99A4B', '#F1DDB0'], FLAKE = ['#F4EEDF', '#EAE0C8', '#FBF7EE', '#E2D6BC', '#F7F1E4']; let COLS = SAND;
     let W = 0, H = 0, dpr = 1, cols = [], colW = 4, grains = [], flying = [], pile, pctx, raf = 0, t0 = 0, sizeKey = 'finos';
     let audio = null, soundOn = true, lastBuzz = 0, lastTick = 0, pointer = null, opener = null;
     const rnd = (a, b) => a + Math.random() * (b - a);
@@ -1049,18 +1115,19 @@ html.feel-open{overflow:hidden}
     function sync(p){
       if (!cur || p.id !== cur.id) return;
       const go = dlg.querySelector('[data-f=go]'), u = unit(V(p));
-      const d = deal(p); go.href = buyHref(p); go.innerHTML = 'Finalizar<span class="w"> compra</span>' + (d ? ' · ' + brl(d.total) : '');
+      const d = deal(p); go.innerHTML = 'Adicionar<span class="w"> ao carrinho</span>' + (d ? ' · ' + brl(d.total) : '');
     }
     function open(p, v, href, isExt){
       opener = document.activeElement; sizeKey = SIZE.hasOwnProperty(p.id) ? p.id : 'finos';
       dlg.style.setProperty('--v', p.color || v.color);
       dlg.querySelector('[data-f=img]').src = v.image || '';
       dlg.querySelector('[data-f=name]').innerHTML = splitName(p.name);
+      dlg.querySelector('[data-f=brand]').innerHTML = `FELUX · ${(p.category || 'areia') === 'areia' ? 'Areia' : esc(p.tag || 'Produto')} feita de <b>planta.</b>`;
+      COLS = (p.category || 'areia') === 'areia' ? SAND : FLAKE;
       dlg.querySelector('[data-f=price]').innerHTML = priceHTML(v);
       dlg.querySelector('[data-f=feats]').innerHTML = p.bullets.map(b => `<li>${esc(b)}</li>`).join('');
       cur = p; dlg.querySelector('[data-f=qty]').innerHTML = stepper(p); dlg.querySelector('[data-f=deals]').innerHTML = unit(V(p)) != null ? tierHTML(p) + sumHTML(p) + couponHTML() : ''; sync(p);
       const go = dlg.querySelector('[data-f=go]');
-      if (isExt){ go.target = '_blank'; go.rel = 'noopener'; } else { go.removeAttribute('target'); }
       dlg.hidden = false; document.documentElement.classList.add('feel-open');
       size(); startAudio(); if (audio) audio.A.resume?.();
       if (reduce){ for (let k = 0; k < 1400; k++){ const r = gsize(); land(W / 2 + rnd(-W * .35, W * .35) * Math.random(), r, COLS[k % COLS.length]); } ctx.drawImage(pile, 0, 0, W, H); }
@@ -1075,7 +1142,7 @@ html.feel-open{overflow:hidden}
     cv.addEventListener('pointermove', e => { if (e.buttons || e.pointerType !== 'mouse') poke(e); });
     cv.addEventListener('pointerleave', () => { pointer = null; });
     dlg.querySelectorAll('[data-f=close]').forEach(b => b.addEventListener('click', close));
-    dlg.querySelector('[data-f=go]').addEventListener('click', () => setTimeout(close, 300));
+    dlg.querySelector('[data-f=go]').addEventListener('click', () => { if (!cur) return; const p = cur; cart.add(p.id, Q(p)); qty[p.id] = 1; close(); syncQty(p); cart.open(); });
     const snd = dlg.querySelector('[data-f=sound]');
     snd.addEventListener('click', () => { soundOn = !soundOn; snd.setAttribute('aria-pressed', !soundOn); snd.textContent = soundOn ? 'Som ligado' : 'Som desligado'; if (soundOn) startAudio(); vol(0); });
     addEventListener('keydown', e => { if (e.key === 'Escape' && !dlg.hidden) close(); });
@@ -1126,6 +1193,160 @@ html.feel-open{overflow:hidden}
     data.products.forEach(syncQty);
     document.querySelectorAll('[data-cpn]').forEach(x => { x.code.value = cpn ? cpn.code : ''; const m = x.querySelector('[data-cpn-msg]'); m.className = ''; m.textContent = cpn ? `Cupom ${cpn.code} aplicado: ${cpn.pct}% de desconto.` : ''; x.querySelector('button').textContent = cpn ? 'Trocar' : 'Aplicar'; });
   });
+  // ---------- carrinho ----------
+  const cart = (() => {
+    const KEY = 'felux-cart-v1', box = document.getElementById('cart'), body = document.getElementById('cartBody');
+    let st = { items: [], club: { on: false, freq: '30 dias' }, coupon: '', view: 'cart' }, cb = null, last = null, opener = null;
+    try { st = { ...st, ...JSON.parse(localStorage.getItem(KEY) || '{}'), view: 'cart' }; } catch {}
+    const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ items: st.items, club: st.club, coupon: st.coupon })); } catch {} };
+    const prod = id => data.products.find(p => p.id === id);
+    const r2 = n => Math.round(n * 100) / 100;
+    const cl = () => club(), clubOk = () => cl().active !== false && (cl().pct || 0) > 0;
+    // mesma conta do servidor
+    function price(){
+      const lines = st.items.map(it => { const p = prod(it.pid), v = p ? V(p) : null, u = v ? unit(v) : null;
+        return p && u != null && v.inStock !== false ? { p, qty: it.qty, unit: u, total: r2(u * it.qty), areia: (p.category || 'areia') === 'areia' } : null; }).filter(Boolean);
+      const subtotal = r2(lines.reduce((s, l) => s + l.total, 0));
+      const areiaUnits = lines.filter(l => l.areia).reduce((s, l) => s + l.qty, 0), areiaSub = r2(lines.filter(l => l.areia).reduce((s, l) => s + l.total, 0));
+      const isClub = st.club.on && clubOk();
+      let discount = 0, label = '', tp = 0;
+      if (!isClub){
+        tp = tierPct(areiaUnits); const c = findCoupon(st.coupon);
+        const dt = r2(areiaSub * tp / 100), dc = c ? r2(subtotal * c.pct / 100) : 0;
+        if (dc >= dt && dc > 0){ discount = dc; label = `Cupom ${c.code} (${c.pct}%)`; } else if (dt > 0){ discount = dt; label = `Leve mais, pague menos (${tp}%)`; }
+      }
+      const after = r2(subtotal - discount), used = st.useCb && cb ? r2(Math.min(cb.balance, after)) : 0;
+      const nextTier = !isClub ? tiers().find(x => x.min > areiaUnits) : null;
+      return { lines, subtotal, discount, label, after, isClub, earn: isClub ? r2(after * cl().pct / 100) : 0,
+        freeShip: isClub && after >= (cl().freeShipping ?? 269.9), used, total: r2(after - used), areiaUnits, nextTier };
+    }
+    const count = () => st.items.reduce((s, i) => s + i.qty, 0);
+    function badge(){ const n = count(), b = document.getElementById('cartCount'); b.textContent = n; b.hidden = !n; }
+    function add(pid, n = 1){ const it = st.items.find(i => i.pid === pid); if (it) it.qty = Math.min(99, it.qty + n); else st.items.push({ pid, qty: Math.min(99, n) }); save(); badge(); }
+    const row = (k, v, cls = '') => `<div class="sum-row ${cls}"><span>${k}</span><b>${v}</b></div>`;
+    function summary(P, final){
+      return `<div class="cart-sum">${row('Subtotal', brl(P.subtotal))}${P.discount ? row(esc(P.label), '− ' + brl(P.discount), 'good') : ''}
+        ${P.used ? row('Cashback usado', '− ' + brl(P.used), 'good') : ''}
+        ${row('Frete', P.freeShip ? 'Grátis' : 'Combinado na confirmação')}
+        ${row('Total', brl(P.total), 'total')}
+        ${P.isClub ? `<p class="earn">Você ganha <b>${brl(P.earn)}</b> de cashback (${cl().pct}%) depois da confirmação do pagamento.</p>` : ''}</div>`;
+    }
+    function viewCart(){
+      const P = price();
+      if (!P.lines.length) return `<div class="cart-empty"><p>Seu carrinho está vazio.</p><a class="btn btn-gold" href="#produtos" data-cart-close>Ver produtos</a></div>`;
+      return `<ul class="cart-items">${P.lines.map(l => `<li>
+          <img src="${esc(V(l.p).image || '')}" alt="" width="60" height="80">
+          <div><b>FELUX ${esc(l.p.name)}</b><small>${esc(l.p.weight || '')} · ${brl(l.unit)} cada</small>
+            <div class="qty sm" role="group" aria-label="Quantidade de ${esc(l.p.name)}"><button type="button" data-ci="${esc(l.p.id)}" data-d="-1" aria-label="Diminuir">−</button><output>${l.qty}</output><button type="button" data-ci="${esc(l.p.id)}" data-d="1" aria-label="Aumentar">+</button></div></div>
+          <div class="ci-r"><b>${brl(l.total)}</b><button type="button" class="ci-del" data-cdel="${esc(l.p.id)}">Remover</button></div></li>`).join('')}</ul>
+        ${P.nextTier && !P.isClub ? `<p class="nudge">Leve mais ${P.nextTier.min - P.areiaUnits} saco${P.nextTier.min - P.areiaUnits > 1 ? 's' : ''} de areia e ganhe ${P.nextTier.pct}% de desconto.</p>` : ''}
+        ${clubOk() ? `<div class="club-box${P.isClub ? ' on' : ''}">
+          <label class="club-toggle"><input type="checkbox" id="cClub" ${P.isClub ? 'checked' : ''}><span><b>Assinar o ${esc(cl().name || 'Clube FELUX Essencial')}</b><small>${cl().pct}% de volta em cashback, brinde sortido e frete grátis acima de ${brl(cl().freeShipping ?? 269.9)}. Cancele quando quiser.</small></span></label>
+          ${P.isClub ? `<label class="freq-sel">Receber a cada <select id="cFreq">${['30 dias', '45 dias', '60 dias'].map(f => `<option ${f === st.club.freq ? 'selected' : ''}>${f}</option>`).join('')}</select></label><p class="hint-s">No clube, a vantagem é o cashback: cupons e "leve mais, pague menos" não se aplicam.</p>` : ''}
+        </div>` : ''}
+        ${!P.isClub ? `<form class="cpn" data-ccpn><label><span>Cupom</span><input name="code" value="${esc(st.coupon)}" placeholder="Digite o código" autocomplete="off" aria-label="Cupom"></label><button type="submit">${st.coupon ? 'Trocar' : 'Aplicar'}</button><small data-cmsg>${st.coupon && findCoupon(st.coupon) ? `Cupom ${esc(st.coupon)} aplicado.` : ''}</small></form>` : ''}
+        ${summary(P)}
+        <button type="button" class="btn btn-gold cart-next" data-cart-go="checkout">Continuar para entrega</button>
+        <button type="button" class="cart-link" data-cart-close>Continuar comprando</button>`;
+    }
+    const F = (n, l, attrs = '', full) => `<label class="${full ? 'full' : ''}">${l}<input name="${n}" ${attrs} value="${esc((last || {})[n] || '')}"></label>`;
+    function viewCheckout(){
+      const P = price();
+      return `<button type="button" class="cart-link back" data-cart-go="cart">← Voltar ao carrinho</button>
+      <form class="co-form" id="coForm" novalidate>
+        <h3>Seus dados</h3>
+        <div class="co-grid">${F('name', 'Nome completo', 'autocomplete="name" required', true)}${F('phone', 'WhatsApp', 'inputmode="tel" autocomplete="tel" required placeholder="(44) 99999-9999"')}${F('email', 'E-mail', 'type="email" autocomplete="email"')}</div>
+        <h3>Endereço de entrega</h3>
+        <div class="co-grid">${F('cep', 'CEP', 'inputmode="numeric" autocomplete="postal-code" required placeholder="00000-000"')}${F('number', 'Número', 'required')}${F('street', 'Rua', 'autocomplete="address-line1" required', true)}${F('extra', 'Complemento')}${F('district', 'Bairro', 'required')}${F('city', 'Cidade / UF', 'required', true)}</div>
+        <h3>Pagamento</h3>
+        <div class="pay">${['Pix', 'Cartão de crédito', 'Boleto'].map((x, i) => `<label><input type="radio" name="payment" value="${x}" ${((last || {}).payment || 'Pix') === x ? 'checked' : ''}><span>${x}</span></label>`).join('')}</div>
+        <p class="hint-s">Enviamos o link ou a chave de pagamento pelo WhatsApp junto com a confirmação do pedido.</p>
+        <div class="cb-box"><b>Saldo de cashback</b><p class="hint-s">Informe WhatsApp e e-mail acima e consulte. O e-mail precisa ser o mesmo da sua primeira compra.</p>
+          <button type="button" class="cart-link" id="cbCheck">Consultar meu saldo</button><div id="cbOut">${cb && cb.balance > 0 ? cbHTML() : ''}</div></div>
+        <label class="full">Observações<textarea name="notes" rows="2">${esc((last || {}).notes || '')}</textarea></label>
+        <label class="accept"><input type="checkbox" name="accept" required> <span>Li e aceito os <a href="#termos-de-uso" target="_blank">Termos de Uso</a>, a <a href="#privacidade" target="_blank">Política de Privacidade</a>${P.isClub ? ' e o <a href="#clube-termos" target="_blank">Regulamento do Clube</a>' : ''}.</span></label>
+        <input name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div id="coSum">${summary(P)}</div>
+        <p class="co-msg" id="coMsg" role="status"></p>
+        <button type="submit" class="btn btn-gold cart-next">Fazer pedido</button>
+      </form>`;
+    }
+    const cbHTML = () => `<label class="cb-use"><input type="checkbox" id="cbUse" ${st.useCb ? 'checked' : ''}> Usar meu saldo de <b>${brl(cb.balance)}</b></label>${cb.nextExpiry ? `<small>Parte do saldo vence em ${new Date(cb.nextExpiry).toLocaleDateString('pt-BR')}.</small>` : ''}`;
+    function waOrder(o, P, c){
+      const L = (o.lines || P.lines.map(l => ({ qty: l.qty, name: l.p.name, weight: l.p.weight, total: l.total })));
+      return `Olá! Fiz o pedido ${o.number || ''} no site FELUX.\n` + L.map(l => `${l.qty}x FELUX ${l.name} ${l.weight || ''} — ${brl(l.total)}`).join('\n') +
+        `\nSubtotal: ${brl(o.subtotal ?? P.subtotal)}` + ((o.discount ?? P.discount) ? `\nDesconto (${o.discountLabel || P.label}): − ${brl(o.discount ?? P.discount)}` : '') +
+        ((o.cashbackUsed ?? P.used) ? `\nCashback usado: − ${brl(o.cashbackUsed ?? P.used)}` : '') + `\nTotal: ${brl(o.total ?? P.total)}` +
+        (P.isClub ? `\nClube FELUX Essencial: receber a cada ${st.club.freq} (cashback de ${brl(o.cashbackEarn ?? P.earn)})` : '') +
+        `\nPagamento: ${c.payment}\nEntrega: ${c.street}, ${c.number}${c.extra ? ' ' + c.extra : ''}, ${c.district}, ${c.city}, CEP ${c.cep}\nNome: ${c.name}`;
+    }
+    function viewDone(o, wa){
+      return `<div class="done"><div class="ok-ic" aria-hidden="true">✓</div><h3>Pedido ${esc(o.number || 'recebido')}!</h3>
+        <p>Total: <b>${brl(o.total)}</b>${o.cashbackEarn ? ` · cashback de ${brl(o.cashbackEarn)} após o pagamento` : ''}</p>
+        <p class="hint-s">Para concluir, envie o pedido pelo WhatsApp. A gente confirma o frete e manda o pagamento por lá.</p>
+        ${wa ? `<a class="btn btn-gold cart-next" href="${esc(wa)}" target="_blank" rel="noopener">Enviar pedido pelo WhatsApp</a>` : ''}
+        <button type="button" class="cart-link" data-cart-close>Voltar ao site</button></div>`;
+    }
+    let doneHTML = '';
+    function render(){
+      body.innerHTML = st.view === 'checkout' ? viewCheckout() : st.view === 'done' ? doneHTML : viewCart();
+      document.getElementById('cartTitle').textContent = st.view === 'checkout' ? 'Entrega e pagamento' : st.view === 'done' ? 'Pedido feito' : 'Seu carrinho';
+      badge();
+    }
+    function open(){ opener = document.activeElement; if (st.view === 'done') st.view = 'cart'; render(); box.hidden = false; document.documentElement.classList.add('feel-open'); box.querySelector('[data-cart-close]').focus(); }
+    function close(){ box.hidden = true; document.documentElement.classList.remove('feel-open'); if (st.view === 'done') st.view = 'cart'; if (opener && opener.focus) opener.focus(); }
+    const keepForm = () => { const f = document.getElementById('coForm'); if (f) last = Object.fromEntries(new FormData(f)); };
+    box.addEventListener('click', async e => {
+      if (e.target === box || e.target.closest('[data-cart-close]')) return close();
+      const s = e.target.closest('[data-ci]'); if (s){ const it = st.items.find(i => i.pid === s.dataset.ci); if (it){ it.qty = Math.max(1, Math.min(99, it.qty + +s.dataset.d)); save(); render(); } return; }
+      const del = e.target.closest('[data-cdel]'); if (del){ st.items = st.items.filter(i => i.pid !== del.dataset.cdel); save(); render(); return; }
+      const go = e.target.closest('[data-cart-go]'); if (go){ keepForm(); st.view = go.dataset.cartGo; render(); body.scrollTop = 0; return; }
+      if (e.target.id === 'cbCheck'){
+        const f = document.getElementById('coForm'), out = document.getElementById('cbOut'); keepForm();
+        if (!f.phone.value.trim() || !f.email.value.trim()){ out.innerHTML = '<small class="bad">Preencha WhatsApp e e-mail.</small>'; return; }
+        out.innerHTML = '<small>Consultando…</small>';
+        try { const r = await fetch('api/cashback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ phone: f.phone.value, email: f.email.value }) }); cb = r.ok ? await r.json() : null; } catch { cb = null; }
+        out.innerHTML = cb && cb.balance > 0 ? cbHTML() : '<small>Nenhum saldo disponível para este WhatsApp e e-mail.</small>';
+      }
+    });
+    box.addEventListener('change', e => {
+      if (e.target.id === 'cClub'){ st.club.on = e.target.checked; save(); render(); }
+      else if (e.target.id === 'cFreq'){ st.club.freq = e.target.value; save(); }
+      else if (e.target.id === 'cbUse'){ st.useCb = e.target.checked; document.getElementById('coSum').innerHTML = summary(price()); }
+      else if (e.target.name === 'cep'){ // preenche o endereço pelo CEP
+        const c = e.target.value.replace(/\D/g, ''); if (c.length !== 8) return;
+        fetch(`https://viacep.com.br/ws/${c}/json/`).then(r => r.json()).then(a => { if (a.erro) return; const f = e.target.form;
+          if (!f.street.value) f.street.value = a.logradouro || ''; if (!f.district.value) f.district.value = a.bairro || ''; if (!f.city.value) f.city.value = a.localidade ? `${a.localidade} – ${a.uf}` : ''; f.number.focus(); }).catch(() => {});
+      }
+    });
+    box.addEventListener('submit', async e => {
+      e.preventDefault();
+      if (e.target.matches('[data-ccpn]')){ const code = e.target.code.value.trim().toUpperCase(), c = findCoupon(code), m = e.target.querySelector('[data-cmsg]');
+        if (code && !c){ m.textContent = 'Cupom não encontrado ou expirado.'; m.className = 'bad'; return; } st.coupon = c ? c.code : ''; save(); render(); return; }
+      if (e.target.id !== 'coForm') return;
+      const f = e.target, d = Object.fromEntries(new FormData(f)), msg = document.getElementById('coMsg'); last = d; msg.className = 'co-msg';
+      const need = ['name', 'phone', 'cep', 'street', 'number', 'district', 'city'].filter(k => !String(d[k] || '').trim());
+      if (need.length){ msg.textContent = 'Preencha todos os campos obrigatórios.'; msg.classList.add('bad'); f[need[0]].focus(); return; }
+      if (!f.accept.checked){ msg.textContent = 'Para continuar, aceite os termos.'; msg.classList.add('bad'); return; }
+      const P = price(); if (!P.lines.length){ st.view = 'cart'; return render(); }
+      const btn = f.querySelector('[type=submit]'); btn.disabled = true; btn.textContent = 'Enviando…';
+      let o = null;
+      try { const r = await fetch('api/order', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({
+          items: st.items, club: { on: P.isClub, freq: st.club.freq }, coupon: st.coupon, useCashback: !!st.useCb, payment: d.payment, notes: d.notes, accept: true, website: d.website,
+          customer: { name: d.name, phone: d.phone, email: d.email, cep: d.cep, street: d.street, number: d.number, extra: d.extra, district: d.district, city: d.city } }) });
+        const j = await r.json().catch(() => ({})); if (r.ok && j.ok) o = j; else if (r.status !== 404 && j.error){ msg.textContent = j.error; msg.classList.add('bad'); btn.disabled = false; btn.textContent = 'Fazer pedido'; return; }
+      } catch {}
+      o = o || { total: P.total, cashbackEarn: P.earn };
+      const wa = waLink(waOrder(o, P, d));
+      doneHTML = viewDone(o, wa); st.items = []; st.useCb = false; st.coupon = ''; cb = null; st.view = 'done'; save(); render();
+    });
+    addEventListener('keydown', e => { if (e.key === 'Escape' && !box.hidden) close(); });
+    document.getElementById('cartBtn').addEventListener('click', open);
+    badge();
+    function setClub(on, freq){ st.club.on = on; if (freq) st.club.freq = freq; save(); }
+    return { add, open, price, setClub };
+  })();
+
   // ---------- Clube FELUX Essencial ----------
   const club = () => data.settings.club || {};
   function renderClub(){
@@ -1135,10 +1356,11 @@ html.feel-open{overflow:hidden}
     document.querySelectorAll('[data-club-gift]').forEach(e => e.textContent = c.gift || '');
     document.querySelectorAll('[data-club-ship]').forEach(e => e.textContent = (c.shipping || '').replace(/^frete grátis\s*/i, '') || c.shipping || '');
     document.querySelectorAll('[data-club-name]').forEach(e => e.textContent = c.name || 'Clube FELUX Essencial');
+    document.querySelectorAll('[data-club-days]').forEach(e => e.textContent = c.cashbackDays || 90);
     const sel = document.getElementById('clubProduct'), keep = sel.value;
-    sel.innerHTML = data.products.map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('') + '<option value="indeciso">Ainda não sei, me ajudem a escolher</option>';
+    sel.innerHTML = data.products.filter(p => (p.category || 'areia') === 'areia').map(p => `<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');
     if (keep) sel.value = keep;
-    document.getElementById('termsBody').innerHTML = String(c.terms || '').replace(/\{desconto\}/g, c.pct || 0).split(/\n\s*\n/).map(b => { const [h, ...r] = b.split('\n'); return /^\d+\./.test(h) ? `<h4>${esc(h)}</h4><p>${esc(r.join(' '))}</p>` : `<p>${esc(b)}</p>`; }).join('');
+    document.getElementById('termsBody').innerHTML = String(c.terms || '').replace(/\{desconto\}/g, c.pct || 0).replace(/\{dias\}/g, c.cashbackDays || 90).split(/\n\s*\n/).map(b => { const [h, ...r] = b.split('\n'); return /^\d+\./.test(h) ? `<h4>${esc(h)}</h4><p>${esc(r.join(' '))}</p>` : `<p>${esc(b)}</p>`; }).join('');
     clubPrice();
   }
   function clubPrice(){
@@ -1146,8 +1368,8 @@ html.feel-open{overflow:hidden}
     const p = data.products.find(x => x.id === f.product.value), n = +f.qty.value || 1, pct = club().pct || 0;
     const u = p ? unit(V(p)) : null;
     if (u == null || !pct){ out.textContent = ''; return; }
-    const gross = u * n, tot = Math.round(gross * (1 - pct / 100) * 100) / 100;
-    out.innerHTML = `Cada entrega: <b>${brl(tot)}</b> <s>${brl(gross)}</s> · você economiza ${brl(gross - tot)} a cada ${esc(f.freq.value)}`;
+    const gross = Math.round(u * n * 100) / 100, back = Math.round(gross * pct) / 100, fs = club().freeShipping ?? 269.9;
+    out.innerHTML = `Cada entrega: <b>${brl(gross)}</b> · você ganha <b>${brl(back)}</b> de cashback a cada ${esc(f.freq.value)}${gross >= fs ? ' · frete grátis' : ''}`;
   }
   (() => {
     const f = document.getElementById('clubForm'), msg = document.getElementById('clubMsg'), box = document.getElementById('termsBox'); if (!f) return;
@@ -1159,16 +1381,9 @@ html.feel-open{overflow:hidden}
     box.addEventListener('click', e => { if (e.target === box) closeT(); });
     addEventListener('keydown', e => { if (e.key === 'Escape' && !box.hidden) closeT(); });
     if (location.hash === '#clube-termos') openT();
-    f.addEventListener('submit', async e => {
-      e.preventDefault(); const d = Object.fromEntries(new FormData(f)); d.terms = !!f.terms.checked; d.kind = 'clube'; msg.className = 'form-note';
-      if (!d.name.trim() || (!d.phone.trim() && !d.email.trim())){ msg.classList.add('err'); msg.textContent = 'Preencha seu nome e um WhatsApp ou e-mail.'; return; }
-      if (!d.terms){ msg.classList.add('err'); msg.textContent = 'Para entrar no clube, aceite o regulamento.'; return; }
-      const p = data.products.find(x => x.id === d.product), btn = f.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Enviando…';
-      let saved = false; try { saved = (await fetch('api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...d, product: p ? p.name : 'Ainda não sei' }) })).ok; } catch {}
-      const text = `Olá! Quero entrar no ${club().name || 'Clube FELUX Essencial'}.\nNome: ${d.name}\nAreia: ${p ? 'FELUX ' + p.name : 'quero ajuda para escolher'}\nQuantidade: ${d.qty} saco(s) de 4 kg\nReceber a cada: ${d.freq}${d.cep ? '\nCEP: ' + d.cep : ''}${d.email ? '\nE-mail: ' + d.email : ''}\nLi e aceito o regulamento.`;
-      const wa = waLink(text); btn.disabled = false; btn.textContent = 'Assinar o clube';
-      msg.classList.add('ok'); msg.innerHTML = 'Pronto! Recebemos sua adesão. ' + (wa ? `Para confirmar sua primeira entrega, <a href="${esc(wa)}" target="_blank" rel="noopener">fale com a gente no WhatsApp</a>.` : 'Vamos falar com você para confirmar a primeira entrega.');
-      if (saved) f.reset(); clubPrice();
+    f.addEventListener('submit', e => {
+      e.preventDefault(); const d = Object.fromEntries(new FormData(f));
+      cart.add(d.product, +d.qty || 1); cart.setClub(true, d.freq); cart.open();
     });
   })();
   addEventListener('hashchange', () => { if (location.hash === '#clube-termos'){ $('#home').hidden = false; $('#doc').hidden = true; $('#pdp').hidden = true; document.getElementById('openTerms').click(); } });

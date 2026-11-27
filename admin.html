@@ -120,6 +120,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" aria-selected="true" data-tab="produtos">Produtos</button>
       <button class="tab" role="tab" aria-selected="false" data-tab="loja">Loja e promoções</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="orders">Pedidos <span id="orderCount"></span></button>
       <button class="tab" role="tab" aria-selected="false" data-tab="leads">Cadastros <span id="leadCount"></span></button>
     </div>
     <a class="btn ghost small" href="/" target="_blank" rel="noopener">Ver site</a>
@@ -133,6 +134,12 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
         <button class="btn gold" id="addProduct">+ Novo produto</button>
       </div>
       <div class="list" id="products"></div>
+    </section>
+
+    <section id="tab-orders" hidden>
+      <div class="section-head"><div><h2>Pedidos do site</h2><p class="hint">Ao marcar um pedido do clube como <b>pago</b>, o cashback entra no saldo do cliente (WhatsApp + e-mail). Cancelar devolve o saldo usado e retira o cashback do pedido.</p></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><select id="orderFilter" aria-label="Filtrar"><option value="">Todos</option><option>novo</option><option>pago</option><option>enviado</option><option>entregue</option><option>cancelado</option></select><button class="btn ghost" id="orderCsv">Baixar planilha (CSV)</button></div></div>
+      <div class="list" id="orders"><p class="hint">Carregando…</p></div>
     </section>
 
     <section id="tab-leads" hidden>
@@ -185,7 +192,9 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
           <h3 style="grid-column:1/-1">Clube FELUX Essencial</h3>
           <label class="toggles" style="grid-column:1/-1"><input type="checkbox" id="c-active"> Mostrar o clube no site</label>
           <label class="f" style="grid-column:span 1"><span>Nome do clube</span><input type="text" id="c-name"></label>
-          <label class="f" style="grid-column:span 1"><span>Desconto do clube (%)</span><input type="number" min="0" max="50" id="c-pct"></label>
+          <label class="f" style="grid-column:span 1"><span>Cashback do clube (%)</span><input type="number" min="0" max="50" id="c-pct"></label>
+          <label class="f" style="grid-column:span 1"><span>Validade do cashback (dias)</span><input type="number" min="7" max="365" id="c-days"></label>
+          <label class="f" style="grid-column:span 1"><span>Frete grátis no clube acima de (R$)</span><input type="text" inputmode="decimal" id="c-free"></label>
           <label class="f" style="grid-column:1/-1"><span>Texto do brinde</span><input type="text" id="c-gift"></label>
           <label class="f" style="grid-column:1/-1"><span>Texto do frete especial</span><input type="text" id="c-ship"></label>
           <label class="f" style="grid-column:1/-1"><span>Regulamento (parágrafos separados por linha em branco; títulos começam com número, ex.: "4. Desconto"; {desconto} vira o percentual do clube)</span><textarea id="c-terms" style="min-height:220px"></textarea></label>
@@ -240,7 +249,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
       if (!me.enabled){ $('#loginErr').hidden = false; $('#loginErr').textContent = 'Painel desativado. No Railway, crie a variável ADMIN_PASSWORD com a senha desejada.'; }
       $('#pw').focus(); return;
     }
-    data = await call('admin/data'); saved = JSON.stringify(data); loadLeads();
+    data = await call('admin/data'); saved = JSON.stringify(data); loadLeads(); loadOrders();
     $('#loginView').hidden = true; $('#appView').hidden = false; render();
   }
   $('#loginForm').addEventListener('submit', async e => {
@@ -253,9 +262,44 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   // ---------- abas ----------
   document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', x === t));
-    $('#tab-produtos').hidden = t.dataset.tab !== 'produtos'; $('#tab-loja').hidden = t.dataset.tab !== 'loja'; $('#tab-leads').hidden = t.dataset.tab !== 'leads';
+    $('#tab-produtos').hidden = t.dataset.tab !== 'produtos'; $('#tab-loja').hidden = t.dataset.tab !== 'loja'; $('#tab-leads').hidden = t.dataset.tab !== 'leads'; $('#tab-orders').hidden = t.dataset.tab !== 'orders';
+    if (t.dataset.tab === 'orders') loadOrders();
     if (t.dataset.tab === 'leads') loadLeads();
   }));
+
+  // ---------- pedidos ----------
+  let orders = [];
+  const OST = ['novo', 'pago', 'enviado', 'entregue', 'cancelado'];
+  async function loadOrders(){
+    try { orders = await call('admin/orders'); } catch (err){ $('#orders').innerHTML = `<p class="err">${esc(err.message)}</p>`; return; }
+    const n = orders.filter(o => o.status === 'novo').length; $('#orderCount').textContent = n ? `(${n})` : '';
+    const f = $('#orderFilter').value, list = orders.filter(o => !f || o.status === f);
+    $('#orders').innerHTML = list.length ? list.map(o => {
+      const c = o.customer || {}, tel = (c.phone || '').replace(/\D/g, ''), wa = tel ? 'https://wa.me/' + (tel.length <= 11 ? '55' + tel : tel) + '?text=' + encodeURIComponent(`Olá, ${c.name}! Aqui é da FELUX. Recebemos o seu pedido ${o.number} (total ${brl(o.total)}).`) : '';
+      return `<article class="card" data-oid="${esc(o.id)}" style="display:grid;gap:8px">
+        <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><b style="font-size:1.15rem">${esc(o.number)} ${o.isClub ? '<span class="kind k-c">Clube</span>' : ''}</b><span class="hint">${new Date(o.date).toLocaleString('pt-BR')}</span></div>
+        <div><b>${esc(c.name)}</b> · ${esc(c.phone)}${c.email ? ' · ' + esc(c.email) : ''}</div>
+        <div class="hint" style="color:inherit">${esc(c.street)}, ${esc(c.number)}${c.extra ? ' ' + esc(c.extra) : ''} · ${esc(c.district)} · ${esc(c.city)} · CEP ${esc(c.cep)}</div>
+        <ul style="margin:0;padding-left:18px">${(o.lines || []).map(l => `<li>${l.qty}x ${esc(l.name)} ${esc(l.weight)}: ${brl(l.total)}</li>`).join('')}</ul>
+        <div>Subtotal ${brl(o.subtotal)}${o.discount ? ` · ${esc(o.discountLabel)}: −${brl(o.discount)}` : ''}${o.cashbackUsed ? ` · cashback usado: −${brl(o.cashbackUsed)}` : ''} · <b>Total ${brl(o.total)}</b> · ${esc(o.payment || '')}${o.freeShip ? ' · frete grátis' : ''}</div>
+        ${o.isClub ? `<div class="hint" style="color:inherit">Clube: a cada ${esc((o.club || {}).freq || '')} · cashback do pedido ${brl(o.cashbackEarn)} ${o.cashbackCredited ? '(creditado)' : '(entra quando marcar pago)'}</div>` : ''}
+        <div class="hint">Saldo de cashback do cliente: <b>${brl(o.balance || 0)}</b></div>
+        ${o.notes ? `<p style="margin:0;white-space:pre-wrap">Obs.: ${esc(o.notes)}</p>` : ''}
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <select data-order-status aria-label="Status do pedido">${OST.map(s => `<option ${s === o.status ? 'selected' : ''}>${s}</option>`).join('')}</select>
+          ${wa ? `<a class="btn gold small" href="${esc(wa)}" target="_blank" rel="noopener">Chamar no WhatsApp</a>` : ''}
+        </div></article>`; }).join('') : '<p class="hint">Nenhum pedido ainda. Eles aparecem aqui quando o cliente finaliza a compra no carrinho do site.</p>';
+  }
+  $('#orderFilter').addEventListener('change', loadOrders);
+  $('#orders').addEventListener('change', async e => { const s = e.target.closest('[data-order-status]'); if (!s) return;
+    try { await call('admin/orders', { method: 'PUT', body: JSON.stringify({ id: s.closest('[data-oid]').dataset.oid, status: s.value }) }); } catch (err){ msg(err.message, true); }
+    loadOrders(); });
+  $('#orderCsv').addEventListener('click', () => {
+    const rows = [['numero', 'data', 'status', 'cliente', 'whatsapp', 'email', 'endereco', 'itens', 'subtotal', 'desconto', 'cashback_usado', 'total', 'pagamento', 'clube', 'cashback_pedido']]
+      .concat(orders.map(o => { const c = o.customer || {}; return [o.number, o.date, o.status, c.name, c.phone, c.email, `${c.street}, ${c.number} ${c.extra || ''} - ${c.district} - ${c.city} - ${c.cep}`, (o.lines || []).map(l => l.qty + 'x ' + l.name).join(' | '), o.subtotal, o.discount, o.cashbackUsed, o.total, o.payment, o.isClub ? (o.club || {}).freq : '', o.cashbackEarn]; }));
+    const csv = rows.map(r => r.map(v => '"' + String(v ?? '').replace(/"/g, '""') + '"').join(';')).join('\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['\ufeff' + csv], { type: 'text/csv' })); a.download = 'pedidos-felux.csv'; a.click();
+  });
 
   // ---------- revendedores ----------
   let leads = [];
@@ -336,6 +380,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
         <label class="f s1"><span>Etiqueta</span><input type="text" data-k="tag" value="${esc(p.tag)}"></label>
         <label class="f s1"><span>Cor da embalagem</span><input type="color" data-k="color" value="${esc(p.color || '#3B193A')}"></label>
         <label class="f s1"><span>Peso</span><input type="text" data-k="weight" value="${esc(p.weight)}"></label>
+        <label class="f s1"><span>Categoria</span><select data-k="category"><option value="areia" ${(p.category || 'areia') === 'areia' ? 'selected' : ''}>Areia</option><option value="acessorio" ${p.category === 'acessorio' ? 'selected' : ''}>Acessório</option></select></label>
         <label class="f s1"><span>Selo</span><input type="text" data-k="badge" list="badges" value="${esc(p.badge)}" placeholder="Oferta"></label>
         <label class="f s6"><span>Frase do cartão (aparece abaixo do nome)</span><input type="text" data-k="tagline" value="${esc(p.tagline || '')}"></label>
         <label class="f s6"><span>Benefícios no cartão (um por linha)</span><textarea data-k="bullets" style="min-height:70px">${esc(p.bullets.join('\n'))}</textarea></label>
@@ -467,7 +512,7 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   // ---------- loja ----------
   const S = () => data.settings;
   function renderSettings(){
-    $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-email').value = S().email || ''; const lg = S().legal || {}; $('#l-privacy').value = lg.privacy || ''; $('#l-terms').value = lg.terms || ''; const cl = S().club || {}; $('#c-active').checked = cl.active !== false; $('#c-name').value = cl.name || ''; $('#c-pct').value = cl.pct ?? ''; $('#c-gift').value = cl.gift || ''; $('#c-ship').value = cl.shipping || ''; $('#c-terms').value = cl.terms || ''; $('#s-sac').value = S().sac || ''; $('#s-city').value = S().city || ''; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-whatsappBuyMessage').value = S().whatsappBuyMessage || ''; $('#s-whatsappRepMessage').value = S().whatsappRepMessage || ''; buyPrev(); $('#s-cnpj').value = S().cnpj; const cy = S().cycle || {title:'', text:''}; $('#s-cycle-title').value = cy.title; $('#s-cycle-text').value = cy.text;
+    $('#s-whatsapp').value = S().whatsapp; $('#s-instagram').value = S().instagram; $('#s-email').value = S().email || ''; const lg = S().legal || {}; $('#l-privacy').value = lg.privacy || ''; $('#l-terms').value = lg.terms || ''; const cl = S().club || {}; $('#c-active').checked = cl.active !== false; $('#c-name').value = cl.name || ''; $('#c-pct').value = cl.pct ?? ''; $('#c-days').value = cl.cashbackDays || 90; $('#c-free').value = dec(cl.freeShipping ?? 269.9); $('#c-gift').value = cl.gift || ''; $('#c-ship').value = cl.shipping || ''; $('#c-terms').value = cl.terms || ''; $('#s-sac').value = S().sac || ''; $('#s-city').value = S().city || ''; $('#s-whatsappMessage').value = S().whatsappMessage; $('#s-whatsappBuyMessage').value = S().whatsappBuyMessage || ''; $('#s-whatsappRepMessage').value = S().whatsappRepMessage || ''; buyPrev(); $('#s-cnpj').value = S().cnpj; const cy = S().cycle || {title:'', text:''}; $('#s-cycle-title').value = cy.title; $('#s-cycle-text').value = cy.text;
     $('#s-ann-active').checked = S().announcement.active; $('#s-ann-text').value = S().announcement.text; $('#s-ann-link').value = S().announcement.link;
     $('#stores').innerHTML = S().stores.map((s, i) => `<div class="mini" data-i="${i}"><input type="text" data-k="name" value="${esc(s.name)}" placeholder="Nome" aria-label="Nome da loja"><input type="text" data-k="url" value="${esc(s.url)}" placeholder="https://..." aria-label="Link da loja"><button class="btn danger small" data-del>Remover</button></div>`).join('');
     $('#coupons').innerHTML = '<div class="mini c5 head"><span>Código</span><span>Descrição</span><span>%</span><span>Válido</span><span>No site</span><span></span></div>' + S().coupons.map((c, i) => `<div class="mini c5" data-i="${i}"><input type="text" data-k="code" value="${esc(c.code)}" placeholder="CÓDIGO" aria-label="Código do cupom"><input type="text" data-k="text" value="${esc(c.text)}" placeholder="10% na primeira compra" aria-label="Descrição do cupom"><input type="number" min="0" max="90" data-k="pct" value="${c.pct ?? ''}" aria-label="Desconto em %"><label class="ck"><input type="checkbox" data-k="active" ${c.active ? 'checked' : ''}> <span>válido</span></label><label class="ck"><input type="checkbox" data-k="public" ${c.public ? 'checked' : ''}> <span>no site</span></label><button class="btn danger small" data-del>Remover</button></div>`).join('');
@@ -482,6 +527,8 @@ input[type=color]{width:100%;height:42px;border:1.5px solid var(--line);border-r
   bindS('#c-active', el => C().active = el.checked);
   bindS('#c-name', el => C().name = el.value);
   bindS('#c-pct', el => C().pct = el.value === '' ? 0 : +el.value);
+  bindS('#c-days', el => C().cashbackDays = +el.value || 90);
+  bindS('#c-free', el => C().freeShipping = num(el.value));
   bindS('#c-gift', el => C().gift = el.value);
   bindS('#c-ship', el => C().shipping = el.value);
   bindS('#c-terms', el => C().terms = el.value);

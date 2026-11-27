@@ -19,6 +19,47 @@ const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
 const readLeads = () => { try { return JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8')); } catch { return []; } };
 const writeLeads = l => { const t = LEADS_FILE + '.tmp'; fs.writeFileSync(t, JSON.stringify(l, null, 2)); fs.renameSync(t, LEADS_FILE); };
 const leadHits = new Map();
+const jread = (f, dflt) => { try { return JSON.parse(fs.readFileSync(f, 'utf8')); } catch { return dflt; } };
+const jwrite = (f, v) => { const t = f + '.tmp'; fs.writeFileSync(t, JSON.stringify(v, null, 2)); fs.renameSync(t, f); };
+const ORDERS_FILE = path.join(DATA_DIR, 'orders.json'), CUST_FILE = path.join(DATA_DIR, 'customers.json');
+const phoneKey = v => String(v || '').replace(/\D/g, '').replace(/^55(?=\d{10,11}$)/, '').slice(-11);
+const r2 = n => Math.round(n * 100) / 100;
+// saldo de cashback: créditos expiram; débitos consomem primeiro os créditos que vencem antes
+function cashbackBalance(c, at = Date.now()) {
+  const credits = (c.ledger || []).filter(e => e.type === 'credit').map(e => ({ ...e, left: e.amount })).sort((a, b) => a.expires - b.expires);
+  (c.ledger || []).filter(e => e.type === 'debit').sort((a, b) => a.date - b.date).forEach(dbt => {
+    let need = dbt.amount;
+    for (const cr of credits) { if (need <= 0) break; if (cr.date > dbt.date || cr.expires < dbt.date) continue; const u = Math.min(cr.left, need); cr.left -= u; need -= u; }
+  });
+  const live = credits.filter(cr => cr.expires >= at && cr.left > 0.004);
+  return { balance: r2(live.reduce((s, cr) => s + cr.left, 0)), nextExpiry: live.length ? live[0].expires : null };
+}
+// mesma conta do site, refeita no servidor com os preços salvos
+function priceOrder(d, items, opts) {
+  const byId = Object.fromEntries(d.products.filter(p => p.active !== false).map(p => [p.id, p]));
+  const lines = [];
+  for (const it of (Array.isArray(items) ? items : []).slice(0, 20)) {
+    const p = byId[it.pid]; if (!p) continue; const v = (p.variants || [])[0] || {}; if (v.inStock === false) continue;
+    const u = v.price == null ? null : (v.salePrice != null && v.salePrice < v.price ? v.salePrice : v.price); if (u == null) continue;
+    const q = Math.max(1, Math.min(99, Math.round(Number(it.qty) || 1)));
+    lines.push({ pid: p.id, name: p.name, weight: p.weight || '', category: p.category || 'areia', unit: u, qty: q, total: r2(u * q) });
+  }
+  const subtotal = r2(lines.reduce((s, l) => s + l.total, 0));
+  const areiaUnits = lines.filter(l => l.category === 'areia').reduce((s, l) => s + l.qty, 0);
+  const areiaSub = r2(lines.filter(l => l.category === 'areia').reduce((s, l) => s + l.total, 0));
+  const s = d.settings, club = s.club || {}, isClub = !!opts.club && club.active !== false && (club.pct || 0) > 0;
+  let discount = 0, discountLabel = '';
+  if (!isClub) {
+    const tp = (s.volumeTiers || []).reduce((m, x) => areiaUnits >= x.min ? Math.max(m, x.pct) : m, 0);
+    const c = (s.coupons || []).find(c => c.active && c.code === String(opts.coupon || '').trim().toUpperCase() && c.pct > 0);
+    const dt = r2(areiaSub * tp / 100), dc = c ? r2(subtotal * c.pct / 100) : 0;
+    if (dc >= dt && dc > 0) { discount = dc; discountLabel = `Cupom ${c.code} (${c.pct}%)`; } else if (dt > 0) { discount = dt; discountLabel = `Leve mais, pague menos (${tp}%)`; }
+  }
+  const afterDiscount = r2(subtotal - discount);
+  const freeShip = isClub && afterDiscount >= (club.freeShipping ?? 269.9);
+  return { lines, subtotal, discount, discountLabel, afterDiscount, isClub, cashbackPct: isClub ? club.pct : 0,
+    cashbackEarn: isClub ? r2(afterDiscount * club.pct / 100) : 0, freeShip };
+}
 
 fs.mkdirSync(UPLOADS, { recursive: true });
 
@@ -146,6 +187,21 @@ function readData() {
     if (!d.settings.legal || !d.settings.legal.privacy) d.settings.legal = def.settings.legal;
     applied.add('clube-brinde-frete-legal');
   }
+  // Seca Xixi, categorias e clube com cashback (27/11)
+  if (!applied.has('seca-xixi-cashback')) {
+    d.products.forEach(p => { if (!p.category) p.category = (byId[p.id] && byId[p.id].category) || 'areia'; });
+    if (!d.products.some(p => p.id === 'seca-xixi') && byId['seca-xixi']) d.products.push(JSON.parse(JSON.stringify(byId['seca-xixi'])));
+    const c = d.settings.club, dc = def.settings.club;
+    if (c) {
+      c.cashbackDays = c.cashbackDays || dc.cashbackDays; if (c.freeShipping == null) c.freeShipping = 269.9;
+      if (c.terms && /\n4\. Desconto\n/.test('\n' + c.terms)) {
+        const sec = (txt, n) => (txt.match(new RegExp('(^|\\n\\n)' + n + '\\. [^\\n]*\\n[^\\n]*')) || [])[0];
+        [1, 4, 6].forEach(n => { const o = sec(c.terms, n), nw = sec(dc.terms, n); if (o && nw) c.terms = c.terms.replace(o, nw); });
+      }
+    }
+    if (d.settings.legal && d.settings.legal.privacy) d.settings.legal.privacy = d.settings.legal.privacy.replace("Clube FELUX Essencial: nome, contatos, CEP, granulação, quantidade e frequência das entregas.", "Clube FELUX Essencial e cashback: nome, contatos, CEP, granulação, quantidade e frequência das entregas, e o saldo e o histórico de cashback, vinculados ao seu WhatsApp e e-mail.");
+    applied.add('seca-xixi-cashback');
+  }
   d.appliedDefaults = [...applied];
   // textos e imagens padrão antigos (nunca editados no painel) viram os novos; a dica do tapete sai
   let up = {}; try { up = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'updates.json'), 'utf8')); } catch {}
@@ -200,7 +256,7 @@ function clean(input) {
                gallery: (Array.isArray(v.gallery) ? v.gallery : []).map(url).filter(Boolean).slice(0, 8) };
     });
     return {
-      id, name: str(p.name, 80) || 'Produto', tag: str(p.tag, 80), color: color(p.color), weight: str(p.weight, 20),
+      id, category: p.category === 'acessorio' ? 'acessorio' : 'areia', name: str(p.name, 80) || 'Produto', tag: str(p.tag, 80), color: color(p.color), weight: str(p.weight, 20),
       bullets: (Array.isArray(p.bullets) ? p.bullets : []).map(b => str(b, 160)).filter(Boolean).slice(0, 6),
       badge: str(p.badge, 30), tagline: str(p.tagline, 160), cardImage: url(p.cardImage), active: p.active !== false, variants, page: cleanPage(p.page)
     };
@@ -225,7 +281,8 @@ function clean(input) {
         pct: Math.max(0, Math.min(90, Math.round(Number(c.pct) || 0))), active: !!c.active, public: !!c.public })).filter(c => c.code),
       club: { active: !!(s.club && s.club.active), name: str(s.club && s.club.name, 60) || 'Clube FELUX Essencial',
         pct: Math.max(0, Math.min(50, Math.round(Number(s.club && s.club.pct) || 0))), gift: str(s.club && s.club.gift, 120),
-        shipping: str(s.club && s.club.shipping, 120), terms: str(s.club && s.club.terms, 8000) },
+        shipping: str(s.club && s.club.shipping, 120), terms: str(s.club && s.club.terms, 8000),
+        cashbackDays: Math.max(7, Math.min(365, Math.round(Number(s.club && s.club.cashbackDays) || 90))), freeShipping: money(s.club && s.club.freeShipping) ?? 269.9 },
       legal: { privacy: str(s.legal && s.legal.privacy, 20000), terms: str(s.legal && s.legal.terms, 20000) },
       volumeTiers: (Array.isArray(s.volumeTiers) ? s.volumeTiers : []).slice(0, 6).map(x => ({ min: Math.max(2, Math.min(99, Math.round(Number(x.min) || 0))), pct: Math.max(0, Math.min(50, Math.round(Number(x.pct) || 0))) }))
         .filter(x => x.pct > 0).sort((a, b) => a.min - b.min)
@@ -296,6 +353,42 @@ async function api(req, res, route) {
   if (route === 'site' && req.method === 'GET') return send(res, 200, publicData(), { 'Cache-Control': 'no-cache' });
 
   // cadastro de revendedor (público, com limite por IP)
+  // saldo de cashback: WhatsApp + e-mail precisam bater com o cadastro
+  if (route === 'cashback' && req.method === 'POST') {
+    if (!json) return send(res, 415, { error: 'Formato inválido' });
+    const now = Date.now(), h = (leadHits.get('cb' + ip) || []).filter(t => now - t < 600e3);
+    if (h.length >= 10) return send(res, 429, { error: 'Muitas consultas. Tente em alguns minutos.' });
+    h.push(now); leadHits.set('cb' + ip, h);
+    const b = await readBody(req, 2e3).catch(() => ({}));
+    const c = jread(CUST_FILE, {})[phoneKey(b.phone)];
+    if (!c || !c.email || c.email !== str(b.email, 120).toLowerCase()) return send(res, 200, { balance: 0, found: false });
+    return send(res, 200, { ...cashbackBalance(c), found: true });
+  }
+  // novo pedido: confere preços, descontos e cashback no servidor
+  if (route === 'order' && req.method === 'POST') {
+    if (!json) return send(res, 415, { error: 'Formato inválido' });
+    const now = Date.now(), h = (leadHits.get('o' + ip) || []).filter(t => now - t < 3600e3);
+    if (h.length >= 10) return send(res, 429, { error: 'Muitos pedidos seguidos. Fale com a gente pelo WhatsApp.' });
+    const b = await readBody(req, 20e3).catch(() => null); if (!b || b.website) return send(res, 200, { ok: true });
+    const cu = b.customer || {}, C = { name: str(cu.name, 80), phone: str(cu.phone, 20), email: str(cu.email, 120).toLowerCase(), cep: str(cu.cep, 12),
+      street: str(cu.street, 120), number: str(cu.number, 20), extra: str(cu.extra, 80), district: str(cu.district, 80), city: str(cu.city, 80) };
+    if (!C.name || phoneKey(C.phone).length < 10 || !C.cep || !C.street || !C.number || !C.city || !b.accept) return send(res, 400, { error: 'Preencha nome, WhatsApp, endereço completo e aceite os termos.' });
+    const d = readData(), P = priceOrder(d, b.items, { club: b.club && b.club.on, coupon: b.coupon });
+    if (!P.lines.length) return send(res, 400, { error: 'Seu carrinho está vazio ou os produtos estão indisponíveis.' });
+    const customers = jread(CUST_FILE, {}), key = phoneKey(C.phone), cust = customers[key] || { ledger: [] };
+    let cashbackUsed = 0;
+    if (b.useCashback && cust.email && cust.email === C.email) cashbackUsed = Math.min(cashbackBalance(cust).balance, P.afterDiscount);
+    cashbackUsed = r2(cashbackUsed);
+    const orders = jread(ORDERS_FILE, []), seq = (orders.reduce((m, o) => Math.max(m, o.seq || 0), 0) || 1000) + 1;
+    const o = { id: crypto.randomBytes(6).toString('hex'), seq, number: 'FX-' + seq, date: new Date().toISOString(), status: 'novo', customer: C,
+      payment: str(b.payment, 20), notes: str(b.notes, 400), club: P.isClub ? { freq: str(b.club && b.club.freq, 20) || '30 dias' } : null,
+      coupon: str(b.coupon, 30).toUpperCase(), ...P, cashbackUsed, total: r2(P.afterDiscount - cashbackUsed), cashbackCredited: false };
+    if (cashbackUsed > 0) cust.ledger.push({ type: 'debit', amount: cashbackUsed, date: now, order: o.number });
+    cust.name = C.name; cust.email = cust.email || C.email; cust.phone = C.phone; customers[key] = cust; jwrite(CUST_FILE, customers);
+    orders.unshift(o); jwrite(ORDERS_FILE, orders.slice(0, 5000)); h.push(now); leadHits.set('o' + ip, h);
+    return send(res, 200, { ok: true, number: o.number, total: o.total, subtotal: o.subtotal, discount: o.discount, discountLabel: o.discountLabel,
+      cashbackUsed, cashbackEarn: o.cashbackEarn, freeShip: o.freeShip, lines: o.lines });
+  }
   if (route === 'lead' && req.method === 'POST') {
     if (!json) return send(res, 415, { error: 'Formato inválido' });
     const now = Date.now(), h = (leadHits.get(ip) || []).filter(t => now - t < 3600e3);
@@ -330,6 +423,28 @@ async function api(req, res, route) {
   if (!isAdmin(req)) return send(res, 401, { error: 'Entre com a senha do painel.' });
   if (req.method !== 'GET' && !json) return send(res, 415, { error: 'Formato inválido' });
 
+  if (route === 'admin/orders' && req.method === 'GET') {
+    const cs = jread(CUST_FILE, {});
+    return send(res, 200, jread(ORDERS_FILE, []).map(o => ({ ...o, balance: cs[phoneKey(o.customer.phone)] ? cashbackBalance(cs[phoneKey(o.customer.phone)]).balance : 0 })), { 'Cache-Control': 'no-store' });
+  }
+  if (route === 'admin/orders' && req.method === 'PUT') {
+    const b = await readBody(req, 4e3).catch(() => ({}));
+    const orders = jread(ORDERS_FILE, []), o = orders.find(x => x.id === b.id); if (!o) return send(res, 404, { error: 'Pedido não encontrado' });
+    const ST = ['novo', 'pago', 'enviado', 'entregue', 'cancelado']; if (!ST.includes(b.status)) return send(res, 400, { error: 'Status inválido' });
+    const customers = jread(CUST_FILE, {}), key = phoneKey(o.customer.phone), cust = customers[key] || { ledger: [], name: o.customer.name, email: o.customer.email, phone: o.customer.phone };
+    const days = ((readData().settings.club || {}).cashbackDays) || 90;
+    // cashback do clube entra quando o pagamento é confirmado e sai se o pedido for cancelado
+    if (['pago', 'enviado', 'entregue'].includes(b.status) && o.isClub && !o.cashbackCredited && o.cashbackEarn > 0) {
+      cust.ledger.push({ type: 'credit', amount: o.cashbackEarn, date: Date.now(), expires: Date.now() + days * 86400e3, order: o.number }); o.cashbackCredited = true;
+    }
+    if (b.status === 'cancelado') {
+      cust.ledger = cust.ledger.filter(e => e.order !== o.number); o.cashbackCredited = false;
+    } else if (o.status === 'cancelado' && o.cashbackUsed > 0 && !cust.ledger.some(e => e.type === 'debit' && e.order === o.number)) {
+      cust.ledger.push({ type: 'debit', amount: o.cashbackUsed, date: Date.now(), order: o.number });
+    }
+    o.status = b.status; customers[key] = cust; jwrite(CUST_FILE, customers); jwrite(ORDERS_FILE, orders);
+    return send(res, 200, { ok: true, balance: cashbackBalance(cust).balance });
+  }
   if (route === 'admin/leads' && req.method === 'GET') return send(res, 200, readLeads(), { 'Cache-Control': 'no-store' });
   if (route === 'admin/leads' && req.method === 'PUT') {
     const b = await readBody(req, 4e3).catch(() => ({}));
